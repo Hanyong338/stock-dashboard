@@ -18,6 +18,7 @@ const state = {
   summaries: [],
   crossMentions: [],
   dailyPicks: { leading: [], watch: [] },
+  marketBrief: { as_of: null, indices: [], sectors: [] },
   screening: [],
   channels: [],
   selectedChannel: "",
@@ -141,6 +142,66 @@ function renderDailyPicks() {
     renderPickList(watchList, watch);
   } else {
     watchList.innerHTML = '<p class="picks-empty">오늘 특별한 주의 섹터가 아직 없어요.</p>';
+  }
+}
+
+function formatPrice(n) {
+  if (typeof n !== "number") return "-";
+  return n.toLocaleString("en-US", { maximumFractionDigits: 2 });
+}
+
+function formatChangePercent(n) {
+  if (typeof n !== "number") return "-";
+  const sign = n > 0 ? "+" : "";
+  return `${sign}${n.toFixed(2)}%`;
+}
+
+function changeDirClass(n) {
+  if (typeof n !== "number" || n === 0) return "flat";
+  return n > 0 ? "up" : "down";
+}
+
+function renderMarketBrief() {
+  const section = document.getElementById("marketBrief");
+  const indices = state.marketBrief.indices || [];
+  const sectors = state.marketBrief.sectors || [];
+
+  if (!indices.length && !sectors.length) {
+    section.hidden = true;
+    return;
+  }
+  section.hidden = false;
+
+  document.getElementById("marketAsOf").textContent = state.marketBrief.as_of
+    ? formatRelativeTime(state.marketBrief.as_of) + " 기준"
+    : "";
+
+  const indicesBox = document.getElementById("marketIndices");
+  indicesBox.innerHTML = "";
+  for (const idx of indices) {
+    const card = document.createElement("div");
+    card.className = "index-card " + changeDirClass(idx.change_percent);
+    card.innerHTML = `
+      <div class="index-name">${escapeHtml(idx.name)}</div>
+      <div class="index-price">${formatPrice(idx.price)}</div>
+      <div class="index-change">${formatChangePercent(idx.change_percent)}</div>
+    `;
+    indicesBox.appendChild(card);
+  }
+
+  const maxAbs = Math.max(1, ...sectors.map((s) => Math.abs(s.change_percent || 0)));
+  const sectorsBox = document.getElementById("marketSectors");
+  sectorsBox.innerHTML = "";
+  for (const sec of sectors) {
+    const row = document.createElement("div");
+    row.className = "sector-row " + changeDirClass(sec.change_percent);
+    const pct = Math.min(100, (Math.abs(sec.change_percent || 0) / maxAbs) * 100);
+    row.innerHTML = `
+      <span class="sector-name">${escapeHtml(sec.name)}</span>
+      <span class="sector-bar-track"><span class="sector-bar-fill" style="width:${pct}%"></span></span>
+      <span class="sector-change">${formatChangePercent(sec.change_percent)}</span>
+    `;
+    sectorsBox.appendChild(row);
   }
 }
 
@@ -440,19 +501,22 @@ function setLastUpdated() {
 
 async function loadAll() {
   try {
-    const [summaries, crossMentions, dailyPicks, screening, channels] = await Promise.all([
+    const [summaries, crossMentions, dailyPicks, marketBrief, screening, channels] = await Promise.all([
       loadJSON("summaries.json"),
       loadJSON("cross_mentions.json"),
       loadJSON("daily_picks.json").catch(() => ({ leading: [], watch: [] })),
+      loadJSON("market_brief.json").catch(() => ({ as_of: null, indices: [], sectors: [] })),
       loadJSON("screening.json"),
       loadJSON("channels.json").catch(() => []),
     ]);
     state.summaries = summaries;
     state.crossMentions = crossMentions;
     state.dailyPicks = dailyPicks;
+    state.marketBrief = marketBrief;
     state.screening = screening;
     state.channels = channels;
 
+    renderMarketBrief();
     renderDailyPicks();
     renderChannelTabs();
     renderDateTabs();

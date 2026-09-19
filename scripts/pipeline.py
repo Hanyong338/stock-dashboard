@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from youtube_check import fetch_channel_videos
 from summarize import summarize_transcript
 from transcript import get_transcript, is_retryable_error
+from market_data import fetch_market_brief
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "data"
@@ -21,6 +22,7 @@ SUMMARIES_FILE = DATA_DIR / "summaries.json"
 CROSS_FILE = DATA_DIR / "cross_mentions.json"
 CHANNELS_OUT_FILE = DATA_DIR / "channels.json"
 DAILY_PICKS_FILE = DATA_DIR / "daily_picks.json"
+MARKET_BRIEF_FILE = DATA_DIR / "market_brief.json"
 
 MAX_SUMMARIES = 500
 RETENTION_DAYS = 7
@@ -214,6 +216,14 @@ def main():
     save_json(CROSS_FILE, build_cross_mentions(summaries))
     save_json(DAILY_PICKS_FILE, build_daily_picks(summaries))
     save_json(CHANNELS_OUT_FILE, channels)
+
+    try:
+        market_brief = fetch_market_brief()
+        market_brief["as_of"] = now.isoformat()
+        save_json(MARKET_BRIEF_FILE, market_brief)
+    except Exception as e:
+        print(f"[WARN] market brief fetch failed: {e}")
+
     print("[INFO] Pipeline run complete.")
 
 
