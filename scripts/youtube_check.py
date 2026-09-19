@@ -41,25 +41,33 @@ def _parse_duration_seconds(duration_str):
     return hours * 3600 + minutes * 60 + seconds
 
 
-def _fetch_durations(video_ids):
-    """영상 ID 목록의 길이(초)를 {video_id: 초} 형태로 반환한다. 최대 50개씩 묶어서 조회."""
-    durations = {}
+def _fetch_video_meta(video_ids):
+    """{video_id: {"duration_seconds": 초, "was_live": bool}} 형태로 반환한다. 최대 50개씩 묶어서 조회.
+    liveStreamingDetails 가 있으면 생방송으로 진행됐던 영상이다."""
+    meta = {}
     for i in range(0, len(video_ids), 50):
         batch = video_ids[i : i + 50]
         resp = requests.get(
             VIDEOS_URL,
-            params={"part": "contentDetails", "id": ",".join(batch), "key": _api_key()},
+            params={
+                "part": "contentDetails,liveStreamingDetails",
+                "id": ",".join(batch),
+                "key": _api_key(),
+            },
             timeout=30,
         )
         if resp.status_code != 200:
-            print(f"[WARN] duration fetch failed {resp.status_code}: {resp.text[:200]}")
+            print(f"[WARN] video meta fetch failed {resp.status_code}: {resp.text[:200]}")
             continue
         for item in resp.json().get("items", []):
             video_id = item.get("id")
-            seconds = _parse_duration_seconds(item.get("contentDetails", {}).get("duration"))
-            if video_id and seconds is not None:
-                durations[video_id] = seconds
-    return durations
+            if not video_id:
+                continue
+            meta[video_id] = {
+                "duration_seconds": _parse_duration_seconds(item.get("contentDetails", {}).get("duration")),
+                "was_live": bool(item.get("liveStreamingDetails")),
+            }
+    return meta
 
 
 def _fetch_playlist_items(playlist_id, max_results, channel_id):
@@ -117,10 +125,12 @@ def fetch_channel_videos(channel_id, max_results=50, playlist_id=None):
         )
 
     try:
-        durations = _fetch_durations([v["video_id"] for v in videos])
+        meta = _fetch_video_meta([v["video_id"] for v in videos])
         for v in videos:
-            v["duration_seconds"] = durations.get(v["video_id"])
+            info = meta.get(v["video_id"], {})
+            v["duration_seconds"] = info.get("duration_seconds")
+            v["was_live"] = info.get("was_live", False)
     except Exception as e:
-        print(f"[WARN] duration fetch failed for channel_id={channel_id}: {e}")
+        print(f"[WARN] video meta fetch failed for channel_id={channel_id}: {e}")
 
     return videos

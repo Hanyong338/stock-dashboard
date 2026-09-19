@@ -1,6 +1,11 @@
 [
   { "name": "한국경제TV", "channel_id": "UCF8AeLlUbEpKju6v1H6p8Eg" },
-  { "name": "815머니톡", "channel_id": "UCCG6BEYjfQMGzypJw2EJCDQ" },
+  {
+    "name": "815머니톡",
+    "channel_id": "UCCG6BEYjfQMGzypJw2EJCDQ",
+    "exclude_live": true,
+    "note": "[장시작전] 등 생방송 다시보기는 제외하고 일반 영상만 요약"
+  },
   { "name": "경제사냥꾼", "channel_id": "UC7usMJDHmtbs_oegmzQKKMA" },
   { "name": "올랜도 킴 미국주식", "channel_id": "UCwSSqi-s0wcH6pJbH3YPZqQ" },
   {

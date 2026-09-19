@@ -128,6 +128,13 @@ def process_channel(ch, state, summaries, now):
             state[cid].append(v["video_id"])
             continue
 
+        # 생방송 다시보기를 빼고 싶은 채널만 channels.json 에 exclude_live 를 켠다.
+        # (삼프로TV의 '마켓 인사이드'처럼 생방송 자체가 요약 대상인 채널도 있어서 전역 설정이 아니다)
+        if ch.get("exclude_live") and v.get("was_live"):
+            print(f"[INFO] skipping live stream: {name} - {v['title']}")
+            state[cid].append(v["video_id"])
+            continue
+
         print(f"[INFO] New video: {name} - {v['title']}")
         time.sleep(REQUEST_INTERVAL_SECONDS)
 
