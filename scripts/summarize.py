@@ -7,8 +7,10 @@ import time
 
 import requests
 
-MAX_ATTEMPTS = 3
-RETRY_BACKOFF_SECONDS = [3, 8]  # 1차 재시도 3초 후, 2차 재시도 8초 후
+MAX_ATTEMPTS = 4
+# 429(분당 호출 한도)는 1분이 지나야 풀리므로, 총 85초까지 기다려본다.
+# 짧게 포기하면 이미 유료로 가져온 자막이 그대로 버려지기 때문.
+RETRY_BACKOFF_SECONDS = [5, 20, 60]
 RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
 
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash")

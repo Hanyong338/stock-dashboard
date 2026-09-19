@@ -34,7 +34,7 @@ DAILY_PICKS_WINDOW_HOURS = 24
 MAX_PICKS_PER_SIDE = 6
 REQUEST_INTERVAL_SECONDS = 3  # 자막/AI API를 너무 빨리 연달아 호출해서 429(요청 한도 초과)에 걸리는 것을 막는다.
 TRANSCRIPT_TIMEOUT_SECONDS = 90
-SUMMARIZE_TIMEOUT_SECONDS = 150
+SUMMARIZE_TIMEOUT_SECONDS = 300  # summarize.py의 재시도(최대 85초 대기)까지 포함해서 넉넉히 잡는다
 MAX_VIDEO_DURATION_SECONDS = 3600  # 1시간 넘는 영상은 자막 생성 비용이 커서 아예 요약하지 않는다.
 
 
