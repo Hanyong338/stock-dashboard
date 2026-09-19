@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from youtube_check import fetch_channel_videos
 from summarize import summarize_transcript
-from transcript import get_transcript
+from transcript import get_transcript, is_retryable_error
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "data"
@@ -55,8 +55,9 @@ def save_json(path, data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-def process_channel(ch, state, summaries, now_iso):
+def process_channel(ch, state, summaries, now):
     cid, name = ch["channel_id"], ch["name"]
+    now_iso = now.isoformat()
 
     try:
         videos = fetch_channel_videos(cid)
@@ -72,27 +73,43 @@ def process_channel(ch, state, summaries, now_iso):
         return
 
     seen = set(state[cid])
+    already_summarized = {s["video_id"] for s in summaries if s.get("channel_id") == cid}
     new_videos = [v for v in videos if v["video_id"] not in seen]
     if not new_videos:
         return
 
     for v in new_videos:
+        if v["video_id"] in already_summarized:
+            # state.json이 초기화됐어도 이미 요약이 있으면 중복 생성하지 않는다.
+            state[cid].append(v["video_id"])
+            continue
+
+        if not within_retention(v.get("published", ""), now):
+            # 보관 기간(RETENTION_DAYS)보다 오래된 영상은 요약하지 않고 확인만 하고 넘어간다.
+            state[cid].append(v["video_id"])
+            continue
+
         print(f"[INFO] New video: {name} - {v['title']}")
-        state[cid].append(v["video_id"])
 
         try:
             transcript_text = get_transcript(v["url"])
         except Exception as e:
             print(f"[WARN] transcript failed for {v['url']}: {e}")
+            if not is_retryable_error(e):
+                state[cid].append(v["video_id"])  # 자막 자체가 없는 영상일 확률이 높아 재시도하지 않는다.
+            # 요청 한도 초과/크레딧 부족 등 일시적 오류면 '확인함' 처리하지 않아 다음 시간에 재시도된다.
             continue
 
         if not transcript_text:
             print(f"[WARN] empty transcript for {v['url']}")
+            state[cid].append(v["video_id"])
             continue
 
         try:
             result = summarize_transcript(name, v["title"], transcript_text)
         except Exception as e:
+            # 요약 실패(예: 일시적인 API 요청 한도 초과)는 '확인함' 처리하지 않아서
+            # 다음 시간 실행 때 자동으로 재시도된다.
             print(f"[WARN] summarize failed for {v['url']}: {e}")
             continue
 
@@ -110,6 +127,7 @@ def process_channel(ch, state, summaries, now_iso):
                 "keywords": result.get("keywords", []),
             }
         )
+        state[cid].append(v["video_id"])
 
     state[cid] = state[cid][-STATE_HISTORY_PER_CHANNEL:]
 
@@ -139,10 +157,9 @@ def main():
     state = load_json(STATE_FILE, {})
     summaries = load_json(SUMMARIES_FILE, [])
     now = datetime.datetime.now(datetime.timezone.utc)
-    now_iso = now.isoformat()
 
     for ch in channels:
-        process_channel(ch, state, summaries, now_iso)
+        process_channel(ch, state, summaries, now)
 
     summaries.sort(key=lambda s: s.get("published", ""), reverse=True)
     summaries = [s for s in summaries if within_retention(s.get("published", ""), now)][:MAX_SUMMARIES]

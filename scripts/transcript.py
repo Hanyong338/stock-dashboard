@@ -8,6 +8,16 @@ import requests
 
 API_URL = "https://api.supadata.ai/v1/transcript"
 
+RETRYABLE_STATUS_CODES = {429, 402, 500, 502, 503, 504}
+
+
+def is_retryable_error(exc):
+    """True면 일시적 오류(요청 한도 초과, 크레딧 부족, 서버 오류 등)로 보고 다음 실행 때 재시도해야 한다."""
+    response = getattr(exc, "response", None)
+    if response is not None:
+        return response.status_code in RETRYABLE_STATUS_CODES
+    return isinstance(exc, (requests.exceptions.ConnectionError, requests.exceptions.Timeout, TimeoutError))
+
 
 def _api_key():
     key = os.environ.get("SUPADATA_API_KEY")

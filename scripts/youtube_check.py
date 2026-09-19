@@ -23,7 +23,7 @@ def _uploads_playlist_id(channel_id):
     return "UU" + channel_id[2:]
 
 
-def fetch_channel_videos(channel_id, max_results=15):
+def fetch_channel_videos(channel_id, max_results=50):
     playlist_id = _uploads_playlist_id(channel_id)
     resp = requests.get(
         API_URL,
