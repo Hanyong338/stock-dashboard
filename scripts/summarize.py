@@ -1,4 +1,4 @@
-"""Google Gemini 무료 API로 자막을 요약하고 언급 종목/키워드를 추출한다.
+"""Google Gemini 무료 API로 자막을 분석해 투자 전략 리포트를 생성한다.
 카드 등록 없이 https://aistudio.google.com/apikey 에서 키를 받아 GEMINI_API_KEY로 등록하면 된다.
 """
 import json
@@ -8,25 +8,53 @@ import requests
 
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
-MAX_TRANSCRIPT_CHARS = 15000
+MAX_TRANSCRIPT_CHARS = 30000
 
-SYSTEM_PROMPT = """당신은 한국 주식/미국 주식 관련 유튜브 영상 자막을 분석해 \
-바쁜 직장인 투자자를 위한 간결한 요약을 만드는 애널리스트입니다.
+SYSTEM_PROMPT = """[역할 정의]
+당신은 수석 월가 투자 전략가(Chief Investment Strategist)이자 경제 분석가입니다.
+제공된 영상의 트랜스크립트/내용을 바탕으로, 노이즈는 제거하고 투자 판단에 필요한 핵심 정수만 추출하여 정밀 리포트를 작성해 주세요.
 
-규칙:
-- summary_bullets는 3~6개, 각 불릿은 한 문장으로 핵심만 담을 것.
-- tickers에는 실제 언급된 종목명만 적을 것(예: 삼성전자, 엔비디아, 테슬라). 확실치 않으면 비워둘 것.
-- keywords에는 섹터/이슈/매크로 키워드를 적을 것(예: 금리인상, HBM, 반도체 사이클, 엔캐리트레이드).
+[분석 요구사항]
+1. 🌐 거시경제(Macro) 및 시장 진단
+   - 현재 시장의 핵심 인과관계(원인 ➔ 결과) 분석 (예: 금리, 환율, 유가, 통화정책 등)
+   - 시장 참여자들이 오해하거나 선반영한 악재/호재 요소 명시
+   - 현재 장세의 성격 정리 (예: 주도주 부재 박스권, 순환매 장세, 강세장 등)
+
+2. 📊 섹터 및 종목별 상세 분석
+   - [우수/주도 섹터]: 전문가가 강하게 추천하거나 수급이 쏠리는 섹터, 이유, 관련 핵심 종목
+   - [관망/주의 섹터]: 조정 가능성이 있거나 리스크가 존재하는 섹터 및 종목
+   - 각 종목/섹터별 핵심 모멘텀(실적 성장률, AI 수혜, 정책 수혜 등) 명확히 명시
+
+3. 💡 핵심 투자 인사이트 (Key Takeaways)
+   - 전문가가 제시하는 시장을 바라보는 뷰(View)의 핵심 3가지
+   - 일시적 이슈와 구조적 성장 스토리를 구분하여 설명
+
+4. 🛡️ 투자 전략 및 액션 플랜 (Action Plan)
+   - 매수/매도/리스크 관리 관점에서의 구체적인 실행 가이드 (예: 분할 매수 시점, 추격 매수 금지, 투자 경고 관리 등)
+   - 다가올 주요 이벤트나 변수(실적 발표, 추석/연말 수급, 정책 변화 등) 및 대응책
+
+[출력 형식 및 가독성]
+- Visual Hierarchy(계층 구조)를 적극 활용하여 작성할 것.
+- 핵심 키워드, 종목명, 핵심 수치는 **굵은 글씨**로 강조.
+- 불필요한 서론/결론 문구는 제외하고 곧바로 리포트 형식으로 작성.
+
+[출력 문법 규칙 - 반드시 준수]
+- report_markdown 필드에 위 리포트를 마크다운으로 작성할 것.
+- 각 대분류(1~4) 제목은 줄 맨 앞에 "## " 를 붙여 마크다운 헤더로 작성 (예: "## 🌐 거시경제(Macro) 및 시장 진단").
+- 하위 항목은 "- " 로 시작하는 목록으로 작성.
+- 강조할 단어/문장은 반드시 **이렇게** 두 개의 별표로 감쌀 것.
+- tickers 필드에는 리포트에서 실제 언급된 종목명만 배열로 별도 추출 (예: ["삼성전자", "엔비디아"]).
+- keywords 필드에는 섹터/이슈/매크로 키워드를 배열로 별도 추출 (예: ["금리인상", "HBM", "반도체 사이클"]).
 """
 
 RESPONSE_SCHEMA = {
     "type": "OBJECT",
     "properties": {
-        "summary_bullets": {"type": "ARRAY", "items": {"type": "STRING"}},
+        "report_markdown": {"type": "STRING"},
         "tickers": {"type": "ARRAY", "items": {"type": "STRING"}},
         "keywords": {"type": "ARRAY", "items": {"type": "STRING"}},
     },
-    "required": ["summary_bullets", "tickers", "keywords"],
+    "required": ["report_markdown", "tickers", "keywords"],
 }
 
 
@@ -41,10 +69,11 @@ def summarize_transcript(channel_name, title, transcript_text):
         "generationConfig": {
             "responseMimeType": "application/json",
             "responseSchema": RESPONSE_SCHEMA,
+            "maxOutputTokens": 4096,
         },
     }
 
-    resp = requests.post(f"{API_URL}?key={api_key}", json=payload, timeout=60)
+    resp = requests.post(f"{API_URL}?key={api_key}", json=payload, timeout=90)
     resp.raise_for_status()
     data = resp.json()
 

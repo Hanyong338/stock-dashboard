@@ -18,6 +18,7 @@ CHANNELS_FILE = ROOT / "scripts" / "channels.json"
 STATE_FILE = DATA_DIR / "state.json"
 SUMMARIES_FILE = DATA_DIR / "summaries.json"
 CROSS_FILE = DATA_DIR / "cross_mentions.json"
+CHANNELS_OUT_FILE = DATA_DIR / "channels.json"
 
 MAX_SUMMARIES = 500
 STATE_HISTORY_PER_CHANNEL = 100
@@ -87,7 +88,7 @@ def process_channel(ch, state, summaries, now_iso):
                 "url": v["url"],
                 "published": v["published"],
                 "fetched_at": now_iso,
-                "summary_bullets": result.get("summary_bullets", []),
+                "report_markdown": result.get("report_markdown", ""),
                 "tickers": result.get("tickers", []),
                 "keywords": result.get("keywords", []),
             }
@@ -136,6 +137,7 @@ def main():
     save_json(STATE_FILE, state)
     save_json(SUMMARIES_FILE, summaries)
     save_json(CROSS_FILE, build_cross_mentions(summaries))
+    save_json(CHANNELS_OUT_FILE, channels)
     print("[INFO] Pipeline run complete.")
 
 

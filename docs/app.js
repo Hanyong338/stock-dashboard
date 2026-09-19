@@ -4,6 +4,7 @@ const state = {
   summaries: [],
   crossMentions: [],
   screening: [],
+  channels: [],
   selectedChannel: "",
 };
 
@@ -59,22 +60,84 @@ function renderCrossMentions() {
   }
 }
 
-function renderChannelFilter() {
-  const select = document.getElementById("channelFilter");
-  const channels = [...new Set(state.summaries.map((s) => s.channel))].sort();
-  const current = select.value;
-  select.innerHTML = '<option value="">전체 채널</option>';
-  for (const ch of channels) {
-    const opt = document.createElement("option");
-    opt.value = ch;
-    opt.textContent = ch;
-    select.appendChild(opt);
+function renderChannelTabs() {
+  const box = document.getElementById("channelTabs");
+  box.innerHTML = "";
+
+  const fromConfig = state.channels.map((c) => c.name);
+  const fromSummaries = [...new Set(state.summaries.map((s) => s.channel))];
+  const names = [...new Set([...fromConfig, ...fromSummaries])];
+
+  const makeTab = (label, value) => {
+    const btn = document.createElement("button");
+    btn.className = "channel-tab" + (state.selectedChannel === value ? " active" : "");
+    btn.dataset.channel = value;
+    btn.textContent = label;
+    btn.addEventListener("click", () => {
+      state.selectedChannel = value;
+      document.querySelectorAll(".channel-tab").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderSummaries();
+    });
+    return btn;
+  };
+
+  box.appendChild(makeTab("전체", ""));
+  for (const name of names) {
+    box.appendChild(makeTab(name, name));
   }
-  select.value = current;
 }
 
 function crossTickerSet() {
   return new Set(state.crossMentions.map((c) => c.ticker));
+}
+
+function inlineMd(escapedText) {
+  return escapedText.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+}
+
+function markdownToHtml(raw) {
+  const escaped = escapeHtml(raw || "");
+  const lines = escaped.split(/\r?\n/);
+  let html = "";
+  let inList = false;
+
+  const closeList = () => {
+    if (inList) {
+      html += "</ul>";
+      inList = false;
+    }
+  };
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) {
+      closeList();
+      continue;
+    }
+
+    const headerMatch = line.match(/^#{1,6}\s+(.*)/);
+    if (headerMatch) {
+      closeList();
+      html += `<h4 class="report-heading">${inlineMd(headerMatch[1])}</h4>`;
+      continue;
+    }
+
+    const listMatch = line.match(/^[-*]\s+(.*)/);
+    if (listMatch) {
+      if (!inList) {
+        html += "<ul>";
+        inList = true;
+      }
+      html += `<li>${inlineMd(listMatch[1])}</li>`;
+      continue;
+    }
+
+    closeList();
+    html += `<p>${inlineMd(line)}</p>`;
+  }
+  closeList();
+  return html;
 }
 
 function buildCard(item, hotTickers) {
@@ -95,13 +158,10 @@ function buildCard(item, hotTickers) {
   const body = document.createElement("div");
   body.className = "card-body" + (old ? " collapsed" : "");
 
-  const ul = document.createElement("ul");
-  for (const bullet of item.summary_bullets || []) {
-    const li = document.createElement("li");
-    li.textContent = bullet;
-    ul.appendChild(li);
-  }
-  body.appendChild(ul);
+  const report = document.createElement("div");
+  report.className = "report";
+  report.innerHTML = markdownToHtml(item.report_markdown || "");
+  body.appendChild(report);
 
   const tagRow = document.createElement("div");
   tagRow.className = "tag-row";
@@ -149,7 +209,8 @@ function renderSummaries() {
   );
 
   if (!filtered.length) {
-    list.innerHTML = '<p class="empty-state">아직 요약된 영상이 없습니다. 파이프라인이 실행되면 이곳에 표시됩니다.</p>';
+    const who = state.selectedChannel ? `"${escapeHtml(state.selectedChannel)}" 채널의` : "";
+    list.innerHTML = `<p class="empty-state">아직 ${who} 요약된 영상이 없습니다. 파이프라인이 실행되면 이곳에 표시됩니다.</p>`;
     return;
   }
 
@@ -204,17 +265,19 @@ function setLastUpdated() {
 
 async function loadAll() {
   try {
-    const [summaries, crossMentions, screening] = await Promise.all([
+    const [summaries, crossMentions, screening, channels] = await Promise.all([
       loadJSON("summaries.json"),
       loadJSON("cross_mentions.json"),
       loadJSON("screening.json"),
+      loadJSON("channels.json").catch(() => []),
     ]);
     state.summaries = summaries;
     state.crossMentions = crossMentions;
     state.screening = screening;
+    state.channels = channels;
 
     renderCrossMentions();
-    renderChannelFilter();
+    renderChannelTabs();
     renderSummaries();
     renderScreening();
     setLastUpdated();
@@ -230,11 +293,6 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
     btn.classList.add("active");
     document.getElementById(`tab-${btn.dataset.tab}`).classList.add("active");
   });
-});
-
-document.getElementById("channelFilter").addEventListener("change", (e) => {
-  state.selectedChannel = e.target.value;
-  renderSummaries();
 });
 
 document.getElementById("refreshBtn").addEventListener("click", loadAll);
