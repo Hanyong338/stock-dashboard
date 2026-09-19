@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>주식 유튜브 요약 대시보드</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <h1>주식 유튜브 요약 대시보드</h1>
+  <div class="meta">
+    <span id="lastUpdated">불러오는 중...</span>
+    <button id="refreshBtn" type="button">새로고침</button>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="summaries">유튜브 요약</button>
+  <button class="tab-btn" data-tab="screening">차트 스크리닝 결과</button>
+</nav>
+
+<main>
+  <section id="tab-summaries" class="tab-panel active">
+    <div id="crossMentions" class="cross-box" hidden>
+      <h2>여러 채널 공통 언급 종목</h2>
+      <div id="crossList" class="chip-row"></div>
+    </div>
+
+    <div class="filter-row">
+      <label for="channelFilter">채널 필터</label>
+      <select id="channelFilter">
+        <option value="">전체 채널</option>
+      </select>
+    </div>
+
+    <div id="summaryList" class="summary-list">
+      <p class="empty-state">데이터를 불러오는 중입니다...</p>
+    </div>
+  </section>
+
+  <section id="tab-screening" class="tab-panel">
+    <div id="screeningList" class="screening-list">
+      <p class="empty-state">차트 패턴 스크리닝 기능은 아직 준비 중입니다. (다음 단계에서 추가 예정)</p>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

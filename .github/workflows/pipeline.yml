@@ -1,0 +1,36 @@
+name: stock-youtube-pipeline
+
+on:
+  schedule:
+    - cron: "0 * * * *" # 매시 정각 (UTC 기준, 1시간마다)
+  workflow_dispatch: {} # Actions 탭에서 수동 실행 가능
+
+permissions:
+  contents: write
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Run pipeline
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPADATA_API_KEY: ${{ secrets.SUPADATA_API_KEY }}
+        run: python scripts/pipeline.py
+
+      - name: Commit and push updated data
+        run: |
+          git config user.name "stock-dashboard-bot"
+          git config user.email "actions@github.com"
+          git add docs/data/*.json
+          git diff --cached --quiet || git commit -m "chore: update data $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          git push
