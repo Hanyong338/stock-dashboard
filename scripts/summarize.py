@@ -3,8 +3,13 @@
 """
 import json
 import os
+import time
 
 import requests
+
+MAX_ATTEMPTS = 3
+RETRY_BACKOFF_SECONDS = [3, 8]  # 1차 재시도 3초 후, 2차 재시도 8초 후
+RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
 
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash")
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
@@ -91,13 +96,26 @@ def summarize_transcript(channel_name, title, transcript_text):
         "generationConfig": {
             "responseMimeType": "application/json",
             "responseSchema": RESPONSE_SCHEMA,
-            "maxOutputTokens": 4096,
+            "maxOutputTokens": 8192,
         },
     }
 
-    resp = requests.post(f"{API_URL}?key={api_key}", json=payload, timeout=90)
-    resp.raise_for_status()
-    data = resp.json()
+    last_error = None
+    for attempt in range(MAX_ATTEMPTS):
+        try:
+            resp = requests.post(f"{API_URL}?key={api_key}", json=payload, timeout=90)
+            resp.raise_for_status()
+            data = resp.json()
+            raw = data["candidates"][0]["content"]["parts"][0]["text"]
+            return json.loads(raw)
+        except (requests.exceptions.HTTPError, requests.exceptions.Timeout, json.JSONDecodeError) as e:
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            transient = isinstance(e, (requests.exceptions.Timeout, json.JSONDecodeError)) or status in RETRYABLE_STATUS_CODES
+            last_error = e
+            if not transient or attempt == MAX_ATTEMPTS - 1:
+                raise
+            wait = RETRY_BACKOFF_SECONDS[min(attempt, len(RETRY_BACKOFF_SECONDS) - 1)]
+            print(f"[INFO] Gemini transient error ({e}); retrying in {wait}s (attempt {attempt + 1}/{MAX_ATTEMPTS})")
+            time.sleep(wait)
 
-    raw = data["candidates"][0]["content"]["parts"][0]["text"]
-    return json.loads(raw)
+    raise last_error

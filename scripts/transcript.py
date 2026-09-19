@@ -33,11 +33,31 @@ def _video_id_from_url(video_url):
 
 
 def _get_transcript_free(video_id):
-    """무료 라이브러리로 시도. 실패하면 예외를 던진다 (호출부에서 Supadata로 폴백)."""
+    """무료 라이브러리로 시도. 실패하면 예외를 던진다 (호출부에서 Supadata로 폴백).
+    youtube-transcript-api 1.0+ 는 인스턴스 기반 API(.fetch)로 바뀌었고, 구버전은
+    클래스 메서드(.get_transcript)를 쓰므로 설치된 버전에 관계없이 동작하도록 둘 다 시도한다.
+    """
     from youtube_transcript_api import YouTubeTranscriptApi
 
-    segments = YouTubeTranscriptApi.get_transcript(video_id, languages=["ko", "en"])
-    text = " ".join(seg["text"] for seg in segments if seg.get("text"))
+    segments = None
+    try:
+        api = YouTubeTranscriptApi()
+        segments = api.fetch(video_id, languages=["ko", "en"])
+    except AttributeError:
+        pass
+
+    if segments is None:
+        segments = YouTubeTranscriptApi.get_transcript(video_id, languages=["ko", "en"])
+
+    parts = []
+    for seg in segments:
+        text = getattr(seg, "text", None)
+        if text is None and isinstance(seg, dict):
+            text = seg.get("text")
+        if text:
+            parts.append(text)
+
+    text = " ".join(parts)
     if not text.strip():
         raise RuntimeError("free transcript came back empty")
     return text
