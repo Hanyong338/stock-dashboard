@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from youtube_check import fetch_channel_videos
 from summarize import summarize_transcript
 from transcript import get_transcript, is_retryable_error
-from market_data import fetch_market_brief
+from market_data import BRIEF_INDICES, fetch_market_brief, fetch_session_closes
 import morning_brief as mb
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -257,6 +257,32 @@ def _save_data_files(state, summaries, channels, now):
     return trimmed
 
 
+def _overlay_session_closes(report, published):
+    """지수/금리/유가를 방송이 다룬 거래일의 검증된 시세 데이터로 채운다.
+    방송에서 귀로 들은 수치는 쓰지 않는다."""
+    # 방송 시점(UTC)을 미 동부로 옮기면 그 방송이 다룬 거래일이 나온다.
+    target_date = (published - datetime.timedelta(hours=4)).date()
+
+    try:
+        closes = fetch_session_closes(target_date)
+    except Exception as e:
+        print(f"[WARN] session closes overlay skipped: {e}")
+        return
+
+    if not closes:
+        return
+
+    # 방송에서 귀로 들은 숫자는 검증되지 않았고 실제로 어긋난다(예: WTI 방송 -2.32% vs 실제 -0.51%).
+    # 지수/금리/유가는 종가와 등락률 '둘 다' 시세 데이터로만 채우고, AI가 말한 수치는 쓰지 않는다.
+    report["indices"] = [
+        {"name": item["name"], **closes[item["name"]]}
+        for item in BRIEF_INDICES
+        if item["name"] in closes
+    ]
+    report["indices_note"] = "지수·금리·유가는 시장 데이터 종가 기준"
+    print(f"[INFO] morning brief: 지수 {len(report['indices'])}개를 시세 데이터로 교체 (거래일 {target_date})")
+
+
 def update_morning_brief(now):
     """당잠사(한국경제TV) 최신 방송 1건만 분석해 아침 리포트를 만든다.
     이미 같은 영상으로 만들어둔 리포트가 있으면 아무것도 하지 않는다. True를 반환하면 저장된 것."""
@@ -288,6 +314,8 @@ def update_morning_brief(now):
     report = call_with_timeout(
         mb.build_morning_brief, SUMMARIZE_TIMEOUT_SECONDS, latest["title"], transcript_text, broadcast_date
     )
+    _overlay_session_closes(report, published or now)
+
     report.update(
         {
             "video_id": latest["video_id"],

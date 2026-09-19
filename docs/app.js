@@ -258,15 +258,11 @@ function renderMorningBrief() {
   document.getElementById("mbriefAsOf").textContent = d.as_of || "";
   document.getElementById("mbriefLink").href = d.url || "#";
 
-  // 지수 스트립. 미장 브리핑(실시간)과 겹치는 3대 지수는 뒤로 보내고,
-  // 여기에만 있는 지표(SOX/금리/달러/WTI)를 앞에 세워 중복감을 줄인다.
-  const DUP = ["나스닥", "S&P", "다우"];
-  const indices = [...(d.indices || [])].sort((a, b) => {
-    const dup = (n) => (DUP.some((x) => (n.name || "").includes(x)) ? 1 : 0);
-    return dup(a) - dup(b);
-  });
+  // 지수는 시세 데이터가 정해진 순서(나스닥/S&P/다우/SOX/금리/달러/WTI)로 넣어주므로 그대로 쓴다.
+  const indices = d.indices || [];
   const idxBox = document.getElementById("mbriefIndices");
   idxBox.innerHTML = "";
+  idxBox.parentElement.querySelector(".mbrief-note")?.remove(); // 새로고침 시 중복 방지
   indices.forEach((i) => {
     const card = document.createElement("div");
     const tone = changeToneFromText(i.change);
@@ -279,6 +275,14 @@ function renderMorningBrief() {
       `<span class="mbrief-idx-chg num ${isStateBadge(i.change) ? "" : tone}">${changeWithMark(i.change, tone)}</span>`;
     idxBox.appendChild(card);
   });
+
+  // 종가와 등락률의 출처가 다를 수 있어 밝혀둔다 (금융 데이터는 기준을 모르면 못 쓴다)
+  if (d.indices_note) {
+    const note = document.createElement("p");
+    note.className = "mbrief-note";
+    note.textContent = d.indices_note;
+    idxBox.insertAdjacentElement("afterend", note);
+  }
 
   renderTodayVerdict(d);
   renderMbriefNav(d);

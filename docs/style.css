@@ -984,3 +984,12 @@ main {
   letter-spacing: -0.2px;
 }
 .mbrief-idx.no-value .mbrief-idx-chg .state-badge { font-size: 12px; }
+
+/* 지수 종가와 등락률의 출처가 달라 한 줄로 밝힌다 */
+.mbrief-note {
+  margin: -8px 0 14px;
+  font-size: 11px;
+  color: var(--text-faint);
+  font-weight: 600;
+}
+
