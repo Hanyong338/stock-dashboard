@@ -1,7 +1,7 @@
 """유튜브 영상 자막(트랜스크립트)을 가져온다.
-1순위: youtube-transcript-api (무료, 키 불필요) - 클라우드 IP에서 종종 차단될 수 있음.
-2순위: Supadata API (유료) - 1순위가 실패했을 때만 사용해서 크레딧을 아낀다.
-https://docs.supadata.ai 참고.
+Supadata API(유료)만 사용한다. 무료 라이브러리(youtube-transcript-api)는 GitHub Actions
+서버에서 응답 없이 멈추는 등 신뢰성 문제가 있어서 현재 비활성화해뒀다 (_get_transcript_free 참고,
+필요하면 나중에 다시 켤 수 있음). https://docs.supadata.ai 참고.
 """
 import os
 import re
@@ -104,9 +104,4 @@ def _poll_job(job_id, max_wait_seconds):
 
 
 def get_transcript(video_url, max_wait_seconds=120):
-    try:
-        video_id = _video_id_from_url(video_url)
-        return _get_transcript_free(video_id)
-    except Exception as e:
-        print(f"[INFO] free transcript failed for {video_url} ({e}); falling back to Supadata")
-        return _get_transcript_supadata(video_url, max_wait_seconds=max_wait_seconds)
+    return _get_transcript_supadata(video_url, max_wait_seconds=max_wait_seconds)
