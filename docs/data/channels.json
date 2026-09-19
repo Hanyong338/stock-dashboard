@@ -1,7 +1,9 @@
 [
   {
     "name": "한국경제TV",
-    "channel_id": "UCF8AeLlUbEpKju6v1H6p8Eg"
+    "channel_id": "UCF8AeLlUbEpKju6v1H6p8Eg",
+    "paused": true,
+    "note": "어떤 영상을 대상으로 할지 정할 때까지 요약 중지. 탭은 그대로 유지됨"
   },
   {
     "name": "815머니톡",
@@ -11,16 +13,20 @@
   },
   {
     "name": "경제사냥꾼",
-    "channel_id": "UC7usMJDHmtbs_oegmzQKKMA"
+    "channel_id": "UC7usMJDHmtbs_oegmzQKKMA",
+    "exclude_live": true,
+    "note": "Videos 탭의 일반 영상만. 쇼츠는 길이 필터로, 생방송은 exclude_live 로 제외"
   },
   {
     "name": "올랜도 킴 미국주식",
-    "channel_id": "UCwSSqi-s0wcH6pJbH3YPZqQ"
+    "channel_id": "UCwSSqi-s0wcH6pJbH3YPZqQ",
+    "exclude_live": true,
+    "note": "Videos 탭의 일반 영상만"
   },
   {
     "name": "삼프로TV",
     "channel_id": "UChlv4GSd7OQl3js-jkLOnFA",
     "playlist_id": "PLQvqXcm97CTCf_tqMOL0QpTCoMNwjCje5",
-    "note": "[박병창의 마켓 인사이드] 코너만 요약 (평일 오전 방송)"
+    "note": "[박병창의 마켓 인사이드] 재생목록만 요약 (평일 오전 방송). 재생목록 자체가 대상을 한정하므로 exclude_live 는 켜지 않는다"
   }
 ]
