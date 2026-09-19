@@ -51,9 +51,13 @@ function formatRelativeTime(iso) {
 }
 
 function isOlderThanADay(iso) {
+  // 오늘/어제 올라온 영상은 펼친 채로 둔다. "30시간 전"처럼 어제 것인데도 24시간을
+  // 넘겼다는 이유로 접혀서 본문이 안 보이는 일을 막기 위해 달력 날짜 기준으로 판단한다.
   const d = new Date(iso);
   if (isNaN(d.getTime())) return false;
-  return Date.now() - d.getTime() > 24 * 3600 * 1000;
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  return dateKeyLocal(iso) < dateKeyFromDate(yesterday);
 }
 
 function dayLabel(iso) {
