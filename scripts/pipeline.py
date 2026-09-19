@@ -36,6 +36,7 @@ REQUEST_INTERVAL_SECONDS = 3  # 자막/AI API를 너무 빨리 연달아 호출�
 TRANSCRIPT_TIMEOUT_SECONDS = 90
 SUMMARIZE_TIMEOUT_SECONDS = 300  # summarize.py의 재시도(최대 85초 대기)까지 포함해서 넉넉히 잡는다
 MAX_VIDEO_DURATION_SECONDS = 3600  # 1시간 넘는 영상은 자막 생성 비용이 커서 아예 요약하지 않는다.
+MIN_VIDEO_DURATION_SECONDS = 181  # 3분 이하는 쇼츠(Shorts)라 요약하지 않는다. 유튜브 쇼츠 최대 길이가 3분.
 
 
 def call_with_timeout(fn, timeout, *args, **kwargs):
@@ -119,6 +120,11 @@ def process_channel(ch, state, summaries, now):
         duration = v.get("duration_seconds")
         if duration is not None and duration >= MAX_VIDEO_DURATION_SECONDS:
             print(f"[INFO] skipping long video ({duration // 60}min): {name} - {v['title']}")
+            state[cid].append(v["video_id"])
+            continue
+
+        if duration is not None and duration < MIN_VIDEO_DURATION_SECONDS:
+            print(f"[INFO] skipping shorts ({duration}s): {name} - {v['title']}")
             state[cid].append(v["video_id"])
             continue
 
