@@ -93,8 +93,10 @@ def _fetch_playlist_items(playlist_id, max_results, channel_id):
     raise last_error
 
 
-def fetch_channel_videos(channel_id, max_results=50):
-    playlist_id = _uploads_playlist_id(channel_id)
+def fetch_channel_videos(channel_id, max_results=50, playlist_id=None):
+    """playlist_id를 주면 채널 전체 업로드 대신 그 재생목록만 본다.
+    (예: 삼프로TV는 '마켓 인사이드' 코너만 요약하면 되므로 해당 재생목록을 지정한다)"""
+    playlist_id = playlist_id or _uploads_playlist_id(channel_id)
     data = _fetch_playlist_items(playlist_id, max_results, channel_id)
     videos = []
     for item in data.get("items", []):

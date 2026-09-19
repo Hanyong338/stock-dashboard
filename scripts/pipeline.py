@@ -88,7 +88,7 @@ def process_channel(ch, state, summaries, now):
     now_iso = now.isoformat()
 
     try:
-        videos = fetch_channel_videos(cid)
+        videos = fetch_channel_videos(cid, playlist_id=ch.get("playlist_id"))
     except Exception as e:
         print(f"[WARN] video list fetch failed for {name}: {e}")
         return
