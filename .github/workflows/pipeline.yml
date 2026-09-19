@@ -26,6 +26,8 @@ jobs:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SUPADATA_API_KEY: ${{ secrets.SUPADATA_API_KEY }}
+          # 비용 절감용. 품질이 떨어지면 이 줄을 지우면 gemini-3.5-flash 로 돌아간다.
+          GEMINI_MODEL: gemini-3.5-flash-lite
         run: python scripts/pipeline.py
 
       - name: Commit and push updated data

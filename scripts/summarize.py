@@ -13,11 +13,16 @@ MAX_ATTEMPTS = 4
 RETRY_BACKOFF_SECONDS = [5, 20, 60]
 RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
 
-# 로그에 대략적인 비용을 찍기 위한 단가 (2026-09 기준, 100만 토큰당 USD)
-INPUT_PRICE_PER_MTOK = 0.75
-OUTPUT_PRICE_PER_MTOK = 4.50
-
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash")
+
+# 로그에 대략적인 비용을 찍기 위한 단가 (2026-09 기준, 100만 토큰당 USD)
+PRICES_PER_MTOK = {
+    "gemini-3.5-flash": (1.50, 9.00),
+    "gemini-3.5-flash-lite": (0.30, 2.50),
+    "gemini-2.5-flash-lite": (0.10, 0.40),
+}
+INPUT_PRICE_PER_MTOK, OUTPUT_PRICE_PER_MTOK = PRICES_PER_MTOK.get(MODEL, (1.50, 9.00))
+
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 MAX_TRANSCRIPT_CHARS = 30000
 
