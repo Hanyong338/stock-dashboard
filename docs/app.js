@@ -191,10 +191,14 @@ function renderMorningBrief() {
   idxBox.innerHTML = "";
   (d.indices || []).forEach((i) => {
     const card = document.createElement("div");
-    card.className = "mbrief-idx";
-    card.innerHTML = `<span class="mbrief-idx-name">${escapeHtml(i.name)}</span>
-      <strong class="mbrief-idx-val">${escapeHtml(i.value)}</strong>
-      <span class="mbrief-idx-chg ${changeToneFromText(i.change)}">${escapeHtml(i.change)}</span>`;
+    const tone = changeToneFromText(i.change);
+    // 방송에서 종가를 언급하지 않으면 value 가 "-" 로 오는데, 그때는 등락률을 주인공으로 보여준다.
+    const hasValue = i.value && i.value !== "-";
+    card.className = "mbrief-idx" + (hasValue ? "" : " no-value");
+    card.innerHTML =
+      `<span class="mbrief-idx-name">${escapeHtml(i.name)}</span>` +
+      (hasValue ? `<strong class="mbrief-idx-val">${escapeHtml(i.value)}</strong>` : "") +
+      `<span class="mbrief-idx-chg ${tone}">${escapeHtml(i.change)}</span>`;
     idxBox.appendChild(card);
   });
 

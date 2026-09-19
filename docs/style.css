@@ -744,6 +744,9 @@ main {
 .mbrief-idx-name { font-size: 11.5px; color: var(--text-muted); font-weight: 700; }
 .mbrief-idx-val { font-size: 15px; font-weight: 800; letter-spacing: -0.4px; }
 .mbrief-idx-chg { font-size: 12px; font-weight: 700; }
+/* 종가가 없는 지표는 등락률을 크게 보여 카드가 비어 보이지 않게 한다 */
+.mbrief-idx.no-value { justify-content: space-between; }
+.mbrief-idx.no-value .mbrief-idx-chg { font-size: 15px; font-weight: 800; letter-spacing: -0.4px; }
 .mbrief-idx-chg.up, .mbrief-us-chg.up { color: var(--up, #f2465a); }
 .mbrief-idx-chg.down, .mbrief-us-chg.down { color: var(--down, #3b82f6); }
 .mbrief-idx-chg.flat { color: var(--text-muted); }

@@ -281,7 +281,13 @@ def update_morning_brief(now):
         print("[WARN] morning brief: 자막이 비어 있습니다")
         return False
 
-    report = call_with_timeout(mb.build_morning_brief, SUMMARIZE_TIMEOUT_SECONDS, latest["title"], transcript_text)
+    published = parse_published(latest.get("published", ""))
+    kst_date = (published + datetime.timedelta(hours=9)) if published else now + datetime.timedelta(hours=9)
+    broadcast_date = f"{kst_date.year}년 {kst_date.month:02d}월 {kst_date.day:02d}일"
+
+    report = call_with_timeout(
+        mb.build_morning_brief, SUMMARIZE_TIMEOUT_SECONDS, latest["title"], transcript_text, broadcast_date
+    )
     report.update(
         {
             "video_id": latest["video_id"],

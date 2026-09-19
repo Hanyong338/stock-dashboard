@@ -159,9 +159,12 @@ RESPONSE_SCHEMA = {
 }
 
 
-def build_morning_brief(title, transcript_text):
+def build_morning_brief(title, transcript_text, broadcast_date):
+    # 방송에서 연도를 말하지 않아 모델이 엉뚱한 해(2024년 등)로 적는 일이 있어서 날짜를 직접 넘긴다.
     user_prompt = (
         f"방송: 한국경제TV [{PROGRAM_NAME}]\n"
+        f"방송일(한국시간): {broadcast_date}\n"
+        f"as_of 에는 반드시 이 날짜를 '{broadcast_date} 마감 기준' 형식으로 그대로 써라. 연도를 임의로 바꾸지 마라.\n"
         f"영상 제목: {title}\n\n"
         f"자막:\n{transcript_text[:MAX_TRANSCRIPT_CHARS]}"
     )
