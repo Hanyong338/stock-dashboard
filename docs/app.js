@@ -309,7 +309,7 @@ function isFresh(iso) {
   return Date.now() - d.getTime() < 3 * 3600 * 1000;
 }
 
-function buildCard(item, hotTickers) {
+function buildCard(item) {
   const card = document.createElement("div");
   const old = isOlderThanADay(item.published);
   card.className = "card" + (old ? " old" : "");
@@ -351,22 +351,6 @@ function buildCard(item, hotTickers) {
   report.innerHTML = markdownToHtml(item.report_markdown || "");
   inner.appendChild(report);
 
-  const tagRow = document.createElement("div");
-  tagRow.className = "tag-row";
-  for (const ticker of item.tickers || []) {
-    const tag = document.createElement("span");
-    tag.className = "tag" + (hotTickers.has(ticker) ? " ticker-hit" : "");
-    tag.textContent = ticker;
-    tagRow.appendChild(tag);
-  }
-  for (const kw of item.keywords || []) {
-    const tag = document.createElement("span");
-    tag.className = "tag";
-    tag.textContent = `#${kw}`;
-    tagRow.appendChild(tag);
-  }
-  inner.appendChild(tagRow);
-
   body.appendChild(inner);
   head.addEventListener("click", () => body.classList.toggle("collapsed"));
   head.querySelector(".yt-link")?.addEventListener("click", (e) => e.stopPropagation());
@@ -406,7 +390,6 @@ function renderSummaries() {
     return;
   }
 
-  const hotTickers = crossTickerSet();
   let lastDay = null;
 
   for (const item of filtered) {
@@ -418,7 +401,7 @@ function renderSummaries() {
       list.appendChild(dayHeader);
       lastDay = label;
     }
-    list.appendChild(buildCard(item, hotTickers));
+    list.appendChild(buildCard(item));
   }
 }
 
