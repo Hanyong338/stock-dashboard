@@ -44,36 +44,91 @@ WATCHLIST = {
     "UBER": "우버", "ABNB": "에어비앤비", "BABA": "알리바바",
 }
 
-# 지표명에 이 문구가 들어가면 채택. 나스닥 eventName 이 영어라 영어로 매칭한다.
-MACRO_KEYS = {
-    "CPI": "소비자물가(CPI)",
-    "PPI": "생산자물가(PPI)",
-    "PCE Price Index": "PCE 물가",
-    "Nonfarm Payrolls": "비농업 고용",
-    "Unemployment Rate": "실업률",
-    "Initial Jobless Claims": "주간 실업수당",
-    "ADP Nonfarm": "ADP 고용",
-    "JOLTS Job Openings": "JOLTS 구인",
-    "GDP (QoQ)": "GDP",
-    "GDP Price Index": "GDP 물가지수",
-    "Retail Sales": "소매판매",
-    "ISM Manufacturing PMI": "ISM 제조업",
-    "ISM Non-Manufacturing PMI": "ISM 서비스업",
-    "Durable Goods Orders": "내구재 주문",
-    "Michigan Consumer Sentiment": "미시간 소비자심리",
-    "Building Permits": "건축 허가",
-    "Housing Starts": "주택 착공",
-    "Crude Oil Inventories": "원유 재고",
-}
-
-# 시장을 통째로 흔드는 이벤트는 따로 강조한다.
-MAJOR_KEYS = {
-    "Interest Rate Decision": "FOMC 금리결정",
-    "FOMC Statement": "FOMC 성명",
-    "FOMC Meeting Minutes": "FOMC 의사록",
-    "FOMC Economic Projections": "FOMC 점도표",
-    "Fed Chair Powell Speaks": "파월 연설",
-    "Fed Interest Rate Decision": "FOMC 금리결정",
+# 국가별로 챙길 지표를 따로 정의한다. 미국만 보면 BOJ 금리결정이나 한국 금통위처럼
+# 국내 증시를 크게 흔드는 일정이 통째로 빠진다.
+# major = 시장을 흔드는 이벤트(금리결정 등), macro = 일반 지표.
+# 라벨에 국가를 붙여야 달력에서 어느 나라 것인지 바로 보인다.
+COUNTRY_RULES = {
+    "United States": {
+        "major": {
+            "Interest Rate Decision": "FOMC 금리결정",
+            "FOMC Statement": "FOMC 성명",
+            "FOMC Meeting Minutes": "FOMC 의사록",
+            "FOMC Economic Projections": "FOMC 점도표",
+            "Fed Chair Powell Speaks": "파월 연설",
+        },
+        "macro": {
+            "Core CPI": "미국 근원 CPI",
+            "CPI": "미국 CPI",
+            "Core PPI": "미국 근원 PPI",
+            "PPI": "미국 PPI",
+            "Core PCE Price Index": "미국 근원 PCE",
+            "PCE Price Index": "미국 PCE",
+            "Nonfarm Payrolls": "미국 고용지표",
+            "Unemployment Rate": "미국 실업률",
+            "Initial Jobless Claims": "미국 실업수당",
+            "ADP Nonfarm": "ADP 고용",
+            "JOLTS Job Openings": "JOLTS 구인",
+            "GDP (QoQ)": "미국 GDP",
+            "Retail Sales": "미국 소매판매",
+            "ISM Manufacturing PMI": "ISM 제조업",
+            "ISM Non-Manufacturing PMI": "ISM 서비스업",
+            "Durable Goods Orders": "미국 내구재",
+            "Michigan Consumer Sentiment": "미시간 소비심리",
+            "Building Permits": "미국 건축허가",
+            "Housing Starts": "미국 주택착공",
+        },
+    },
+    "South Korea": {
+        "major": {"Interest Rate Decision": "한국 금통위"},
+        "macro": {
+            "CPI": "한국 CPI",
+            "PPI": "한국 PPI",
+            "GDP": "한국 GDP",
+            "Exports": "한국 수출",
+            "Imports": "한국 수입",
+            "Trade Balance": "한국 무역수지",
+            "Industrial Production": "한국 산업생산",
+            "Current Account": "한국 경상수지",
+            "Business Survey Index": "한국 BSI",
+        },
+    },
+    "Japan": {
+        "major": {
+            "BoJ Interest Rate Decision": "BOJ 금리결정",
+            "BoJ Monetary Policy Statement": "BOJ 정책성명",
+            "BoJ Press Conference": "BOJ 기자회견",
+        },
+        "macro": {
+            "National Core CPI": "일본 근원 CPI",
+            "National CPI": "일본 CPI",
+            "Tankan": "일본 단칸",
+            "GDP": "일본 GDP",
+            "Trade Balance": "일본 무역수지",
+        },
+    },
+    "China": {
+        "major": {"Loan Prime Rate": "중국 LPR"},
+        "macro": {
+            "CPI": "중국 CPI",
+            "PPI": "중국 PPI",
+            "GDP": "중국 GDP",
+            "Caixin Manufacturing PMI": "차이신 제조업",
+            "Caixin Services PMI": "차이신 서비스업",
+            "Manufacturing PMI": "중국 제조업 PMI",
+            "Exports": "중국 수출",
+            "Trade Balance": "중국 무역수지",
+            "Industrial Production": "중국 산업생산",
+            "Retail Sales": "중국 소매판매",
+        },
+    },
+    "Euro Zone": {
+        "major": {
+            "Interest Rate Decision": "ECB 금리결정",
+            "Deposit Facility Rate": "ECB 예금금리",
+        },
+        "macro": {"Core CPI": "유로존 근원 CPI", "CPI": "유로존 CPI", "GDP": "유로존 GDP"},
+    },
 }
 
 # 키워드에 걸리지만 실제 지표 발표가 아닌 것들(추정 모델, 잡다한 연설 등)은 걷어낸다.
@@ -133,16 +188,17 @@ def fetch_day(date_obj):
 
     try:
         for row in _rows(_get_json(ECONOMIC_URL, date_str)):
-            if (row.get("country") or "") != "United States":
+            rules = COUNTRY_RULES.get((row.get("country") or "").strip())
+            if not rules:
                 continue
             name = (row.get("eventName") or "").strip()
             if not name or any(x.lower() in name.lower() for x in EXCLUDE_KEYS):
                 continue
 
-            label = _match(name, MAJOR_KEYS)
+            label = _match(name, rules["major"])
             category = "major"
             if not label:
-                label = _match(name, MACRO_KEYS)
+                label = _match(name, rules["macro"])
                 category = "macro"
             if not label:
                 continue

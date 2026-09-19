@@ -146,6 +146,7 @@ const CAL_CATEGORIES = [
 ];
 
 const calState = { month: null, hidden: new Set(), selected: null };
+const CAL_MAX_LANES = 3; // 달력 한 칸에 보여줄 최대 줄 수. 넘치면 +N 으로 접는다
 
 function ymd(d) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -258,10 +259,34 @@ function renderCalendar() {
     const bars = document.createElement("div");
     bars.className = "cal-bars";
     const placed = assignLanes(inWeek, weekStart, weekEnd);
-    const laneCount = placed.reduce((mx, p) => Math.max(mx, p.lane + 1), 0);
+
+    // 지표가 몰리는 날은 하루 10건도 나온다. 달력에는 3개까지만 보이고 나머지는 +N 으로 접는다.
+    const shown = placed.filter((p) => p.lane < CAL_MAX_LANES);
+    const overflowByCol = {};
+    for (const p of placed) {
+      if (p.lane < CAL_MAX_LANES) continue;
+      for (let c = p.col; c < p.col + p.span; c++) overflowByCol[c] = (overflowByCol[c] || 0) + 1;
+    }
+    const overflowCols = Object.keys(overflowByCol);
+    const laneCount = Math.min(placed.reduce((mx, p) => Math.max(mx, p.lane + 1), 0), CAL_MAX_LANES) +
+      (overflowCols.length ? 1 : 0);
     bars.style.setProperty("--lanes", laneCount);
 
-    for (const p of placed) {
+    for (const col of overflowCols) {
+      const more = document.createElement("div");
+      more.className = "cal-more";
+      more.style.gridColumn = `${Number(col) + 1} / span 1`;
+      more.style.gridRow = String(CAL_MAX_LANES + 1);
+      more.textContent = `+${overflowByCol[col]}`;
+      const day = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + Number(col));
+      more.addEventListener("click", () => {
+        calState.selected = ymd(day);
+        renderCalendar();
+      });
+      bars.appendChild(more);
+    }
+
+    for (const p of shown) {
       const bar = document.createElement("div");
       bar.className =
         `cal-bar cat-${p.ev.category}` +
