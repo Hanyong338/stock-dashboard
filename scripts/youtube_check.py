@@ -41,8 +41,13 @@ def fetch_channel_videos(channel_id, max_results=50):
     data = resp.json()
     videos = []
     for item in data.get("items", []):
-        snippet = item["snippet"]
-        video_id = snippet["resourceId"]["videoId"]
+        try:
+            snippet = item["snippet"]
+            video_id = snippet["resourceId"]["videoId"]
+        except (KeyError, TypeError):
+            # 비공개/삭제된 영상 등 항목 하나가 이상해도 채널 전체 조회를 실패시키지 않는다.
+            print(f"[WARN] skipping malformed playlist item for channel_id={channel_id}: {item}")
+            continue
         videos.append(
             {
                 "video_id": video_id,
