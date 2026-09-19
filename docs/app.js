@@ -140,7 +140,7 @@ function mbriefSection(title, bodyNodes) {
 
 const CAL_CATEGORIES = [
   { key: "major", label: "주요 이벤트" },
-  { key: "issue", label: "이슈·정책" },
+  { key: "issue", label: "체크포인트" },
   { key: "macro", label: "경제지표" },
   { key: "earnings", label: "실적" },
   { key: "holiday", label: "휴장" },

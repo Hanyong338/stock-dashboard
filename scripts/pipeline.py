@@ -16,7 +16,7 @@ from summarize import summarize_transcript
 from transcript import get_transcript, is_retryable_error
 from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
-from calendar_data import build_calendar, issues_from_brief
+from calendar_data import build_calendar
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "data"
@@ -232,35 +232,15 @@ def _overlay_session_closes(report, published):
     )
 
 
-def _collect_issues(current, now):
-    """정책·법안 같은 이슈는 경제지표 API 에 없고 당잠사 뉴스로만 들어온다.
-    캘린더는 매일 새로 만들기 때문에, 전에 쌓아둔 이슈를 넘겨받아 보존한다."""
-    keep_after = (now - datetime.timedelta(days=RETENTION_DAYS * 8)).date().isoformat()
-    issues = {
-        (e["start"], e["title"]): e
-        for e in current.get("events", [])
-        if e.get("category") == "issue" and e.get("start", "") >= keep_after
-    }
-
-    for e in issues_from_brief(load_json(MORNING_BRIEF_FILE, {})):
-        issues[(e["start"], e["title"])] = e
-
-    return list(issues.values())
-
-
 def update_calendar(now):
     """증시 캘린더를 하루에 한 번만 다시 만든다.
     한 번에 100일 넘게 조회하므로 매시간 돌리면 API 호출이 낭비된다."""
     current = load_json(CALENDAR_FILE, {})
     today = now.date().isoformat()
-
-    carry = _collect_issues(current, now)
-    # 이슈가 새로 생겼으면 날짜가 같아도 다시 만든다.
-    known = sum(1 for e in current.get("events", []) if e.get("category") == "issue")
-    if current.get("built_on") == today and len(carry) == known:
+    if current.get("built_on") == today:
         return False
 
-    data = build_calendar(now.date(), carry_issues=carry)
+    data = build_calendar(now.date())
     data["built_on"] = today
     data["updated_at"] = now.isoformat()
     save_json(CALENDAR_FILE, data)

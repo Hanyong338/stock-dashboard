@@ -46,7 +46,8 @@ WATCHLIST = {
 
 # 국가별로 챙길 지표를 따로 정의한다. 미국만 보면 BOJ 금리결정이나 한국 금통위처럼
 # 국내 증시를 크게 흔드는 일정이 통째로 빠진다.
-# major = 시장을 흔드는 이벤트(금리결정 등), macro = 일반 지표.
+# major = 시장을 흔드는 이벤트(금리결정 등), macro = 일반 지표,
+# issue = 지표는 아니지만 증시에서 챙겨야 할 체크포인트(연준 인사 발언, 국채 입찰, 원유재고).
 # 라벨에 국가를 붙여야 달력에서 어느 나라 것인지 바로 보인다.
 COUNTRY_RULES = {
     "United States": {
@@ -82,9 +83,22 @@ COUNTRY_RULES = {
             "Building Permits": "미국 건축허가",
             "Housing Starts": "미국 주택착공",
         },
+        # 국채 입찰은 금리(=밸류에이션)로, 원유재고는 에너지·인플레 경로로 증시에 직결된다.
+        # 연준 인사 발언은 하루에 여러 명이 잡히는데, 라벨을 하나로 통일해 같은 날 한 줄로 묶이게 한다.
+        "issue": {
+            "30-Year Bond Auction": "미 30년물 입찰",
+            "20-Year Bond Auction": "미 20년물 입찰",
+            "10-Year TIPS Auction": "미 10년물 물가채 입찰",
+            "10-Year Note Auction": "미 10년물 입찰",
+            "Crude Oil Inventories": "미국 원유재고",
+            "Beige Book": "연준 베이지북",
+            "Testimony": "연준 의회 증언",
+            "Speaks": "연준 인사 발언",
+        },
     },
     "South Korea": {
         "major": {"Interest Rate Decision": "한국 금통위"},
+        "issue": {},
         "macro": {
             "CPI": "한국 CPI",
             "PPI": "한국 PPI",
@@ -108,12 +122,13 @@ COUNTRY_RULES = {
             "BoJ Interest Rate Decision": "BOJ 금리결정",
             "BoJ Monetary Policy Statement": "BOJ 정책성명",
         },
+        "issue": {},
         "macro": {},
     },
 }
 
 # 키워드에 걸리지만 실제 지표 발표가 아닌 것들(추정 모델, 잡다한 연설 등)은 걷어낸다.
-EXCLUDE_KEYS = ("GDPNow", "Atlanta Fed", "Redbook", "API Weekly")
+EXCLUDE_KEYS = ("GDPNow", "Atlanta Fed", "Redbook", "API Weekly", "Cushing")
 
 # 국내 증시 휴장일. 추석·설날은 음력이라 계산하지 않고 확인된 것만 적는다.
 KR_HOLIDAYS = [
@@ -286,6 +301,9 @@ def fetch_day(date_obj):
                 label = _match(name, rules["macro"])
                 category = "macro"
             if not label:
+                label = _match(name, rules.get("issue") or {})
+                category = "issue"
+            if not label:
                 continue
 
             events.append(
@@ -314,39 +332,8 @@ def _month_starts(today, count):
     return starts
 
 
-def issues_from_brief(brief):
-    """당잠사 리포트의 뉴스를 캘린더 '이슈'로 바꾼다.
-    법안 통과·규제 변경 같은 정책 이벤트는 경제지표 API 에 없어서 이 경로로만 들어온다."""
-    if not brief or not brief.get("news"):
-        return []
-
-    # 리포트가 다룬 거래일에 붙인다. published(UTC)를 미 동부로 옮기면 그 날짜가 나온다.
-    try:
-        pub = datetime.datetime.fromisoformat(brief["published"].replace("Z", "+00:00"))
-        day = (pub - datetime.timedelta(hours=4)).date().isoformat()
-    except Exception:
-        return []
-
-    out = []
-    for n in brief["news"]:
-        title = (n.get("title") or "").strip()
-        if not title:
-            continue
-        out.append(
-            {
-                "start": day,
-                "end": day,
-                "title": title,
-                "category": "issue",
-                "detail": (n.get("comment") or "").strip()[:120],
-            }
-        )
-    return out
-
-
-def build_calendar(today=None, carry_issues=None):
-    """당월부터 MONTHS_AHEAD 개월치 캘린더 데이터를 만든다.
-    carry_issues 로 이전에 쌓아둔 이슈를 넘기면 함께 보존한다."""
+def build_calendar(today=None):
+    """당월부터 MONTHS_AHEAD 개월치 캘린더 데이터를 만든다."""
     today = today or datetime.date.today()
     months = _month_starts(today, MONTHS_AHEAD + 1)
     start = months[0]
@@ -371,8 +358,6 @@ def build_calendar(today=None, carry_issues=None):
     for h in holidays:
         if start.isoformat() <= h["start"] <= end.isoformat():
             events.append({**h, "category": "holiday", "detail": ""})
-
-    events.extend(carry_issues or [])
 
     # 같은 날 같은 제목이 중복으로 들어오는 경우가 있어 정리한다.
     seen = set()
