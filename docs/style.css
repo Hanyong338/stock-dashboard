@@ -571,12 +571,37 @@ main {
 
 .report { font-size: 13.5px; }
 .report p { margin: 0 0 8px; color: var(--text); }
-.report ul { margin: 0 0 14px; padding-left: 4px; list-style: none; }
+.report ul,
+.report ol { margin: 0 0 14px; padding-left: 4px; list-style: none; counter-reset: report-item; }
 .report li {
   margin-bottom: 7px;
   line-height: 1.55;
   padding-left: 16px;
   position: relative;
+}
+/* 하위 목록(섹터 -> 종목)은 한 단 들여쓰고 왼쪽 선으로 묶어 계층이 보이게 한다 */
+.report li ul,
+.report li ol {
+  margin: 7px 0 2px;
+  padding-left: 10px;
+  border-left: 1.5px solid color-mix(in srgb, var(--sec-color, var(--accent)) 22%, transparent);
+}
+.report li li { font-size: 0.97em; }
+.report li li::before { width: 4px; height: 4px; opacity: 0.55; }
+.report ol > li { counter-increment: report-item; padding-left: 22px; }
+.report ol > li::before {
+  content: counter(report-item);
+  width: auto;
+  height: auto;
+  top: 0;
+  left: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 11.5px;
+  font-weight: 800;
+  line-height: 1.55;
+  color: var(--sec-color, var(--ch-color, var(--accent)));
+  opacity: 1;
 }
 .report li::before {
   content: "";

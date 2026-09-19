@@ -308,14 +308,38 @@ function markdownToHtml(raw) {
   const escaped = escapeHtml(raw || "");
   const lines = escaped.split(/\r?\n/);
   let html = "";
-  let inList = false;
   let inSection = false;
+  const stack = []; // 열려 있는 목록들 [{ tag, indent, liOpen }] — 들여쓰기 깊이별로 중첩시킨다
 
+  const openList = (tag, indent) => {
+    html += `<${tag}>`;
+    stack.push({ tag, indent, liOpen: false });
+  };
+  const closeTopList = () => {
+    const top = stack.pop();
+    if (top.liOpen) html += "</li>";
+    html += `</${top.tag}>`;
+  };
   const closeList = () => {
-    if (inList) {
-      html += "</ul>";
-      inList = false;
+    while (stack.length) closeTopList();
+  };
+  const addItem = (tag, indent, text) => {
+    while (stack.length && stack[stack.length - 1].indent > indent) closeTopList();
+
+    if (!stack.length || stack[stack.length - 1].indent < indent) {
+      openList(tag, indent); // 바로 위 <li> 안쪽에 열려서 계단식으로 들어간다
+    } else {
+      const top = stack[stack.length - 1];
+      if (top.tag !== tag) {
+        closeTopList();
+        openList(tag, indent);
+      } else if (top.liOpen) {
+        html += "</li>";
+        top.liOpen = false;
+      }
     }
+    html += `<li>${inlineMd(text)}`;
+    stack[stack.length - 1].liOpen = true;
   };
   const closeSection = () => {
     closeList();
@@ -327,10 +351,7 @@ function markdownToHtml(raw) {
 
   for (const rawLine of lines) {
     const line = rawLine.trim();
-    if (!line) {
-      closeList();
-      continue;
-    }
+    if (!line) continue; // 빈 줄이 있다고 목록을 끊지 않는다
 
     const headerMatch = line.match(/^#{1,6}\s+(.*)/);
     if (headerMatch) {
@@ -347,13 +368,12 @@ function markdownToHtml(raw) {
       continue;
     }
 
-    const listMatch = line.match(/^[-*]\s+(.*)/);
-    if (listMatch) {
-      if (!inList) {
-        html += "<ul>";
-        inList = true;
-      }
-      html += `<li>${inlineMd(listMatch[1])}</li>`;
+    const bulletMatch = line.match(/^[-*]\s+(.*)/);
+    const numberMatch = line.match(/^\d+[.)]\s+(.*)/);
+    if (bulletMatch || numberMatch) {
+      const indent = rawLine.match(/^\s*/)[0].replace(/\t/g, "  ").length;
+      if (bulletMatch) addItem("ul", indent, bulletMatch[1]);
+      else addItem("ol", indent, numberMatch[1]);
       continue;
     }
 

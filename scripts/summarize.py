@@ -87,6 +87,15 @@ RESPONSE_SCHEMA = {
 }
 
 
+def _normalize_newlines(result):
+    """Gemini가 줄바꿈을 진짜 개행이 아니라 '\\n' 두 글자로 내보내는 경우가 있다.
+    그대로 두면 대시보드에서 마크다운이 한 줄로 뭉개져 제목/불릿 구분이 전부 사라진다."""
+    report = result.get("report_markdown")
+    if isinstance(report, str) and "\\n" in report:
+        result["report_markdown"] = report.replace("\\n", "\n")
+    return result
+
+
 def summarize_transcript(channel_name, title, transcript_text):
     api_key = os.environ["GEMINI_API_KEY"]
     transcript_text = transcript_text[:MAX_TRANSCRIPT_CHARS]
@@ -109,7 +118,7 @@ def summarize_transcript(channel_name, title, transcript_text):
             resp.raise_for_status()
             data = resp.json()
             raw = data["candidates"][0]["content"]["parts"][0]["text"]
-            return json.loads(raw)
+            return _normalize_newlines(json.loads(raw))
         except (requests.exceptions.HTTPError, requests.exceptions.Timeout, json.JSONDecodeError) as e:
             status = getattr(getattr(e, "response", None), "status_code", None)
             transient = isinstance(e, (requests.exceptions.Timeout, json.JSONDecodeError)) or status in RETRYABLE_STATUS_CODES
