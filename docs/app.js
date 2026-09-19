@@ -149,6 +149,13 @@ function renderDailyPicks() {
   }
 }
 
+function renderBriefingEmptyState() {
+  // 미장 브리핑과 섹터 박스가 둘 다 비면 Market Briefing 탭이 빈 화면이 되므로 안내를 띄운다.
+  const brief = document.getElementById("marketBrief");
+  const picks = document.getElementById("dailyPicks");
+  document.getElementById("briefingEmpty").hidden = !(brief.hidden && picks.hidden);
+}
+
 function formatPrice(n) {
   if (typeof n !== "number") return "-";
   return n.toLocaleString("en-US", { maximumFractionDigits: 2 });
@@ -542,6 +549,7 @@ async function loadAll() {
 
     renderMarketBrief();
     renderDailyPicks();
+    renderBriefingEmptyState();
     renderChannelTabs();
     renderDateTabs();
     renderSummaries();
@@ -556,9 +564,14 @@ const sectionTabBtns = [...document.querySelectorAll(".tab-btn")];
 
 function moveTabIndicator(btn) {
   const indicator = document.getElementById("tabIndicator");
-  const idx = sectionTabBtns.indexOf(btn);
-  indicator.style.transform = `translateX(${idx * 100}%)`;
+  indicator.style.width = `${btn.offsetWidth}px`;
+  indicator.style.transform = `translateX(${btn.offsetLeft}px)`;
 }
+
+window.addEventListener("resize", () => {
+  const active = sectionTabBtns.find((b) => b.classList.contains("active"));
+  if (active) moveTabIndicator(active);
+});
 
 sectionTabBtns.forEach((btn) => {
   btn.addEventListener("click", () => {

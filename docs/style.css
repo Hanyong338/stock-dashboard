@@ -152,16 +152,17 @@ body {
   border-radius: var(--radius-md);
 }
 
+/* 위치와 너비는 app.js 가 실제 버튼 좌표로 계산한다 (탭 개수/글자 길이에 상관없이 맞음) */
 .tab-indicator {
   position: absolute;
   top: 4px;
   bottom: 4px;
-  left: 4px;
-  width: calc(50% - 6px);
+  left: 0;
+  width: 0;
   background: var(--surface);
   border-radius: calc(var(--radius-md) - 4px);
   box-shadow: var(--shadow-1);
-  transition: transform 0.28s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: transform 0.28s cubic-bezier(0.65, 0, 0.35, 1), width 0.28s cubic-bezier(0.65, 0, 0.35, 1);
   z-index: 0;
 }
 
@@ -195,10 +196,8 @@ main {
 /* ---------- Overnight US market brief ---------- */
 
 .market-brief {
-  max-width: 880px;
-  margin: 16px auto 0;
+  margin: 0 0 16px;
   padding: 18px 20px;
-  width: calc(100% - 32px);
   background: linear-gradient(160deg, #0f1229, #161a3a 55%, #0f1229);
   border: 1px solid #2b2f5c;
   border-radius: var(--radius-lg);
