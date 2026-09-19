@@ -21,8 +21,25 @@ CROSS_FILE = DATA_DIR / "cross_mentions.json"
 CHANNELS_OUT_FILE = DATA_DIR / "channels.json"
 
 MAX_SUMMARIES = 500
+RETENTION_DAYS = 7
 STATE_HISTORY_PER_CHANNEL = 100
 CROSS_WINDOW_HOURS = 48
+
+
+def parse_published(pub_iso):
+    try:
+        return datetime.datetime.strptime(pub_iso[:19], "%Y-%m-%dT%H:%M:%S").replace(
+            tzinfo=datetime.timezone.utc
+        )
+    except (ValueError, KeyError, TypeError):
+        return None
+
+
+def within_retention(pub_iso, now):
+    pub = parse_published(pub_iso)
+    if pub is None:
+        return True  # 날짜를 못 읽으면 실수로 지우지 않고 남겨둔다
+    return pub >= now - datetime.timedelta(days=RETENTION_DAYS)
 
 
 def load_json(path, default):
@@ -102,13 +119,8 @@ def build_cross_mentions(summaries):
     mention_map = {}
 
     for s in summaries:
-        try:
-            pub = datetime.datetime.strptime(s["published"][:19], "%Y-%m-%dT%H:%M:%S").replace(
-                tzinfo=datetime.timezone.utc
-            )
-        except (ValueError, KeyError):
-            continue
-        if pub < cutoff:
+        pub = parse_published(s.get("published", ""))
+        if pub is None or pub < cutoff:
             continue
         for ticker in s.get("tickers", []):
             mention_map.setdefault(ticker, set()).add(s["channel"])
@@ -126,13 +138,14 @@ def main():
     channels = load_json(CHANNELS_FILE, [])
     state = load_json(STATE_FILE, {})
     summaries = load_json(SUMMARIES_FILE, [])
-    now_iso = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    now = datetime.datetime.now(datetime.timezone.utc)
+    now_iso = now.isoformat()
 
     for ch in channels:
         process_channel(ch, state, summaries, now_iso)
 
     summaries.sort(key=lambda s: s.get("published", ""), reverse=True)
-    summaries = summaries[:MAX_SUMMARIES]
+    summaries = [s for s in summaries if within_retention(s.get("published", ""), now)][:MAX_SUMMARIES]
 
     save_json(STATE_FILE, state)
     save_json(SUMMARIES_FILE, summaries)

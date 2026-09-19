@@ -299,6 +299,43 @@ main {
 }
 .channel-tab.active .channel-count { background: rgba(255, 255, 255, 0.25); color: #fff; }
 
+.date-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 2px 14px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.date-tabs::-webkit-scrollbar { display: none; }
+
+.date-tab {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--chip-bg);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.date-tab:hover { color: var(--text); }
+.date-tab.active {
+  background: var(--surface);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  box-shadow: var(--shadow-1);
+}
+.date-tab .channel-count { background: rgba(0, 0, 0, 0.08); }
+.date-tab.active .channel-count { background: var(--accent-soft); color: var(--accent-strong); }
+
 /* ---------- Summary list ---------- */
 
 .summary-list { display: flex; flex-direction: column; gap: 14px; }

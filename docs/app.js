@@ -20,6 +20,7 @@ const state = {
   screening: [],
   channels: [],
   selectedChannel: "",
+  selectedDate: "",
 };
 
 function channelColor(name) {
@@ -57,6 +58,36 @@ function dayLabel(iso) {
   const d = new Date(iso);
   if (isNaN(d.getTime())) return "날짜 미상";
   return d.toLocaleDateString("ko-KR", { month: "long", day: "numeric", weekday: "short" });
+}
+
+function dateKeyFromDate(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+function dateKeyLocal(iso) {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return "";
+  return dateKeyFromDate(d);
+}
+
+function last7DateKeys() {
+  const keys = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    keys.push(dateKeyFromDate(d));
+  }
+  return keys;
+}
+
+function dateTabLabel(key, idx) {
+  if (idx === 0) return "오늘";
+  if (idx === 1) return "어제";
+  const d = new Date(`${key}T00:00:00`);
+  return d.toLocaleDateString("ko-KR", { month: "numeric", day: "numeric", weekday: "short" });
 }
 
 function renderCrossMentions() {
@@ -129,6 +160,48 @@ function renderChannelTabs() {
   for (const name of names) {
     box.appendChild(makeTab(name, name, channelColor(name)));
   }
+}
+
+function renderDateTabs() {
+  const box = document.getElementById("dateTabs");
+  box.innerHTML = "";
+
+  const counts = {};
+  for (const s of state.summaries) {
+    const key = dateKeyLocal(s.published);
+    counts[key] = (counts[key] || 0) + 1;
+  }
+
+  const makeTab = (label, value) => {
+    const btn = document.createElement("button");
+    btn.className = "date-tab" + (state.selectedDate === value ? " active" : "");
+    btn.dataset.date = value;
+
+    const text = document.createElement("span");
+    text.textContent = label;
+    btn.appendChild(text);
+
+    const count = value ? counts[value] || 0 : state.summaries.length;
+    if (count > 0) {
+      const badge = document.createElement("span");
+      badge.className = "channel-count";
+      badge.textContent = count;
+      btn.appendChild(badge);
+    }
+
+    btn.addEventListener("click", () => {
+      state.selectedDate = value;
+      document.querySelectorAll(".date-tab").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderSummaries();
+    });
+    return btn;
+  };
+
+  box.appendChild(makeTab("전체 기간", ""));
+  last7DateKeys().forEach((key, idx) => {
+    box.appendChild(makeTab(dateTabLabel(key, idx), key));
+  });
 }
 
 function crossTickerSet() {
@@ -284,7 +357,9 @@ function renderSummaries() {
   list.innerHTML = "";
 
   const filtered = state.summaries.filter(
-    (s) => !state.selectedChannel || s.channel === state.selectedChannel
+    (s) =>
+      (!state.selectedChannel || s.channel === state.selectedChannel) &&
+      (!state.selectedDate || dateKeyLocal(s.published) === state.selectedDate)
   );
 
   if (!filtered.length) {
@@ -357,6 +432,7 @@ async function loadAll() {
 
     renderCrossMentions();
     renderChannelTabs();
+    renderDateTabs();
     renderSummaries();
     renderScreening();
     setLastUpdated();
