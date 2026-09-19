@@ -6,6 +6,7 @@ import json
 import subprocess
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -32,6 +33,23 @@ CROSS_WINDOW_HOURS = 48
 DAILY_PICKS_WINDOW_HOURS = 24
 MAX_PICKS_PER_SIDE = 6
 REQUEST_INTERVAL_SECONDS = 3  # 자막/AI API를 너무 빨리 연달아 호출해서 429(요청 한도 초과)에 걸리는 것을 막는다.
+TRANSCRIPT_TIMEOUT_SECONDS = 90
+SUMMARIZE_TIMEOUT_SECONDS = 150
+
+
+def call_with_timeout(fn, timeout, *args, **kwargs):
+    """무료 자막 라이브러리 등 내부에 자체 타임아웃이 없는 호출이 영원히 멈춰서
+    파이프라인 전체가 몇 시간씩 멈춰버리는 것을 막는다.
+    매번 새 executor를 써서, 이번 호출이 멈추더라도 다음 영상 처리까지 같이 멈추지 않게 한다.
+    """
+    executor = ThreadPoolExecutor(max_workers=1)
+    future = executor.submit(fn, *args, **kwargs)
+    try:
+        return future.result(timeout=timeout)
+    except FutureTimeoutError:
+        raise TimeoutError(f"{fn.__name__} 호출이 {timeout}초 안에 끝나지 않았습니다")
+    finally:
+        executor.shutdown(wait=False)
 
 
 def parse_published(pub_iso):
@@ -101,12 +119,12 @@ def process_channel(ch, state, summaries, now):
         time.sleep(REQUEST_INTERVAL_SECONDS)
 
         try:
-            transcript_text = get_transcript(v["url"])
+            transcript_text = call_with_timeout(get_transcript, TRANSCRIPT_TIMEOUT_SECONDS, v["url"])
         except Exception as e:
             print(f"[WARN] transcript failed for {v['url']}: {e}")
-            if not is_retryable_error(e):
+            if not is_retryable_error(e) and not isinstance(e, TimeoutError):
                 state[cid].append(v["video_id"])  # 자막 자체가 없는 영상일 확률이 높아 재시도하지 않는다.
-            # 요청 한도 초과/크레딧 부족 등 일시적 오류면 '확인함' 처리하지 않아 다음 시간에 재시도된다.
+            # 요청 한도 초과/크레딧 부족/타임아웃 등 일시적 오류면 '확인함' 처리하지 않아 다음 시간에 재시도된다.
             continue
 
         if not transcript_text:
@@ -115,9 +133,9 @@ def process_channel(ch, state, summaries, now):
             continue
 
         try:
-            result = summarize_transcript(name, v["title"], transcript_text)
+            result = call_with_timeout(summarize_transcript, SUMMARIZE_TIMEOUT_SECONDS, name, v["title"], transcript_text)
         except Exception as e:
-            # 요약 실패(예: 일시적인 API 요청 한도 초과)는 '확인함' 처리하지 않아서
+            # 요약 실패(예: 일시적인 API 요청 한도 초과, 타임아웃)는 '확인함' 처리하지 않아서
             # 다음 시간 실행 때 자동으로 재시도된다.
             print(f"[WARN] summarize failed for {v['url']}: {e}")
             continue
