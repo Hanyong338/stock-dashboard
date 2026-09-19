@@ -16,6 +16,7 @@ from summarize import summarize_transcript
 from transcript import get_transcript, is_retryable_error
 from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
+from calendar_data import build_calendar
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "data"
@@ -24,6 +25,7 @@ STATE_FILE = DATA_DIR / "state.json"
 SUMMARIES_FILE = DATA_DIR / "summaries.json"
 CHANNELS_OUT_FILE = DATA_DIR / "channels.json"
 MORNING_BRIEF_FILE = DATA_DIR / "morning_brief.json"
+CALENDAR_FILE = DATA_DIR / "calendar.json"
 
 MAX_SUMMARIES = 500
 RETENTION_DAYS = 7
@@ -230,6 +232,21 @@ def _overlay_session_closes(report, published):
     )
 
 
+def update_calendar(now):
+    """증시 캘린더를 하루에 한 번만 다시 만든다.
+    한 번에 80일 넘게 조회하므로 매시간 돌리면 API 호출이 낭비된다."""
+    current = load_json(CALENDAR_FILE, {})
+    today = now.date().isoformat()
+    if current.get("built_on") == today:
+        return False
+
+    data = build_calendar(now.date())
+    data["built_on"] = today
+    data["updated_at"] = now.isoformat()
+    save_json(CALENDAR_FILE, data)
+    return True
+
+
 def update_morning_brief(now):
     """당잠사(한국경제TV) 최신 방송 1건만 분석해 아침 리포트를 만든다.
     이미 같은 영상으로 만들어둔 리포트가 있으면 아무것도 하지 않는다. True를 반환하면 저장된 것."""
@@ -321,6 +338,12 @@ def main():
             commit_and_push(f"chore: update morning brief {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] morning brief failed: {e}")
+
+    try:
+        if update_calendar(now):
+            commit_and_push(f"chore: update calendar {now.isoformat()}")
+    except Exception as e:
+        print(f"[WARN] calendar build failed: {e}")
 
     print("[INFO] Pipeline run complete.")
 

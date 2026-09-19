@@ -17,6 +17,7 @@ function matchSection(headingText) {
 const state = {
   summaries: [],
   morningBrief: {},
+  calendar: { months: [], events: [] },
   screening: [],
   channels: [],
   selectedChannel: "",
@@ -133,6 +134,245 @@ function mbriefSection(title, bodyNodes) {
   wrap.appendChild(h);
   bodyNodes.forEach((n) => wrap.appendChild(n));
   return wrap;
+}
+
+/* ---------- 증시 캘린더 ---------- */
+
+const CAL_CATEGORIES = [
+  { key: "earnings", label: "실적" },
+  { key: "macro", label: "경제지표" },
+  { key: "major", label: "주요 이벤트" },
+  { key: "holiday", label: "휴장" },
+];
+
+const calState = { month: null, hidden: new Set(), selected: null };
+
+function ymd(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function monthLabel(ym) {
+  const [y, m] = ym.split("-");
+  return `${y}년 ${Number(m)}월`;
+}
+
+function calEvents() {
+  return (state.calendar.events || []).filter((e) => !calState.hidden.has(e.category));
+}
+
+/** 'YYYY-MM-DD' 를 로컬 자정으로 읽는다.
+ *  new Date('2026-09-26') 는 UTC 자정이라 한국시간에서 9시간 밀려 비교가 틀어진다. */
+function parseDay(s) {
+  return new Date(s + "T00:00:00");
+}
+
+/** 한 주(7칸) 안에서 막대가 서로 겹치지 않도록 줄(lane)을 배정한다. */
+function assignLanes(events, weekStart, weekEnd) {
+  const placed = [];
+  const lanes = [];
+
+  const sorted = [...events].sort((a, b) => {
+    if (a.start !== b.start) return a.start < b.start ? -1 : 1;
+    const da = parseDay(a.end) - parseDay(a.start);
+    const db = parseDay(b.end) - parseDay(b.start);
+    return db - da; // 긴 일정을 위쪽 줄에 둔다
+  });
+
+  for (const ev of sorted) {
+    const startsBefore = parseDay(ev.start) < weekStart;
+    const endsAfter = parseDay(ev.end) > weekEnd;
+    const s = startsBefore ? weekStart : parseDay(ev.start);
+    const e = endsAfter ? weekEnd : parseDay(ev.end);
+    const col = Math.round((s - weekStart) / 86400000);
+    const span = Math.round((e - s) / 86400000) + 1;
+
+    let lane = 0;
+    while (true) {
+      lanes[lane] = lanes[lane] || [];
+      const clash = lanes[lane].some((p) => col < p.col + p.span && p.col < col + span);
+      if (!clash) break;
+      lane++;
+    }
+    lanes[lane].push({ col, span });
+    placed.push({ ev, col, span, lane, continuesLeft: startsBefore, continuesRight: endsAfter });
+  }
+  return placed;
+}
+
+function renderCalendar() {
+  const grid = document.getElementById("calGrid");
+  const months = state.calendar.months || [];
+  const empty = document.getElementById("calEmpty");
+
+  if (!months.length) {
+    grid.innerHTML = "";
+    empty.hidden = false;
+    document.getElementById("calMonthLabel").textContent = "데이터 없음";
+    return;
+  }
+  empty.hidden = true;
+  if (!calState.month || !months.includes(calState.month)) calState.month = months[0];
+
+  document.getElementById("calMonthLabel").textContent = monthLabel(calState.month);
+  document.getElementById("calPrev").disabled = months.indexOf(calState.month) === 0;
+  document.getElementById("calNext").disabled = months.indexOf(calState.month) === months.length - 1;
+
+  const [y, m] = calState.month.split("-").map(Number);
+  const first = new Date(y, m - 1, 1);
+  const gridStart = new Date(y, m - 1, 1 - first.getDay()); // 그 주 일요일부터
+  const todayStr = ymd(new Date());
+  const events = calEvents();
+
+  grid.innerHTML = "";
+  for (let w = 0; w < 6; w++) {
+    const weekStart = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + w * 7);
+    const weekEnd = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 6);
+    if (w >= 4 && weekStart.getMonth() !== m - 1 && weekEnd.getMonth() !== m - 1) break; // 빈 주는 그리지 않는다
+
+    const week = document.createElement("div");
+    week.className = "cal-week";
+
+    const dates = document.createElement("div");
+    dates.className = "cal-dates";
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + i);
+      const key = ymd(day);
+      const cell = document.createElement("button");
+      cell.type = "button";
+      cell.className =
+        "cal-day" +
+        (day.getMonth() !== m - 1 ? " other" : "") +
+        (i === 0 ? " sun" : i === 6 ? " sat" : "") +
+        (key === todayStr ? " today" : "") +
+        (key === calState.selected ? " picked" : "");
+      cell.innerHTML = `<span class="cal-dnum">${day.getDate()}</span>`;
+      cell.addEventListener("click", () => {
+        calState.selected = calState.selected === key ? null : key;
+        renderCalendar();
+      });
+      dates.appendChild(cell);
+    }
+    week.appendChild(dates);
+
+    const inWeek = events.filter((e) => e.end >= ymd(weekStart) && e.start <= ymd(weekEnd));
+    const bars = document.createElement("div");
+    bars.className = "cal-bars";
+    const placed = assignLanes(inWeek, weekStart, weekEnd);
+    const laneCount = placed.reduce((mx, p) => Math.max(mx, p.lane + 1), 0);
+    bars.style.setProperty("--lanes", laneCount);
+
+    for (const p of placed) {
+      const bar = document.createElement("div");
+      bar.className =
+        `cal-bar cat-${p.ev.category}` +
+        (p.continuesLeft ? " cont-l" : "") +
+        (p.continuesRight ? " cont-r" : "");
+      bar.style.gridColumn = `${p.col + 1} / span ${p.span}`;
+      bar.style.gridRow = String(p.lane + 1);
+      bar.textContent = p.ev.title;
+      bar.title = p.ev.detail ? `${p.ev.title} (${p.ev.detail})` : p.ev.title;
+      bar.addEventListener("click", () => {
+        calState.selected = p.ev.start;
+        renderCalendar();
+      });
+      bars.appendChild(bar);
+    }
+    week.appendChild(bars);
+    grid.appendChild(week);
+  }
+
+  renderCalFilters();
+  renderCalAgenda();
+}
+
+function renderCalFilters() {
+  const box = document.getElementById("calFilters");
+  const counts = {};
+  for (const e of state.calendar.events || []) counts[e.category] = (counts[e.category] || 0) + 1;
+
+  box.innerHTML = "";
+  for (const c of CAL_CATEGORIES) {
+    if (!counts[c.key]) continue;
+    const on = !calState.hidden.has(c.key);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = `cal-chip cat-${c.key}` + (on ? " on" : "");
+    btn.innerHTML = `<span class="cal-dot"></span>${c.label}`;
+    btn.addEventListener("click", () => {
+      if (on) calState.hidden.add(c.key);
+      else calState.hidden.delete(c.key);
+      renderCalendar();
+    });
+    box.appendChild(btn);
+  }
+}
+
+function renderCalAgenda() {
+  const box = document.getElementById("calAgenda");
+  box.innerHTML = "";
+  if (!calState.selected) return;
+
+  const day = calEvents().filter((e) => e.start <= calState.selected && e.end >= calState.selected);
+  const d = new Date(calState.selected + "T00:00:00");
+  const head = document.createElement("div");
+  head.className = "cal-agenda-head";
+  head.textContent = d.toLocaleDateString("ko-KR", { month: "long", day: "numeric", weekday: "long" });
+  box.appendChild(head);
+
+  if (!day.length) {
+    const p = document.createElement("p");
+    p.className = "cal-agenda-empty";
+    p.textContent = "이 날짜에 등록된 일정이 없어요.";
+    box.appendChild(p);
+    return;
+  }
+
+  for (const e of day) {
+    const row = document.createElement("div");
+    row.className = `cal-agenda-item cat-${e.category}`;
+    row.innerHTML = `<span class="cal-dot"></span><span class="cal-agenda-title">${escapeHtml(e.title)}</span>` +
+      (e.detail ? `<span class="cal-agenda-detail">${escapeHtml(e.detail)}</span>` : "");
+    box.appendChild(row);
+  }
+}
+
+function setupCalendarControls() {
+  const menu = document.getElementById("calMonthMenu");
+  const btn = document.getElementById("calMonthBtn");
+
+  btn.addEventListener("click", () => {
+    const months = state.calendar.months || [];
+    menu.innerHTML = "";
+    for (const ym of months) {
+      const li = document.createElement("li");
+      li.role = "option";
+      li.className = "cal-monthitem" + (ym === calState.month ? " on" : "");
+      li.textContent = monthLabel(ym);
+      li.addEventListener("click", () => {
+        calState.month = ym;
+        calState.selected = null;
+        menu.hidden = true;
+        renderCalendar();
+      });
+      menu.appendChild(li);
+    }
+    menu.hidden = !menu.hidden;
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!menu.hidden && !menu.contains(e.target) && e.target !== btn && !btn.contains(e.target)) menu.hidden = true;
+  });
+
+  const step = (delta) => {
+    const months = state.calendar.months || [];
+    const i = months.indexOf(calState.month) + delta;
+    if (i < 0 || i >= months.length) return;
+    calState.month = months[i];
+    calState.selected = null;
+    renderCalendar();
+  };
+  document.getElementById("calPrev").addEventListener("click", () => step(-1));
+  document.getElementById("calNext").addEventListener("click", () => step(1));
 }
 
 function renderTodayVerdict(d) {
@@ -695,20 +935,23 @@ function setLastUpdated() {
 
 async function loadAll() {
   try {
-    const [summaries, morningBrief, screening, channels] = await Promise.all([
+    const [summaries, morningBrief, calendar, screening, channels] = await Promise.all([
       loadJSON("summaries.json"),
       loadJSON("morning_brief.json").catch(() => ({})),
+      loadJSON("calendar.json").catch(() => ({ months: [], events: [] })),
       loadJSON("screening.json"),
       loadJSON("channels.json").catch(() => []),
     ]);
     state.summaries = summaries;
     state.morningBrief = morningBrief;
+    state.calendar = calendar;
     state.screening = screening;
     state.channels = channels;
 
     const activeCount = channels.filter((c) => !c.paused).length;
     document.getElementById("brandSub").textContent = `${activeCount}개 채널 · 자동 리포트`;
 
+    renderCalendar();
     renderMorningBrief();
     renderBriefingEmptyState();
     renderChannelTabs();
@@ -767,5 +1010,6 @@ function renderSkeleton() {
     .join("");
 }
 
+setupCalendarControls();
 renderSkeleton();
 loadAll();
