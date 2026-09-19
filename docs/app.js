@@ -16,9 +16,6 @@ function matchSection(headingText) {
 
 const state = {
   summaries: [],
-  crossMentions: [],
-  dailyPicks: { leading: [], watch: [] },
-  marketBrief: { as_of: null, indices: [], sectors: [] },
   morningBrief: {},
   screening: [],
   channels: [],
@@ -97,58 +94,6 @@ function dateTabLabel(key, idx) {
   return d.toLocaleDateString("ko-KR", { month: "numeric", day: "numeric", weekday: "short" });
 }
 
-function renderPickList(containerEl, items) {
-  containerEl.innerHTML = "";
-  for (const item of items) {
-    const row = document.createElement("div");
-    row.className = "pick-item";
-
-    const sector = document.createElement("div");
-    sector.className = "pick-sector";
-    sector.textContent = item.sector;
-    row.appendChild(sector);
-
-    const tags = document.createElement("div");
-    tags.className = "tag-row";
-    for (const ticker of item.tickers || []) {
-      const tag = document.createElement("span");
-      tag.className = "tag";
-      tag.textContent = ticker;
-      tags.appendChild(tag);
-    }
-    row.appendChild(tags);
-    row.title = `${item.channels.length}개 채널: ${item.channels.join(", ")}`;
-
-    containerEl.appendChild(row);
-  }
-}
-
-function renderDailyPicks() {
-  const box = document.getElementById("dailyPicks");
-  const leading = state.dailyPicks.leading || [];
-  const watch = state.dailyPicks.watch || [];
-
-  if (!leading.length && !watch.length) {
-    box.hidden = true;
-    return;
-  }
-  box.hidden = false;
-
-  const leadingList = document.getElementById("leadingPicksList");
-  const watchList = document.getElementById("watchPicksList");
-
-  if (leading.length) {
-    renderPickList(leadingList, leading);
-  } else {
-    leadingList.innerHTML = '<p class="picks-empty">오늘 뚜렷한 주도 섹터가 아직 없어요.</p>';
-  }
-
-  if (watch.length) {
-    renderPickList(watchList, watch);
-  } else {
-    watchList.innerHTML = '<p class="picks-empty">오늘 특별한 주의 섹터가 아직 없어요.</p>';
-  }
-}
 
 const STRENGTH_LABEL = { 3: "직접 연관", 2: "산업 연관", 1: "테마 연관" };
 
@@ -227,6 +172,7 @@ function renderMbriefNav(d) {
     ["mbriefIndices", "지표", (d.indices || []).length],
     ["mbriefEvents", "경제지표", (d.economic_events || []).length],
     ["mbriefNews", "뉴스", (d.news || []).length],
+    ["mbriefSectors", "섹터", (d.sectors || []).length],
     ["mbriefConnections", "국내 연관주", (d.connections || []).length],
     ["mbriefChecklist", "체크리스트", (d.checklist_caution || []).length + (d.checklist_watch || []).length],
   ].filter(([, , n]) => n > 0);
@@ -329,6 +275,34 @@ function renderMorningBrief() {
     newsBox.appendChild(mbriefSection(`📰 간밤 핵심 뉴스 (${news.length})`, [list]));
   }
 
+  // 섹터 성과 (실제 SPDR 섹터 ETF 시세 기준. 방송 발언이 아님)
+  const secBox = document.getElementById("mbriefSectors");
+  secBox.innerHTML = "";
+  const sectors = d.sectors || [];
+  if (sectors.length) {
+    const up = sectors.filter((s) => s.change_percent > 0).length;
+    const down = sectors.filter((s) => s.change_percent < 0).length;
+    const maxAbs = Math.max(...sectors.map((s) => Math.abs(s.change_percent)), 0.01);
+
+    const wrap = document.createElement("div");
+    wrap.className = "sec-perf";
+    wrap.innerHTML =
+      `<div class="sec-perf-meta"><span class="up">강세 ${up}</span><span class="down">약세 ${down}</span>
+         <span class="sec-perf-src">섹터 ETF 종가 기준</span></div>` +
+      sectors
+        .map((s) => {
+          const tone = s.change_percent > 0 ? "up" : s.change_percent < 0 ? "down" : "flat";
+          const width = (Math.abs(s.change_percent) / maxAbs) * 100;
+          return `<div class="sec-row ${tone}">
+            <span class="sec-name">${escapeHtml(s.name)}</span>
+            <span class="sec-track"><span class="sec-fill" style="width:${width.toFixed(1)}%"></span></span>
+            <span class="sec-chg num">${changeWithMark(formatChangePercent(s.change_percent), tone)}</span>
+          </div>`;
+        })
+        .join("");
+    secBox.appendChild(mbriefSection("📶 섹터 성과", [wrap]));
+  }
+
   // Overnight -> Korea
   const connBox = document.getElementById("mbriefConnections");
   connBox.innerHTML = "";
@@ -389,14 +363,10 @@ function renderMorningBrief() {
 }
 
 function renderBriefingEmptyState() {
-  // 미장 브리핑과 섹터 박스가 둘 다 비면 Market Briefing 탭이 빈 화면이 되므로 안내를 띄운다.
-  const brief = document.getElementById("marketBrief");
-  const picks = document.getElementById("dailyPicks");
+  // 리포트가 아직 없으면(주말 등) 빈 화면 대신 안내를 띄운다.
   const morning = document.getElementById("morningBrief");
   const verdict = document.getElementById("todayVerdict");
-  document.getElementById("briefingEmpty").hidden = !(
-    brief.hidden && picks.hidden && morning.hidden && verdict.hidden
-  );
+  document.getElementById("briefingEmpty").hidden = !(morning.hidden && verdict.hidden);
 }
 
 function formatPrice(n) {
@@ -413,50 +383,6 @@ function formatChangePercent(n) {
 function changeDirClass(n) {
   if (typeof n !== "number" || n === 0) return "flat";
   return n > 0 ? "up" : "down";
-}
-
-function renderMarketBrief() {
-  const section = document.getElementById("marketBrief");
-  const indices = state.marketBrief.indices || [];
-  const sectors = state.marketBrief.sectors || [];
-
-  if (!indices.length && !sectors.length) {
-    section.hidden = true;
-    return;
-  }
-  section.hidden = false;
-
-  document.getElementById("marketAsOf").textContent = state.marketBrief.as_of
-    ? formatRelativeTime(state.marketBrief.as_of) + " 기준"
-    : "";
-
-  const indicesBox = document.getElementById("marketIndices");
-  indicesBox.innerHTML = "";
-  for (const idx of indices) {
-    const card = document.createElement("div");
-    card.className = "index-card " + changeDirClass(idx.change_percent);
-    card.innerHTML = `
-      <div class="index-name">${escapeHtml(idx.name)}</div>
-      <div class="index-price num">${formatPrice(idx.price)}</div>
-      <div class="index-change num">${changeWithMark(formatChangePercent(idx.change_percent), changeDirClass(idx.change_percent))}</div>
-    `;
-    indicesBox.appendChild(card);
-  }
-
-  const maxAbs = Math.max(1, ...sectors.map((s) => Math.abs(s.change_percent || 0)));
-  const sectorsBox = document.getElementById("marketSectors");
-  sectorsBox.innerHTML = "";
-  for (const sec of sectors) {
-    const row = document.createElement("div");
-    row.className = "sector-row " + changeDirClass(sec.change_percent);
-    const pct = Math.min(100, (Math.abs(sec.change_percent || 0) / maxAbs) * 100);
-    row.innerHTML = `
-      <span class="sector-name">${escapeHtml(sec.name)}</span>
-      <span class="sector-bar-track"><span class="sector-bar-fill" style="width:${pct}%"></span></span>
-      <span class="sector-change num">${formatChangePercent(sec.change_percent)}</span>
-    `;
-    sectorsBox.appendChild(row);
-  }
 }
 
 function renderChannelTabs() {
@@ -548,10 +474,6 @@ function renderDateTabs() {
   last7DateKeys().forEach((key, idx) => {
     box.appendChild(makeTab(dateTabLabel(key, idx), key));
   });
-}
-
-function crossTickerSet() {
-  return new Set(state.crossMentions.map((c) => c.ticker));
 }
 
 function inlineMd(escapedText) {
@@ -745,19 +667,17 @@ function renderScreening() {
   list.innerHTML = "";
 
   if (!state.screening.length) {
-    list.innerHTML = '<div class="empty-state"><span class="empty-icon">📉</span>차트 패턴 스크리닝 기능은 아직 준비 중입니다.<br>다음 단계에서 추가될 예정이에요.</div>';
+    list.innerHTML = '<div class="empty-state"><span class="empty-icon">📉</span>기술적 분석 기능은 아직 준비 중입니다.<br>다음 단계에서 추가될 예정이에요.</div>';
     return;
   }
 
-  const hotTickers = crossTickerSet();
   for (const item of state.screening) {
     const card = document.createElement("div");
     card.className = "card";
-    const isHot = hotTickers.has(item.name);
     card.innerHTML = `
       <div class="card-head">
         <div>
-          <div class="card-title">${escapeHtml(item.name)} ${isHot ? '<span class="tag ticker-hit">유튜브 공통 언급</span>' : ""}</div>
+          <div class="card-title">${escapeHtml(item.name)}</div>
         </div>
         <div class="card-time">${item.price ?? ""}</div>
       </div>
@@ -775,19 +695,13 @@ function setLastUpdated() {
 
 async function loadAll() {
   try {
-    const [summaries, crossMentions, dailyPicks, marketBrief, morningBrief, screening, channels] = await Promise.all([
+    const [summaries, morningBrief, screening, channels] = await Promise.all([
       loadJSON("summaries.json"),
-      loadJSON("cross_mentions.json"),
-      loadJSON("daily_picks.json").catch(() => ({ leading: [], watch: [] })),
-      loadJSON("market_brief.json").catch(() => ({ as_of: null, indices: [], sectors: [] })),
       loadJSON("morning_brief.json").catch(() => ({})),
       loadJSON("screening.json"),
       loadJSON("channels.json").catch(() => []),
     ]);
     state.summaries = summaries;
-    state.crossMentions = crossMentions;
-    state.dailyPicks = dailyPicks;
-    state.marketBrief = marketBrief;
     state.morningBrief = morningBrief;
     state.screening = screening;
     state.channels = channels;
@@ -795,9 +709,7 @@ async function loadAll() {
     const activeCount = channels.filter((c) => !c.paused).length;
     document.getElementById("brandSub").textContent = `${activeCount}개 채널 · 자동 리포트`;
 
-    renderMarketBrief();
     renderMorningBrief();
-    renderDailyPicks();
     renderBriefingEmptyState();
     renderChannelTabs();
     renderDateTabs();

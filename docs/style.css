@@ -993,3 +993,46 @@ main {
   font-weight: 600;
 }
 
+
+/* ---------- 섹터 성과 (실제 섹터 ETF 시세 기준) ---------- */
+
+.sec-perf { display: flex; flex-direction: column; gap: 4px; }
+.sec-perf-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+.sec-perf-meta .up,
+.sec-perf-meta .down {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--chip-bg);
+}
+.sec-perf-meta .up { color: var(--up); }
+.sec-perf-meta .down { color: var(--down); }
+.sec-perf-src { margin-left: auto; color: var(--text-faint); font-weight: 600; font-size: 11px; }
+
+.sec-row {
+  display: grid;
+  grid-template-columns: 82px 1fr 68px;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+}
+.sec-name { color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sec-track { height: 7px; border-radius: 999px; background: var(--chip-bg); overflow: hidden; }
+.sec-fill { display: block; height: 100%; border-radius: 999px; }
+.sec-row.up .sec-fill { background: var(--up); }
+.sec-row.down .sec-fill { background: var(--down); }
+.sec-row.flat .sec-fill { background: var(--text-faint); }
+.sec-chg { text-align: right; font-weight: 700; }
+.sec-row.up .sec-chg { color: var(--up); }
+.sec-row.down .sec-chg { color: var(--down); }
+.sec-row.flat .sec-chg { color: var(--text-muted); }
+
+@media (max-width: 560px) {
+  .sec-row { grid-template-columns: 68px 1fr 62px; gap: 7px; font-size: 11.5px; }
+}

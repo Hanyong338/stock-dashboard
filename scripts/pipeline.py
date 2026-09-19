@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from youtube_check import fetch_channel_videos
 from summarize import summarize_transcript
 from transcript import get_transcript, is_retryable_error
-from market_data import BRIEF_INDICES, fetch_market_brief, fetch_session_closes
+from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -22,18 +22,12 @@ DATA_DIR = ROOT / "docs" / "data"
 CHANNELS_FILE = ROOT / "scripts" / "channels.json"
 STATE_FILE = DATA_DIR / "state.json"
 SUMMARIES_FILE = DATA_DIR / "summaries.json"
-CROSS_FILE = DATA_DIR / "cross_mentions.json"
 CHANNELS_OUT_FILE = DATA_DIR / "channels.json"
-DAILY_PICKS_FILE = DATA_DIR / "daily_picks.json"
-MARKET_BRIEF_FILE = DATA_DIR / "market_brief.json"
 MORNING_BRIEF_FILE = DATA_DIR / "morning_brief.json"
 
 MAX_SUMMARIES = 500
 RETENTION_DAYS = 7
 STATE_HISTORY_PER_CHANNEL = 100
-CROSS_WINDOW_HOURS = 48
-DAILY_PICKS_WINDOW_HOURS = 24
-MAX_PICKS_PER_SIDE = 6
 REQUEST_INTERVAL_SECONDS = 3  # 자막/AI API를 너무 빨리 연달아 호출해서 429(요청 한도 초과)에 걸리는 것을 막는다.
 TRANSCRIPT_TIMEOUT_SECONDS = 90
 SUMMARIZE_TIMEOUT_SECONDS = 300  # summarize.py의 재시도(최대 85초 대기)까지 포함해서 넉넉히 잡는다
@@ -189,61 +183,6 @@ def process_channel(ch, state, summaries, now):
     state[cid] = state[cid][-STATE_HISTORY_PER_CHANNEL:]
 
 
-def build_cross_mentions(summaries):
-    cutoff = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=CROSS_WINDOW_HOURS)
-    mention_map = {}
-
-    for s in summaries:
-        pub = parse_published(s.get("published", ""))
-        if pub is None or pub < cutoff:
-            continue
-        for ticker in s.get("tickers", []):
-            mention_map.setdefault(ticker, set()).add(s["channel"])
-
-    cross = [
-        {"ticker": ticker, "channels": sorted(chs), "count": len(chs)}
-        for ticker, chs in mention_map.items()
-        if len(chs) >= 2
-    ]
-    cross.sort(key=lambda x: x["count"], reverse=True)
-    return cross
-
-
-def _aggregate_picks(summaries, cutoff, field):
-    sector_map = {}  # sector -> {"tickers": set, "channels": set}
-
-    for s in summaries:
-        pub = parse_published(s.get("published", ""))
-        if pub is None or pub < cutoff:
-            continue
-        for pick in s.get(field, []) or []:
-            sector = (pick.get("sector") or "").strip()
-            if not sector:
-                continue
-            entry = sector_map.setdefault(sector, {"tickers": set(), "channels": set()})
-            entry["tickers"].update(t for t in pick.get("tickers", []) if t)
-            entry["channels"].add(s["channel"])
-
-    items = [
-        {
-            "sector": sector,
-            "tickers": sorted(v["tickers"]),
-            "channels": sorted(v["channels"]),
-            "count": len(v["channels"]),
-        }
-        for sector, v in sector_map.items()
-    ]
-    items.sort(key=lambda x: x["count"], reverse=True)
-    return items[:MAX_PICKS_PER_SIDE]
-
-
-def build_daily_picks(summaries):
-    cutoff = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=DAILY_PICKS_WINDOW_HOURS)
-    return {
-        "leading": _aggregate_picks(summaries, cutoff, "leading_picks"),
-        "watch": _aggregate_picks(summaries, cutoff, "watch_picks"),
-    }
-
 
 def _save_data_files(state, summaries, channels, now):
     summaries.sort(key=lambda s: s.get("published", ""), reverse=True)
@@ -251,8 +190,6 @@ def _save_data_files(state, summaries, channels, now):
 
     save_json(STATE_FILE, state)
     save_json(SUMMARIES_FILE, trimmed)
-    save_json(CROSS_FILE, build_cross_mentions(trimmed))
-    save_json(DAILY_PICKS_FILE, build_daily_picks(trimmed))
     save_json(CHANNELS_OUT_FILE, channels)
     return trimmed
 
@@ -280,7 +217,17 @@ def _overlay_session_closes(report, published):
         if item["name"] in closes
     ]
     report["indices_note"] = "지수·금리·유가는 시장 데이터 종가 기준"
-    print(f"[INFO] morning brief: 지수 {len(report['indices'])}개를 시세 데이터로 교체 (거래일 {target_date})")
+
+    # 어느 섹터가 좋았고 나빴는지도 방송 발언이 아니라 실제 섹터 ETF 시세로 보여준다.
+    try:
+        report["sectors"] = fetch_session_sectors(target_date)
+    except Exception as e:
+        print(f"[WARN] sector session fetch skipped: {e}")
+
+    print(
+        f"[INFO] morning brief: 지수 {len(report['indices'])}개 / "
+        f"섹터 {len(report.get('sectors', []))}개를 시세 데이터로 채움 (거래일 {target_date})"
+    )
 
 
 def update_morning_brief(now):
@@ -374,14 +321,6 @@ def main():
             commit_and_push(f"chore: update morning brief {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] morning brief failed: {e}")
-
-    try:
-        market_brief = fetch_market_brief()
-        market_brief["as_of"] = now.isoformat()
-        save_json(MARKET_BRIEF_FILE, market_brief)
-        commit_and_push(f"chore: update market brief {now.isoformat()}")
-    except Exception as e:
-        print(f"[WARN] market brief fetch failed: {e}")
 
     print("[INFO] Pipeline run complete.")
 

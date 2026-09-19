@@ -5,13 +5,7 @@ import requests
 
 CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 
-INDICES = [
-    {"symbol": "^GSPC", "name": "S&P 500"},
-    {"symbol": "^IXIC", "name": "나스닥"},
-    {"symbol": "^DJI", "name": "다우존스"},
-    {"symbol": "^VIX", "name": "VIX(공포지수)"},
-]
-
+# SPDR 섹터 ETF. 어느 섹터가 강했고 약했는지를 실제 시세로 보여주는 데 쓴다.
 SECTORS = [
     {"symbol": "XLK", "name": "기술"},
     {"symbol": "XLF", "name": "금융"},
@@ -40,38 +34,6 @@ BRIEF_INDICES = [
     {"symbol": "CL=F", "name": "WTI 유가", "fmt": "usd"},
 ]
 
-
-def _fetch_quote(symbol):
-    resp = requests.get(CHART_URL.format(symbol=symbol), headers=HEADERS, timeout=15)
-    resp.raise_for_status()
-    meta = resp.json()["chart"]["result"][0]["meta"]
-
-    price = meta.get("regularMarketPrice")
-    prev_close = meta.get("previousClose") or meta.get("chartPreviousClose")
-    change_percent = meta.get("regularMarketChangePercent")
-    if change_percent is None and price is not None and prev_close:
-        change_percent = (price - prev_close) / prev_close * 100
-
-    return {"price": price, "change_percent": change_percent}
-
-
-def _fetch_group(items):
-    results = []
-    for item in items:
-        try:
-            quote = _fetch_quote(item["symbol"])
-        except Exception as e:
-            print(f"[WARN] market data fetch failed for {item['symbol']}: {e}")
-            continue
-        results.append({**item, **quote})
-    return results
-
-
-def fetch_market_brief():
-    indices = _fetch_group(INDICES)
-    sectors = _fetch_group(SECTORS)
-    sectors.sort(key=lambda s: s.get("change_percent") or 0, reverse=True)
-    return {"indices": indices, "sectors": sectors}
 
 
 def _fetch_daily_closes(symbol, days=12):
@@ -109,6 +71,30 @@ def _format_close(fmt, close, prev):
     if fmt == "plain":
         return f"{close:,.2f}", change
     return f"{close:,.2f}", change
+
+
+def fetch_session_sectors(target_date):
+    """target_date 거래일의 섹터별 등락률을 [{name, change_percent}] 로 반환 (내림차순).
+    유튜브 발언이 아니라 실제 SPDR 섹터 ETF 시세 기준이다."""
+    rows = []
+    for item in SECTORS:
+        try:
+            daily = _fetch_daily_closes(item["symbol"])
+        except Exception as e:
+            print(f"[WARN] sector session fetch failed for {item['symbol']}: {e}")
+            continue
+
+        usable = [r for r in daily if r[0] <= target_date]
+        if len(usable) < 2:
+            continue
+
+        close, prev = usable[-1][1], usable[-2][1]
+        if not prev:
+            continue
+        rows.append({"name": item["name"], "change_percent": (close - prev) / prev * 100})
+
+    rows.sort(key=lambda r: r["change_percent"], reverse=True)
+    return rows
 
 
 def fetch_session_closes(target_date):
