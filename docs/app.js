@@ -158,16 +158,24 @@ function strengthDots(n) {
 }
 
 function changeToneFromText(text) {
-  const s = String(text || "");
+  const s = String(text || "").trim();
+  if (!s || s === "-") return "flat"; // 값 없음을 하락(▼)으로 오인하지 않게 한다
   if (/^[+↑]|상승|급등/.test(s)) return "up";
-  if (/^[-↓]|하락|급락/.test(s)) return "down";
+  if (/^[-−↓]/.test(s) || /하락|급락/.test(s)) return "down";
   return "flat";
 }
 
 // 색만으로 등락을 알리면 색약 사용자가 구분할 수 없어서 기호를 함께 붙인다.
 const TONE_MARK = { up: "▲", down: "▼", flat: "－" };
 
+// 방송에서 등락률을 안 밝힌 종목은 [계약] [수혜] 같은 상태 뱃지가 들어온다.
+// 숫자가 아니므로 삼각형이나 등락 색을 붙이면 안 된다.
+function isStateBadge(text) {
+  return /^\s*\[[^\]]+\]\s*$/.test(String(text || ""));
+}
+
 function changeWithMark(text, tone) {
+  if (isStateBadge(text)) return `<span class="state-badge">${escapeHtml(String(text).replace(/[\[\]]/g, ""))}</span>`;
   const mark = TONE_MARK[tone] || "";
   return `<span class="tri" aria-hidden="true">${mark}</span>${escapeHtml(text)}`;
 }
@@ -262,13 +270,13 @@ function renderMorningBrief() {
   indices.forEach((i) => {
     const card = document.createElement("div");
     const tone = changeToneFromText(i.change);
-    // 방송에서 종가를 언급하지 않으면 value 가 "-" 로 오는데, 그때는 등락률을 주인공으로 보여준다.
+    // 현재값과 등락률을 세트로 보여주는 게 원칙. 방송에 값이 없을 때만 등락률을 주인공으로 올린다.
     const hasValue = i.value && i.value !== "-";
     card.className = "mbrief-idx" + (hasValue ? "" : " no-value");
     card.innerHTML =
       `<span class="mbrief-idx-name">${escapeHtml(i.name)}</span>` +
       (hasValue ? `<strong class="mbrief-idx-val num">${escapeHtml(i.value)}</strong>` : "") +
-      `<span class="mbrief-idx-chg num ${tone}">${changeWithMark(i.change, tone)}</span>`;
+      `<span class="mbrief-idx-chg num ${isStateBadge(i.change) ? "" : tone}">${changeWithMark(i.change, tone)}</span>`;
     idxBox.appendChild(card);
   });
 
@@ -346,7 +354,7 @@ function renderMorningBrief() {
           <div class="mbrief-us">
             <span class="mbrief-us-name">${escapeHtml(c.us_name)}</span>
             <span class="mbrief-ticker">${escapeHtml(c.us_ticker)}</span>
-            <span class="mbrief-us-chg num ${up ? "up" : "down"}">${changeWithMark(c.us_change, up ? "up" : "down")}</span>
+            <span class="mbrief-us-chg num ${isStateBadge(c.us_change) ? "" : up ? "up" : "down"}">${changeWithMark(c.us_change, up ? "up" : "down")}</span>
           </div>
           <p class="mbrief-cause">${inlineMd(escapeHtml(c.cause))}</p>
           <p class="mbrief-logic"><span>연결 로직</span>${inlineMd(escapeHtml(c.logic))}</p>

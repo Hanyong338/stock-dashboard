@@ -970,3 +970,17 @@ main {
   .tabs { margin-top: 12px; }
   .tab-btn { font-size: 12px; padding: 10px 4px; white-space: nowrap; }
 }
+
+/* 방송에서 등락률을 안 밝힌 종목의 상태 뱃지 ([계약]/[수혜] 등). 숫자가 아니므로 등락색을 쓰지 않는다 */
+.state-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+.mbrief-idx.no-value .mbrief-idx-chg .state-badge { font-size: 12px; }
