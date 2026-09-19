@@ -87,6 +87,11 @@ def process_channel(ch, state, summaries, now):
     cid, name = ch["channel_id"], ch["name"]
     now_iso = now.isoformat()
 
+    if ch.get("paused"):
+        # 대시보드 탭/순서는 그대로 두되 새 영상 요약만 멈춘다.
+        print(f"[INFO] paused, skipping: {name}")
+        return
+
     try:
         videos = fetch_channel_videos(cid, playlist_id=ch.get("playlist_id"))
     except Exception as e:
