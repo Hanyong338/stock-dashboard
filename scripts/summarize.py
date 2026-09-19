@@ -13,6 +13,10 @@ MAX_ATTEMPTS = 4
 RETRY_BACKOFF_SECONDS = [5, 20, 60]
 RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
 
+# 로그에 대략적인 비용을 찍기 위한 단가 (2026-09 기준, 100만 토큰당 USD)
+INPUT_PRICE_PER_MTOK = 0.75
+OUTPUT_PRICE_PER_MTOK = 4.50
+
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash")
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 MAX_TRANSCRIPT_CHARS = 30000
@@ -87,6 +91,21 @@ RESPONSE_SCHEMA = {
 }
 
 
+def _log_usage(usage, title):
+    """영상 한 건당 토큰이 어디서 얼마나 나가는지 로그로 남긴다.
+    생각(thinking) 토큰도 출력 요금으로 청구되므로 따로 찍어둬야 비용 원인을 알 수 있다."""
+    if not usage:
+        return
+    prompt = usage.get("promptTokenCount", 0)
+    output = usage.get("candidatesTokenCount", 0)
+    thoughts = usage.get("thoughtsTokenCount", 0)
+    cost = prompt / 1_000_000 * INPUT_PRICE_PER_MTOK + (output + thoughts) / 1_000_000 * OUTPUT_PRICE_PER_MTOK
+    print(
+        f"[COST] {title[:40]} | 입력 {prompt:,} / 출력 {output:,} / 생각 {thoughts:,} 토큰"
+        f" -> 약 ${cost:.4f}"
+    )
+
+
 def _normalize_newlines(result):
     """Gemini가 줄바꿈을 진짜 개행이 아니라 '\\n' 두 글자로 내보내는 경우가 있다.
     그대로 두면 대시보드에서 마크다운이 한 줄로 뭉개져 제목/불릿 구분이 전부 사라진다."""
@@ -117,6 +136,7 @@ def summarize_transcript(channel_name, title, transcript_text):
             resp = requests.post(f"{API_URL}?key={api_key}", json=payload, timeout=90)
             resp.raise_for_status()
             data = resp.json()
+            _log_usage(data.get("usageMetadata"), title)
             raw = data["candidates"][0]["content"]["parts"][0]["text"]
             return _normalize_newlines(json.loads(raw))
         except (requests.exceptions.HTTPError, requests.exceptions.Timeout, json.JSONDecodeError) as e:
