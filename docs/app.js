@@ -140,7 +140,6 @@ function mbriefSection(title, bodyNodes) {
 
 const CAL_CATEGORIES = [
   { key: "major", label: "주요 이벤트" },
-  { key: "issue", label: "체크포인트" },
   { key: "macro", label: "경제지표" },
   { key: "earnings", label: "실적" },
   { key: "holiday", label: "휴장" },
@@ -158,8 +157,14 @@ function monthLabel(ym) {
   return `${y}년 ${Number(m)}월`;
 }
 
+const CAL_KNOWN = new Set(CAL_CATEGORIES.map((c) => c.key));
+
 function calEvents() {
-  return (state.calendar.events || []).filter((e) => !calState.hidden.has(e.category));
+  // 범주를 없앤 직후에는 옛 JSON 이 잠시 그대로 서빙된다. 필터 칩이 없는 범주가
+  // 지울 수도 없는 채로 달력에 남지 않도록, 아는 범주만 그린다.
+  return (state.calendar.events || []).filter(
+    (e) => CAL_KNOWN.has(e.category) && !calState.hidden.has(e.category)
+  );
 }
 
 /** 'YYYY-MM-DD' 를 로컬 자정으로 읽는다.
@@ -438,7 +443,7 @@ function renderMbriefNav(d) {
     ["mbriefIndices", "지표", (d.indices || []).length],
     ["mbriefEvents", "경제지표", (d.economic_events || []).length],
     ["mbriefNews", "뉴스", (d.news || []).length],
-    ["mbriefSectors", "섹터", (d.sectors || []).length],
+    ["mbriefSectors", "업종", (d.sectors || []).length],
     ["mbriefConnections", "국내 연관주", (d.connections || []).length],
     ["mbriefChecklist", "체크리스트", (d.checklist_caution || []).length + (d.checklist_watch || []).length],
   ].filter(([, , n]) => n > 0);
@@ -541,7 +546,7 @@ function renderMorningBrief() {
     newsBox.appendChild(mbriefSection(`📰 간밤 핵심 뉴스 (${news.length})`, [list]));
   }
 
-  // 섹터 성과 (실제 SPDR 섹터 ETF 시세 기준. 방송 발언이 아님)
+  // 업종별 성과 (실제 업종 ETF 시세 기준. 방송 발언이 아님)
   const secBox = document.getElementById("mbriefSectors");
   secBox.innerHTML = "";
   const sectors = d.sectors || [];
@@ -549,24 +554,38 @@ function renderMorningBrief() {
     const up = sectors.filter((s) => s.change_percent > 0).length;
     const down = sectors.filter((s) => s.change_percent < 0).length;
     const maxAbs = Math.max(...sectors.map((s) => Math.abs(s.change_percent)), 0.01);
+    const toneOf = (v) => (v > 0 ? "up" : v < 0 ? "down" : "flat");
+
+    // 업종이 20개가 넘어가면 줄 세우기로는 눈에 안 들어온다. 색 농도로 강약을 한눈에 보여주고,
+    // 오늘 제일 센 곳과 제일 약한 곳만 따로 크게 뽑아 3초 안에 결론이 잡히게 한다.
+    const lead = (label, s) => {
+      const tone = toneOf(s.change_percent);
+      return `<div class="sec-lead-card ${tone}">
+        <span class="sec-lead-label">${label}</span>
+        <strong class="sec-lead-name">${escapeHtml(s.name)}</strong>
+        <span class="sec-lead-chg num">${changeWithMark(formatChangePercent(s.change_percent), tone)}</span>
+      </div>`;
+    };
+
+    const tiles = sectors
+      .map((s) => {
+        const tone = toneOf(s.change_percent);
+        const i = (Math.abs(s.change_percent) / maxAbs).toFixed(3);
+        return `<div class="sec-tile ${tone}" style="--i:${i}">
+          <span class="sec-tile-name">${escapeHtml(s.name)}</span>
+          <span class="sec-tile-chg num">${changeWithMark(formatChangePercent(s.change_percent), tone)}</span>
+        </div>`;
+      })
+      .join("");
 
     const wrap = document.createElement("div");
     wrap.className = "sec-perf";
     wrap.innerHTML =
+      `<div class="sec-lead">${lead("가장 강한 업종", sectors[0])}${lead("가장 약한 업종", sectors[sectors.length - 1])}</div>` +
       `<div class="sec-perf-meta"><span class="up">강세 ${up}</span><span class="down">약세 ${down}</span>
-         <span class="sec-perf-src">섹터 ETF 종가 기준</span></div>` +
-      sectors
-        .map((s) => {
-          const tone = s.change_percent > 0 ? "up" : s.change_percent < 0 ? "down" : "flat";
-          const width = (Math.abs(s.change_percent) / maxAbs) * 100;
-          return `<div class="sec-row ${tone}">
-            <span class="sec-name">${escapeHtml(s.name)}</span>
-            <span class="sec-track"><span class="sec-fill" style="width:${width.toFixed(1)}%"></span></span>
-            <span class="sec-chg num">${changeWithMark(formatChangePercent(s.change_percent), tone)}</span>
-          </div>`;
-        })
-        .join("");
-    secBox.appendChild(mbriefSection("📶 섹터 성과", [wrap]));
+         <span class="sec-perf-src">업종 ETF 종가 기준</span></div>` +
+      `<div class="sec-heat">${tiles}</div>`;
+    secBox.appendChild(mbriefSection("📶 업종별 성과", [wrap]));
   }
 
   // Overnight -> Korea
@@ -615,15 +634,33 @@ function renderMorningBrief() {
   const caution = d.checklist_caution || [];
   const watch = d.checklist_watch || [];
   if (caution.length || watch.length) {
-    const list = document.createElement("div");
-    list.className = "mbrief-check";
+    // 주목(살 것)과 주의(피할 것)가 섞여 있으면 판단이 안 선다. 줄 자체를 갈라서
+    // 주목을 먼저 두고, 주의는 아래 별도 블록으로 확실히 떼어놓는다.
     const item = (c, kind) => `<div class="mbrief-check-item ${kind}">
-        <div class="mbrief-check-head">${kind === "caution" ? "🚨 주의" : "🔍 주목"} · ${escapeHtml(c.theme)}</div>
+        <div class="mbrief-check-head">${escapeHtml(c.theme)}</div>
         <p class="mbrief-check-us">${escapeHtml(c.us)}</p>
         <p class="mbrief-check-cause">${inlineMd(escapeHtml(c.cause))}</p>
         <p class="mbrief-check-action"><span>대응</span>${inlineMd(escapeHtml(c.action))}</p>
       </div>`;
-    list.innerHTML = caution.map((c) => item(c, "caution")).join("") + watch.map((c) => item(c, "watch")).join("");
+
+    const group = (kind, icon, title, desc, rows) => {
+      if (!rows.length) return "";
+      return `<div class="mbrief-checkgroup ${kind}">
+        <div class="mbrief-checkgroup-head">
+          <span class="mbrief-checkgroup-icon">${icon}</span>
+          <span class="mbrief-checkgroup-title">${title}</span>
+          <span class="mbrief-checkgroup-count num">${rows.length}</span>
+          <span class="mbrief-checkgroup-desc">${desc}</span>
+        </div>
+        <div class="mbrief-check">${rows.map((c) => item(c, kind)).join("")}</div>
+      </div>`;
+    };
+
+    const list = document.createElement("div");
+    list.className = "mbrief-checkwrap";
+    list.innerHTML =
+      group("watch", "🔍", "주목", "기회 — 오늘 눈여겨볼 것", watch) +
+      group("caution", "🚨", "주의", "리스크 — 오늘 조심할 것", caution);
     clBox.appendChild(mbriefSection("✅ 오늘 국내시장 체크리스트", [list]));
   }
 }

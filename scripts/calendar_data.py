@@ -48,8 +48,7 @@ WATCHLIST = {
 
 # 국가별로 챙길 지표를 따로 정의한다. 미국만 보면 BOJ 금리결정이나 한국 금통위처럼
 # 국내 증시를 크게 흔드는 일정이 통째로 빠진다.
-# major = 시장을 흔드는 이벤트(금리결정 등), macro = 일반 지표,
-# issue = 지표는 아니지만 증시에서 챙겨야 할 체크포인트(연준 인사 발언, 국채 입찰, 원유재고).
+# major = 시장을 흔드는 이벤트(금리결정 등), macro = 일반 지표.
 # 라벨에 국가를 붙여야 달력에서 어느 나라 것인지 바로 보인다.
 COUNTRY_RULES = {
     "United States": {
@@ -85,22 +84,9 @@ COUNTRY_RULES = {
             "Building Permits": "미국 건축허가",
             "Housing Starts": "미국 주택착공",
         },
-        # 국채 입찰은 금리(=밸류에이션)로, 원유재고는 에너지·인플레 경로로 증시에 직결된다.
-        # 연준 인사 발언은 하루에 여러 명이 잡히는데, 라벨을 하나로 통일해 같은 날 한 줄로 묶이게 한다.
-        "issue": {
-            "30-Year Bond Auction": "미 30년물 입찰",
-            "20-Year Bond Auction": "미 20년물 입찰",
-            "10-Year TIPS Auction": "미 10년물 물가채 입찰",
-            "10-Year Note Auction": "미 10년물 입찰",
-            "Crude Oil Inventories": "미국 원유재고",
-            "Beige Book": "연준 베이지북",
-            "Testimony": "연준 의회 증언",
-            "Speaks": "연준 인사 발언",
-        },
     },
     "South Korea": {
         "major": {"Interest Rate Decision": "한국 금통위"},
-        "issue": {},
         "macro": {
             "CPI": "한국 CPI",
             "PPI": "한국 PPI",
@@ -124,7 +110,6 @@ COUNTRY_RULES = {
             "BoJ Interest Rate Decision": "BOJ 금리결정",
             "BoJ Monetary Policy Statement": "BOJ 정책성명",
         },
-        "issue": {},
         "macro": {},
     },
 }
@@ -342,9 +327,6 @@ def fetch_day(date_obj):
                 label = _match(name, rules["macro"])
                 category = "macro"
             if not label:
-                label = _match(name, rules.get("issue") or {})
-                category = "issue"
-            if not label:
                 continue
 
             events.append(
@@ -404,6 +386,14 @@ def build_calendar(today=None):
         for e in bok_rate_decisions(yr):
             if start.isoformat() <= e["start"] <= end.isoformat():
                 events.append(e)
+
+    # 주말은 어차피 장이 안 열려서 발표되는 게 없다. 여기 걸리는 건 한국시간으로 옮기다가
+    # 토요일 새벽으로 밀린 자투리뿐이라 지운다. 연휴처럼 여러 날 걸친 일정은 건드리지 않는다.
+    events = [
+        e
+        for e in events
+        if e["start"] != e["end"] or datetime.date.fromisoformat(e["start"]).weekday() < 5
+    ]
 
     # 같은 날 같은 제목이 중복으로 들어오는 경우가 있어 정리한다.
     seen = set()

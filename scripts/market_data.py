@@ -5,19 +5,33 @@ import requests
 
 CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 
-# SPDR 섹터 ETF. 어느 섹터가 강했고 약했는지를 실제 시세로 보여주는 데 쓴다.
+# 업종 단위 ETF. 예전에는 SPDR 11개 대분류(기술/금융/임의소비재...)를 썼는데,
+# "기술이 올랐다"는 말로는 국내에서 뭘 봐야 하는지 알 수가 없다. 반도체가 오른 건지
+# 소프트웨어가 오른 건지에 따라 대응 종목이 완전히 달라지기 때문에 업종 단위로 쪼갰다.
+# 국내 증시에 테마가 그대로 연결되는 것들로만 골랐고, 전부 야후에서 시세가 나오는 걸 확인했다.
 SECTORS = [
-    {"symbol": "XLK", "name": "기술"},
-    {"symbol": "XLF", "name": "금융"},
-    {"symbol": "XLV", "name": "헬스케어"},
-    {"symbol": "XLY", "name": "임의소비재"},
-    {"symbol": "XLP", "name": "필수소비재"},
-    {"symbol": "XLE", "name": "에너지"},
-    {"symbol": "XLI", "name": "산업재"},
-    {"symbol": "XLB", "name": "소재"},
-    {"symbol": "XLU", "name": "유틸리티"},
-    {"symbol": "XLRE", "name": "부동산"},
-    {"symbol": "XLC", "name": "커뮤니케이션"},
+    {"symbol": "SOXX", "name": "반도체"},
+    {"symbol": "IGV", "name": "소프트웨어"},
+    {"symbol": "SKYY", "name": "클라우드"},
+    {"symbol": "CIBR", "name": "사이버보안"},
+    {"symbol": "BOTZ", "name": "AI·로봇"},
+    {"symbol": "FDN", "name": "인터넷 플랫폼"},
+    {"symbol": "XTL", "name": "통신장비"},
+    {"symbol": "GRID", "name": "전력망·전력기기"},
+    {"symbol": "URA", "name": "원자력"},
+    {"symbol": "TAN", "name": "태양광"},
+    {"symbol": "LIT", "name": "2차전지"},
+    {"symbol": "IDRV", "name": "전기차"},
+    {"symbol": "ITA", "name": "방산·우주항공"},
+    {"symbol": "XBI", "name": "바이오"},
+    {"symbol": "IHI", "name": "의료기기"},
+    {"symbol": "KRE", "name": "은행"},
+    {"symbol": "XOP", "name": "원유·가스"},
+    {"symbol": "COPX", "name": "구리"},
+    {"symbol": "GDX", "name": "금광"},
+    {"symbol": "IYT", "name": "운송"},
+    {"symbol": "XRT", "name": "소매"},
+    {"symbol": "ESPO", "name": "게임"},
 ]
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; stock-dashboard-bot/1.0)"}
