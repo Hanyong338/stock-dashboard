@@ -241,8 +241,9 @@ main {
 .index-name { font-size: 11px; font-weight: 700; color: #b3b6e6; margin-bottom: 4px; }
 .index-price { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
 .index-change { font-size: 12px; font-weight: 700; margin-top: 2px; }
-.index-card.up .index-change { color: #4ade80; }
-.index-card.down .index-change { color: #f87171; }
+/* 국내 증권앱 관례에 맞춰 상승=빨강, 하락=파랑. 이 카드는 항상 어두운 배경이라 밝은 톤을 쓴다 */
+.index-card.up .index-change { color: #ff5c72; }
+.index-card.down .index-change { color: #5b9cff; }
 .index-card.flat .index-change { color: #9a9dcf; }
 
 .market-sectors { display: flex; flex-direction: column; gap: 6px; }
@@ -262,12 +263,12 @@ main {
   overflow: hidden;
 }
 .sector-bar-fill { display: block; height: 100%; border-radius: 999px; }
-.sector-row.up .sector-bar-fill { background: linear-gradient(90deg, #22c55e, #4ade80); }
-.sector-row.down .sector-bar-fill { background: linear-gradient(90deg, #ef4444, #f87171); }
+.sector-row.up .sector-bar-fill { background: linear-gradient(90deg, #e03950, #ff5c72); }
+.sector-row.down .sector-bar-fill { background: linear-gradient(90deg, #2f7ae5, #5b9cff); }
 .sector-row.flat .sector-bar-fill { background: #6b6f9a; }
 .sector-change { text-align: right; font-weight: 700; }
-.sector-row.up .sector-change { color: #4ade80; }
-.sector-row.down .sector-change { color: #f87171; }
+.sector-row.up .sector-change { color: #ff5c72; }
+.sector-row.down .sector-change { color: #5b9cff; }
 .sector-row.flat .sector-change { color: #9a9dcf; }
 
 @media (max-width: 600px) {
@@ -298,12 +299,13 @@ main {
   border: 1px solid var(--border);
 }
 
-.picks-leading { border-color: color-mix(in srgb, var(--good) 45%, var(--border)); }
+/* 주도 섹터 = 강세라서 상승색(빨강) 계열로 둔다. 관망·주의는 노랑 계열 유지 */
+.picks-leading { border-color: color-mix(in srgb, var(--up) 45%, var(--border)); }
 .picks-leading::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--good) 12%, transparent), transparent 70%);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--up) 12%, transparent), transparent 70%);
   z-index: 0;
 }
 .picks-watch { border-color: var(--highlight-border); }
