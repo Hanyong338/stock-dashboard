@@ -12,6 +12,30 @@
       "count": 1
     },
     {
+      "sector": "반도체 및 하이테크",
+      "tickers": [
+        "AAPL",
+        "MAGS",
+        "MTSI"
+      ],
+      "channels": [
+        "올랜도 킴 미국주식"
+      ],
+      "count": 1
+    },
+    {
+      "sector": "디지털 자산 및 거래 인프라",
+      "tickers": [
+        "COIN",
+        "HOOD",
+        "IBIT"
+      ],
+      "channels": [
+        "올랜도 킴 미국주식"
+      ],
+      "count": 1
+    },
+    {
       "sector": "AI 인프라 및 데이터 센터",
       "tickers": [],
       "channels": [
@@ -41,16 +65,6 @@
         "815머니톡"
       ],
       "count": 1
-    },
-    {
-      "sector": "친환경 및 연료전지",
-      "tickers": [
-        "블룸 에너지"
-      ],
-      "channels": [
-        "815머니톡"
-      ],
-      "count": 1
     }
   ],
   "watch": [
@@ -59,6 +73,16 @@
       "tickers": [],
       "channels": [
         "815머니톡"
+      ],
+      "count": 1
+    },
+    {
+      "sector": "스트리밍 및 플랫폼",
+      "tickers": [
+        "NFLX"
+      ],
+      "channels": [
+        "올랜도 킴 미국주식"
       ],
       "count": 1
     },
