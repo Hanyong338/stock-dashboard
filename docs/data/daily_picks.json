@@ -1,6 +1,34 @@
 {
   "leading": [
     {
+      "sector": "클라우드 및 빅테크",
+      "tickers": [
+        "AMZN",
+        "GOOGL",
+        "MA",
+        "META",
+        "MSFT"
+      ],
+      "channels": [
+        "올랜도 킴 미국주식"
+      ],
+      "count": 1
+    },
+    {
+      "sector": "AI 인프라 및 소프트웨어",
+      "tickers": [
+        "CLS",
+        "FROG",
+        "PLTR",
+        "SNX",
+        "TXN"
+      ],
+      "channels": [
+        "올랜도 킴 미국주식"
+      ],
+      "count": 1
+    },
+    {
       "sector": "AI 핵심 인프라 (반도체, 냉각, 전기 설비)",
       "tickers": [
         "한빛서버"
@@ -52,31 +80,33 @@
         "815머니톡"
       ],
       "count": 1
-    },
-    {
-      "sector": "화장품 (K-Beauty)",
-      "tickers": [
-        "화장품 관련주"
-      ],
-      "channels": [
-        "815머니톡"
-      ],
-      "count": 1
-    },
-    {
-      "sector": "로봇 (피지컬 AI)",
-      "tickers": [
-        "LG전자",
-        "레인보우로보틱스",
-        "로보티즈"
-      ],
-      "channels": [
-        "815머니톡"
-      ],
-      "count": 1
     }
   ],
   "watch": [
+    {
+      "sector": "성장 정체 및 가치주",
+      "tickers": [
+        "PINS",
+        "SATS",
+        "T"
+      ],
+      "channels": [
+        "올랜도 킴 미국주식"
+      ],
+      "count": 1
+    },
+    {
+      "sector": "기술적 추세 이탈 및 조정",
+      "tickers": [
+        "GLBE",
+        "SPOT",
+        "SSNC"
+      ],
+      "channels": [
+        "올랜도 킴 미국주식"
+      ],
+      "count": 1
+    },
     {
       "sector": "수익 모델 미비 AI 서비스 및 앱 소프트웨어",
       "tickers": [
@@ -113,28 +143,6 @@
       "sector": "반도체 소부장",
       "tickers": [
         "어플라이드 머티어리얼즈"
-      ],
-      "channels": [
-        "815머니톡"
-      ],
-      "count": 1
-    },
-    {
-      "sector": "친환경차 및 완성차 제조",
-      "tickers": [
-        "르노",
-        "볼보",
-        "지리자동차"
-      ],
-      "channels": [
-        "815머니톡"
-      ],
-      "count": 1
-    },
-    {
-      "sector": "반도체 (과비중 주의)",
-      "tickers": [
-        "삼성전자"
       ],
       "channels": [
         "815머니톡"
