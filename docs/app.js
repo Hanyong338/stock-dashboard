@@ -1,5 +1,7 @@
 const DATA_BASE = "./data";
 
+const CHANNEL_COLORS = ["#f59e0b", "#ef4444", "#8b5cf6", "#10b981", "#3b82f6", "#ec4899", "#14b8a6"];
+
 const state = {
   summaries: [],
   crossMentions: [],
@@ -7,6 +9,14 @@ const state = {
   channels: [],
   selectedChannel: "",
 };
+
+function channelColor(name) {
+  const idx = state.channels.findIndex((c) => c.name === name);
+  if (idx >= 0) return CHANNEL_COLORS[idx % CHANNEL_COLORS.length];
+  let hash = 0;
+  for (let i = 0; i < (name || "").length; i++) hash = (hash * 31 + name.charCodeAt(i)) >>> 0;
+  return CHANNEL_COLORS[hash % CHANNEL_COLORS.length];
+}
 
 async function loadJSON(name) {
   const res = await fetch(`${DATA_BASE}/${name}?t=${Date.now()}`, { cache: "no-store" });
@@ -68,11 +78,32 @@ function renderChannelTabs() {
   const fromSummaries = [...new Set(state.summaries.map((s) => s.channel))];
   const names = [...new Set([...fromConfig, ...fromSummaries])];
 
-  const makeTab = (label, value) => {
+  const counts = {};
+  for (const s of state.summaries) counts[s.channel] = (counts[s.channel] || 0) + 1;
+
+  const makeTab = (label, value, color) => {
     const btn = document.createElement("button");
     btn.className = "channel-tab" + (state.selectedChannel === value ? " active" : "");
     btn.dataset.channel = value;
-    btn.textContent = label;
+
+    if (color) {
+      const dot = document.createElement("span");
+      dot.className = "channel-dot";
+      dot.style.setProperty("--dot-color", color);
+      btn.appendChild(dot);
+    }
+    const text = document.createElement("span");
+    text.textContent = label;
+    btn.appendChild(text);
+
+    const count = value ? counts[value] || 0 : state.summaries.length;
+    if (count > 0) {
+      const badge = document.createElement("span");
+      badge.className = "channel-count";
+      badge.textContent = count;
+      btn.appendChild(badge);
+    }
+
     btn.addEventListener("click", () => {
       state.selectedChannel = value;
       document.querySelectorAll(".channel-tab").forEach((b) => b.classList.remove("active"));
@@ -82,9 +113,9 @@ function renderChannelTabs() {
     return btn;
   };
 
-  box.appendChild(makeTab("전체", ""));
+  box.appendChild(makeTab("전체", "", null));
   for (const name of names) {
-    box.appendChild(makeTab(name, name));
+    box.appendChild(makeTab(name, name, channelColor(name)));
   }
 }
 
@@ -140,28 +171,39 @@ function markdownToHtml(raw) {
   return html;
 }
 
+function isFresh(iso) {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return false;
+  return Date.now() - d.getTime() < 3 * 3600 * 1000;
+}
+
 function buildCard(item, hotTickers) {
   const card = document.createElement("div");
   const old = isOlderThanADay(item.published);
   card.className = "card" + (old ? " old" : "");
+  const color = channelColor(item.channel);
+  card.style.setProperty("--ch-color", color);
 
   const head = document.createElement("div");
   head.className = "card-head";
   head.innerHTML = `
     <div>
-      <div class="card-channel">${escapeHtml(item.channel)}</div>
+      <div class="card-channel"><span class="channel-dot" style="--dot-color:${color}"></span>${escapeHtml(item.channel)}</div>
       <div class="card-title">${escapeHtml(item.title)}</div>
     </div>
-    <div class="card-time">${formatRelativeTime(item.published)}</div>
+    <div class="card-time">${isFresh(item.published) ? '<span class="new-badge">NEW</span>' : ""}${formatRelativeTime(item.published)}</div>
   `;
 
   const body = document.createElement("div");
   body.className = "card-body" + (old ? " collapsed" : "");
 
+  const inner = document.createElement("div");
+  inner.className = "card-body-inner";
+
   const report = document.createElement("div");
   report.className = "report";
   report.innerHTML = markdownToHtml(item.report_markdown || "");
-  body.appendChild(report);
+  inner.appendChild(report);
 
   const tagRow = document.createElement("div");
   tagRow.className = "tag-row";
@@ -177,7 +219,7 @@ function buildCard(item, hotTickers) {
     tag.textContent = `#${kw}`;
     tagRow.appendChild(tag);
   }
-  body.appendChild(tagRow);
+  inner.appendChild(tagRow);
 
   const link = document.createElement("a");
   link.className = "card-link";
@@ -185,8 +227,9 @@ function buildCard(item, hotTickers) {
   link.target = "_blank";
   link.rel = "noopener noreferrer";
   link.textContent = "영상 보기 ↗";
-  body.appendChild(link);
+  inner.appendChild(link);
 
+  body.appendChild(inner);
   head.addEventListener("click", () => body.classList.toggle("collapsed"));
 
   card.appendChild(head);
