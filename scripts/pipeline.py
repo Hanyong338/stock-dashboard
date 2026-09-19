@@ -15,6 +15,7 @@ from youtube_check import fetch_channel_videos
 from summarize import summarize_transcript
 from transcript import get_transcript, is_retryable_error
 from market_data import fetch_market_brief
+import morning_brief as mb
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "data"
@@ -25,6 +26,7 @@ CROSS_FILE = DATA_DIR / "cross_mentions.json"
 CHANNELS_OUT_FILE = DATA_DIR / "channels.json"
 DAILY_PICKS_FILE = DATA_DIR / "daily_picks.json"
 MARKET_BRIEF_FILE = DATA_DIR / "market_brief.json"
+MORNING_BRIEF_FILE = DATA_DIR / "morning_brief.json"
 
 MAX_SUMMARIES = 500
 RETENTION_DAYS = 7
@@ -255,6 +257,47 @@ def _save_data_files(state, summaries, channels, now):
     return trimmed
 
 
+def update_morning_brief(now):
+    """당잠사(한국경제TV) 최신 방송 1건만 분석해 아침 리포트를 만든다.
+    이미 같은 영상으로 만들어둔 리포트가 있으면 아무것도 하지 않는다. True를 반환하면 저장된 것."""
+    videos = fetch_channel_videos(mb.CHANNEL_ID, max_results=5, playlist_id=mb.PLAYLIST_ID)
+    if not videos:
+        print("[WARN] morning brief: 당잠사 재생목록이 비어 있습니다")
+        return False
+
+    latest = videos[0]
+    current = load_json(MORNING_BRIEF_FILE, {})
+    if current.get("video_id") == latest["video_id"]:
+        return False  # 이미 최신 방송으로 만들어둔 리포트가 있다
+
+    duration = latest.get("duration_seconds")
+    if duration is not None and duration >= MAX_VIDEO_DURATION_SECONDS:
+        print(f"[INFO] morning brief: 1시간 초과라 건너뜀 ({duration // 60}min)")
+        return False
+
+    print(f"[INFO] morning brief: {latest['title']}")
+    transcript_text = call_with_timeout(get_transcript, TRANSCRIPT_TIMEOUT_SECONDS, latest["url"])
+    if not transcript_text:
+        print("[WARN] morning brief: 자막이 비어 있습니다")
+        return False
+
+    report = call_with_timeout(mb.build_morning_brief, SUMMARIZE_TIMEOUT_SECONDS, latest["title"], transcript_text)
+    report.update(
+        {
+            "video_id": latest["video_id"],
+            "title": latest["title"],
+            "url": latest["url"],
+            "published": latest.get("published", ""),
+            "fetched_at": now.isoformat(),
+            "program": mb.PROGRAM_NAME,
+            "channel": mb.CHANNEL_NAME,
+        }
+    )
+    save_json(MORNING_BRIEF_FILE, report)
+    print(f"[INFO] morning brief saved: {latest['video_id']}")
+    return True
+
+
 def _git(*args):
     return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
 
@@ -291,6 +334,12 @@ def main():
         process_channel(ch, state, summaries, now)
         summaries = _save_data_files(state, summaries, channels, now)
         commit_and_push(f"chore: update data ({ch['name']}) {now.isoformat()}")
+
+    try:
+        if update_morning_brief(now):
+            commit_and_push(f"chore: update morning brief {now.isoformat()}")
+    except Exception as e:
+        print(f"[WARN] morning brief failed: {e}")
 
     try:
         market_brief = fetch_market_brief()

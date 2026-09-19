@@ -120,18 +120,17 @@ def _normalize_newlines(result):
     return result
 
 
-def summarize_transcript(channel_name, title, transcript_text):
+def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_tokens=8192):
+    """구조화된 JSON 응답을 받아온다. 재시도/비용로그/개행 정규화를 공통으로 처리한다."""
     api_key = os.environ["GEMINI_API_KEY"]
-    transcript_text = transcript_text[:MAX_TRANSCRIPT_CHARS]
-    user_prompt = f"채널명: {channel_name}\n영상 제목: {title}\n\n자막:\n{transcript_text}"
 
     payload = {
-        "system_instruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+        "system_instruction": {"parts": [{"text": system_prompt}]},
         "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
         "generationConfig": {
             "responseMimeType": "application/json",
-            "responseSchema": RESPONSE_SCHEMA,
-            "maxOutputTokens": 8192,
+            "responseSchema": response_schema,
+            "maxOutputTokens": max_output_tokens,
         },
     }
 
@@ -141,7 +140,7 @@ def summarize_transcript(channel_name, title, transcript_text):
             resp = requests.post(f"{API_URL}?key={api_key}", json=payload, timeout=90)
             resp.raise_for_status()
             data = resp.json()
-            _log_usage(data.get("usageMetadata"), title)
+            _log_usage(data.get("usageMetadata"), label)
             raw = data["candidates"][0]["content"]["parts"][0]["text"]
             return _normalize_newlines(json.loads(raw))
         except (requests.exceptions.HTTPError, requests.exceptions.Timeout, json.JSONDecodeError) as e:
@@ -155,3 +154,8 @@ def summarize_transcript(channel_name, title, transcript_text):
             time.sleep(wait)
 
     raise last_error
+
+
+def summarize_transcript(channel_name, title, transcript_text):
+    user_prompt = f"채널명: {channel_name}\n영상 제목: {title}\n\n자막:\n{transcript_text[:MAX_TRANSCRIPT_CHARS]}"
+    return call_gemini(SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, title)

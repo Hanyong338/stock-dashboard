@@ -14,6 +14,9 @@
   --highlight-text: #8a6a00;
   --chip-bg: #f1f1f9;
   --good: #16a34a;
+  /* 국내 증권앱 관례: 상승=빨강, 하락=파랑 */
+  --up: #f2465a;
+  --down: #3b82f6;
   --sec-macro: #2563eb;
   --sec-sector: #7c3aed;
   --sec-insight: #d97706;
@@ -43,6 +46,8 @@
     --highlight-text: #f2cd63;
     --chip-bg: #1e2029;
     --good: #34d399;
+    --up: #ff5c72;
+    --down: #5b9cff;
     --sec-macro: #60a5fa;
     --sec-sector: #a78bfa;
     --sec-insight: #fbbf24;
@@ -699,4 +704,167 @@ main {
   .card { padding: 15px 16px; }
   .card-body-inner { padding-left: 0; }
   .card-lead { margin-left: 0; }
+}
+
+/* ---------- 당잠사 아침 리포트 (Overnight -> Korea) ---------- */
+
+.mbrief {
+  margin: 0 0 16px;
+  padding: 18px 18px 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+}
+.mbrief-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.mbrief-title h2 { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
+.mbrief-asof { display: block; margin-top: 3px; font-size: 12px; color: var(--text-muted); font-weight: 600; }
+
+.mbrief-indices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.mbrief-idx {
+  padding: 10px 11px;
+  background: var(--chip-bg);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.mbrief-idx-name { font-size: 11.5px; color: var(--text-muted); font-weight: 700; }
+.mbrief-idx-val { font-size: 15px; font-weight: 800; letter-spacing: -0.4px; }
+.mbrief-idx-chg { font-size: 12px; font-weight: 700; }
+.mbrief-idx-chg.up, .mbrief-us-chg.up { color: var(--up, #f2465a); }
+.mbrief-idx-chg.down, .mbrief-us-chg.down { color: var(--down, #3b82f6); }
+.mbrief-idx-chg.flat { color: var(--text-muted); }
+
+.mbrief-summary {
+  padding: 13px 14px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  border-radius: var(--radius-md);
+  margin-bottom: 6px;
+}
+.mbrief-sum-row { display: flex; gap: 9px; align-items: baseline; }
+.mbrief-sum-row + .mbrief-sum-row { margin-top: 7px; }
+.mbrief-sum-label {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+.mbrief-sum-row p { font-size: 13px; line-height: 1.55; }
+
+.mbrief-block:not(:empty) { margin-top: 16px; }
+.mbrief-h3 {
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 9px;
+  color: var(--text);
+}
+
+/* 경제지표 */
+.mbrief-table { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+.mbrief-tr {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 6px;
+  padding: 9px 11px;
+  align-items: center;
+}
+.mbrief-tr + .mbrief-tr { border-top: 1px solid var(--border); }
+.mbrief-th { background: var(--chip-bg); font-size: 11px; font-weight: 800; color: var(--text-muted); }
+.mbrief-ev-name { font-size: 12.5px; font-weight: 700; }
+.mbrief-ev-num { font-size: 12.5px; text-align: right; color: var(--text-muted); }
+.mbrief-ev-num.strong { color: var(--text); font-weight: 800; }
+.mbrief-ev-note { grid-column: 1 / -1; font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-top: 2px; }
+
+/* 뉴스 */
+.mbrief-news { display: flex; flex-direction: column; gap: 8px; }
+.mbrief-news-item {
+  padding: 11px 13px;
+  background: var(--chip-bg);
+  border-radius: var(--radius-md);
+  border-left: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.mbrief-news-title { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+.mbrief-news-fact { font-size: 12.5px; line-height: 1.55; color: var(--text); }
+.mbrief-news-comment { font-size: 12.5px; line-height: 1.55; color: var(--text-muted); margin-top: 5px; }
+
+/* 미국 -> 국내 연결 */
+.mbrief-conns { display: flex; flex-direction: column; gap: 10px; }
+.mbrief-conn {
+  padding: 13px 14px;
+  border-radius: var(--radius-md);
+  background: var(--chip-bg);
+  border: 1px solid var(--border);
+}
+.mbrief-conn.is-up { border-left: 3px solid var(--up, #f2465a); }
+.mbrief-conn.is-down { border-left: 3px solid var(--down, #3b82f6); }
+.mbrief-conn-head { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 8px; }
+.mbrief-badge { font-size: 11.5px; font-weight: 800; }
+.mbrief-conn-sector { font-size: 13.5px; font-weight: 800; }
+.mbrief-chip {
+  font-size: 11px; font-weight: 700; color: var(--text-muted);
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 2px 8px; border-radius: 999px;
+}
+.mbrief-us { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 7px; }
+.mbrief-us-name { font-size: 13px; font-weight: 700; }
+.mbrief-ticker {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.3px;
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 2px 7px; border-radius: 6px; color: var(--text-muted);
+}
+.mbrief-us-chg { font-size: 13px; font-weight: 800; }
+.mbrief-cause { font-size: 12.5px; line-height: 1.55; color: var(--text-muted); }
+.mbrief-logic {
+  margin-top: 8px; font-size: 12.5px; line-height: 1.55;
+  padding: 9px 11px; background: var(--surface); border-radius: 9px;
+}
+.mbrief-logic span {
+  display: inline-block; margin-right: 6px; font-size: 10.5px; font-weight: 800;
+  color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent);
+  padding: 1px 6px; border-radius: 5px; vertical-align: 1px;
+}
+.mbrief-picks { list-style: none; margin-top: 9px; display: flex; flex-direction: column; gap: 6px; }
+.mbrief-picks li { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.mbrief-dots { font-size: 10px; letter-spacing: 1px; flex: 0 0 auto; }
+.mbrief-dots.s3 { color: var(--up, #f2465a); }
+.mbrief-dots.s2 { color: #f59e0b; }
+.mbrief-dots.s1 { color: var(--text-muted); }
+.mbrief-kname { font-size: 13px; font-weight: 800; flex: 0 0 auto; }
+.mbrief-kreason { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+/* 체크리스트 */
+.mbrief-check { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 9px; }
+.mbrief-check-item { padding: 12px 13px; border-radius: var(--radius-md); background: var(--chip-bg); border: 1px solid var(--border); }
+.mbrief-check-item.caution { border-color: color-mix(in srgb, #f59e0b 45%, transparent); }
+.mbrief-check-head { font-size: 12.5px; font-weight: 800; margin-bottom: 6px; }
+.mbrief-check-us { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+.mbrief-check-cause { font-size: 12.5px; line-height: 1.5; margin-top: 4px; }
+.mbrief-check-action { font-size: 12.5px; line-height: 1.5; margin-top: 6px; }
+.mbrief-check-action span {
+  display: inline-block; margin-right: 6px; font-size: 10.5px; font-weight: 800;
+  color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent);
+  padding: 1px 6px; border-radius: 5px; vertical-align: 1px;
+}
+
+@media (max-width: 560px) {
+  .mbrief { padding: 15px 14px 4px; }
+  .mbrief-tr { grid-template-columns: 1.4fr 1fr 1fr 1fr; padding: 8px 9px; }
+  .mbrief-ev-name, .mbrief-ev-num { font-size: 11.5px; }
 }

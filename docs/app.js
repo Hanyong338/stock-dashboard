@@ -19,6 +19,7 @@ const state = {
   crossMentions: [],
   dailyPicks: { leading: [], watch: [] },
   marketBrief: { as_of: null, indices: [], sectors: [] },
+  morningBrief: {},
   screening: [],
   channels: [],
   selectedChannel: "",
@@ -149,11 +150,178 @@ function renderDailyPicks() {
   }
 }
 
+const STRENGTH_LABEL = { 3: "직접 연관", 2: "산업 연관", 1: "테마 연관" };
+
+function strengthDots(n) {
+  const filled = Math.max(1, Math.min(3, Number(n) || 1));
+  return "●".repeat(filled) + "○".repeat(3 - filled);
+}
+
+function changeToneFromText(text) {
+  const s = String(text || "");
+  if (/^[+↑]|상승|급등/.test(s)) return "up";
+  if (/^[-↓]|하락|급락/.test(s)) return "down";
+  return "flat";
+}
+
+function mbriefSection(title, bodyNodes) {
+  const wrap = document.createElement("div");
+  const h = document.createElement("h3");
+  h.className = "mbrief-h3";
+  h.textContent = title;
+  wrap.appendChild(h);
+  bodyNodes.forEach((n) => wrap.appendChild(n));
+  return wrap;
+}
+
+function renderMorningBrief() {
+  const box = document.getElementById("morningBrief");
+  const d = state.morningBrief || {};
+  if (!d.video_id) {
+    box.hidden = true;
+    return;
+  }
+  box.hidden = false;
+
+  document.getElementById("mbriefAsOf").textContent = d.as_of || "";
+  document.getElementById("mbriefLink").href = d.url || "#";
+
+  // 지수 스트립
+  const idxBox = document.getElementById("mbriefIndices");
+  idxBox.innerHTML = "";
+  (d.indices || []).forEach((i) => {
+    const card = document.createElement("div");
+    card.className = "mbrief-idx";
+    card.innerHTML = `<span class="mbrief-idx-name">${escapeHtml(i.name)}</span>
+      <strong class="mbrief-idx-val">${escapeHtml(i.value)}</strong>
+      <span class="mbrief-idx-chg ${changeToneFromText(i.change)}">${escapeHtml(i.change)}</span>`;
+    idxBox.appendChild(card);
+  });
+
+  // AI 3줄 요약
+  const sum = d.ai_summary || {};
+  const sumBox = document.getElementById("mbriefSummary");
+  sumBox.innerHTML = "";
+  [
+    ["미국장 핵심", sum.us_market],
+    ["섹터 수급", sum.sector_flow],
+    ["국내장 대응", sum.korea_impact],
+  ]
+    .filter(([, v]) => v)
+    .forEach(([label, v]) => {
+      const row = document.createElement("div");
+      row.className = "mbrief-sum-row";
+      row.innerHTML = `<span class="mbrief-sum-label">${label}</span><p>${inlineMd(escapeHtml(v))}</p>`;
+      sumBox.appendChild(row);
+    });
+
+  // 경제지표
+  const evBox = document.getElementById("mbriefEvents");
+  evBox.innerHTML = "";
+  const events = d.economic_events || [];
+  if (events.length) {
+    const table = document.createElement("div");
+    table.className = "mbrief-table";
+    table.innerHTML =
+      `<div class="mbrief-tr mbrief-th"><span>지표</span><span>발표</span><span>예상</span><span>직전</span></div>` +
+      events
+        .map(
+          (e) => `<div class="mbrief-tr">
+            <span class="mbrief-ev-name">${escapeHtml(e.name)}</span>
+            <span class="mbrief-ev-num strong">${escapeHtml(e.actual)}</span>
+            <span class="mbrief-ev-num">${escapeHtml(e.forecast)}</span>
+            <span class="mbrief-ev-num">${escapeHtml(e.previous)}</span>
+            <p class="mbrief-ev-note">${inlineMd(escapeHtml(e.assessment))}</p>
+          </div>`
+        )
+        .join("");
+    evBox.appendChild(mbriefSection("📊 주요 경제지표", [table]));
+  }
+
+  // 간밤 뉴스
+  const newsBox = document.getElementById("mbriefNews");
+  newsBox.innerHTML = "";
+  const news = d.news || [];
+  if (news.length) {
+    const list = document.createElement("div");
+    list.className = "mbrief-news";
+    list.innerHTML = news
+      .map(
+        (n) => `<div class="mbrief-news-item">
+          <div class="mbrief-news-title">${inlineMd(escapeHtml(n.title))}</div>
+          <p class="mbrief-news-fact">${inlineMd(escapeHtml(n.fact))}</p>
+          <p class="mbrief-news-comment">💬 ${inlineMd(escapeHtml(n.comment))}</p>
+        </div>`
+      )
+      .join("");
+    newsBox.appendChild(mbriefSection(`📰 간밤 핵심 뉴스 (${news.length})`, [list]));
+  }
+
+  // Overnight -> Korea
+  const connBox = document.getElementById("mbriefConnections");
+  connBox.innerHTML = "";
+  const conns = d.connections || [];
+  if (conns.length) {
+    const list = document.createElement("div");
+    list.className = "mbrief-conns";
+    list.innerHTML = conns
+      .map((c) => {
+        const up = c.direction === "up";
+        const picks = (c.korea_picks || [])
+          .map(
+            (p) => `<li>
+              <span class="mbrief-dots s${Math.max(1, Math.min(3, Number(p.strength) || 1))}"
+                    title="${STRENGTH_LABEL[p.strength] || ""}">${strengthDots(p.strength)}</span>
+              <span class="mbrief-kname">${escapeHtml(p.name)}</span>
+              <span class="mbrief-kreason">${inlineMd(escapeHtml(p.reason))}</span>
+            </li>`
+          )
+          .join("");
+        return `<div class="mbrief-conn ${up ? "is-up" : "is-down"}">
+          <div class="mbrief-conn-head">
+            <span class="mbrief-badge">${up ? "🔥 급등" : "⚠️ 급락"}</span>
+            <span class="mbrief-conn-sector">${escapeHtml(c.sector)}</span>
+            <span class="mbrief-chip">${escapeHtml(c.sector_class)}</span>
+          </div>
+          <div class="mbrief-us">
+            <span class="mbrief-us-name">${escapeHtml(c.us_name)}</span>
+            <span class="mbrief-ticker">${escapeHtml(c.us_ticker)}</span>
+            <span class="mbrief-us-chg ${up ? "up" : "down"}">${escapeHtml(c.us_change)}</span>
+          </div>
+          <p class="mbrief-cause">${inlineMd(escapeHtml(c.cause))}</p>
+          <p class="mbrief-logic"><span>연결 로직</span>${inlineMd(escapeHtml(c.logic))}</p>
+          <ul class="mbrief-picks">${picks}</ul>
+        </div>`;
+      })
+      .join("");
+    connBox.appendChild(mbriefSection("🔗 미국 특징주 → 국내 연관주", [list]));
+  }
+
+  // 오늘 체크리스트
+  const clBox = document.getElementById("mbriefChecklist");
+  clBox.innerHTML = "";
+  const caution = d.checklist_caution || [];
+  const watch = d.checklist_watch || [];
+  if (caution.length || watch.length) {
+    const list = document.createElement("div");
+    list.className = "mbrief-check";
+    const item = (c, kind) => `<div class="mbrief-check-item ${kind}">
+        <div class="mbrief-check-head">${kind === "caution" ? "🚨 주의" : "🔍 주목"} · ${escapeHtml(c.theme)}</div>
+        <p class="mbrief-check-us">${escapeHtml(c.us)}</p>
+        <p class="mbrief-check-cause">${inlineMd(escapeHtml(c.cause))}</p>
+        <p class="mbrief-check-action"><span>대응</span>${inlineMd(escapeHtml(c.action))}</p>
+      </div>`;
+    list.innerHTML = caution.map((c) => item(c, "caution")).join("") + watch.map((c) => item(c, "watch")).join("");
+    clBox.appendChild(mbriefSection("✅ 오늘 국내시장 체크리스트", [list]));
+  }
+}
+
 function renderBriefingEmptyState() {
   // 미장 브리핑과 섹터 박스가 둘 다 비면 Market Briefing 탭이 빈 화면이 되므로 안내를 띄운다.
   const brief = document.getElementById("marketBrief");
   const picks = document.getElementById("dailyPicks");
-  document.getElementById("briefingEmpty").hidden = !(brief.hidden && picks.hidden);
+  const morning = document.getElementById("morningBrief");
+  document.getElementById("briefingEmpty").hidden = !(brief.hidden && picks.hidden && morning.hidden);
 }
 
 function formatPrice(n) {
@@ -532,11 +700,12 @@ function setLastUpdated() {
 
 async function loadAll() {
   try {
-    const [summaries, crossMentions, dailyPicks, marketBrief, screening, channels] = await Promise.all([
+    const [summaries, crossMentions, dailyPicks, marketBrief, morningBrief, screening, channels] = await Promise.all([
       loadJSON("summaries.json"),
       loadJSON("cross_mentions.json"),
       loadJSON("daily_picks.json").catch(() => ({ leading: [], watch: [] })),
       loadJSON("market_brief.json").catch(() => ({ as_of: null, indices: [], sectors: [] })),
+      loadJSON("morning_brief.json").catch(() => ({})),
       loadJSON("screening.json"),
       loadJSON("channels.json").catch(() => []),
     ]);
@@ -544,10 +713,12 @@ async function loadAll() {
     state.crossMentions = crossMentions;
     state.dailyPicks = dailyPicks;
     state.marketBrief = marketBrief;
+    state.morningBrief = morningBrief;
     state.screening = screening;
     state.channels = channels;
 
     renderMarketBrief();
+    renderMorningBrief();
     renderDailyPicks();
     renderBriefingEmptyState();
     renderChannelTabs();
