@@ -2,7 +2,7 @@
 
 내 컴퓨터를 켜두지 않아도, GitHub의 서버가 1시간마다 알아서
 1) 지정한 유튜브 채널에 새 영상이 올라왔는지 확인하고
-2) 자막을 가져와서 Claude(AI)로 요약하고
+2) 자막을 가져와서 Google Gemini(AI)로 요약하고
 3) 결과를 웹페이지(대시보드)에 저장
 
 해주는 시스템입니다. 아래 순서대로 딱 한 번만 설정하면, 그 뒤로는 폰이나 회사 컴퓨터 브라우저로 주소만 열어보면 됩니다.
@@ -16,7 +16,7 @@
 
 | 항목 | 용도 | 발급처 |
 |---|---|---|
-| Anthropic(Claude) API 키 | 자막을 읽고 요약하는 AI | https://console.anthropic.com |
+| Google Gemini API 키 | 자막을 읽고 요약하는 AI (무료 티어, 카드 등록 불필요) | https://aistudio.google.com/apikey |
 | Supadata API 키 | 유튜브 자막 추출 | https://supadata.ai |
 | GitHub 계정 | 이미 만드셨음 ✅ | - |
 
@@ -29,7 +29,7 @@
 이 프로젝트는 아래 폴더에 만들어져 있습니다.
 
 ```
-C:\Users\phy11\Documents\stock-dashboard
+내 컴퓨터 → 문서(Documents) → stock-dashboard
 ```
 
 폴더 구조:
@@ -39,12 +39,12 @@ C:\Users\phy11\Documents\stock-dashboard
 
 ---
 
-## 1단계. Anthropic(Claude) API 키 발급
+## 1단계. Google Gemini API 키 발급 (무료, 카드 등록 불필요)
 
-1. https://console.anthropic.com 접속 후 가입/로그인
-2. 왼쪽 메뉴에서 **API Keys** 클릭 → **Create Key** 클릭
-3. 만들어진 키 (`sk-ant-...`로 시작) 복사해서 메모장에 잠시 저장
-4. **Billing** 메뉴에서 최소 금액(예: $5) 결제 필요 — 요약 1건당 비용은 매우 저렴합니다(보통 몇 원~수십 원 수준)
+1. https://aistudio.google.com/apikey 접속 후 구글 계정으로 로그인
+2. **Create API key** 클릭 (새 프로젝트를 만들라고 하면 그대로 진행)
+3. 생성된 키(`AIza...`로 시작) 복사해서 메모장에 잠시 저장
+4. 결제/카드 등록 없이 바로 사용 가능 (무료 티어는 분당/일당 호출 횟수 제한이 있지만, 이 파이프라인은 1시간마다 새 영상 몇 개만 요약하는 정도라 충분합니다)
 
 ## 2단계. Supadata API 키 발급
 
@@ -71,10 +71,7 @@ C:\Users\phy11\Documents\stock-dashboard
 1. https://desktop.github.com 에서 다운로드 후 설치
 2. 실행 후 방금 만든 Google 계정 연동 GitHub 계정으로 로그인
 3. 상단 메뉴 **File → Add local repository** 클릭
-4. 아래 경로를 입력/선택:
-   ```
-   C:\Users\phy11\Documents\stock-dashboard
-   ```
+4. 왼쪽 사이드바에서 **문서(Documents)** 클릭 → `stock-dashboard` 폴더 선택
 5. "This directory does not appear to be a Git repository. Would you like to create one?" 라는 메시지가 뜨면 **create a repository** 클릭
 6. 왼쪽 하단에 커밋 메시지(예: "첫 커밋")를 적고 **Commit to main** 클릭
 7. 상단의 **Publish repository** 클릭
@@ -90,7 +87,7 @@ C:\Users\phy11\Documents\stock-dashboard
 2. **Settings** 탭 클릭
 3. 왼쪽 메뉴에서 **Secrets and variables → Actions** 클릭
 4. **New repository secret** 클릭해서 아래 2개를 각각 등록:
-   - Name: `ANTHROPIC_API_KEY` / Secret: 1단계에서 받은 키
+   - Name: `GEMINI_API_KEY` / Secret: 1단계에서 받은 키
    - Name: `SUPADATA_API_KEY` / Secret: 2단계에서 받은 키
 
 ---
