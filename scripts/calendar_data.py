@@ -128,7 +128,8 @@ COUNTRY_RULES = {
 }
 
 # 키워드에 걸리지만 실제 지표 발표가 아닌 것들(추정 모델, 잡다한 연설 등)은 걷어낸다.
-EXCLUDE_KEYS = ("GDPNow", "Atlanta Fed", "Redbook", "API Weekly", "Cushing")
+# Cleveland CPI 는 연은의 추정치라 실제 CPI 발표와 다른 시각에 뜬다. 빼지 않으면 달력에 CPI 가 두 번 찍힌다.
+EXCLUDE_KEYS = ("GDPNow", "Atlanta Fed", "Redbook", "API Weekly", "Cushing", "Cleveland")
 
 # 국내 증시 휴장일. 추석·설날은 음력이라 계산하지 않고 확인된 것만 적는다.
 KR_HOLIDAYS = [
@@ -219,34 +220,28 @@ def _match(name, table):
 
 # 나스닥 경제지표 API 의 날짜/시각 규칙 (실제 데이터로 확인함):
 #   - date 는 실제 발표일보다 하루 뒤로 들어온다
-#   - gmt 필드는 이름과 달리 '미 동부시각'이다 (국가 불문)
-# 교차검증 사례:
-#   미국 CPI   API 9/12 08:30 -> 미동부 9/11 08:30 -> 한국 9/11 21:30 (미국 오전 발표)
-#   FOMC      API 9/17 14:00 -> 미동부 9/16 14:00 -> 한국 9/17 03:00 (당잠사 09/17 방송이 다룸)
-#   BOJ       API 9/18 23:00 -> 미동부 9/17 23:00 -> 한국 9/18 12:00 (BOJ 금요일 정오)
-#   한국 PPI   API 9/18 17:00 -> 미동부 9/17 17:00 -> 한국 9/18 06:00 (한은 오전 6시)
+#   - gmt 필드는 이름과 달리 UTC 도, 미 동부 현지시각도 아니다.
+#     서머타임과 무관하게 '항상 UTC-4' 로 고정돼 있다. 즉 겨울(EST)에는
+#     실제 발표시각보다 1시간 크게 들어온다. 그래서 서머타임 보정을 하면 안 된다.
+# 교차검증 (여름/겨울 모두 확인):
+#   미국 CPI  여름 API 9/12  gmt 08:30  겨울 API 1/14  gmt 09:30  (실제 둘 다 08:30 ET)
+#   원유재고   여름 API 9/17  gmt 10:30  겨울 API 1/15  gmt 11:30  (실제 둘 다 10:30 ET)
+#   FOMC     여름 API 9/17  gmt 14:00  겨울 API 1/29  gmt 15:00  (실제 둘 다 14:00 ET)
+#   -> UTC-4 고정으로 풀면: 미국 CPI 한국 9/11 21:30, FOMC 한국 9/17 03:00, BOJ 한국 1/23 12:00
 KST = datetime.timezone(datetime.timedelta(hours=9))
-
-
-def _us_dst(d):
-    """미국 서머타임(3월 둘째 일요일 ~ 11월 첫째 일요일) 여부."""
-    start = _nth_weekday(d.year, 3, 6, 2)  # 3월 둘째 일요일
-    end = _nth_weekday(d.year, 11, 6, 1)  # 11월 첫째 일요일
-    return start <= d < end
+API_TZ = datetime.timezone(datetime.timedelta(hours=-4))  # 서머타임 보정 금지 (위 주석 참조)
 
 
 def to_kst(api_date, gmt_str):
     """API 날짜/시각을 한국시간 (날짜, HH:MM) 으로 바꾼다."""
-    et_date = api_date - datetime.timedelta(days=1)
+    base_date = api_date - datetime.timedelta(days=1)
     try:
         hh, mm = (int(x) for x in (gmt_str or "").split(":")[:2])
     except Exception:
-        return et_date, ""
+        return base_date, ""
 
-    et_offset = -4 if _us_dst(et_date) else -5
-    utc = datetime.datetime(et_date.year, et_date.month, et_date.day, hh, mm,
-                            tzinfo=datetime.timezone(datetime.timedelta(hours=et_offset)))
-    kst = utc.astimezone(KST)
+    stamp = datetime.datetime(base_date.year, base_date.month, base_date.day, hh, mm, tzinfo=API_TZ)
+    kst = stamp.astimezone(KST)
     return kst.date(), kst.strftime("%H:%M")
 
 
