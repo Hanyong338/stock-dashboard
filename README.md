@@ -16,9 +16,12 @@
 
 | 항목 | 용도 | 발급처 |
 |---|---|---|
+| YouTube Data API 키 | 채널에 새 영상 올라왔는지 확인 (무료, 카드 등록 불필요) | https://console.cloud.google.com |
 | Google Gemini API 키 | 자막을 읽고 요약하는 AI (무료 티어, 카드 등록 불필요) | https://aistudio.google.com/apikey |
 | Supadata API 키 | 유튜브 자막 추출 | https://supadata.ai |
 | GitHub 계정 | 이미 만드셨음 ✅ | - |
+
+> 원래는 신규 영상 감지에 키가 필요 없는 RSS 방식을 썼는데, 유튜브가 그 기능을 없애버려서(2026년 9월 확인) YouTube Data API로 교체했습니다. 이것도 무료라 걱정 안 하셔도 됩니다.
 
 > **API 키란?** "이 프로그램이 나 대신 이 서비스를 써도 좋다"는 개인 비밀번호 같은 것입니다. 본인 명의로만 발급되기 때문에 직접 가입/발급해야 합니다. 아래에 화면 순서대로 적어뒀습니다.
 
@@ -33,20 +36,30 @@
 ```
 
 폴더 구조:
-- `scripts/` : 파이썬 자동화 코드 (RSS 체크 → 자막 추출 → AI 요약)
+- `scripts/` : 파이썬 자동화 코드 (신규 영상 체크 → 자막 추출 → AI 요약)
 - `docs/` : 웹 대시보드 (GitHub Pages로 공개됨)
 - `.github/workflows/pipeline.yml` : 1시간마다 자동 실행되는 스케줄러 설정
 
 ---
 
-## 1단계. Google Gemini API 키 발급 (무료, 카드 등록 불필요)
+## 1단계. YouTube Data API 키 발급 (무료, 카드 등록 불필요)
+
+1. https://console.cloud.google.com 접속 후 구글 계정으로 로그인
+2. 상단에 "프로젝트 선택" 이라고 뜨면 클릭 → **새 프로젝트** 클릭 → 이름 아무거나 입력 (예: stock-dashboard) → **만들기**
+3. 왼쪽 위 ☰ 메뉴 → **API 및 서비스 → 라이브러리** 클릭
+4. 검색창에 **YouTube Data API v3** 입력 → 검색결과 클릭 → **사용(Enable)** 버튼 클릭
+5. 왼쪽 메뉴에서 **API 및 서비스 → 사용자 인증 정보(Credentials)** 클릭
+6. 위쪽 **+ 사용자 인증 정보 만들기 → API 키** 클릭
+7. 생성된 키 복사해서 메모장에 저장 (결제/카드 등록 필요 없음)
+
+## 2단계. Google Gemini API 키 발급 (무료, 카드 등록 불필요)
 
 1. https://aistudio.google.com/apikey 접속 후 구글 계정으로 로그인
 2. **Create API key** 클릭 (새 프로젝트를 만들라고 하면 그대로 진행)
 3. 생성된 키(`AIza...`로 시작) 복사해서 메모장에 잠시 저장
 4. 결제/카드 등록 없이 바로 사용 가능 (무료 티어는 분당/일당 호출 횟수 제한이 있지만, 이 파이프라인은 1시간마다 새 영상 몇 개만 요약하는 정도라 충분합니다)
 
-## 2단계. Supadata API 키 발급
+## 3단계. Supadata API 키 발급
 
 1. https://supadata.ai 접속 후 가입/로그인
 2. 대시보드에서 **API Key** 발급/복사 (무료 크레딧 제공)
@@ -54,7 +67,7 @@
 
 ---
 
-## 3단계. GitHub에 저장소(repository) 만들기
+## 4단계. GitHub에 저장소(repository) 만들기
 
 1. https://github.com/new 접속
 2. Repository name에 `stock-dashboard` 입력 (다른 이름도 가능)
@@ -64,7 +77,7 @@
 
 ---
 
-## 4단계. 이 폴더를 GitHub로 올리기 (GitHub Desktop 사용 — 가장 쉬움)
+## 5단계. 이 폴더를 GitHub로 올리기 (GitHub Desktop 사용 — 가장 쉬움)
 
 지금 컴퓨터에는 git 프로그램이 설치되어 있지 않아서, 명령어 대신 **GitHub Desktop**이라는 클릭 몇 번으로 되는 프로그램을 추천합니다.
 
@@ -81,18 +94,19 @@
 
 ---
 
-## 5단계. GitHub 저장소에 API 키 등록 (Secrets)
+## 6단계. GitHub 저장소에 API 키 등록 (Secrets)
 
 1. GitHub에서 방금 만든 저장소로 이동
 2. **Settings** 탭 클릭
 3. 왼쪽 메뉴에서 **Secrets and variables → Actions** 클릭
-4. **New repository secret** 클릭해서 아래 2개를 각각 등록:
-   - Name: `GEMINI_API_KEY` / Secret: 1단계에서 받은 키
-   - Name: `SUPADATA_API_KEY` / Secret: 2단계에서 받은 키
+4. **New repository secret** 클릭해서 아래 3개를 각각 등록:
+   - Name: `YOUTUBE_API_KEY` / Secret: 1단계에서 받은 키
+   - Name: `GEMINI_API_KEY` / Secret: 2단계에서 받은 키
+   - Name: `SUPADATA_API_KEY` / Secret: 3단계에서 받은 키
 
 ---
 
-## 6단계. 자동 커밋을 위한 권한 설정
+## 7단계. 자동 커밋을 위한 권한 설정
 
 1. 저장소 **Settings → Actions → General** 이동
 2. 아래쪽 **Workflow permissions** 항목에서
@@ -101,7 +115,7 @@
 
 ---
 
-## 7단계. GitHub Pages 켜기 (대시보드 공개 주소 만들기)
+## 8단계. GitHub Pages 켜기 (대시보드 공개 주소 만들기)
 
 1. 저장소 **Settings → Pages** 이동
 2. **Source**: `Deploy from a branch` 선택
@@ -114,14 +128,16 @@
 
 ---
 
-## 8단계. 첫 실행 테스트
+## 9단계. 첫 실행 테스트
 
 1. 저장소 **Actions** 탭 이동
 2. 왼쪽에서 **stock-youtube-pipeline** 클릭
 3. 오른쪽 **Run workflow** 버튼 클릭 → 다시 **Run workflow** 클릭
 4. 1~2분 기다린 후 초록색 체크가 뜨면 성공
 
-> ⚠️ **첫 실행에서는 요약이 생성되지 않습니다.** 처음에는 각 채널의 최근 영상들을 "이미 확인함" 상태로만 기록해서, 과거 영상들을 한꺼번에 요약하며 API 비용이 많이 나가는 것을 막습니다. **그 다음부터 새로 올라오는 영상만 자동으로 요약**됩니다. 바로 확인해보고 싶다면 `docs/data/state.json` 파일에서 특정 채널의 channel_id 항목을 지우고 다시 실행하면 그 채널만 새로 감지됩니다.
+> ⚠️ **첫 실행에서는 요약이 생성되지 않습니다.** 처음에는 각 채널의 최근 영상들을 "이미 확인함" 상태로만 기록해서, 과거 영상들을 한꺼번에 요약하며 API 비용이 많이 나가는 것을 막습니다. **그 다음부터 새로 올라오는 영상만 자동으로 요약**됩니다.
+>
+> 바로 결과를 보고 싶다면, `docs/data/state.json` 파일을 열어서 특정 채널의 영상 ID 배열에서 맨 앞의 영상 ID 1~2개를 지우고 저장한 뒤 다시 실행하면, 그 영상들을 "새 영상"으로 인식해서 요약합니다 (채널 항목 전체를 지우면 다시 "확인만" 하고 넘어가니 주의하세요).
 
 이후로는 매시 정각(UTC 기준, 한국시간 기준 정시)에 자동으로 실행됩니다. 컴퓨터를 꺼둬도 GitHub 서버에서 돌아갑니다.
 

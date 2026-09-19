@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from rss_check import fetch_channel_videos
+from youtube_check import fetch_channel_videos
 from summarize import summarize_transcript
 from transcript import get_transcript
 
@@ -44,7 +44,7 @@ def process_channel(ch, state, summaries, now_iso):
     try:
         videos = fetch_channel_videos(cid)
     except Exception as e:
-        print(f"[WARN] RSS fetch failed for {name}: {e}")
+        print(f"[WARN] video list fetch failed for {name}: {e}")
         return
 
     if cid not in state:
