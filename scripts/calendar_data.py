@@ -5,12 +5,14 @@
 그래서 종목은 관심 리스트, 지표는 화이트리스트로 좁힌다.
 """
 import datetime
+import re
 import time
 
 import requests
 
 EARNINGS_URL = "https://api.nasdaq.com/api/calendar/earnings"
 ECONOMIC_URL = "https://api.nasdaq.com/api/calendar/economicevents"
+BOK_URL = "https://www.bok.or.kr/portal/singl/crncyPolicyDrcMtg/listYear.do"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36",
@@ -197,6 +199,50 @@ def us_market_holidays(year):
     ]
 
 
+def bok_rate_decisions(year):
+    """한국은행이 공시한 그 해 금통위 통화정책방향 회의일정을 가져온다.
+
+    나스닥 경제지표 API 는 한 달 앞까지만 채워져 있어서, 국내 투자자에게 가장 중요한
+    금통위가 두 달 뒤부터는 통째로 빠진다. 그래서 한국은행 공식 일정표에서 직접 읽는다.
+    페이지가 '10월 22일(목)' 형태로 요일까지 같이 주기 때문에 파싱 결과를 자체 검증할 수 있다.
+    발표시각 10:00 은 나스닥의 과거 금통위 데이터(KST 10:00)로 확인했다."""
+    try:
+        resp = requests.get(
+            BOK_URL,
+            params={"mtgSe": "A", "menuNo": "200755", "pYear": year},
+            headers={"User-Agent": HEADERS["User-Agent"]},
+            timeout=20,
+        )
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"[WARN] BOK 금통위 일정 조회 실패 {year}: {e}")
+        return []
+
+    weekdays = "월화수목금토일"
+    out = []
+    for mm, dd, wd in re.findall(r"(\d{1,2})월\s?(\d{1,2})일\(([월화수목금토일])\)", resp.text):
+        try:
+            d = datetime.date(year, int(mm), int(dd))
+        except ValueError:
+            continue
+        # 페이지가 적어준 요일과 실제 요일이 어긋나면 엉뚱한 연도를 읽은 것이다.
+        if weekdays[d.weekday()] != wd:
+            print(f"[WARN] BOK 일정 요일 불일치 {d} (페이지:{wd}) — 건너뜀")
+            continue
+        out.append(
+            {
+                "start": d.isoformat(),
+                "end": d.isoformat(),
+                "title": "한국 금통위",
+                "category": "major",
+                "detail": "10:00",
+            }
+        )
+
+    print(f"[INFO] BOK {year} 금통위 {len(out)}건")
+    return out
+
+
 def _get_json(url, date_str):
     resp = requests.get(url, params={"date": date_str}, headers=HEADERS, timeout=20)
     resp.raise_for_status()
@@ -353,6 +399,11 @@ def build_calendar(today=None):
     for h in holidays:
         if start.isoformat() <= h["start"] <= end.isoformat():
             events.append({**h, "category": "holiday", "detail": ""})
+
+    for yr in {start.year, end.year}:
+        for e in bok_rate_decisions(yr):
+            if start.isoformat() <= e["start"] <= end.isoformat():
+                events.append(e)
 
     # 같은 날 같은 제목이 중복으로 들어오는 경우가 있어 정리한다.
     seen = set()
