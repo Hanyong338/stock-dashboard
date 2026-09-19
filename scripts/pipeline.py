@@ -16,7 +16,7 @@ from summarize import summarize_transcript
 from transcript import get_transcript, is_retryable_error
 from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
-from calendar_data import build_calendar
+from calendar_data import KST, build_calendar
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "data"
@@ -234,13 +234,17 @@ def _overlay_session_closes(report, published):
 
 def update_calendar(now):
     """증시 캘린더를 하루에 한 번만 다시 만든다.
-    한 번에 100일 넘게 조회하므로 매시간 돌리면 API 호출이 낭비된다."""
+    한 번에 100일 넘게 조회하므로 매시간 돌리면 API 호출이 낭비된다.
+
+    기준 날짜는 반드시 한국시간이어야 한다. UTC 로 잡으면 한국 기준 00~09시 사이에는
+    '어제'로 계산돼서, 그 시간대 실행이 전부 '오늘 이미 만들었다'며 건너뛴다."""
     current = load_json(CALENDAR_FILE, {})
-    today = now.date().isoformat()
+    kst_today = now.astimezone(KST).date()
+    today = kst_today.isoformat()
     if current.get("built_on") == today:
         return False
 
-    data = build_calendar(now.date())
+    data = build_calendar(kst_today)
     data["built_on"] = today
     data["updated_at"] = now.isoformat()
     save_json(CALENDAR_FILE, data)
