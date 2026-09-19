@@ -200,30 +200,34 @@ main {
 
 /* ---------- Overnight US market brief ---------- */
 
+/* 다른 카드(.verdict/.mbrief)와 같은 토큰을 써서 톤을 맞춘다.
+   예전엔 이 카드만 남색 그라데이션이라 라이트 모드에서 특히 따로 놀았다. */
 .market-brief {
   margin: 0 0 16px;
-  padding: 18px 20px;
-  background: linear-gradient(160deg, #0f1229, #161a3a 55%, #0f1229);
-  border: 1px solid #2b2f5c;
+  padding: 18px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-2);
-  color: #f1f1fb;
+  box-shadow: var(--shadow-1);
+  color: var(--text);
 }
 
 .market-brief-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 14px;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 13px;
 }
 .market-brief-head h2 {
-  font-size: 13.5px;
+  font-size: 16px;
   font-weight: 800;
   margin: 0;
-  color: #fff;
-  letter-spacing: 0.01em;
+  color: var(--text);
+  letter-spacing: -0.3px;
 }
-.market-asof { font-size: 11px; color: #9a9dcf; }
+.market-asof { font-size: 11.5px; color: var(--text-muted); font-weight: 600; }
 
 .market-indices {
   display: grid;
@@ -232,19 +236,18 @@ main {
   margin-bottom: 16px;
 }
 
+/* 당잠사 리포트의 지수 카드(.mbrief-idx)와 동일한 규격 */
 .index-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  background: var(--chip-bg);
+  border-radius: var(--radius-md);
+  padding: 10px 11px;
 }
-.index-name { font-size: 11px; font-weight: 700; color: #b3b6e6; margin-bottom: 4px; }
-.index-price { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
+.index-name { font-size: 11.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 3px; }
+.index-price { font-size: 15px; font-weight: 800; color: var(--text); letter-spacing: -0.4px; }
 .index-change { font-size: 12px; font-weight: 700; margin-top: 2px; }
-/* 국내 증권앱 관례에 맞춰 상승=빨강, 하락=파랑. 이 카드는 항상 어두운 배경이라 밝은 톤을 쓴다 */
-.index-card.up .index-change { color: #ff5c72; }
-.index-card.down .index-change { color: #5b9cff; }
-.index-card.flat .index-change { color: #9a9dcf; }
+.index-card.up .index-change { color: var(--up); }
+.index-card.down .index-change { color: var(--down); }
+.index-card.flat .index-change { color: var(--text-muted); }
 
 .market-sectors { display: flex; flex-direction: column; gap: 6px; }
 .sector-row {
@@ -254,22 +257,22 @@ main {
   gap: 10px;
   font-size: 12px;
 }
-.sector-name { color: #d3d5f5; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sector-name { color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sector-bar-track {
   position: relative;
   height: 7px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--chip-bg);
   overflow: hidden;
 }
 .sector-bar-fill { display: block; height: 100%; border-radius: 999px; }
-.sector-row.up .sector-bar-fill { background: linear-gradient(90deg, #e03950, #ff5c72); }
-.sector-row.down .sector-bar-fill { background: linear-gradient(90deg, #2f7ae5, #5b9cff); }
-.sector-row.flat .sector-bar-fill { background: #6b6f9a; }
+.sector-row.up .sector-bar-fill { background: var(--up); }
+.sector-row.down .sector-bar-fill { background: var(--down); }
+.sector-row.flat .sector-bar-fill { background: var(--text-faint); }
 .sector-change { text-align: right; font-weight: 700; }
-.sector-row.up .sector-change { color: #ff5c72; }
-.sector-row.down .sector-change { color: #5b9cff; }
-.sector-row.flat .sector-change { color: #9a9dcf; }
+.sector-row.up .sector-change { color: var(--up); }
+.sector-row.down .sector-change { color: var(--down); }
+.sector-row.flat .sector-change { color: var(--text-muted); }
 
 @media (max-width: 600px) {
   .market-brief { padding: 15px 16px; }
@@ -942,12 +945,8 @@ main {
 .mbrief-navchip:hover { color: var(--accent); border-color: var(--accent); }
 .mbrief-navcount { font-size: 11px; font-weight: 800; color: var(--text-faint); }
 
-/* ---------- 미장 브리핑 압축 (지수/섹터가 화면을 너무 많이 먹지 않게) ---------- */
-
-.market-brief { padding: 15px 16px; }
+/* 미장 브리핑 압축 (지수/섹터가 화면을 너무 많이 먹지 않게) */
 .market-indices { gap: 7px; margin-bottom: 12px; }
-.index-card { padding: 9px 10px; }
-.index-price { font-size: 15px; }
 .market-sectors { gap: 3px; }
 .sector-row { grid-template-columns: 72px 1fr 62px; font-size: 11.5px; }
 .sector-bar-track { height: 6px; }
