@@ -1,1 +1,77 @@
-{ "leading": [], "watch": [] }
+{
+  "leading": [
+    {
+      "sector": "반도체 및 AI 하드웨어",
+      "tickers": [
+        "마이크론",
+        "삼성전자"
+      ],
+      "channels": [
+        "815머니톡"
+      ],
+      "count": 1
+    },
+    {
+      "sector": "반도체 및 광통신",
+      "tickers": [
+        "SK하이닉스",
+        "빗샘전자",
+        "삼성전자",
+        "성호전자"
+      ],
+      "channels": [
+        "815머니톡"
+      ],
+      "count": 1
+    },
+    {
+      "sector": "친환경 및 연료전지",
+      "tickers": [
+        "블룸 에너지"
+      ],
+      "channels": [
+        "815머니톡"
+      ],
+      "count": 1
+    },
+    {
+      "sector": "대형 조선사",
+      "tickers": [
+        "HD현대중공업",
+        "삼성중공업"
+      ],
+      "channels": [
+        "815머니톡"
+      ],
+      "count": 1
+    }
+  ],
+  "watch": [
+    {
+      "sector": "엔캐리 트레이드 관련 금융 자산",
+      "tickers": [],
+      "channels": [
+        "815머니톡"
+      ],
+      "count": 1
+    },
+    {
+      "sector": "원전 및 가스",
+      "tickers": [],
+      "channels": [
+        "815머니톡"
+      ],
+      "count": 1
+    },
+    {
+      "sector": "환헤지 미흡 및 기자재 섹터",
+      "tickers": [
+        "한화오션"
+      ],
+      "channels": [
+        "815머니톡"
+      ],
+      "count": 1
+    }
+  ]
+}
