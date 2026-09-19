@@ -115,13 +115,70 @@ COUNTRY_RULES = {
 # 키워드에 걸리지만 실제 지표 발표가 아닌 것들(추정 모델, 잡다한 연설 등)은 걷어낸다.
 EXCLUDE_KEYS = ("GDPNow", "Atlanta Fed", "Redbook", "API Weekly")
 
-# 국내 증시 휴장일(양력 고정일 + 확인된 연휴). 음력 계산은 하지 않고 확실한 것만 넣는다.
-MARKET_HOLIDAYS = [
-    {"start": "2026-09-24", "end": "2026-09-26", "title": "추석 연휴 (휴장)"},
-    {"start": "2026-10-03", "end": "2026-10-03", "title": "개천절 (휴장)"},
-    {"start": "2026-10-09", "end": "2026-10-09", "title": "한글날 (휴장)"},
-    {"start": "2026-12-25", "end": "2026-12-25", "title": "성탄절 (휴장)"},
+# 국내 증시 휴장일. 추석·설날은 음력이라 계산하지 않고 확인된 것만 적는다.
+KR_HOLIDAYS = [
+    {"start": "2026-09-24", "end": "2026-09-26", "title": "추석 연휴 (한국 휴장)"},
+    {"start": "2026-10-03", "end": "2026-10-03", "title": "개천절 (한국 휴장)"},
+    {"start": "2026-10-09", "end": "2026-10-09", "title": "한글날 (한국 휴장)"},
+    {"start": "2026-12-25", "end": "2026-12-25", "title": "성탄절 (한국 휴장)"},
 ]
+
+
+def _nth_weekday(year, month, weekday, n):
+    """그 달의 n번째 특정 요일. weekday 는 월=0 ... 일=6."""
+    first = datetime.date(year, month, 1)
+    offset = (weekday - first.weekday()) % 7
+    return first + datetime.timedelta(days=offset + (n - 1) * 7)
+
+
+def _last_weekday(year, month, weekday):
+    nxt = datetime.date(year + (month // 12), (month % 12) + 1, 1)
+    last = nxt - datetime.timedelta(days=1)
+    return last - datetime.timedelta(days=(last.weekday() - weekday) % 7)
+
+
+def _easter(year):
+    """부활절(그레고리력). 성금요일 계산에 쓴다."""
+    a, b, c = year % 19, year // 100, year % 100
+    d, e = b // 4, b % 4
+    f = (b + 8) // 25
+    g = (b - f + 1) // 3
+    h = (19 * a + b - d - g + 15) % 30
+    i, k = c // 4, c % 4
+    l = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * l) // 451
+    month = (h + l - 7 * m + 114) // 31
+    day = ((h + l - 7 * m + 114) % 31) + 1
+    return datetime.date(year, month, day)
+
+
+def _observed(d):
+    """토요일이면 전날 금요일, 일요일이면 다음날 월요일로 대체휴장 (NYSE 규칙)."""
+    if d.weekday() == 5:
+        return d - datetime.timedelta(days=1)
+    if d.weekday() == 6:
+        return d + datetime.timedelta(days=1)
+    return d
+
+
+def us_market_holidays(year):
+    """미국 증시(NYSE/나스닥) 휴장일을 연도별로 계산한다. 손으로 적으면 틀리기 쉬워서 계산한다."""
+    days = [
+        (_observed(datetime.date(year, 1, 1)), "신정"),
+        (_nth_weekday(year, 1, 0, 3), "마틴 루터 킹 데이"),
+        (_nth_weekday(year, 2, 0, 3), "대통령의 날"),
+        (_easter(year) - datetime.timedelta(days=2), "성금요일"),
+        (_last_weekday(year, 5, 0), "메모리얼 데이"),
+        (_observed(datetime.date(year, 6, 19)), "준틴스"),
+        (_observed(datetime.date(year, 7, 4)), "독립기념일"),
+        (_nth_weekday(year, 9, 0, 1), "노동절"),
+        (_nth_weekday(year, 11, 3, 4), "추수감사절"),
+        (_observed(datetime.date(year, 12, 25)), "성탄절"),
+    ]
+    return [
+        {"start": d.isoformat(), "end": d.isoformat(), "title": f"{name} (미국 휴장)"}
+        for d, name in days
+    ]
 
 
 def _get_json(url, date_str):
@@ -273,7 +330,11 @@ def build_calendar(today=None, carry_issues=None):
         time.sleep(REQUEST_INTERVAL)
         day += datetime.timedelta(days=1)
 
-    for h in MARKET_HOLIDAYS:
+    holidays = list(KR_HOLIDAYS)
+    for yr in {start.year, end.year}:
+        holidays.extend(us_market_holidays(yr))
+
+    for h in holidays:
         if start.isoformat() <= h["start"] <= end.isoformat():
             events.append({**h, "category": "holiday", "detail": ""})
 
