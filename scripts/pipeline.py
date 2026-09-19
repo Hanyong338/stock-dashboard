@@ -4,6 +4,7 @@ GitHub Actions에서 1시간마다 실행된다 (.github/workflows/pipeline.yml 
 import datetime
 import json
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -27,6 +28,7 @@ STATE_HISTORY_PER_CHANNEL = 100
 CROSS_WINDOW_HOURS = 48
 DAILY_PICKS_WINDOW_HOURS = 24
 MAX_PICKS_PER_SIDE = 6
+REQUEST_INTERVAL_SECONDS = 3  # 자막/AI API를 너무 빨리 연달아 호출해서 429(요청 한도 초과)에 걸리는 것을 막는다.
 
 
 def parse_published(pub_iso):
@@ -93,6 +95,7 @@ def process_channel(ch, state, summaries, now):
             continue
 
         print(f"[INFO] New video: {name} - {v['title']}")
+        time.sleep(REQUEST_INTERVAL_SECONDS)
 
         try:
             transcript_text = get_transcript(v["url"])
