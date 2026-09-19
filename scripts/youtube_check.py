@@ -4,6 +4,7 @@ https://console.cloud.google.com 에서 카드 등록 없이 무료로 키를 �
 """
 import os
 import re
+import time
 
 import requests
 
@@ -11,6 +12,9 @@ PLAYLIST_ITEMS_URL = "https://www.googleapis.com/youtube/v3/playlistItems"
 VIDEOS_URL = "https://www.googleapis.com/youtube/v3/videos"
 
 _DURATION_RE = re.compile(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?")
+
+_FETCH_MAX_ATTEMPTS = 3
+_FETCH_RETRY_BACKOFF_SECONDS = [3, 8]
 
 
 def _api_key():
@@ -58,22 +62,40 @@ def _fetch_durations(video_ids):
     return durations
 
 
+def _fetch_playlist_items(playlist_id, max_results, channel_id):
+    """일시적인 네트워크/API 오류 하나 때문에 채널 하나가 통째로 한 시간 건너뛰어지는 것을
+    막기 위해 재시도한다 (summarize.py의 재시도 패턴과 동일)."""
+    last_error = None
+    for attempt in range(_FETCH_MAX_ATTEMPTS):
+        try:
+            resp = requests.get(
+                PLAYLIST_ITEMS_URL,
+                params={
+                    "part": "snippet",
+                    "playlistId": playlist_id,
+                    "maxResults": max_results,
+                    "key": _api_key(),
+                },
+                timeout=30,
+            )
+            if resp.status_code == 200:
+                return resp.json()
+            last_error = RuntimeError(
+                f"YouTube API 오류 {resp.status_code} (channel_id={channel_id}): {resp.text[:300]}"
+            )
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+            last_error = e
+
+        if attempt < _FETCH_MAX_ATTEMPTS - 1:
+            print(f"[WARN] playlist fetch retry {attempt + 1}/{_FETCH_MAX_ATTEMPTS} for channel_id={channel_id}: {last_error}")
+            time.sleep(_FETCH_RETRY_BACKOFF_SECONDS[attempt])
+
+    raise last_error
+
+
 def fetch_channel_videos(channel_id, max_results=50):
     playlist_id = _uploads_playlist_id(channel_id)
-    resp = requests.get(
-        PLAYLIST_ITEMS_URL,
-        params={
-            "part": "snippet",
-            "playlistId": playlist_id,
-            "maxResults": max_results,
-            "key": _api_key(),
-        },
-        timeout=30,
-    )
-    if resp.status_code != 200:
-        raise RuntimeError(f"YouTube API 오류 {resp.status_code} (channel_id={channel_id}): {resp.text[:300]}")
-
-    data = resp.json()
+    data = _fetch_playlist_items(playlist_id, max_results, channel_id)
     videos = []
     for item in data.get("items", []):
         try:
