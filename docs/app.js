@@ -2,6 +2,18 @@ const DATA_BASE = "./data";
 
 const CHANNEL_COLORS = ["#f59e0b", "#ef4444", "#8b5cf6", "#10b981", "#3b82f6", "#ec4899", "#14b8a6"];
 
+const SECTION_MAP = [
+  { emoji: "🌐", icon: "🌐", color: "var(--sec-macro)" },
+  { emoji: "📊", icon: "📊", color: "var(--sec-sector)" },
+  { emoji: "💡", icon: "💡", color: "var(--sec-insight)" },
+  { emoji: "🛡️", icon: "🛡️", color: "var(--sec-action)" },
+  { emoji: "🛡", icon: "🛡️", color: "var(--sec-action)" },
+];
+
+function matchSection(headingText) {
+  return SECTION_MAP.find((s) => headingText.includes(s.emoji));
+}
+
 const state = {
   summaries: [],
   crossMentions: [],
@@ -132,11 +144,19 @@ function markdownToHtml(raw) {
   const lines = escaped.split(/\r?\n/);
   let html = "";
   let inList = false;
+  let inSection = false;
 
   const closeList = () => {
     if (inList) {
       html += "</ul>";
       inList = false;
+    }
+  };
+  const closeSection = () => {
+    closeList();
+    if (inSection) {
+      html += "</div>";
+      inSection = false;
     }
   };
 
@@ -149,8 +169,16 @@ function markdownToHtml(raw) {
 
     const headerMatch = line.match(/^#{1,6}\s+(.*)/);
     if (headerMatch) {
-      closeList();
-      html += `<h4 class="report-heading">${inlineMd(headerMatch[1])}</h4>`;
+      closeSection();
+      const headingText = headerMatch[1];
+      const sec = matchSection(headingText);
+      const secColorStyle = sec ? ` style="--sec-color:${sec.color}"` : "";
+      const headingWithoutEmoji = sec ? headingText.replace(sec.emoji, "").trim() : headingText;
+      html += `<div class="report-section"${secColorStyle}>`;
+      html += `<div class="report-section-head">`;
+      if (sec) html += `<span class="report-icon">${sec.icon}</span>`;
+      html += `<h4 class="report-heading">${inlineMd(headingWithoutEmoji)}</h4></div>`;
+      inSection = true;
       continue;
     }
 
@@ -167,7 +195,7 @@ function markdownToHtml(raw) {
     closeList();
     html += `<p>${inlineMd(line)}</p>`;
   }
-  closeList();
+  closeSection();
   return html;
 }
 
@@ -184,14 +212,22 @@ function buildCard(item, hotTickers) {
   const color = channelColor(item.channel);
   card.style.setProperty("--ch-color", color);
 
+  const initial = (item.channel || "?").trim().charAt(0);
   const head = document.createElement("div");
   head.className = "card-head";
   head.innerHTML = `
-    <div>
-      <div class="card-channel"><span class="channel-dot" style="--dot-color:${color}"></span>${escapeHtml(item.channel)}</div>
-      <div class="card-title">${escapeHtml(item.title)}</div>
+    <div class="card-head-main">
+      <div class="card-avatar">${escapeHtml(initial)}</div>
+      <div class="card-title-group">
+        <div class="card-channel">${escapeHtml(item.channel)}</div>
+        <div class="card-title">${escapeHtml(item.title)}</div>
+      </div>
     </div>
-    <div class="card-time">${isFresh(item.published) ? '<span class="new-badge">NEW</span>' : ""}${formatRelativeTime(item.published)}</div>
+    <div class="card-time">
+      ${isFresh(item.published) ? '<span class="new-badge">NEW</span>' : ""}
+      <span>${formatRelativeTime(item.published)}</span>
+      <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
   `;
 
   const body = document.createElement("div");
@@ -253,7 +289,7 @@ function renderSummaries() {
 
   if (!filtered.length) {
     const who = state.selectedChannel ? `"${escapeHtml(state.selectedChannel)}" 채널의` : "";
-    list.innerHTML = `<p class="empty-state">아직 ${who} 요약된 영상이 없습니다. 파이프라인이 실행되면 이곳에 표시됩니다.</p>`;
+    list.innerHTML = `<div class="empty-state"><span class="empty-icon">🗂️</span>아직 ${who} 요약된 영상이 없습니다.<br>새 영상이 올라오면 1시간 내로 이곳에 표시됩니다.</div>`;
     return;
   }
 
@@ -278,7 +314,7 @@ function renderScreening() {
   list.innerHTML = "";
 
   if (!state.screening.length) {
-    list.innerHTML = '<p class="empty-state">차트 패턴 스크리닝 기능은 아직 준비 중입니다. (다음 단계에서 추가 예정)</p>';
+    list.innerHTML = '<div class="empty-state"><span class="empty-icon">📉</span>차트 패턴 스크리닝 기능은 아직 준비 중입니다.<br>다음 단계에서 추가될 예정이에요.</div>';
     return;
   }
 
@@ -329,15 +365,46 @@ async function loadAll() {
   }
 }
 
-document.querySelectorAll(".tab-btn").forEach((btn) => {
+const sectionTabBtns = [...document.querySelectorAll(".tab-btn")];
+
+function moveTabIndicator(btn) {
+  const indicator = document.getElementById("tabIndicator");
+  const idx = sectionTabBtns.indexOf(btn);
+  indicator.style.transform = `translateX(${idx * 100}%)`;
+}
+
+sectionTabBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+    sectionTabBtns.forEach((b) => b.classList.remove("active"));
     document.querySelectorAll(".tab-panel").forEach((p) => p.classList.remove("active"));
     btn.classList.add("active");
     document.getElementById(`tab-${btn.dataset.tab}`).classList.add("active");
+    moveTabIndicator(btn);
   });
 });
+moveTabIndicator(sectionTabBtns[0]);
 
-document.getElementById("refreshBtn").addEventListener("click", loadAll);
+document.getElementById("refreshBtn").addEventListener("click", () => {
+  const btn = document.getElementById("refreshBtn");
+  btn.classList.add("spinning");
+  loadAll().finally(() => setTimeout(() => btn.classList.remove("spinning"), 600));
+});
 
+function renderSkeleton() {
+  const list = document.getElementById("summaryList");
+  list.innerHTML = Array(3)
+    .fill(0)
+    .map(
+      () => `
+      <div class="skeleton-card">
+        <div class="skeleton-line" style="width:35%"></div>
+        <div class="skeleton-line" style="width:70%;height:16px"></div>
+        <div class="skeleton-line" style="width:95%"></div>
+        <div class="skeleton-line" style="width:85%"></div>
+      </div>`
+    )
+    .join("");
+}
+
+renderSkeleton();
 loadAll();

@@ -378,8 +378,8 @@ main {
 .chevron {
   transition: transform 0.2s ease;
   color: var(--text-faint);
+  flex: 0 0 auto;
 }
-.card-body.collapsed ~ .card-head .chevron,
 .card-head:has(+ .card-body.collapsed) .chevron { transform: rotate(-90deg); }
 
 .new-badge {
