@@ -406,7 +406,29 @@ main {
 }
 
 .card-title-group { min-width: 0; }
+.card-title-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 .card-title { font-size: 15.5px; font-weight: 800; line-height: 1.4; letter-spacing: -0.01em; }
+
+.yt-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #fff;
+  background: #ff0033;
+  padding: 3px 9px 3px 7px;
+  border-radius: 999px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.yt-link:hover { background: #d40029; }
 .card-channel {
   font-size: 12px;
   font-weight: 800;
@@ -454,11 +476,8 @@ main {
   color: var(--text);
 }
 .card-lead strong {
-  color: var(--text);
+  color: var(--ch-color, var(--accent));
   font-weight: 800;
-  background: var(--accent-soft);
-  padding: 1px 5px;
-  border-radius: 5px;
 }
 
 .card-body {
@@ -494,9 +513,6 @@ main {
 .report strong {
   color: var(--text);
   font-weight: 800;
-  background: var(--accent-soft);
-  padding: 1px 5px;
-  border-radius: 5px;
 }
 
 .report-section { margin-bottom: 4px; }
@@ -540,17 +556,6 @@ main {
   font-weight: 800;
 }
 
-.card-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 13px;
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--accent);
-  text-decoration: none;
-}
-.card-link:hover { color: var(--accent-strong); text-decoration: underline; }
 
 /* ---------- Empty / loading states ---------- */
 

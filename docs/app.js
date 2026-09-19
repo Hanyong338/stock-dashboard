@@ -324,7 +324,13 @@ function buildCard(item, hotTickers) {
       <div class="card-avatar">${escapeHtml(initial)}</div>
       <div class="card-title-group">
         <div class="card-channel">${escapeHtml(item.channel)}</div>
-        <div class="card-title">${escapeHtml(item.title)}</div>
+        <div class="card-title-row">
+          <span class="card-title">${escapeHtml(item.title)}</span>
+          <a class="yt-link" href="${item.url}" target="_blank" rel="noopener noreferrer" title="유튜브에서 영상 보기">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2s-.21-1.5-.87-2.16c-.83-.87-1.76-.87-2.19-.92C15.44 4 12 4 12 4h-.01s-3.44 0-6.53.12c-.43.05-1.36.05-2.19.92C2.6 5.7 2.4 7.2 2.4 7.2S2.18 8.97 2.18 10.73v1.65c0 1.76.22 3.53.22 3.53s.21 1.5.87 2.16c.83.87 1.92.84 2.4.93 1.75.17 7.42.22 7.42.22s3.44-.01 6.53-.13c.43-.05 1.36-.05 2.19-.92.66-.66.87-2.16.87-2.16s.22-1.76.22-3.53v-1.65c0-1.76-.22-3.53-.22-3.53zM9.98 14.5v-5.5l5.27 2.76-5.27 2.74z"/></svg>
+            영상보기
+          </a>
+        </div>
       </div>
     </div>
     <div class="card-time">
@@ -361,16 +367,9 @@ function buildCard(item, hotTickers) {
   }
   inner.appendChild(tagRow);
 
-  const link = document.createElement("a");
-  link.className = "card-link";
-  link.href = item.url;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.textContent = "영상 보기 ↗";
-  inner.appendChild(link);
-
   body.appendChild(inner);
   head.addEventListener("click", () => body.classList.toggle("collapsed"));
+  head.querySelector(".yt-link")?.addEventListener("click", (e) => e.stopPropagation());
 
   card.appendChild(head);
 
