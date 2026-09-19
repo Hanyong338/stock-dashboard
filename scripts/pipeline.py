@@ -3,6 +3,7 @@ GitHub Actions에서 1시간마다 실행된다 (.github/workflows/pipeline.yml 
 """
 import datetime
 import json
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -199,6 +200,44 @@ def build_daily_picks(summaries):
     }
 
 
+def _save_data_files(state, summaries, channels, now):
+    summaries.sort(key=lambda s: s.get("published", ""), reverse=True)
+    trimmed = [s for s in summaries if within_retention(s.get("published", ""), now)][:MAX_SUMMARIES]
+
+    save_json(STATE_FILE, state)
+    save_json(SUMMARIES_FILE, trimmed)
+    save_json(CROSS_FILE, build_cross_mentions(trimmed))
+    save_json(DAILY_PICKS_FILE, build_daily_picks(trimmed))
+    save_json(CHANNELS_OUT_FILE, channels)
+    return trimmed
+
+
+def _git(*args):
+    return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
+
+
+def commit_and_push(message):
+    """채널 하나 끝날 때마다 즉시 커밋+푸시해서, 실행이 중간에 취소/중단돼도
+    그때까지 처리한 영상(과 이미 쓴 크레딧)이 저장되지 않고 날아가는 일을 막는다."""
+    _git("config", "user.name", "stock-dashboard-bot")
+    _git("config", "user.email", "actions@github.com")
+    _git("add", "docs/data")
+
+    if _git("diff", "--cached", "--quiet").returncode == 0:
+        return  # 변경 없음
+
+    commit = _git("commit", "-m", message)
+    if commit.returncode != 0:
+        print(f"[WARN] git commit failed: {commit.stderr.strip()}")
+        return
+
+    push = _git("push")
+    if push.returncode != 0:
+        print(f"[WARN] git push failed: {push.stderr.strip()}")
+    else:
+        print(f"[INFO] committed and pushed: {message}")
+
+
 def main():
     channels = load_json(CHANNELS_FILE, [])
     state = load_json(STATE_FILE, {})
@@ -207,20 +246,14 @@ def main():
 
     for ch in channels:
         process_channel(ch, state, summaries, now)
-
-    summaries.sort(key=lambda s: s.get("published", ""), reverse=True)
-    summaries = [s for s in summaries if within_retention(s.get("published", ""), now)][:MAX_SUMMARIES]
-
-    save_json(STATE_FILE, state)
-    save_json(SUMMARIES_FILE, summaries)
-    save_json(CROSS_FILE, build_cross_mentions(summaries))
-    save_json(DAILY_PICKS_FILE, build_daily_picks(summaries))
-    save_json(CHANNELS_OUT_FILE, channels)
+        summaries = _save_data_files(state, summaries, channels, now)
+        commit_and_push(f"chore: update data ({ch['name']}) {now.isoformat()}")
 
     try:
         market_brief = fetch_market_brief()
         market_brief["as_of"] = now.isoformat()
         save_json(MARKET_BRIEF_FILE, market_brief)
+        commit_and_push(f"chore: update market brief {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] market brief fetch failed: {e}")
 
