@@ -202,14 +202,37 @@ def _match(name, table):
     return None
 
 
-# 나스닥 경제지표 API 는 미국 발표를 하루 뒤 날짜로 준다. 실제 확인한 사례:
-#   비농업고용 API 9/05(토) -> 실제 9/04(금)
-#   CPI        API 9/12(토) -> 실제 9/11(금)
-#   FOMC       API 9/17(목) -> 실제 9/16(수)  (당잠사 09/17 방송이 이 금리인상을 다룸)
-#   주간실업수당 API 9/18(금) -> 실제 9/17(목) (당잠사가 9/17 세션으로 보도)
-# 반면 중국 LPR 은 9/21(월)로 정확하고, 실적 API 도 정확하다(테슬라 수요일·애플 목요일).
-# 그래서 '미국 경제지표'에만 하루를 빼준다.
-DATE_SHIFT_COUNTRIES = {"United States"}
+# 나스닥 경제지표 API 의 날짜/시각 규칙 (실제 데이터로 확인함):
+#   - date 는 실제 발표일보다 하루 뒤로 들어온다
+#   - gmt 필드는 이름과 달리 '미 동부시각'이다 (국가 불문)
+# 교차검증 사례:
+#   미국 CPI   API 9/12 08:30 -> 미동부 9/11 08:30 -> 한국 9/11 21:30 (미국 오전 발표)
+#   FOMC      API 9/17 14:00 -> 미동부 9/16 14:00 -> 한국 9/17 03:00 (당잠사 09/17 방송이 다룸)
+#   BOJ       API 9/18 23:00 -> 미동부 9/17 23:00 -> 한국 9/18 12:00 (BOJ 금요일 정오)
+#   한국 PPI   API 9/18 17:00 -> 미동부 9/17 17:00 -> 한국 9/18 06:00 (한은 오전 6시)
+KST = datetime.timezone(datetime.timedelta(hours=9))
+
+
+def _us_dst(d):
+    """미국 서머타임(3월 둘째 일요일 ~ 11월 첫째 일요일) 여부."""
+    start = _nth_weekday(d.year, 3, 6, 2)  # 3월 둘째 일요일
+    end = _nth_weekday(d.year, 11, 6, 1)  # 11월 첫째 일요일
+    return start <= d < end
+
+
+def to_kst(api_date, gmt_str):
+    """API 날짜/시각을 한국시간 (날짜, HH:MM) 으로 바꾼다."""
+    et_date = api_date - datetime.timedelta(days=1)
+    try:
+        hh, mm = (int(x) for x in (gmt_str or "").split(":")[:2])
+    except Exception:
+        return et_date, ""
+
+    et_offset = -4 if _us_dst(et_date) else -5
+    utc = datetime.datetime(et_date.year, et_date.month, et_date.day, hh, mm,
+                            tzinfo=datetime.timezone(datetime.timedelta(hours=et_offset)))
+    kst = utc.astimezone(KST)
+    return kst.date(), kst.strftime("%H:%M")
 
 
 def fetch_day(date_obj):
@@ -222,13 +245,24 @@ def fetch_day(date_obj):
             symbol = (row.get("symbol") or "").strip().upper()
             if symbol not in WATCHLIST:
                 continue
+
+            # 실적 API 는 날짜가 정확하다(미 동부 기준). 다만 장마감 후 발표는
+            # 한국에선 다음 날 새벽이라 국내 투자자가 보는 날짜가 하루 밀린다.
+            when = (row.get("time") or "").strip()
+            if "pre-market" in when:
+                kst_date, note = date_obj, "장전"
+            elif "after-hours" in when:
+                kst_date, note = date_obj + datetime.timedelta(days=1), "장마감 후"
+            else:
+                kst_date, note = date_obj, ""
+
             events.append(
                 {
-                    "start": date_str,
-                    "end": date_str,
+                    "start": kst_date.isoformat(),
+                    "end": kst_date.isoformat(),
                     "title": f"{WATCHLIST[symbol]} 실적",
                     "category": "earnings",
-                    "detail": symbol,
+                    "detail": f"{symbol} {note}".strip(),
                 }
             )
     except Exception as e:
@@ -240,8 +274,8 @@ def fetch_day(date_obj):
             rules = COUNTRY_RULES.get(country)
             if not rules:
                 continue
-            real_date = date_obj - datetime.timedelta(days=1) if country in DATE_SHIFT_COUNTRIES else date_obj
-            real_str = real_date.isoformat()
+            kst_date, kst_time = to_kst(date_obj, row.get("gmt"))
+            real_str = kst_date.isoformat()
             name = (row.get("eventName") or "").strip()
             if not name or any(x.lower() in name.lower() for x in EXCLUDE_KEYS):
                 continue
@@ -260,7 +294,7 @@ def fetch_day(date_obj):
                     "end": real_str,
                     "title": label,
                     "category": category,
-                    "detail": (row.get("gmt") or "").strip(),
+                    "detail": kst_time,  # 한국시간
                 }
             )
     except Exception as e:
