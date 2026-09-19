@@ -1218,3 +1218,8 @@ main {
 .cal-more:hover { color: var(--accent); }
 @media (max-width: 560px) { .cal-more { line-height: 15px; font-size: 9.5px; } }
 
+
+/* 이슈·정책 (법안 통과, 규제 변경 등). 경제지표 API 에 없어 당잠사 뉴스에서 가져온다 */
+.cal-chip.cat-issue.on, .cal-agenda-item.cat-issue { color: #f59e0b; }
+.cal-bar.cat-issue { background: #f59e0b; }
+

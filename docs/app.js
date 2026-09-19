@@ -139,9 +139,10 @@ function mbriefSection(title, bodyNodes) {
 /* ---------- 증시 캘린더 ---------- */
 
 const CAL_CATEGORIES = [
-  { key: "earnings", label: "실적" },
-  { key: "macro", label: "경제지표" },
   { key: "major", label: "주요 이벤트" },
+  { key: "issue", label: "이슈·정책" },
+  { key: "macro", label: "경제지표" },
+  { key: "earnings", label: "실적" },
   { key: "holiday", label: "휴장" },
 ];
 

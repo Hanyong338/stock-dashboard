@@ -75,6 +75,10 @@ COUNTRY_RULES = {
             "ISM Non-Manufacturing PMI": "ISM 서비스업",
             "Durable Goods Orders": "미국 내구재",
             "Michigan Consumer Sentiment": "미시간 소비심리",
+            "CB Consumer Confidence": "미국 소비자신뢰",
+            "Philadelphia Fed Manufacturing Index": "필라델피아 연은지수",
+            "Existing Home Sales": "미국 기존주택판매",
+            "New Home Sales": "미국 신규주택판매",
             "Building Permits": "미국 건축허가",
             "Housing Starts": "미국 주택착공",
         },
@@ -91,43 +95,20 @@ COUNTRY_RULES = {
             "Industrial Production": "한국 산업생산",
             "Current Account": "한국 경상수지",
             "Business Survey Index": "한국 BSI",
+            "Consumer Confidence": "한국 소비자심리",
+            "Unemployment Rate": "한국 실업률",
+            "Retail Sales": "한국 소매판매",
+            "Manufacturing PMI": "한국 제조업 PMI",
         },
     },
+    # 일본은 BOJ 금리 관련만 본다. 엔캐리·환율 경로로 국내 증시에 직접 영향을 주기 때문.
+    # 일본 CPI/단칸 같은 일반 지표는 빼서 달력이 복잡해지지 않게 한다.
     "Japan": {
         "major": {
             "BoJ Interest Rate Decision": "BOJ 금리결정",
             "BoJ Monetary Policy Statement": "BOJ 정책성명",
-            "BoJ Press Conference": "BOJ 기자회견",
         },
-        "macro": {
-            "National Core CPI": "일본 근원 CPI",
-            "National CPI": "일본 CPI",
-            "Tankan": "일본 단칸",
-            "GDP": "일본 GDP",
-            "Trade Balance": "일본 무역수지",
-        },
-    },
-    "China": {
-        "major": {"Loan Prime Rate": "중국 LPR"},
-        "macro": {
-            "CPI": "중국 CPI",
-            "PPI": "중국 PPI",
-            "GDP": "중국 GDP",
-            "Caixin Manufacturing PMI": "차이신 제조업",
-            "Caixin Services PMI": "차이신 서비스업",
-            "Manufacturing PMI": "중국 제조업 PMI",
-            "Exports": "중국 수출",
-            "Trade Balance": "중국 무역수지",
-            "Industrial Production": "중국 산업생산",
-            "Retail Sales": "중국 소매판매",
-        },
-    },
-    "Euro Zone": {
-        "major": {
-            "Interest Rate Decision": "ECB 금리결정",
-            "Deposit Facility Rate": "ECB 예금금리",
-        },
-        "macro": {"Core CPI": "유로존 근원 CPI", "CPI": "유로존 CPI", "GDP": "유로존 GDP"},
+        "macro": {},
     },
 }
 
@@ -164,6 +145,16 @@ def _match(name, table):
     return None
 
 
+# 나스닥 경제지표 API 는 미국 발표를 하루 뒤 날짜로 준다. 실제 확인한 사례:
+#   비농업고용 API 9/05(토) -> 실제 9/04(금)
+#   CPI        API 9/12(토) -> 실제 9/11(금)
+#   FOMC       API 9/17(목) -> 실제 9/16(수)  (당잠사 09/17 방송이 이 금리인상을 다룸)
+#   주간실업수당 API 9/18(금) -> 실제 9/17(목) (당잠사가 9/17 세션으로 보도)
+# 반면 중국 LPR 은 9/21(월)로 정확하고, 실적 API 도 정확하다(테슬라 수요일·애플 목요일).
+# 그래서 '미국 경제지표'에만 하루를 빼준다.
+DATE_SHIFT_COUNTRIES = {"United States"}
+
+
 def fetch_day(date_obj):
     """하루치 이벤트를 [{date, title, category, detail}] 로 반환."""
     date_str = date_obj.isoformat()
@@ -188,9 +179,12 @@ def fetch_day(date_obj):
 
     try:
         for row in _rows(_get_json(ECONOMIC_URL, date_str)):
-            rules = COUNTRY_RULES.get((row.get("country") or "").strip())
+            country = (row.get("country") or "").strip()
+            rules = COUNTRY_RULES.get(country)
             if not rules:
                 continue
+            real_date = date_obj - datetime.timedelta(days=1) if country in DATE_SHIFT_COUNTRIES else date_obj
+            real_str = real_date.isoformat()
             name = (row.get("eventName") or "").strip()
             if not name or any(x.lower() in name.lower() for x in EXCLUDE_KEYS):
                 continue
@@ -205,8 +199,8 @@ def fetch_day(date_obj):
 
             events.append(
                 {
-                    "start": date_str,
-                    "end": date_str,
+                    "start": real_str,
+                    "end": real_str,
                     "title": label,
                     "category": category,
                     "detail": (row.get("gmt") or "").strip(),
@@ -229,8 +223,39 @@ def _month_starts(today, count):
     return starts
 
 
-def build_calendar(today=None):
-    """당월부터 MONTHS_AHEAD 개월치 캘린더 데이터를 만든다."""
+def issues_from_brief(brief):
+    """당잠사 리포트의 뉴스를 캘린더 '이슈'로 바꾼다.
+    법안 통과·규제 변경 같은 정책 이벤트는 경제지표 API 에 없어서 이 경로로만 들어온다."""
+    if not brief or not brief.get("news"):
+        return []
+
+    # 리포트가 다룬 거래일에 붙인다. published(UTC)를 미 동부로 옮기면 그 날짜가 나온다.
+    try:
+        pub = datetime.datetime.fromisoformat(brief["published"].replace("Z", "+00:00"))
+        day = (pub - datetime.timedelta(hours=4)).date().isoformat()
+    except Exception:
+        return []
+
+    out = []
+    for n in brief["news"]:
+        title = (n.get("title") or "").strip()
+        if not title:
+            continue
+        out.append(
+            {
+                "start": day,
+                "end": day,
+                "title": title,
+                "category": "issue",
+                "detail": (n.get("comment") or "").strip()[:120],
+            }
+        )
+    return out
+
+
+def build_calendar(today=None, carry_issues=None):
+    """당월부터 MONTHS_AHEAD 개월치 캘린더 데이터를 만든다.
+    carry_issues 로 이전에 쌓아둔 이슈를 넘기면 함께 보존한다."""
     today = today or datetime.date.today()
     months = _month_starts(today, MONTHS_AHEAD + 1)
     start = months[0]
@@ -238,18 +263,21 @@ def build_calendar(today=None):
     end = (datetime.date(last.year + (last.month // 12), (last.month % 12) + 1, 1)) - datetime.timedelta(days=1)
 
     events = []
-    day = start
+    # 주말도 조회해야 한다. 미국 지표가 API 상에서 토요일 날짜로 들어오기 때문에
+    # 평일만 훑으면 CPI·비농업고용 같은 핵심 지표가 통째로 빠진다.
+    day = start - datetime.timedelta(days=1)  # 앞으로 당길 미국 지표까지 잡으려면 하루 먼저 시작
     fetched = 0
     while day <= end:
-        if day.weekday() < 5:  # 실적·지표는 평일에만 나온다
-            events.extend(fetch_day(day))
-            fetched += 1
-            time.sleep(REQUEST_INTERVAL)
+        events.extend(fetch_day(day))
+        fetched += 1
+        time.sleep(REQUEST_INTERVAL)
         day += datetime.timedelta(days=1)
 
     for h in MARKET_HOLIDAYS:
         if start.isoformat() <= h["start"] <= end.isoformat():
             events.append({**h, "category": "holiday", "detail": ""})
+
+    events.extend(carry_issues or [])
 
     # 같은 날 같은 제목이 중복으로 들어오는 경우가 있어 정리한다.
     seen = set()
