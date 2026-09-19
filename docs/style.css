@@ -873,3 +873,101 @@ main {
   .mbrief-tr { grid-template-columns: 1.4fr 1fr 1fr 1fr; padding: 8px 9px; }
   .mbrief-ev-name, .mbrief-ev-num { font-size: 11.5px; }
 }
+
+/* ---------- 숫자 정렬: 자릿수가 흔들리면 세로 스캔이 불가능하다 ---------- */
+.num,
+.index-price, .index-change, .sector-change,
+.mbrief-idx-val, .mbrief-idx-chg, .mbrief-us-chg,
+.mbrief-ev-num, .mbrief-navcount {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* 색약 사용자를 위해 등락을 기호로도 알린다 */
+.tri { margin-right: 3px; font-size: 0.82em; vertical-align: 1px; }
+
+/* ---------- 오늘의 결론 (첫 화면 주인공) ---------- */
+
+.verdict {
+  margin: 0 0 16px;
+  padding: 16px 17px;
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--border));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+}
+.verdict-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 11px;
+}
+.verdict-head h2 { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
+.verdict-meta { font-size: 11.5px; color: var(--text-muted); font-weight: 600; }
+.verdict-body { display: flex; flex-direction: column; gap: 9px; }
+.verdict-row { display: flex; gap: 9px; align-items: baseline; }
+.verdict-label {
+  flex: 0 0 62px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  padding: 3px 0;
+  border-radius: 6px;
+  text-align: center;
+}
+.verdict-row p { font-size: 13px; line-height: 1.6; flex: 1; }
+
+/* ---------- 리포트 섹션 점프 칩 ---------- */
+
+.mbrief-nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.mbrief-navchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid var(--border);
+  background: var(--chip-bg);
+  color: var(--text-muted);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.mbrief-navchip:hover { color: var(--accent); border-color: var(--accent); }
+.mbrief-navcount { font-size: 11px; font-weight: 800; color: var(--text-faint); }
+
+/* ---------- 미장 브리핑 압축 (지수/섹터가 화면을 너무 많이 먹지 않게) ---------- */
+
+.market-brief { padding: 15px 16px; }
+.market-indices { gap: 7px; margin-bottom: 12px; }
+.index-card { padding: 9px 10px; }
+.index-price { font-size: 15px; }
+.market-sectors { gap: 3px; }
+.sector-row { grid-template-columns: 72px 1fr 62px; font-size: 11.5px; }
+.sector-bar-track { height: 6px; }
+
+@media (max-width: 560px) {
+  .verdict { padding: 14px 14px; }
+  .verdict-label { flex-basis: 56px; font-size: 10.5px; }
+  .verdict-row p { font-size: 12.5px; }
+}
+
+/* ---------- 모바일 상단 압축: 헤더가 첫 화면의 1/4을 먹지 않게 ---------- */
+@media (max-width: 560px) {
+  .topbar { padding: 11px 16px; gap: 8px; flex-wrap: nowrap; }
+  .brand-mark { width: 30px; height: 30px; border-radius: 9px; font-size: 15px; }
+  .topbar h1 { font-size: 14.5px; }
+  .brand-sub { font-size: 10px; }
+  .meta { gap: 8px; font-size: 11px; flex: 0 0 auto; }
+  #lastUpdated { display: none; } /* 신선도는 각 데이터 블록에 이미 표기된다 */
+  #refreshBtn { padding: 8px 12px; font-size: 11.5px; }
+
+  .tabs { margin-top: 12px; }
+  .tab-btn { font-size: 12px; padding: 10px 4px; white-space: nowrap; }
+}

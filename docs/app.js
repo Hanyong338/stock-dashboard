@@ -164,6 +164,14 @@ function changeToneFromText(text) {
   return "flat";
 }
 
+// 색만으로 등락을 알리면 색약 사용자가 구분할 수 없어서 기호를 함께 붙인다.
+const TONE_MARK = { up: "▲", down: "▼", flat: "－" };
+
+function changeWithMark(text, tone) {
+  const mark = TONE_MARK[tone] || "";
+  return `<span class="tri" aria-hidden="true">${mark}</span>${escapeHtml(text)}`;
+}
+
 function mbriefSection(title, bodyNodes) {
   const wrap = document.createElement("div");
   const h = document.createElement("h3");
@@ -174,11 +182,67 @@ function mbriefSection(title, bodyNodes) {
   return wrap;
 }
 
+function renderTodayVerdict(d) {
+  // 당잠사 3줄 요약은 '오늘 뭘 해야 하나'에 대한 답이라 첫 화면 맨 위에 둔다.
+  const box = document.getElementById("todayVerdict");
+  const sum = (d && d.ai_summary) || {};
+  const rows = [
+    ["미국장", sum.us_market],
+    ["섹터", sum.sector_flow],
+    ["국내 대응", sum.korea_impact],
+  ].filter(([, v]) => v);
+
+  if (!rows.length) {
+    box.hidden = true;
+    return;
+  }
+  box.hidden = false;
+
+  const meta = [d.as_of, d.published ? formatRelativeTime(d.published) + " 방송" : ""].filter(Boolean).join(" · ");
+  document.getElementById("verdictMeta").textContent = meta;
+
+  const body = document.getElementById("verdictBody");
+  body.innerHTML = rows
+    .map(
+      ([label, v]) => `<div class="verdict-row">
+        <span class="verdict-label">${label}</span>
+        <p>${inlineMd(escapeHtml(v))}</p>
+      </div>`
+    )
+    .join("");
+}
+
+function renderMbriefNav(d) {
+  // 리포트가 모바일에서 4,000px 넘게 길어서 섹션 점프가 없으면 뒷부분은 읽히지 않는다.
+  const nav = document.getElementById("mbriefNav");
+  const items = [
+    ["mbriefIndices", "지표", (d.indices || []).length],
+    ["mbriefEvents", "경제지표", (d.economic_events || []).length],
+    ["mbriefNews", "뉴스", (d.news || []).length],
+    ["mbriefConnections", "국내 연관주", (d.connections || []).length],
+    ["mbriefChecklist", "체크리스트", (d.checklist_caution || []).length + (d.checklist_watch || []).length],
+  ].filter(([, , n]) => n > 0);
+
+  nav.innerHTML = "";
+  items.forEach(([id, label, n]) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "mbrief-navchip";
+    btn.innerHTML = `${label}<span class="mbrief-navcount num">${n}</span>`;
+    btn.addEventListener("click", () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    nav.appendChild(btn);
+  });
+}
+
 function renderMorningBrief() {
   const box = document.getElementById("morningBrief");
   const d = state.morningBrief || {};
   if (!d.video_id) {
     box.hidden = true;
+    document.getElementById("todayVerdict").hidden = true;
     return;
   }
   box.hidden = false;
@@ -186,10 +250,16 @@ function renderMorningBrief() {
   document.getElementById("mbriefAsOf").textContent = d.as_of || "";
   document.getElementById("mbriefLink").href = d.url || "#";
 
-  // 지수 스트립
+  // 지수 스트립. 미장 브리핑(실시간)과 겹치는 3대 지수는 뒤로 보내고,
+  // 여기에만 있는 지표(SOX/금리/달러/WTI)를 앞에 세워 중복감을 줄인다.
+  const DUP = ["나스닥", "S&P", "다우"];
+  const indices = [...(d.indices || [])].sort((a, b) => {
+    const dup = (n) => (DUP.some((x) => (n.name || "").includes(x)) ? 1 : 0);
+    return dup(a) - dup(b);
+  });
   const idxBox = document.getElementById("mbriefIndices");
   idxBox.innerHTML = "";
-  (d.indices || []).forEach((i) => {
+  indices.forEach((i) => {
     const card = document.createElement("div");
     const tone = changeToneFromText(i.change);
     // 방송에서 종가를 언급하지 않으면 value 가 "-" 로 오는데, 그때는 등락률을 주인공으로 보여준다.
@@ -197,27 +267,13 @@ function renderMorningBrief() {
     card.className = "mbrief-idx" + (hasValue ? "" : " no-value");
     card.innerHTML =
       `<span class="mbrief-idx-name">${escapeHtml(i.name)}</span>` +
-      (hasValue ? `<strong class="mbrief-idx-val">${escapeHtml(i.value)}</strong>` : "") +
-      `<span class="mbrief-idx-chg ${tone}">${escapeHtml(i.change)}</span>`;
+      (hasValue ? `<strong class="mbrief-idx-val num">${escapeHtml(i.value)}</strong>` : "") +
+      `<span class="mbrief-idx-chg num ${tone}">${changeWithMark(i.change, tone)}</span>`;
     idxBox.appendChild(card);
   });
 
-  // AI 3줄 요약
-  const sum = d.ai_summary || {};
-  const sumBox = document.getElementById("mbriefSummary");
-  sumBox.innerHTML = "";
-  [
-    ["미국장 핵심", sum.us_market],
-    ["섹터 수급", sum.sector_flow],
-    ["국내장 대응", sum.korea_impact],
-  ]
-    .filter(([, v]) => v)
-    .forEach(([label, v]) => {
-      const row = document.createElement("div");
-      row.className = "mbrief-sum-row";
-      row.innerHTML = `<span class="mbrief-sum-label">${label}</span><p>${inlineMd(escapeHtml(v))}</p>`;
-      sumBox.appendChild(row);
-    });
+  renderTodayVerdict(d);
+  renderMbriefNav(d);
 
   // 경제지표
   const evBox = document.getElementById("mbriefEvents");
@@ -290,7 +346,7 @@ function renderMorningBrief() {
           <div class="mbrief-us">
             <span class="mbrief-us-name">${escapeHtml(c.us_name)}</span>
             <span class="mbrief-ticker">${escapeHtml(c.us_ticker)}</span>
-            <span class="mbrief-us-chg ${up ? "up" : "down"}">${escapeHtml(c.us_change)}</span>
+            <span class="mbrief-us-chg num ${up ? "up" : "down"}">${changeWithMark(c.us_change, up ? "up" : "down")}</span>
           </div>
           <p class="mbrief-cause">${inlineMd(escapeHtml(c.cause))}</p>
           <p class="mbrief-logic"><span>연결 로직</span>${inlineMd(escapeHtml(c.logic))}</p>
@@ -325,7 +381,10 @@ function renderBriefingEmptyState() {
   const brief = document.getElementById("marketBrief");
   const picks = document.getElementById("dailyPicks");
   const morning = document.getElementById("morningBrief");
-  document.getElementById("briefingEmpty").hidden = !(brief.hidden && picks.hidden && morning.hidden);
+  const verdict = document.getElementById("todayVerdict");
+  document.getElementById("briefingEmpty").hidden = !(
+    brief.hidden && picks.hidden && morning.hidden && verdict.hidden
+  );
 }
 
 function formatPrice(n) {
@@ -366,8 +425,8 @@ function renderMarketBrief() {
     card.className = "index-card " + changeDirClass(idx.change_percent);
     card.innerHTML = `
       <div class="index-name">${escapeHtml(idx.name)}</div>
-      <div class="index-price">${formatPrice(idx.price)}</div>
-      <div class="index-change">${formatChangePercent(idx.change_percent)}</div>
+      <div class="index-price num">${formatPrice(idx.price)}</div>
+      <div class="index-change num">${changeWithMark(formatChangePercent(idx.change_percent), changeDirClass(idx.change_percent))}</div>
     `;
     indicesBox.appendChild(card);
   }
@@ -382,7 +441,7 @@ function renderMarketBrief() {
     row.innerHTML = `
       <span class="sector-name">${escapeHtml(sec.name)}</span>
       <span class="sector-bar-track"><span class="sector-bar-fill" style="width:${pct}%"></span></span>
-      <span class="sector-change">${formatChangePercent(sec.change_percent)}</span>
+      <span class="sector-change num">${formatChangePercent(sec.change_percent)}</span>
     `;
     sectorsBox.appendChild(row);
   }
@@ -720,6 +779,9 @@ async function loadAll() {
     state.morningBrief = morningBrief;
     state.screening = screening;
     state.channels = channels;
+
+    const activeCount = channels.filter((c) => !c.paused).length;
+    document.getElementById("brandSub").textContent = `${activeCount}개 채널 · 자동 리포트`;
 
     renderMarketBrief();
     renderMorningBrief();

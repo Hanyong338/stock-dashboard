@@ -9,7 +9,7 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
 <!-- app.js / style.css 를 수정하면 아래 v 값을 그날 날짜로 바꿀 것.
      안 바꾸면 브라우저가 옛날 파일을 계속 써서 수정이 반영 안 된 것처럼 보인다. -->
-<link rel="stylesheet" href="style.css?v=20260919f" />
+<link rel="stylesheet" href="style.css?v=20260920b" />
 </head>
 <body>
 <header class="topbar">
@@ -17,7 +17,7 @@
     <span class="brand-mark">📈</span>
     <div class="brand-text">
       <h1>주식 유튜브 요약</h1>
-      <span class="brand-sub">6개 채널 · 자동 리포트</span>
+      <span class="brand-sub" id="brandSub">자동 리포트</span>
     </div>
   </div>
   <div class="meta">
@@ -33,11 +33,20 @@
   <span class="tab-indicator" id="tabIndicator"></span>
   <button class="tab-btn active" data-tab="briefing">Market Briefing</button>
   <button class="tab-btn" data-tab="summaries">유튜브 요약</button>
-  <button class="tab-btn" data-tab="screening">차트 스크리닝 결과</button>
+  <button class="tab-btn" data-tab="screening">차트 스크리닝</button>
 </nav>
 
 <main>
   <section id="tab-briefing" class="tab-panel active">
+    <!-- 첫 화면에서 스크롤 없이 '오늘의 결론'이 먼저 보이도록 당잠사 3줄 요약을 맨 위로 끌어올린다 -->
+    <section id="todayVerdict" class="verdict" hidden>
+      <div class="verdict-head">
+        <h2>오늘의 결론</h2>
+        <span id="verdictMeta" class="verdict-meta"></span>
+      </div>
+      <div id="verdictBody" class="verdict-body"></div>
+    </section>
+
     <section id="marketBrief" class="market-brief" hidden>
       <div class="market-brief-head">
         <h2>🌙 미장 브리핑</h2>
@@ -59,9 +68,9 @@
         </a>
       </div>
 
-      <div id="mbriefIndices" class="mbrief-indices"></div>
+      <nav id="mbriefNav" class="mbrief-nav"></nav>
 
-      <div id="mbriefSummary" class="mbrief-summary"></div>
+      <div id="mbriefIndices" class="mbrief-indices"></div>
 
       <div id="mbriefEvents" class="mbrief-block"></div>
       <div id="mbriefNews" class="mbrief-block"></div>
@@ -104,6 +113,6 @@
   </section>
 </main>
 
-<script src="app.js?v=20260919f"></script>
+<script src="app.js?v=20260920b"></script>
 </body>
 </html>
