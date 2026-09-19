@@ -15,6 +15,11 @@ SYSTEM_PROMPT = """[역할 정의]
 제공된 영상의 트랜스크립트/내용을 바탕으로, 노이즈는 제거하고 투자 판단에 필요한 핵심 정수만 추출하여 정밀 리포트를 작성해 주세요.
 
 [분석 요구사항]
+0. key_summary (한줄 미리보기)
+   - 이 영상의 핵심을 1~2문장으로 압축한 미리보기 문장. 카드 목록에서 리포트 본문을 펼치기 전에 가장 먼저 보이는 문장이므로,
+     가장 중요한 종목명/수치/결론을 반드시 포함해 임팩트 있게 작성할 것 (예: "**삼성전자** 파운드리 가격 주도권 강화로 4분기
+     실적 서프라이즈 기대, **분할 매수** 유효").
+
 1. 🌐 거시경제(Macro) 및 시장 진단
    - 현재 시장의 핵심 인과관계(원인 ➔ 결과) 분석 (예: 금리, 환율, 유가, 통화정책 등)
    - 시장 참여자들이 오해하거나 선반영한 악재/호재 요소 명시
@@ -24,6 +29,7 @@ SYSTEM_PROMPT = """[역할 정의]
    - [우수/주도 섹터]: 전문가가 강하게 추천하거나 수급이 쏠리는 섹터, 이유, 관련 핵심 종목
    - [관망/주의 섹터]: 조정 가능성이 있거나 리스크가 존재하는 섹터 및 종목
    - 각 종목/섹터별 핵심 모멘텀(실적 성장률, AI 수혜, 정책 수혜 등) 명확히 명시
+   - 이 항목들을 leading_picks / watch_picks 배열에도 각각 {sector, tickers} 형태로 구조화해서 중복으로 채울 것
 
 3. 💡 핵심 투자 인사이트 (Key Takeaways)
    - 전문가가 제시하는 시장을 바라보는 뷰(View)의 핵심 3가지
@@ -39,22 +45,38 @@ SYSTEM_PROMPT = """[역할 정의]
 - 불필요한 서론/결론 문구는 제외하고 곧바로 리포트 형식으로 작성.
 
 [출력 문법 규칙 - 반드시 준수]
-- report_markdown 필드에 위 리포트를 마크다운으로 작성할 것.
+- key_summary 필드는 report_markdown과 별개의 짧은 문자열로, 1~2문장을 넘지 않을 것.
+- report_markdown 필드에는 1~4번 리포트만 마크다운으로 작성할 것 (key_summary는 포함하지 말 것).
 - 각 대분류(1~4) 제목은 줄 맨 앞에 "## " 를 붙여 마크다운 헤더로 작성 (예: "## 🌐 거시경제(Macro) 및 시장 진단").
 - 하위 항목은 "- " 로 시작하는 목록으로 작성.
 - 강조할 단어/문장은 반드시 **이렇게** 두 개의 별표로 감쌀 것.
 - tickers 필드에는 리포트에서 실제 언급된 종목명만 배열로 별도 추출 (예: ["삼성전자", "엔비디아"]).
 - keywords 필드에는 섹터/이슈/매크로 키워드를 배열로 별도 추출 (예: ["금리인상", "HBM", "반도체 사이클"]).
+- leading_picks 필드에는 [우수/주도 섹터]에 해당하는 항목들을 {"sector": "섹터명", "tickers": ["종목명", ...]} 형태의 배열로 작성.
+- watch_picks 필드에는 [관망/주의 섹터]에 해당하는 항목들을 같은 형태로 작성.
+- 둘 다 명확한 항목이 없으면 빈 배열([])로 둘 것 (억지로 만들어내지 말 것).
 """
+
+PICK_ITEM_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {
+        "sector": {"type": "STRING"},
+        "tickers": {"type": "ARRAY", "items": {"type": "STRING"}},
+    },
+    "required": ["sector", "tickers"],
+}
 
 RESPONSE_SCHEMA = {
     "type": "OBJECT",
     "properties": {
+        "key_summary": {"type": "STRING"},
         "report_markdown": {"type": "STRING"},
         "tickers": {"type": "ARRAY", "items": {"type": "STRING"}},
         "keywords": {"type": "ARRAY", "items": {"type": "STRING"}},
+        "leading_picks": {"type": "ARRAY", "items": PICK_ITEM_SCHEMA},
+        "watch_picks": {"type": "ARRAY", "items": PICK_ITEM_SCHEMA},
     },
-    "required": ["report_markdown", "tickers", "keywords"],
+    "required": ["key_summary", "report_markdown", "tickers", "keywords", "leading_picks", "watch_picks"],
 }
 
 

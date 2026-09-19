@@ -192,19 +192,39 @@ main {
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
-/* ---------- Cross-mention insight box ---------- */
+/* ---------- Daily leading/watch picks box ---------- */
 
-.cross-box {
+.picks-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .picks-box { grid-template-columns: 1fr; }
+}
+
+.picks-col {
   position: relative;
   overflow: hidden;
   background: var(--surface);
-  border: 1px solid var(--highlight-border);
   border-radius: var(--radius-lg);
-  padding: 16px 18px;
-  margin-bottom: 20px;
+  padding: 15px 16px;
   box-shadow: var(--shadow-1);
+  border: 1px solid var(--border);
 }
-.cross-box::before {
+
+.picks-leading { border-color: color-mix(in srgb, var(--good) 45%, var(--border)); }
+.picks-leading::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--good) 12%, transparent), transparent 70%);
+  z-index: 0;
+}
+.picks-watch { border-color: var(--highlight-border); }
+.picks-watch::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -212,33 +232,26 @@ main {
   opacity: 0.9;
   z-index: 0;
 }
-.cross-box > * { position: relative; z-index: 1; }
+.picks-col > * { position: relative; z-index: 1; }
 
-.cross-box h2 {
-  font-size: 12.5px;
+.picks-col h2 {
+  font-size: 12px;
   font-weight: 800;
   margin: 0 0 11px;
-  color: var(--highlight-text);
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  color: var(--text);
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
-.cross-box h2::before { content: "🔥"; font-size: 13px; }
 
-.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip {
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--highlight-border);
-  border-radius: 999px;
-  padding: 6px 13px;
-  font-size: 13px;
-  font-weight: 700;
-  box-shadow: var(--shadow-1);
+.picks-list { display: flex; flex-direction: column; gap: 8px; }
+.picks-empty { font-size: 12.5px; color: var(--text-faint); margin: 0; }
+
+.pick-item {
+  background: var(--chip-bg);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
 }
-.chip .count { color: var(--text-faint); font-weight: 500; margin-left: 5px; }
+.pick-sector { font-size: 12.5px; font-weight: 800; margin-bottom: 5px; }
 
 /* ---------- Channel pill navigation ---------- */
 
@@ -429,6 +442,25 @@ main {
   padding: 2.5px 7px;
 }
 
+.card-lead {
+  margin: 10px 0 0 46px;
+  padding: 10px 13px;
+  background: var(--chip-bg);
+  border-left: 3px solid var(--ch-color, var(--accent));
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+}
+.card-lead strong {
+  color: var(--text);
+  font-weight: 800;
+  background: var(--accent-soft);
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+
 .card-body {
   display: grid;
   grid-template-rows: 1fr;
@@ -558,4 +590,5 @@ main {
   main { padding: 16px 12px 44px; }
   .card { padding: 15px 16px; }
   .card-body-inner { padding-left: 0; }
+  .card-lead { margin-left: 0; }
 }

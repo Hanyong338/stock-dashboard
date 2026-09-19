@@ -17,6 +17,7 @@ function matchSection(headingText) {
 const state = {
   summaries: [],
   crossMentions: [],
+  dailyPicks: { leading: [], watch: [] },
   screening: [],
   channels: [],
   selectedChannel: "",
@@ -90,26 +91,56 @@ function dateTabLabel(key, idx) {
   return d.toLocaleDateString("ko-KR", { month: "numeric", day: "numeric", weekday: "short" });
 }
 
-function renderCrossMentions() {
-  const box = document.getElementById("crossMentions");
-  const list = document.getElementById("crossList");
-  list.innerHTML = "";
+function renderPickList(containerEl, items) {
+  containerEl.innerHTML = "";
+  for (const item of items) {
+    const row = document.createElement("div");
+    row.className = "pick-item";
 
-  if (!state.crossMentions.length) {
+    const sector = document.createElement("div");
+    sector.className = "pick-sector";
+    sector.textContent = item.sector;
+    row.appendChild(sector);
+
+    const tags = document.createElement("div");
+    tags.className = "tag-row";
+    for (const ticker of item.tickers || []) {
+      const tag = document.createElement("span");
+      tag.className = "tag";
+      tag.textContent = ticker;
+      tags.appendChild(tag);
+    }
+    row.appendChild(tags);
+    row.title = `${item.channels.length}개 채널: ${item.channels.join(", ")}`;
+
+    containerEl.appendChild(row);
+  }
+}
+
+function renderDailyPicks() {
+  const box = document.getElementById("dailyPicks");
+  const leading = state.dailyPicks.leading || [];
+  const watch = state.dailyPicks.watch || [];
+
+  if (!leading.length && !watch.length) {
     box.hidden = true;
     return;
   }
   box.hidden = false;
-  for (const item of state.crossMentions) {
-    const chip = document.createElement("span");
-    chip.className = "chip";
-    chip.textContent = item.ticker;
-    const count = document.createElement("span");
-    count.className = "count";
-    count.textContent = `${item.channels.length}개 채널`;
-    chip.appendChild(count);
-    chip.title = item.channels.join(", ");
-    list.appendChild(chip);
+
+  const leadingList = document.getElementById("leadingPicksList");
+  const watchList = document.getElementById("watchPicksList");
+
+  if (leading.length) {
+    renderPickList(leadingList, leading);
+  } else {
+    leadingList.innerHTML = '<p class="picks-empty">오늘 뚜렷한 주도 섹터가 아직 없어요.</p>';
+  }
+
+  if (watch.length) {
+    renderPickList(watchList, watch);
+  } else {
+    watchList.innerHTML = '<p class="picks-empty">오늘 특별한 주의 섹터가 아직 없어요.</p>';
   }
 }
 
@@ -342,6 +373,14 @@ function buildCard(item, hotTickers) {
   head.addEventListener("click", () => body.classList.toggle("collapsed"));
 
   card.appendChild(head);
+
+  if (item.key_summary) {
+    const lead = document.createElement("div");
+    lead.className = "card-lead";
+    lead.innerHTML = inlineMd(escapeHtml(item.key_summary));
+    card.appendChild(lead);
+  }
+
   card.appendChild(body);
   return card;
 }
@@ -419,18 +458,20 @@ function setLastUpdated() {
 
 async function loadAll() {
   try {
-    const [summaries, crossMentions, screening, channels] = await Promise.all([
+    const [summaries, crossMentions, dailyPicks, screening, channels] = await Promise.all([
       loadJSON("summaries.json"),
       loadJSON("cross_mentions.json"),
+      loadJSON("daily_picks.json").catch(() => ({ leading: [], watch: [] })),
       loadJSON("screening.json"),
       loadJSON("channels.json").catch(() => []),
     ]);
     state.summaries = summaries;
     state.crossMentions = crossMentions;
+    state.dailyPicks = dailyPicks;
     state.screening = screening;
     state.channels = channels;
 
-    renderCrossMentions();
+    renderDailyPicks();
     renderChannelTabs();
     renderDateTabs();
     renderSummaries();

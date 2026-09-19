@@ -19,11 +19,14 @@ STATE_FILE = DATA_DIR / "state.json"
 SUMMARIES_FILE = DATA_DIR / "summaries.json"
 CROSS_FILE = DATA_DIR / "cross_mentions.json"
 CHANNELS_OUT_FILE = DATA_DIR / "channels.json"
+DAILY_PICKS_FILE = DATA_DIR / "daily_picks.json"
 
 MAX_SUMMARIES = 500
 RETENTION_DAYS = 7
 STATE_HISTORY_PER_CHANNEL = 100
 CROSS_WINDOW_HOURS = 48
+DAILY_PICKS_WINDOW_HOURS = 24
+MAX_PICKS_PER_SIDE = 6
 
 
 def parse_published(pub_iso):
@@ -122,9 +125,12 @@ def process_channel(ch, state, summaries, now):
                 "url": v["url"],
                 "published": v["published"],
                 "fetched_at": now_iso,
+                "key_summary": result.get("key_summary", ""),
                 "report_markdown": result.get("report_markdown", ""),
                 "tickers": result.get("tickers", []),
                 "keywords": result.get("keywords", []),
+                "leading_picks": result.get("leading_picks", []),
+                "watch_picks": result.get("watch_picks", []),
             }
         )
         state[cid].append(v["video_id"])
@@ -152,6 +158,42 @@ def build_cross_mentions(summaries):
     return cross
 
 
+def _aggregate_picks(summaries, cutoff, field):
+    sector_map = {}  # sector -> {"tickers": set, "channels": set}
+
+    for s in summaries:
+        pub = parse_published(s.get("published", ""))
+        if pub is None or pub < cutoff:
+            continue
+        for pick in s.get(field, []) or []:
+            sector = (pick.get("sector") or "").strip()
+            if not sector:
+                continue
+            entry = sector_map.setdefault(sector, {"tickers": set(), "channels": set()})
+            entry["tickers"].update(t for t in pick.get("tickers", []) if t)
+            entry["channels"].add(s["channel"])
+
+    items = [
+        {
+            "sector": sector,
+            "tickers": sorted(v["tickers"]),
+            "channels": sorted(v["channels"]),
+            "count": len(v["channels"]),
+        }
+        for sector, v in sector_map.items()
+    ]
+    items.sort(key=lambda x: x["count"], reverse=True)
+    return items[:MAX_PICKS_PER_SIDE]
+
+
+def build_daily_picks(summaries):
+    cutoff = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=DAILY_PICKS_WINDOW_HOURS)
+    return {
+        "leading": _aggregate_picks(summaries, cutoff, "leading_picks"),
+        "watch": _aggregate_picks(summaries, cutoff, "watch_picks"),
+    }
+
+
 def main():
     channels = load_json(CHANNELS_FILE, [])
     state = load_json(STATE_FILE, {})
@@ -167,6 +209,7 @@ def main():
     save_json(STATE_FILE, state)
     save_json(SUMMARIES_FILE, summaries)
     save_json(CROSS_FILE, build_cross_mentions(summaries))
+    save_json(DAILY_PICKS_FILE, build_daily_picks(summaries))
     save_json(CHANNELS_OUT_FILE, channels)
     print("[INFO] Pipeline run complete.")
 
