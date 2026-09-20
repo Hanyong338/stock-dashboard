@@ -19,6 +19,7 @@ from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_secto
 import morning_brief as mb
 from calendar_data import KST, build_calendar
 from screening import build_screening, fetch_theme_groups, theme_leaders
+from morning_breakout import build_morning_breakout
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "data"
@@ -30,6 +31,7 @@ MORNING_BRIEF_FILE = DATA_DIR / "morning_brief.json"
 CALENDAR_FILE = DATA_DIR / "calendar.json"
 SCREENING_FILE = DATA_DIR / "screening.json"
 THEMES_FILE = DATA_DIR / "themes.json"
+MORNING_FILE = DATA_DIR / "morning_breakout.json"
 
 MAX_SUMMARIES = 500
 RETENTION_DAYS = 7
@@ -60,6 +62,12 @@ SCREENING_BEFORE_HOUR = 18
 # 오늘의 주도 테마는 목록 API 3번이면 끝나서 매시간 갱신해도 부담이 없다.
 # 종목 선별과 분리해 따로 저장한다(무거운 screening.json 을 매시간 건드리지 않으려는 것).
 THEME_TOP = 8
+
+# 섹션4 모닝 브레이크아웃은 장 시작 30분(09:00~09:30) 분봉으로 판정하므로 09:30 이후에 돈다.
+# 깃허브 예약 실행이 늦게 시작돼도 판정은 09:30 시점 기준 그대로다(분봉을 잘라 쓰기 때문).
+# 끝을 11시로 둔 건 늦은 시작을 받아주기 위한 여유다.
+MORNING_AFTER = (9, 30)
+MORNING_BEFORE_HOUR = 11
 SCREENING_RULES_VERSION = 8
 
 
@@ -335,6 +343,37 @@ def update_themes(now):
     return True
 
 
+def update_morning_breakout(now):
+    """섹션4 모닝 브레이크아웃. 평일 09:30 이후 그날 한 번만 돈다.
+    섹션 1~3(마감 후 일봉)과 실행 시점·데이터가 달라 파일도 따로 쓴다."""
+    kst = now.astimezone(KST)
+    if kst.weekday() >= 5:
+        return False  # 주말엔 장이 없다
+    in_window = (kst.hour, kst.minute) >= MORNING_AFTER and kst.hour < MORNING_BEFORE_HOUR
+    manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+    today = kst.date().isoformat()
+
+    current = load_json(MORNING_FILE, {})
+    if not isinstance(current, dict):
+        current = {}
+    if current.get("built_on") == today:
+        return False
+    if not (in_window or manual):
+        return False
+
+    try:
+        data = build_morning_breakout(kst.date())
+    except Exception as e:
+        print(f"[WARN] 모닝 브레이크아웃 실패: {e}")
+        save_json(MORNING_FILE, {"error": f"{type(e).__name__}: {e}", "items": [], "updated_at": now.isoformat()})
+        return True
+
+    data["built_on"] = today
+    data["updated_at"] = now.isoformat()
+    save_json(MORNING_FILE, data)
+    return True
+
+
 def update_screening(now):
     """종목 선별은 하루 한 번, 한국시간 15:50(정규장 마감 직후)에만 돌린다.
     전종목을 훑어 2~3분 걸리므로 매시간 돌릴 수는 없다.
@@ -545,6 +584,12 @@ def main():
             commit_and_push(f"chore: update themes {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] themes failed: {e}")
+
+    try:
+        if update_morning_breakout(now):
+            commit_and_push(f"chore: update morning breakout {now.isoformat()}")
+    except Exception as e:
+        print(f"[WARN] morning breakout failed: {e}")
 
     try:
         if update_screening(now):

@@ -20,6 +20,7 @@ const state = {
   calendar: { months: [], events: [] },
   screening: {},
   themes: {},
+  morningBreakout: {},
   channels: [],
   selectedChannel: "",
   selectedDate: "",
@@ -1340,8 +1341,14 @@ function scrCard(item, kind) {
     <div class="scr-badges">${badge}${tags}<span class="scr-mkt">${escapeHtml(item.market)}</span>
       <a class="scr-ext" href="${item.url}" target="_blank" rel="noopener">네이버 ↗</a></div>
     <p class="scr-reason">${escapeHtml(item.reason)}</p>
-    <div class="scr-size">거래대금 <b>${Number(item.trading_value_eok || 0).toLocaleString()}억</b>
-      · 시총 <b>${Number(item.market_cap_eok || 0).toLocaleString()}억</b></div>
+    <div class="scr-size">${
+      item.value_30m_eok != null
+        ? `30분 거래대금 <b>${Number(item.value_30m_eok).toLocaleString()}억</b>
+           · 거래량 전일의 <b>${Number(item.vol_vs_prev_day || 0)}%</b>
+           · 시초 갭 <b>${item.open_gap > 0 ? "+" : ""}${Number(item.open_gap || 0).toFixed(1)}%</b>`
+        : `거래대금 <b>${Number(item.trading_value_eok || 0).toLocaleString()}억</b>
+           · 시총 <b>${Number(item.market_cap_eok || 0).toLocaleString()}억</b>`
+    }</div>
     ${flow ? `<div class="scr-flows">${flow}</div>` : ""}
     ${exits}
     <div class="scr-chart" hidden></div>
@@ -1389,7 +1396,9 @@ function renderScreening() {
   const list = document.getElementById("screeningList");
   const d = state.screening || {};
   const sections = d.sections || [];
-  const total = sections.reduce((n, s) => n + (s.items || []).length, 0);
+  const total =
+    sections.reduce((n, s) => n + (s.items || []).length, 0) +
+    ((state.morningBreakout || {}).items || []).length;
 
   if (!total) {
     // 실패했을 때 '준비 중'으로만 보이면 원인을 영영 모른다. 무엇이 막혔는지 그대로 띄운다.
@@ -1418,6 +1427,22 @@ function renderScreening() {
     ${d.dropped ? ` → 킬스위치 탈락 ${Number(d.dropped).toLocaleString()}개` : ""}
     ${d.fetch_failures ? ` · 조회 실패 ${d.fetch_failures}개` : ""}</p>`;
 
+  // 섹션4는 09:30 장중 분봉 기준이라 1~3(마감 후 일봉)과 기준 시각이 다르다. 맨 위에 따로 둔다.
+  const mb = state.morningBreakout || {};
+  const morning = (mb.items || []).length
+    ? `<section class="scr-group morning">
+        <div class="scr-group-head">
+          <span class="scr-group-icon">⚡</span>
+          <span class="scr-group-title">${escapeHtml(mb.name || "모닝 브레이크아웃")}</span>
+          <span class="scr-group-count num">${mb.items.length}</span>
+          <span class="scr-group-when">${escapeHtml(mb.as_of || "")} 기준</span>
+        </div>
+        <ul class="scr-legend">${(mb.legend || []).map((t) => `<li>${escapeHtml(t)}</li>`).join("")}</ul>
+        <p class="scr-group-desc">${escapeHtml(mb.desc || "")}</p>
+        <div class="scr-list">${mb.items.map((r) => scrCard(r, "morning")).join("")}</div>
+      </section>`
+    : "";
+
   const icons = { CLOSING_BET: "🎯", SWING_PULLBACK: "📉", TREND_RALLY: "🚀" };
   // 테마는 themes.json 이 매시간 갱신한다. 없으면 스크리닝에 박힌 값으로 물러난다.
   const th = state.themes || {};
@@ -1425,6 +1450,7 @@ function renderScreening() {
     intraday +
     meta +
     themeLeaders(th.leaders || d.theme_leaders, th.updated_at) +
+    morning +
     sections
       .map((s) => scrSection(icons[s.id] || "📊", s.name, s.desc, s.items || [], "entry", s.legend))
       .join("");
@@ -1455,12 +1481,13 @@ function setLastUpdated() {
 
 async function loadAll() {
   try {
-    const [summaries, morningBrief, calendar, screening, themes, channels] = await Promise.all([
+    const [summaries, morningBrief, calendar, screening, themes, morningBreakout, channels] = await Promise.all([
       loadJSON("summaries.json"),
       loadJSON("morning_brief.json").catch(() => ({})),
       loadJSON("calendar.json").catch(() => ({ months: [], events: [] })),
       loadJSON("screening.json").catch(() => ({})),
       loadJSON("themes.json").catch(() => ({})),
+      loadJSON("morning_breakout.json").catch(() => ({})),
       loadJSON("channels.json").catch(() => []),
     ]);
     state.summaries = summaries;
@@ -1468,6 +1495,7 @@ async function loadAll() {
     state.calendar = calendar;
     state.screening = screening;
     state.themes = themes;
+    state.morningBreakout = morningBreakout;
     state.channels = channels;
 
     const activeCount = channels.filter((c) => !c.paused).length;

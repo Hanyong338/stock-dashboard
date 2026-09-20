@@ -1093,6 +1093,12 @@ main {
   margin-bottom: 10px;
   border-bottom: 2px solid var(--border);
 }
+/* 섹션4는 09:30 장중 기준이라 마감 후 섹션들과 색을 달리해 구분한다 */
+.scr-group.morning .scr-group-head { border-bottom-color: #8b5cf6; }
+.scr-group.morning .scr-group-title { color: #7c3aed; }
+.scr-badge.morning { color: #7c3aed; background: rgba(139, 92, 246, 0.14); }
+.scr-group-when { margin-left: auto; font-size: 10.5px; font-weight: 600; color: var(--text-faint); }
+
 .scr-group.entry .scr-group-head { border-bottom-color: rgba(var(--up-rgb), 0.5); }
 .scr-group.watch .scr-group-head { border-bottom-color: #f59e0b; }
 .scr-group.danger .scr-group-head { border-bottom-color: rgba(var(--down-rgb), 0.5); }
