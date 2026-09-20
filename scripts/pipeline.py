@@ -355,11 +355,22 @@ def commit_and_push(message):
         print(f"[WARN] git commit failed: {commit.stderr.strip()}")
         return
 
-    push = _git("push")
-    if push.returncode != 0:
-        print(f"[WARN] git push failed: {push.stderr.strip()}")
-    else:
-        print(f"[INFO] committed and pushed: {message}")
+    # 매시 정각 예약 실행과 수동 실행이 겹치면, 먼저 끝난 쪽이 밀어넣은 커밋 때문에
+    # 나중 쪽 push 가 거절된다. 실제로 실패한 게 아닌데 워크플로가 빨갛게 뜬다.
+    # 원격 것을 받아 내 커밋을 그 위에 얹고 다시 시도한다.
+    for attempt in range(3):
+        push = _git("push")
+        if push.returncode == 0:
+            print(f"[INFO] committed and pushed: {message}")
+            return
+        print(f"[WARN] git push 거절됨 ({attempt + 1}/3): {push.stderr.strip()}")
+        pull = _git("pull", "--rebase", "origin", "main")
+        if pull.returncode != 0:
+            print(f"[WARN] git pull --rebase 실패: {pull.stderr.strip()}")
+            break
+        time.sleep(2)
+
+    print("[WARN] git push 최종 실패 — 이번 변경은 다음 실행에서 다시 올라간다")
 
 
 def main():
