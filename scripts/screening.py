@@ -32,6 +32,8 @@ DAILY_WORKERS = 8  # 야후를 동시에 몇 개까지 두드릴지. 더 올리�
 PAGE_SIZE = 100  # 네이버 목록 API 상한. 200 이상은 400 으로 거절된다.
 MIN_DAILY_BARS = 260  # 240일선을 만들려면 최소 이만큼은 있어야 한다
 MAX_PER_STRATEGY = 6  # 한 전략이 목록을 독점하지 않도록 자른다
+MAX_WATCH_PER_STRATEGY = 4  # 감시 후보도 마찬가지. 안 두면 갭 후보가 목록을 다 먹는다
+ATTEMPT_GAP_DAYS = 5  # 이만큼 떨어져 있어야 '다른 시도'로 센다 (붙어 있으면 한 번의 시도)
 STRATEGY_NAME = {s["id"]: s["name"] for s in STRATEGIES}
 STRATEGY_EXIT = {s["id"]: s["exit"] for s in STRATEGIES}
 
@@ -256,15 +258,21 @@ def match_long_ma_breakout(b):
         if prev_close < line <= close and is_bull and v[-2] > 0 and vol >= v[-2] * 4.0:
             return "A", f"{name} 종가 돌파 (거래량 전일 대비 {vol / v[-2] * 100:.0f}%)"
 
-    # B: 480일선 돌파를 두 번 밀린 뒤 세 번째에 뚫는다
+    # B: 480일선 돌파를 두 번 밀린 뒤 세 번째에 뚫는다.
+    # 밀린 '날'을 세면 안 된다. 한 번의 시도가 며칠씩 이어지므로 날짜로 세면
+    # 삼세판이 아니라 '10회 실패' 같은 엉뚱한 숫자가 나온다. 붙어 있는 날은 한 번의 시도로 묶는다.
     if ma480 and prev_close < ma480 <= close and avg20v and vol >= avg20v * 2:
-        rejects = 0
+        reject_days = []
         for i in range(len(c) - 120, len(c) - 1):
             line_i = ma(c, 480, offset=len(c) - 1 - i)
             if line_i and c[i] < line_i <= b["high"][i]:
-                rejects += 1  # 장중엔 뚫었는데 종가로 못 지킨 날
-        if rejects >= 2:
-            return "B", f"480일선 돌파 {rejects}회 실패 후 재돌파"
+                reject_days.append(i)  # 장중엔 뚫었는데 종가로 못 지킨 날
+        attempts = 0
+        for idx, day in enumerate(reject_days):
+            if idx == 0 or day - reject_days[idx - 1] > ATTEMPT_GAP_DAYS:
+                attempts += 1
+        if attempts >= 2:
+            return "B", f"480일선 돌파 {attempts}회 시도 실패 후 재돌파"
 
     # C: 단기 골든크로스 + 대량 거래로 240일선 돌파 (기관 수급은 2단계에서 확인)
     if ma240 and prev_close < ma240 <= close and avg20v and vol >= avg20v * 2:
@@ -336,11 +344,13 @@ def match_closing_bet(b):
     """전략 6. Type C(장기선 돌파)는 전략 7 A 와 같은 규칙이라 여기서 다루지 않는다."""
     c, o, h, l, v = b["close"], b["open"], b["high"], b["low"], b["volume"]
     close, high = c[-1], h[-1]
-    # A 수급주: 당일 고가 부근 마감 (외인·기관 순매수는 2단계에서 확인)
+    # A 수급주: 당일 고가 부근 마감 (외인·기관 동반 순매수는 2단계에서 확인).
+    # 원 규칙은 '수급이 집중 유입' 이므로 문턱을 낮게 잡으면 안 된다.
+    # 거래량 1.5배 + 상승률 무관으로 잡았더니 +1.8% 짜리 대형주까지 올라와 목록을 다 먹었다.
     if high > 0 and (high - close) / high <= 0.01 and close > o[-1]:
         avg20v = ma(v, 20, offset=1) or 0
-        if avg20v and v[-1] >= avg20v * 1.5:
-            return "A", "당일 고가 마감 + 거래량 증가 (수급 확인 필요)"
+        if avg20v and v[-1] >= avg20v * 2 and pct(close, c[-2]) >= 3:
+            return "A", f"당일 고가 마감 + 거래량 20일 평균의 {v[-1] / avg20v:.1f}배"
     # B 도지: 전일 급등(윗꼬리) 후 당일 거래량 급감 도지
     if len(c) >= 2 and pct(c[-2], o[-2]) >= 5 and body_ratio(o[-2], h[-2], l[-2], c[-2]) <= 0.7:
         if v[-1] <= v[-2] * 0.5 and body_ratio(o[-1], high, l[-1], close) <= 0.15:
@@ -512,8 +522,10 @@ def build_screening(today=None):
                 # 전략 7 C 는 '기관 자금' 이 전제다. 개인 주도 반등이면 조건 미달로 본다.
                 if hit["strategy"] == "LONG_MA_BREAKOUT" and hit["type"] == "C":
                     ok = bool(flow) and flow[0]["organ"] > 0 and flow[0]["individual"] < 0
+                # 원 규칙은 '외인/기관 순매수 집중 유입' 이다. OR 로 잡으면 한쪽만 사도 통과해
+                # 의미가 사라진다. 동반 순매수(AND)여야 수급이 들어왔다고 볼 수 있다.
                 if hit["strategy"] == "CLOSING_BET" and hit["type"] == "A":
-                    ok = bool(flow) and (flow[0]["foreign"] > 0 or flow[0]["organ"] > 0)
+                    ok = bool(flow) and flow[0]["foreign"] > 0 and flow[0]["organ"] > 0
                 if ok:
                     entries.append(
                         {
@@ -542,14 +554,22 @@ def build_screening(today=None):
         per[e["strategy"]] = n + 1
         capped.append(e)
 
-    # 같은 종목이 여러 감시 전략에 걸리면 한 번만 보여준다
-    seen, watch_uniq = set(), []
+    # 감시 후보 정리
+    #  - 이미 '진입 조건 충족' 에 올라간 종목은 뺀다. 같은 종목이 두 칸을 먹으면 자리만 낭비다.
+    #  - 한 종목이 여러 감시 전략에 걸려도 한 번만 보여준다.
+    #  - 전략별로도 자른다. 안 하면 갭 후보가 목록을 다 먹는다(실제로 12개 중 8개가 갭이었다).
+    entered = {e["code"] for e in capped}
+    seen, per_w, watch_uniq = set(), {}, []
     for w in sorted(watch, key=lambda x: -x["volume"]):
-        if w["code"] in seen:
+        if w["code"] in entered or w["code"] in seen:
             continue
+        n = per_w.get(w["strategy"], 0)
+        if n >= MAX_WATCH_PER_STRATEGY:
+            continue
+        per_w[w["strategy"]] = n + 1
         seen.add(w["code"])
         watch_uniq.append(w)
-    watch = watch_uniq[:12]
+    watch = watch_uniq
     danger = sorted(danger, key=lambda x: -x["volume"])[:8]
 
     print(f"[INFO] 스크리닝: 진입 {len(capped)} / 감시 {len(watch)} / 금지 {len(danger)} / 조회실패 {failures}")
