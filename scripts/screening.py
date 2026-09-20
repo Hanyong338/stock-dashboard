@@ -372,13 +372,25 @@ def match_closing_bet(b, s, flow):
                 who = "외국인" if flow[0]["foreign"] >= flow[0]["organ"] else "기관"
                 return "A", f"{who} 순매수 {big / 1e8:.0f}억 집중 + 윗꼬리 없는 양봉 고가 마감"
 
-    # B: 전일 대량 급등 후 당일 거래급감 도지 + 10·20일선 지지
-    if len(c) >= 3 and v[-2] > 0 and pct(c[-2], o[-2]) >= 5 and upper_tail(o[-2], h[-2], l[-2], c[-2]) <= 0.4:
-        if v[-1] <= v[-2] * 0.5 and body_ratio(open_, high, low, close) <= 0.15:
-            for n, label in ((10, "10일선"), (20, "20일선")):
-                line = ma(c, n)
-                if line and abs(close - line) / line <= 0.03:
-                    return "B", f"전일 급등 후 거래량 {v[-1] / v[-2] * 100:.0f}% 급감 도지 + {label} 지지"
+    # B: 전일 +10% 이상 대량 급등(윗꼬리 존재) -> 당일 거래량 반토막 + 도지 + 10·20일선 종가 사수
+    avg20v = ma(v, 20, offset=1) or 0
+    if len(c) >= 3 and v[-2] > 0 and open_ > 0:
+        prev_gain = pct(c[-2], o[-2])
+        prev_big = avg20v and v[-2] >= avg20v * p["type_b_prev_volume_ratio"]
+        # 윗꼬리는 '존재'만 본다. 고점을 찍고 밀린 흔적이 있다는 뜻이다.
+        prev_tail = upper_tail(o[-2], h[-2], l[-2], c[-2]) > 0
+        if prev_gain >= p["type_b_min_prev_gain"] and prev_big and prev_tail:
+            vol_dry = v[-1] <= v[-2] * p["type_b_max_volume_ratio"]
+            # 도지는 몸통 비율이 아니라 시가 대비 종가 변동폭으로 잰다.
+            doji = abs(close - open_) / open_ * 100 <= p["type_b_doji_pct"]
+            if vol_dry and doji:
+                for n, label in ((10, "10일선"), (20, "20일선")):
+                    line = ma(c, n)
+                    if line and close >= line:  # 근접이 아니라 '이탈하지 않음'
+                        return "B", (
+                            f"전일 +{prev_gain:.1f}% 대량 급등 → 거래량 {v[-1] / v[-2] * 100:.0f}% 급감 · "
+                            f"도지({pct(close, open_):+.1f}%) · {label} 종가 사수"
+                        )
     return None, None
 
 

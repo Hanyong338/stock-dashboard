@@ -60,7 +60,7 @@ SCREENING_BEFORE_HOUR = 18
 # 오늘의 주도 테마는 목록 API 3번이면 끝나서 매시간 갱신해도 부담이 없다.
 # 종목 선별과 분리해 따로 저장한다(무거운 screening.json 을 매시간 건드리지 않으려는 것).
 THEME_TOP = 8
-SCREENING_RULES_VERSION = 7
+SCREENING_RULES_VERSION = 8
 
 
 def call_with_timeout(fn, timeout, *args, **kwargs):
