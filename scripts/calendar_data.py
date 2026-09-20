@@ -7,6 +7,7 @@
 import datetime
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 import requests
 
@@ -19,7 +20,7 @@ HEADERS = {
     "Accept": "application/json",
 }
 
-REQUEST_INTERVAL = 0.35  # 연속 호출로 차단당하지 않게 간격을 둔다
+FETCH_WORKERS = 6  # 날짜별 조회를 동시에 몇 개까지 돌릴지. 올릴수록 빠르지만 차단 위험이 커진다.
 MONTHS_AHEAD = 3  # 당월 + 3개월
 
 # 실적 발표가 국내 증시에 영향을 주는 종목만. 소형주까지 넣으면 하루 20건씩 쌓여 달력이 못 쓰게 된다.
@@ -184,13 +185,43 @@ def us_market_holidays(year):
     ]
 
 
+def _bok_entry(d):
+    return {
+        "start": d.isoformat(),
+        "end": d.isoformat(),
+        "title": "한국 금통위",
+        "category": "major",
+        "detail": "10:00",  # 나스닥 과거 금통위 데이터(KST 10:00)로 확인
+    }
+
+
+# 한국은행 공식 통화정책방향 회의일정. bok.or.kr 에서 읽어 요일까지 대조해 확인한 값이다.
+# 아래 사이트 조회가 실패할 때(깃허브 서버에서 막히는 듯하다) 쓰는 대비책이라
+# 연도가 바뀌면 여기에 새 해 일정을 확인해서 넣어야 한다.
+BOK_MEETINGS_FALLBACK = {
+    2026: ["01-15", "02-26", "04-10", "05-28", "07-16", "08-27", "10-22", "11-26"],
+}
+
+
 def bok_rate_decisions(year):
     """한국은행이 공시한 그 해 금통위 통화정책방향 회의일정을 가져온다.
 
     나스닥 경제지표 API 는 한 달 앞까지만 채워져 있어서, 국내 투자자에게 가장 중요한
     금통위가 두 달 뒤부터는 통째로 빠진다. 그래서 한국은행 공식 일정표에서 직접 읽는다.
-    페이지가 '10월 22일(목)' 형태로 요일까지 같이 주기 때문에 파싱 결과를 자체 검증할 수 있다.
-    발표시각 10:00 은 나스닥의 과거 금통위 데이터(KST 10:00)로 확인했다."""
+    페이지가 '10월 22일(목)' 형태로 요일까지 같이 주기 때문에 파싱 결과를 자체 검증할 수 있다."""
+    live = _bok_from_site(year)
+    if live:
+        return live
+
+    fallback = BOK_MEETINGS_FALLBACK.get(year, [])
+    if fallback:
+        print(f"[INFO] BOK {year}: 사이트 조회 실패 — 확인해둔 일정 {len(fallback)}건으로 대체")
+    else:
+        print(f"[WARN] BOK {year}: 사이트도 실패하고 대비책도 없다 — 금통위가 달력에서 빠진다")
+    return [_bok_entry(datetime.date(year, int(md[:2]), int(md[3:]))) for md in fallback]
+
+
+def _bok_from_site(year):
     try:
         resp = requests.get(
             BOK_URL,
@@ -214,24 +245,25 @@ def bok_rate_decisions(year):
         if weekdays[d.weekday()] != wd:
             print(f"[WARN] BOK 일정 요일 불일치 {d} (페이지:{wd}) — 건너뜀")
             continue
-        out.append(
-            {
-                "start": d.isoformat(),
-                "end": d.isoformat(),
-                "title": "한국 금통위",
-                "category": "major",
-                "detail": "10:00",
-            }
-        )
+        out.append(_bok_entry(d))
 
-    print(f"[INFO] BOK {year} 금통위 {len(out)}건")
+    print(f"[INFO] BOK {year} 금통위 {len(out)}건 (사이트)")
     return out
 
 
 def _get_json(url, date_str):
-    resp = requests.get(url, params={"date": date_str}, headers=HEADERS, timeout=20)
-    resp.raise_for_status()
-    return resp.json()
+    """한 번 실패했다고 그 날짜를 통째로 버리면 지표가 소리 없이 빠진다. 두 번까지 더 시도한다."""
+    last = None
+    for attempt in range(3):
+        try:
+            resp = requests.get(url, params={"date": date_str}, headers=HEADERS, timeout=20)
+            resp.raise_for_status()
+            return resp.json()
+        except Exception as e:
+            last = e
+            if attempt < 2:
+                time.sleep(1.5 * (attempt + 1))
+    raise last
 
 
 def _rows(payload):
@@ -277,9 +309,11 @@ def to_kst(api_date, gmt_str):
 
 
 def fetch_day(date_obj):
-    """하루치 이벤트를 [{date, title, category, detail}] 로 반환."""
+    """하루치 이벤트와 실패 건수를 (events, failures) 로 반환.
+    실패를 세어 올리는 이유: 조용히 빠진 날짜가 생기면 달력에 CPI 가 통째로 없어도 아무도 모른다."""
     date_str = date_obj.isoformat()
     events = []
+    failures = 0
 
     try:
         for row in _rows(_get_json(EARNINGS_URL, date_str)):
@@ -307,6 +341,7 @@ def fetch_day(date_obj):
                 }
             )
     except Exception as e:
+        failures += 1
         print(f"[WARN] earnings fetch failed {date_str}: {e}")
 
     try:
@@ -339,9 +374,10 @@ def fetch_day(date_obj):
                 }
             )
     except Exception as e:
+        failures += 1
         print(f"[WARN] economic fetch failed {date_str}: {e}")
 
-    return events
+    return events, failures
 
 
 def _month_starts(today, count):
@@ -363,16 +399,25 @@ def build_calendar(today=None):
     last = months[-1]
     end = (datetime.date(last.year + (last.month // 12), (last.month % 12) + 1, 1)) - datetime.timedelta(days=1)
 
-    events = []
     # 주말도 조회해야 한다. 미국 지표가 API 상에서 토요일 날짜로 들어오기 때문에
     # 평일만 훑으면 CPI·비농업고용 같은 핵심 지표가 통째로 빠진다.
+    days = []
     day = start - datetime.timedelta(days=1)  # 앞으로 당길 미국 지표까지 잡으려면 하루 먼저 시작
-    fetched = 0
     while day <= end:
-        events.extend(fetch_day(day))
-        fetched += 1
-        time.sleep(REQUEST_INTERVAL)
+        days.append(day)
         day += datetime.timedelta(days=1)
+
+    # 하루에 2번씩, 120일이면 240번을 순서대로 호출해서 10분 넘게 걸리던 걸 병렬로 돌린다.
+    # 동시 6개는 나스닥이 막지 않는 선이고, 막히더라도 _get_json 이 두 번 더 재시도한다.
+    events = []
+    failures = 0
+    with ThreadPoolExecutor(max_workers=FETCH_WORKERS) as pool:
+        for got, failed in pool.map(fetch_day, days):
+            events.extend(got)
+            failures += failed
+    fetched = len(days)
+    if failures:
+        print(f"[WARN] calendar: {failures}건 조회 실패 — 그만큼 일정이 빠졌을 수 있다")
 
     holidays = list(KR_HOLIDAYS)
     for yr in {start.year, end.year}:

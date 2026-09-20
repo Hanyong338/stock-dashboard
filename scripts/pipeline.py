@@ -38,7 +38,7 @@ MIN_VIDEO_DURATION_SECONDS = 181  # 3분 이하는 쇼츠(Shorts)라 요약하�
 
 # 캘린더 생성 규칙(수집 범위·시간대 변환·범주 등)이 바뀌면 이 숫자를 올린다.
 # 캘린더는 하루 한 번만 만들기 때문에, 이게 없으면 코드를 고쳐도 그날은 옛 데이터가 그대로 남는다.
-CALENDAR_BUILDER_VERSION = 3
+CALENDAR_BUILDER_VERSION = 4
 
 
 def call_with_timeout(fn, timeout, *args, **kwargs):
