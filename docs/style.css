@@ -160,7 +160,10 @@ body {
   width: calc(100% - 32px);
   background: var(--chip-bg);
   border-radius: var(--radius-md);
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.tabs::-webkit-scrollbar { display: none; }
 
 /* 위치와 너비는 app.js 가 실제 버튼 좌표로 계산한다 (탭 개수/글자 길이에 상관없이 맞음) */
 .tab-indicator {
@@ -1025,7 +1028,9 @@ main {
   #refreshBtn { padding: 8px 12px; font-size: 11.5px; }
 
   .tabs { margin-top: 12px; }
-  .tab-btn { font-size: 12px; padding: 10px 4px; white-space: nowrap; }
+  /* 탭 이름이 길어서(글로벌 모닝 브리핑 등) 375px 에서 네 칸이 빠듯하다.
+     글자를 줄여 맞추고, 그래도 넘치면 가로로 밀어 볼 수 있게 둔다. */
+  .tab-btn { font-size: 11px; padding: 10px 2px; white-space: nowrap; }
 }
 
 /* 방송에서 등락률을 안 밝힌 종목의 상태 뱃지 ([계약]/[수혜] 등). 숫자가 아니므로 등락색을 쓰지 않는다 */

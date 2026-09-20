@@ -1,4 +1,4 @@
-const DATA_BASE = "./data";
+﻿const DATA_BASE = "./data";
 
 const CHANNEL_COLORS = ["#f59e0b", "#ef4444", "#8b5cf6", "#10b981", "#3b82f6", "#ec4899", "#14b8a6"];
 
@@ -136,7 +136,7 @@ function mbriefSection(title, bodyNodes) {
   return wrap;
 }
 
-/* ---------- 증시 캘린더 ---------- */
+/* ---------- 마켓 캘린더 ---------- */
 
 const CAL_CATEGORIES = [
   { key: "major", label: "주요 이벤트" },
