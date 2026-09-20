@@ -51,7 +51,7 @@ MORNING_BRIEF_PROMPT_VERSION = 5
 # 기술적 분석 스크리닝. 전종목 약 2,900개를 훑어 3분쯤 걸리므로 매시간 돌리지 않는다.
 # 19시(장 마감 후)가 일봉이 확정된 진짜 판정 런이고, 8시는 재시도 겸 신선도용이다.
 SCREENING_SLOTS = {8: "morning", 19: "evening"}
-SCREENING_RULES_VERSION = 5
+SCREENING_RULES_VERSION = 6
 
 
 def call_with_timeout(fn, timeout, *args, **kwargs):

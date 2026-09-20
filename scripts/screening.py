@@ -609,8 +609,19 @@ def build_screening(today=None, charts_dir=None):
                  "reason": reason, "exits": SECTION_EXITS[sid]}
             )
 
+    # 섹션 안에서 거래대금순으로만 10개를 자르면, 조건이 느슨한 유형이 자리를 다 먹는다.
+    # 실제로 대시세 추세가 전부 유형 C 로만 채워져 A(정배열 신고가)·B(480일선 삼세판)가
+    # 매칭돼도 11위 밖으로 밀려 안 보였다. 유형별로 돌아가며 뽑아 자리를 보장한다.
     for sid in sections:
-        sections[sid] = sorted(sections[sid], key=lambda x: -x["trading_value_eok"])[:MAX_PER_SECTION]
+        by_type = {}
+        for e in sorted(sections[sid], key=lambda x: -x["trading_value_eok"]):
+            by_type.setdefault(e["type"], []).append(e)
+        picked_sec, order = [], sorted(by_type)
+        while len(picked_sec) < MAX_PER_SECTION and any(by_type[t] for t in order):
+            for t in order:
+                if by_type[t] and len(picked_sec) < MAX_PER_SECTION:
+                    picked_sec.append(by_type[t].pop(0))
+        sections[sid] = sorted(picked_sec, key=lambda x: -x["trading_value_eok"])
 
     picked = [e for sid in SECTION_ORDER for e in sections[sid]]
     danger = sorted(danger, key=lambda x: -x["trading_value_eok"])[:8]
