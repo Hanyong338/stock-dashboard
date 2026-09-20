@@ -51,6 +51,13 @@
     {
       "start": "2026-09-01",
       "end": "2026-09-01",
+      "title": "S&P글로벌 제조업 PMI",
+      "category": "macro",
+      "detail": "22:45"
+    },
+    {
+      "start": "2026-09-01",
+      "end": "2026-09-01",
       "title": "한국 무역수지",
       "category": "macro",
       "detail": "09:00"
@@ -110,6 +117,13 @@
       "title": "ISM 서비스업",
       "category": "macro",
       "detail": "23:00"
+    },
+    {
+      "start": "2026-09-03",
+      "end": "2026-09-03",
+      "title": "S&P글로벌 서비스업 PMI",
+      "category": "macro",
+      "detail": "22:45"
     },
     {
       "start": "2026-09-03",
@@ -322,6 +336,27 @@
       "detail": "11:30"
     },
     {
+      "start": "2026-09-22",
+      "end": "2026-09-22",
+      "title": "리치먼드 연은지수",
+      "category": "macro",
+      "detail": "23:00"
+    },
+    {
+      "start": "2026-09-23",
+      "end": "2026-09-23",
+      "title": "S&P글로벌 서비스업 PMI",
+      "category": "macro",
+      "detail": "22:45"
+    },
+    {
+      "start": "2026-09-23",
+      "end": "2026-09-23",
+      "title": "S&P글로벌 제조업 PMI",
+      "category": "macro",
+      "detail": "22:45"
+    },
+    {
       "start": "2026-09-23",
       "end": "2026-09-23",
       "title": "한국 소비자심리",
@@ -339,6 +374,13 @@
       "start": "2026-09-24",
       "end": "2026-09-24",
       "title": "미국 건축허가",
+      "category": "macro",
+      "detail": "21:30"
+    },
+    {
+      "start": "2026-09-24",
+      "end": "2026-09-24",
+      "title": "미국 경상수지",
       "category": "macro",
       "detail": "21:30"
     },
@@ -443,6 +485,13 @@
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
+      "title": "S&P글로벌 제조업 PMI",
+      "category": "macro",
+      "detail": "22:45"
+    },
+    {
+      "start": "2026-10-01",
+      "end": "2026-10-01",
       "title": "한국 무역수지",
       "category": "macro",
       "detail": "09:00"
@@ -502,6 +551,13 @@
       "title": "ISM 서비스업",
       "category": "macro",
       "detail": "23:00"
+    },
+    {
+      "start": "2026-10-05",
+      "end": "2026-10-05",
+      "title": "S&P글로벌 서비스업 PMI",
+      "category": "macro",
+      "detail": "22:45"
     },
     {
       "start": "2026-10-08",
@@ -918,6 +974,6 @@
     }
   ],
   "built_on": "2026-09-20",
-  "builder_version": 4,
-  "updated_at": "2026-09-20T00:18:34.792319+00:00"
+  "builder_version": 5,
+  "updated_at": "2026-09-20T01:01:06.677624+00:00"
 }
