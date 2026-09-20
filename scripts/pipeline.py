@@ -3,6 +3,7 @@ GitHub Actions에서 1시간마다 실행된다 (.github/workflows/pipeline.yml 
 """
 import datetime
 import json
+import os
 import subprocess
 import sys
 import time
@@ -271,15 +272,28 @@ def _refresh_market_overlay(report, now):
 
 def update_screening(now):
     """기술적 분석 스크리닝을 한국시간 8시·19시 슬롯에 한 번씩만 돌린다.
-    같은 슬롯에서 이미 만들었으면 건너뛴다. 규칙을 고치면 버전을 올려 강제로 다시 돌린다."""
-    kst = now.astimezone(KST)
-    slot = SCREENING_SLOTS.get(kst.hour)
-    if not slot:
-        return False
+    전종목 약 2,900개를 훑어 3분쯤 걸리므로 매시간 돌릴 수는 없다.
 
+    다만 손으로 돌린 실행(Run workflow)은 슬롯 밖이어도 '그날 아직 안 만들었으면' 돌려준다.
+    규칙을 고쳐 배포해놓고 저녁 7시까지 기다리지 않고 바로 결과를 보기 위해서다.
+    그날 것이 이미 있으면 손으로 돌려도 건너뛰므로, 평소 수동 실행이 3분씩 길어지지는 않는다."""
+    kst = now.astimezone(KST)
+    today = kst.date().isoformat()
     current = load_json(SCREENING_FILE, {})
-    stamp = f"{kst.date().isoformat()}/{slot}"
-    if current.get("built_slot") == stamp and current.get("rules_version") == SCREENING_RULES_VERSION:
+    slot = SCREENING_SLOTS.get(kst.hour)
+
+    up_to_date = (current.get("built_slot") or "").startswith(today) and (
+        current.get("rules_version") == SCREENING_RULES_VERSION
+    )
+
+    if slot:
+        stamp = f"{today}/{slot}"
+        if current.get("built_slot") == stamp and current.get("rules_version") == SCREENING_RULES_VERSION:
+            return False
+    elif os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch" and not up_to_date:
+        stamp = f"{today}/manual"
+        print(f"[INFO] 스크리닝: 슬롯 밖({kst.hour}시)이지만 수동 실행이라 진행한다")
+    else:
         return False
 
     data = build_screening(kst.date())
