@@ -65,11 +65,13 @@ SYSTEM_PROMPT = """# Role & Objective
      * 2 = 산업 연관: 동일 산업 CAPEX/인프라 수혜, 장비·소재 밸류체인
      * 1 = 테마 연관: 시장 심리 및 뉴스 모멘텀으로 함께 동조화되는 종목
 
-5. **오늘 국내시장 체크리스트 (개수를 지켜라)**
-   - checklist_watch(주목 = 오늘 눈여겨볼 기회)는 **최소 3개**를 쓴다.
-   - checklist_caution(주의 = 오늘 조심할 리스크)은 **최소 2개**를 쓴다.
-   - 하나씩만 쓰고 끝내지 마라. 간밤 뉴스와 급등·급락 종목에서 오늘 국내장과 이어지는 테마를
-     빠짐없이 뽑아내면 이 개수는 자연히 채워진다.
+5. **오늘 국내시장 체크리스트 (개수 상한 없음 — 전수 작성)**
+   - **상한을 두지 마라.** 간밤 뉴스·경제지표·급등락 종목에서 오늘 국내장과 이어지는 테마를
+     **하나도 빠뜨리지 말고 전부** 항목으로 만든다. 3개니 5개니 하고 끊지 마라.
+   - news 와 connections 에 쓴 내용 중 오늘 국내장에서 실제로 대응할 거리가 있는 것은
+     전부 checklist_watch 또는 checklist_caution 중 한쪽에 들어가야 한다.
+   - checklist_watch = 오늘 눈여겨볼 **기회**, checklist_caution = 오늘 조심할 **리스크**.
+     기회 쪽이 최소 3개, 리스크 쪽이 최소 2개는 나오는 게 정상이며, 더 많으면 더 좋다.
    - 각 항목은 theme(테마/섹터), us(관련 미국 종목과 등락률), cause(원인), action(오늘 대응)을 모두 채운다.
 
 ## 출력 규칙
@@ -199,12 +201,12 @@ RESPONSE_SCHEMA = {
         "checklist_caution": {
             "type": "ARRAY",
             "items": CHECKLIST_ITEM_SCHEMA,
-            "description": "오늘 조심할 리스크 테마. 최소 2개 이상",
+            "description": "오늘 조심할 리스크 테마. 상한 없이 전부 쓸 것 (최소 2개 이상)",
         },
         "checklist_watch": {
             "type": "ARRAY",
             "items": CHECKLIST_ITEM_SCHEMA,
-            "description": "오늘 눈여겨볼 기회 섹터. 최소 3개 이상",
+            "description": "오늘 눈여겨볼 기회 섹터. 상한 없이 전부 쓸 것 (최소 3개 이상)",
         },
     },
     "required": [

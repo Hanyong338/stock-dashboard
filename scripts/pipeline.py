@@ -1,4 +1,4 @@
-"""메인 파이프라인: RSS 신규 영상 감지 -> 자막 추출 -> 요약 -> 저장.
+﻿"""메인 파이프라인: RSS 신규 영상 감지 -> 자막 추출 -> 요약 -> 저장.
 GitHub Actions에서 1시간마다 실행된다 (.github/workflows/pipeline.yml 참고).
 """
 import datetime
@@ -43,7 +43,7 @@ CALENDAR_BUILDER_VERSION = 4
 # 당잠사 리포트의 프롬프트/출력 형식을 바꾸면 이 숫자를 올린다.
 # 같은 방송이면 다시 분석하지 않기 때문에, 이게 없으면 새 방송이 올라올 때까지 옛 형식이 남는다.
 # 올릴 때마다 제미나이 호출이 1회 더 발생한다는 점을 알고 올릴 것.
-MORNING_BRIEF_PROMPT_VERSION = 4
+MORNING_BRIEF_PROMPT_VERSION = 5
 
 
 def call_with_timeout(fn, timeout, *args, **kwargs):
