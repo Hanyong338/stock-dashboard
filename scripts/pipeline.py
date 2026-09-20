@@ -95,11 +95,30 @@ def within_retention(pub_iso, now):
     return pub >= now - datetime.timedelta(days=RETENTION_DAYS)
 
 
-def load_json(path, default):
-    if path.exists():
+def load_json(path, default, required=False):
+    """JSON 하나가 깨졌다고 파이프라인 전체가 죽지 않게 한다.
+    실제로 머지가 잘못 풀려 state.json 바깥에 중괄호가 한 겹 더 씌워졌고,
+    그 한 파일 때문에 실행이 첫 줄에서 통째로 실패했다.
+
+    깨진 파일은 .broken 으로 옮겨두고(덮어써서 증거를 없애지 않는다) 기본값으로 계속 간다.
+    다만 required=True 인 파일은 기본값으로 돌아가면 멀쩡한 데이터를 빈 값으로
+    덮어쓰게 되므로 차라리 멈춘다."""
+    if not path.exists():
+        return default
+    try:
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
-    return default
+    except (json.JSONDecodeError, UnicodeDecodeError) as e:
+        print(f"[WARN] {path.name} 이 깨져 있습니다: {e}")
+        if required:
+            raise
+        broken = path.with_suffix(path.suffix + ".broken")
+        try:
+            path.replace(broken)
+            print(f"[WARN] {broken.name} 으로 옮기고 기본값으로 계속합니다")
+        except Exception as move_err:
+            print(f"[WARN] 깨진 파일을 옮기지 못했습니다: {move_err}")
+        return default
 
 
 def save_json(path, data):
@@ -469,9 +488,11 @@ def commit_and_push(message):
 
 
 def main():
-    channels = load_json(CHANNELS_FILE, [])
+    # channels.json 과 summaries.json 은 기본값으로 넘어가면 안 된다.
+    # 채널 목록이 비면 아무것도 안 돌고, 요약본이 비면 그 빈 값으로 덮어써 대시보드가 통째로 날아간다.
+    channels = load_json(CHANNELS_FILE, [], required=True)
     state = load_json(STATE_FILE, {})
-    summaries = load_json(SUMMARIES_FILE, [])
+    summaries = load_json(SUMMARIES_FILE, [], required=True)
     now = datetime.datetime.now(datetime.timezone.utc)
 
     for ch in channels:
