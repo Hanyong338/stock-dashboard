@@ -1,4 +1,4 @@
-"""섹션 4 모닝 브레이크아웃 — 장 시작 30분(09:00~09:30) 분봉으로 판정하는 단타 스크리너.
+﻿"""섹션 4 모닝 브레이크아웃 — 장 시작 30분(09:00~09:30) 분봉으로 판정하는 단타 스크리너.
 
 섹션 1~3 과는 실행 시점도 데이터도 완전히 달라서 파일을 나눴다.
 1~3 은 마감 후 일봉으로 보지만, 이건 장중 분봉으로 본다.
@@ -35,6 +35,7 @@ from screening import (
     _is_common_stock,
     _num,
     _yahoo_chart,
+    fetch_flow,
     fetch_theme_map,
     ma,
     pct,
@@ -145,6 +146,46 @@ def to_3min(rows):
 # ──────────────────────────────────────────────────────────────────────────
 # 판정
 # ──────────────────────────────────────────────────────────────────────────
+def kill_by_chart(prev_days, last):
+    """섹션 1~3 과 같은 4대 킬 스위치 중 차트로 보는 것들. 걸리면 사유, 통과면 None.
+
+    장중이라 그대로 쓸 수 없어 시점을 맞췄다.
+      역배열   '지금 가격(09:30)' 으로 본다. 어제 선 아래였어도 오늘 아침 뚫고 올라왔으면 통과다.
+               유형 C 는 애초에 선 위로 올라온 종목만 잡으므로 여기서 걸리지 않는다.
+      캔들 조건 당일 일봉은 아직 안 끝났으므로 전일 일봉으로 본다."""
+    closes = [d[4] for d in prev_days]
+    opens = [d[1] for d in prev_days]
+    vols = [d[5] for d in prev_days]
+
+    for n in (240, 480):
+        line = ma(closes, n)
+        if line and last < line:
+            return f"역배열 침체 ({n}일선 아래)"
+
+    if len(closes) < 21:
+        return None
+    avg20v = ma(vols, 20, offset=1) or 0
+
+    ma5_before = ma(closes, 5, offset=1)
+    if ma5_before and pct(closes[-2], ma5_before) >= 15.0:
+        if closes[-1] < opens[-1] and pct(closes[-1], closes[-2]) <= -3.0:
+            if avg20v and vols[-1] >= avg20v * 2:
+                return "전일 5일선 이격 과열 + 대량 장대음봉"
+
+    ma60 = ma(closes, 60)
+    if ma60 and closes[-2] >= ma60 > closes[-1] and closes[-1] < opens[-1]:
+        if avg20v and vols[-1] >= avg20v * 1.5:
+            return "전일 60일선 거래량 실린 음봉 이탈"
+    return None
+
+
+def kill_by_flow(flow):
+    """메이저 수급 이탈. 09:30 엔 당일 수급이 아직 안 나와서 직전 3거래일로 본다."""
+    if len(flow) >= 3 and all(d["foreign"] < 0 and d["organ"] < 0 for d in flow[:3]):
+        return "3일 연속 외국인·기관 동반 순매도"
+    return None
+
+
 def _match(stock, minutes, dailies, target_day):
     """조건에 맞으면 (유형, 사유, 지표) 를 돌려준다."""
     today = [r for r in minutes if r[0].date() == target_day and SESSION_START <= r[0].time() < CUTOFF]
@@ -176,6 +217,11 @@ def _match(stock, minutes, dailies, target_day):
     today3 = [b for b in bars3 if b[0].date() == target_day and SESSION_START <= b[0].time() < CUTOFF]
     closes3 = [b[4] for b in bars3]
     ma5, ma10, ma20 = ma(closes3, 5), ma(closes3, 10), ma(closes3, 20)
+
+    # 차트 킬 스위치는 여기서 본다. 추가 조회가 없어 매칭 전에 걸러도 비용이 들지 않는다.
+    blocked = kill_by_chart(prev_days, last)
+    if blocked:
+        return None
 
     base = {
         "open_gap": round(gap, 2),
@@ -271,6 +317,22 @@ def build_morning_breakout(target_day=None, tag_map=None):
             else:
                 hits.append(res)
 
+    # 수급 킬 스위치는 조회가 필요해서, 차트 조건을 통과한 소수에게만 적용한다.
+    dropped = 0
+    if hits:
+        with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+            flows = list(pool.map(lambda h: fetch_flow(h["stock"]["code"]), hits))
+        kept = []
+        for h, flow in zip(hits, flows):
+            reason = kill_by_flow(flow)
+            if reason:
+                print(f"[INFO] 모닝 제외: {h['stock']['name']} — {reason}")
+                dropped += 1
+                continue
+            h["flow"] = flow
+            kept.append(h)
+        hits = kept
+
     if tag_map is None:
         tag_map = {}
     items = []
@@ -303,7 +365,7 @@ def build_morning_breakout(target_day=None, tag_map=None):
                 picked.append(by_type[t].pop(0))
     picked.sort(key=lambda x: -x["value_30m_eok"])
 
-    print(f"[INFO] 모닝 브레이크아웃: {len(picked)}종목 (후보 {len(items)} / 조회실패 {failures})")
+    print(f"[INFO] 모닝 브레이크아웃: {len(picked)}종목 (후보 {len(items)} / 킬스위치 탈락 {dropped} / 조회실패 {failures})")
     return {
         "id": MORNING_SECTION["id"],
         "name": MORNING_SECTION["name"],
@@ -312,6 +374,7 @@ def build_morning_breakout(target_day=None, tag_map=None):
         "as_of": f"{target_day.isoformat()} 09:30",
         "universe_count": len(universe),
         "fetch_failures": failures,
+        "dropped": dropped,
         "items": picked,
     }
 
