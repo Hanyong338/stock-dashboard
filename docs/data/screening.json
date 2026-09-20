@@ -1,5 +1,676 @@
 {
-  "entries": [],
-  "watch": [],
-  "danger": []
+  "probe": {
+    "naver_universe": "200 / 5종목",
+    "naver_trend": "200 / 10행",
+    "yahoo_daily": "200 / 24봉"
+  },
+  "as_of_trading_day": "2026-09-18",
+  "universe_count": 2646,
+  "fetch_failures": 7,
+  "entries": [
+    {
+      "code": "043260",
+      "name": "성호전자",
+      "market": "KOSDAQ",
+      "close": 26800,
+      "change_percent": 24.07,
+      "volume": 20049355,
+      "url": "https://m.stock.naver.com/domestic/stock/043260/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": -239951,
+        "organ": 217373,
+        "individual": -144845
+      },
+      "strategy": "LONG_MA_BREAKOUT",
+      "strategy_name": "바닥권 장기 이평선 거래량 돌파",
+      "type": "C",
+      "reason": "단기 골든크로스 + 대량 거래 240일선 돌파",
+      "exits": [
+        "A(단기/종가): 익일 시초가 갭상승 시 분할 익절, 09:30 이전 고점 형성 시 전량 매도, 돌파 기준선 하향 이탈 시 손절",
+        "B·C(중장기 스윙): 일봉 20일선 이탈 시 50% 의무 분할 매도, 60일선 이탈 시 전량 매도",
+        "B·C 공통: 돌파했던 240일선 또는 480일선을 다시 하향 이탈하면 즉시 무조건 손절"
+      ]
+    },
+    {
+      "code": "001440",
+      "name": "대한전선",
+      "market": "KOSPI",
+      "close": 31450,
+      "change_percent": 11.13,
+      "volume": 8833594,
+      "url": "https://m.stock.naver.com/domestic/stock/001440/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 927982,
+        "organ": 10848,
+        "individual": -938685
+      },
+      "strategy": "LONG_MA_BREAKOUT",
+      "strategy_name": "바닥권 장기 이평선 거래량 돌파",
+      "type": "A",
+      "reason": "240일선 종가 돌파 (거래량 전일 대비 917%)",
+      "exits": [
+        "A(단기/종가): 익일 시초가 갭상승 시 분할 익절, 09:30 이전 고점 형성 시 전량 매도, 돌파 기준선 하향 이탈 시 손절",
+        "B·C(중장기 스윙): 일봉 20일선 이탈 시 50% 의무 분할 매도, 60일선 이탈 시 전량 매도",
+        "B·C 공통: 돌파했던 240일선 또는 480일선을 다시 하향 이탈하면 즉시 무조건 손절"
+      ]
+    },
+    {
+      "code": "017670",
+      "name": "SK텔레콤",
+      "market": "KOSPI",
+      "close": 89200,
+      "change_percent": 1.83,
+      "volume": 1768193,
+      "url": "https://m.stock.naver.com/domestic/stock/017670/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": -25,
+        "organ": 16336,
+        "individual": -17418
+      },
+      "strategy": "CLOSING_BET",
+      "strategy_name": "장후 종가베팅",
+      "type": "A",
+      "reason": "당일 고가 마감 + 거래량 증가 (수급 확인 필요)",
+      "exits": [
+        "익일 시초가 갭상승 시 분할 매도",
+        "09:30 이전 고점 형성 시 전량 매도"
+      ]
+    },
+    {
+      "code": "078350",
+      "name": "한양디지텍",
+      "market": "KOSDAQ",
+      "close": 25550,
+      "change_percent": 14.32,
+      "volume": 1761816,
+      "url": "https://m.stock.naver.com/domestic/stock/078350/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": -258459,
+        "organ": 554902,
+        "individual": -313787
+      },
+      "strategy": "LONG_MA_BREAKOUT",
+      "strategy_name": "바닥권 장기 이평선 거래량 돌파",
+      "type": "C",
+      "reason": "단기 골든크로스 + 대량 거래 240일선 돌파",
+      "exits": [
+        "A(단기/종가): 익일 시초가 갭상승 시 분할 익절, 09:30 이전 고점 형성 시 전량 매도, 돌파 기준선 하향 이탈 시 손절",
+        "B·C(중장기 스윙): 일봉 20일선 이탈 시 50% 의무 분할 매도, 60일선 이탈 시 전량 매도",
+        "B·C 공통: 돌파했던 240일선 또는 480일선을 다시 하향 이탈하면 즉시 무조건 손절"
+      ]
+    },
+    {
+      "code": "017510",
+      "name": "세명전기",
+      "market": "KOSDAQ",
+      "close": 8080,
+      "change_percent": 4.94,
+      "volume": 845479,
+      "url": "https://m.stock.naver.com/domestic/stock/017510/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": -9886,
+        "organ": 322,
+        "individual": 10845
+      },
+      "strategy": "LONG_MA_BREAKOUT",
+      "strategy_name": "바닥권 장기 이평선 거래량 돌파",
+      "type": "B",
+      "reason": "480일선 돌파 10회 실패 후 재돌파",
+      "exits": [
+        "A(단기/종가): 익일 시초가 갭상승 시 분할 익절, 09:30 이전 고점 형성 시 전량 매도, 돌파 기준선 하향 이탈 시 손절",
+        "B·C(중장기 스윙): 일봉 20일선 이탈 시 50% 의무 분할 매도, 60일선 이탈 시 전량 매도",
+        "B·C 공통: 돌파했던 240일선 또는 480일선을 다시 하향 이탈하면 즉시 무조건 손절"
+      ]
+    },
+    {
+      "code": "092780",
+      "name": "DYP",
+      "market": "KOSPI",
+      "close": 4100,
+      "change_percent": 29.95,
+      "volume": 428101,
+      "url": "https://m.stock.naver.com/domestic/stock/092780/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 1381,
+        "organ": 10793,
+        "individual": -12097
+      },
+      "strategy": "LONG_MA_BREAKOUT",
+      "strategy_name": "바닥권 장기 이평선 거래량 돌파",
+      "type": "A",
+      "reason": "240일선 종가 돌파 (거래량 전일 대비 940%)",
+      "exits": [
+        "A(단기/종가): 익일 시초가 갭상승 시 분할 익절, 09:30 이전 고점 형성 시 전량 매도, 돌파 기준선 하향 이탈 시 손절",
+        "B·C(중장기 스윙): 일봉 20일선 이탈 시 50% 의무 분할 매도, 60일선 이탈 시 전량 매도",
+        "B·C 공통: 돌파했던 240일선 또는 480일선을 다시 하향 이탈하면 즉시 무조건 손절"
+      ]
+    },
+    {
+      "code": "420770",
+      "name": "기가비스",
+      "market": "KOSDAQ",
+      "close": 113100,
+      "change_percent": 13.1,
+      "volume": 361958,
+      "url": "https://m.stock.naver.com/domestic/stock/420770/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 20775,
+        "organ": 38216,
+        "individual": -59801
+      },
+      "strategy": "CLOSING_BET",
+      "strategy_name": "장후 종가베팅",
+      "type": "A",
+      "reason": "당일 고가 마감 + 거래량 증가 (수급 확인 필요)",
+      "exits": [
+        "익일 시초가 갭상승 시 분할 매도",
+        "09:30 이전 고점 형성 시 전량 매도"
+      ]
+    },
+    {
+      "code": "109080",
+      "name": "옵티시스",
+      "market": "KOSDAQ",
+      "close": 9780,
+      "change_percent": 7.24,
+      "volume": 314031,
+      "url": "https://m.stock.naver.com/domestic/stock/109080/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 4162,
+        "organ": 0,
+        "individual": -4174
+      },
+      "strategy": "LONG_MA_BREAKOUT",
+      "strategy_name": "바닥권 장기 이평선 거래량 돌파",
+      "type": "A",
+      "reason": "480일선 종가 돌파 (거래량 전일 대비 1809%)",
+      "exits": [
+        "A(단기/종가): 익일 시초가 갭상승 시 분할 익절, 09:30 이전 고점 형성 시 전량 매도, 돌파 기준선 하향 이탈 시 손절",
+        "B·C(중장기 스윙): 일봉 20일선 이탈 시 50% 의무 분할 매도, 60일선 이탈 시 전량 매도",
+        "B·C 공통: 돌파했던 240일선 또는 480일선을 다시 하향 이탈하면 즉시 무조건 손절"
+      ]
+    },
+    {
+      "code": "443060",
+      "name": "HD현대마린솔루션",
+      "market": "KOSPI",
+      "close": 246000,
+      "change_percent": 1.65,
+      "volume": 257766,
+      "url": "https://m.stock.naver.com/domestic/stock/443060/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 19234,
+        "organ": -12164,
+        "individual": -5760
+      },
+      "strategy": "CLOSING_BET",
+      "strategy_name": "장후 종가베팅",
+      "type": "A",
+      "reason": "당일 고가 마감 + 거래량 증가 (수급 확인 필요)",
+      "exits": [
+        "익일 시초가 갭상승 시 분할 매도",
+        "09:30 이전 고점 형성 시 전량 매도"
+      ]
+    },
+    {
+      "code": "006260",
+      "name": "LS",
+      "market": "KOSPI",
+      "close": 325500,
+      "change_percent": 7.07,
+      "volume": 181594,
+      "url": "https://m.stock.naver.com/domestic/stock/006260/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": -26133,
+        "organ": 16757,
+        "individual": 12198
+      },
+      "strategy": "CLOSING_BET",
+      "strategy_name": "장후 종가베팅",
+      "type": "A",
+      "reason": "당일 고가 마감 + 거래량 증가 (수급 확인 필요)",
+      "exits": [
+        "익일 시초가 갭상승 시 분할 매도",
+        "09:30 이전 고점 형성 시 전량 매도"
+      ]
+    },
+    {
+      "code": "086670",
+      "name": "비엠티",
+      "market": "KOSDAQ",
+      "close": 18040,
+      "change_percent": 8.22,
+      "volume": 145335,
+      "url": "https://m.stock.naver.com/domestic/stock/086670/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 52798,
+        "organ": -17186,
+        "individual": -42480
+      },
+      "strategy": "CLOSING_BET",
+      "strategy_name": "장후 종가베팅",
+      "type": "A",
+      "reason": "당일 고가 마감 + 거래량 증가 (수급 확인 필요)",
+      "exits": [
+        "익일 시초가 갭상승 시 분할 매도",
+        "09:30 이전 고점 형성 시 전량 매도"
+      ]
+    },
+    {
+      "code": "053800",
+      "name": "안랩",
+      "market": "KOSDAQ",
+      "close": 68200,
+      "change_percent": 4.28,
+      "volume": 135589,
+      "url": "https://m.stock.naver.com/domestic/stock/053800/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 21229,
+        "organ": 14035,
+        "individual": -35324
+      },
+      "strategy": "CLOSING_BET",
+      "strategy_name": "장후 종가베팅",
+      "type": "A",
+      "reason": "당일 고가 마감 + 거래량 증가 (수급 확인 필요)",
+      "exits": [
+        "익일 시초가 갭상승 시 분할 매도",
+        "09:30 이전 고점 형성 시 전량 매도"
+      ]
+    },
+    {
+      "code": "093380",
+      "name": "풍강",
+      "market": "KOSDAQ",
+      "close": 3105,
+      "change_percent": 0.81,
+      "volume": 13010,
+      "url": "https://m.stock.naver.com/domestic/stock/093380/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 3643,
+        "organ": 1363,
+        "individual": -10776
+      },
+      "strategy": "SWING_PULLBACK",
+      "strategy_name": "일봉 이평선 스윙",
+      "type": "20일선",
+      "reason": "20일선 지지 + 밑꼬리 긴 음봉 (종가 진입 / 3회 분할)",
+      "exits": [
+        "일봉 20일선 반등 시 +10% 이상 익절",
+        "일봉 240일선·480일선 이탈 시 무조건 손절"
+      ]
+    }
+  ],
+  "watch": [
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "market": "KOSDAQ",
+      "close": 18320,
+      "change_percent": 13.58,
+      "volume": 55512094,
+      "url": "https://m.stock.naver.com/domestic/stock/010170/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 5001928,
+        "organ": 447738,
+        "individual": -5401901
+      },
+      "strategy": "DAY_MOMENTUM",
+      "strategy_name": "당일 단타 눌림 및 돌파",
+      "reason": "거래량 5551만 주 → 20분선 계단식 눌림 확인"
+    },
+    {
+      "code": "017900",
+      "name": "광전자",
+      "market": "KOSPI",
+      "close": 10520,
+      "change_percent": 2.63,
+      "volume": 20575635,
+      "url": "https://m.stock.naver.com/domestic/stock/017900/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 77799,
+        "organ": 4585,
+        "individual": -74087
+      },
+      "strategy": "DAY_MOMENTUM",
+      "strategy_name": "당일 단타 눌림 및 돌파",
+      "reason": "거래량 2058만 주 → 20분선 계단식 눌림 확인"
+    },
+    {
+      "code": "043260",
+      "name": "성호전자",
+      "market": "KOSDAQ",
+      "close": 26800,
+      "change_percent": 24.07,
+      "volume": 20049355,
+      "url": "https://m.stock.naver.com/domestic/stock/043260/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": -239951,
+        "organ": 217373,
+        "individual": -144845
+      },
+      "strategy": "CK480",
+      "strategy_name": "직장인 점심 CK480",
+      "reason": "직전 거래일 +24.1% → 1분봉 480분선 횡보 지지 확인"
+    },
+    {
+      "code": "046970",
+      "name": "우리로",
+      "market": "KOSDAQ",
+      "close": 8080,
+      "change_percent": 15.1,
+      "volume": 19835120,
+      "url": "https://m.stock.naver.com/domestic/stock/046970/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 1216345,
+        "organ": 18432,
+        "individual": -1233554
+      },
+      "strategy": "CK480",
+      "strategy_name": "직장인 점심 CK480",
+      "reason": "직전 거래일 +15.1% → 1분봉 480분선 횡보 지지 확인"
+    },
+    {
+      "code": "024840",
+      "name": "KBI메탈",
+      "market": "KOSDAQ",
+      "close": 6500,
+      "change_percent": 10.54,
+      "volume": 15299758,
+      "url": "https://m.stock.naver.com/domestic/stock/024840/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 957841,
+        "organ": 1290,
+        "individual": -920749
+      },
+      "strategy": "GAP_PULLBACK",
+      "strategy_name": "시초가 갭상승 눌림목",
+      "reason": "직전 거래일 +10.5% → 갭상승 시 09:15~09:25 20분선 지지 확인"
+    },
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "market": "KOSPI",
+      "close": 13890,
+      "change_percent": 8.01,
+      "volume": 12313924,
+      "url": "https://m.stock.naver.com/domestic/stock/006340/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 663860,
+        "organ": 77481,
+        "individual": -779084
+      },
+      "strategy": "GAP_PULLBACK",
+      "strategy_name": "시초가 갭상승 눌림목",
+      "reason": "직전 거래일 +8.0% → 갭상승 시 09:15~09:25 20분선 지지 확인"
+    },
+    {
+      "code": "001440",
+      "name": "대한전선",
+      "market": "KOSPI",
+      "close": 31450,
+      "change_percent": 11.13,
+      "volume": 8833594,
+      "url": "https://m.stock.naver.com/domestic/stock/001440/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 927982,
+        "organ": 10848,
+        "individual": -938685
+      },
+      "strategy": "GAP_PULLBACK",
+      "strategy_name": "시초가 갭상승 눌림목",
+      "reason": "직전 거래일 +11.1% → 갭상승 시 09:15~09:25 20분선 지지 확인"
+    },
+    {
+      "code": "115440",
+      "name": "우리넷",
+      "market": "KOSDAQ",
+      "close": 10210,
+      "change_percent": 8.96,
+      "volume": 5691026,
+      "url": "https://m.stock.naver.com/domestic/stock/115440/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 144617,
+        "organ": -206,
+        "individual": -144912
+      },
+      "strategy": "GAP_PULLBACK",
+      "strategy_name": "시초가 갭상승 눌림목",
+      "reason": "직전 거래일 +9.0% → 갭상승 시 09:15~09:25 20분선 지지 확인"
+    },
+    {
+      "code": "125020",
+      "name": "티씨머티리얼즈",
+      "market": "KOSDAQ",
+      "close": 6540,
+      "change_percent": 11.6,
+      "volume": 3380336,
+      "url": "https://m.stock.naver.com/domestic/stock/125020/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 7151,
+        "organ": 251,
+        "individual": -6933
+      },
+      "strategy": "GAP_PULLBACK",
+      "strategy_name": "시초가 갭상승 눌림목",
+      "reason": "직전 거래일 +11.6% → 갭상승 시 09:15~09:25 20분선 지지 확인"
+    },
+    {
+      "code": "456010",
+      "name": "아이씨티케이",
+      "market": "KOSDAQ",
+      "close": 22700,
+      "change_percent": 10.73,
+      "volume": 2133767,
+      "url": "https://m.stock.naver.com/domestic/stock/456010/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 118185,
+        "organ": -26209,
+        "individual": -83360
+      },
+      "strategy": "GAP_PULLBACK",
+      "strategy_name": "시초가 갭상승 눌림목",
+      "reason": "직전 거래일 +10.7% → 갭상승 시 09:15~09:25 20분선 지지 확인"
+    },
+    {
+      "code": "218410",
+      "name": "RFHIC",
+      "market": "KOSDAQ",
+      "close": 60100,
+      "change_percent": 12.55,
+      "volume": 1841551,
+      "url": "https://m.stock.naver.com/domestic/stock/218410/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 10124,
+        "organ": 140564,
+        "individual": -163926
+      },
+      "strategy": "GAP_PULLBACK",
+      "strategy_name": "시초가 갭상승 눌림목",
+      "reason": "직전 거래일 +12.5% → 갭상승 시 09:15~09:25 20분선 지지 확인"
+    },
+    {
+      "code": "078350",
+      "name": "한양디지텍",
+      "market": "KOSDAQ",
+      "close": 25550,
+      "change_percent": 14.32,
+      "volume": 1761816,
+      "url": "https://m.stock.naver.com/domestic/stock/078350/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": -258459,
+        "organ": 554902,
+        "individual": -313787
+      },
+      "strategy": "GAP_PULLBACK",
+      "strategy_name": "시초가 갭상승 눌림목",
+      "reason": "직전 거래일 +14.3% → 갭상승 시 09:15~09:25 20분선 지지 확인"
+    }
+  ],
+  "danger": [
+    {
+      "code": "005690",
+      "name": "파미셀",
+      "market": "KOSPI",
+      "close": 12530,
+      "change_percent": 8.2,
+      "volume": 10334474,
+      "url": "https://m.stock.naver.com/domestic/stock/005690/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 582286,
+        "organ": 340723,
+        "individual": -910882
+      },
+      "reason": "1분봉 240분선 아래",
+      "strategy_name": "바닥권 장기 이평선 거래량 돌파"
+    },
+    {
+      "code": "007610",
+      "name": "선도전기",
+      "market": "KOSPI",
+      "close": 4945,
+      "change_percent": 29.96,
+      "volume": 8263126,
+      "url": "https://m.stock.naver.com/domestic/stock/007610/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 350531,
+        "organ": -28,
+        "individual": -350742
+      },
+      "reason": "기관 3일 연속 순매도 이탈",
+      "strategy_name": "바닥권 장기 이평선 거래량 돌파"
+    },
+    {
+      "code": "027360",
+      "name": "아주IB투자",
+      "market": "KOSDAQ",
+      "close": 3865,
+      "change_percent": 0.26,
+      "volume": 6841066,
+      "url": "https://m.stock.naver.com/domestic/stock/027360/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 532361,
+        "organ": -26,
+        "individual": -645700
+      },
+      "reason": "장기 역배열 (240일선 아래)",
+      "strategy_name": "장후 종가베팅"
+    },
+    {
+      "code": "001520",
+      "name": "동양",
+      "market": "KOSPI",
+      "close": 1353,
+      "change_percent": 29.97,
+      "volume": 5029523,
+      "url": "https://m.stock.naver.com/domestic/stock/001520/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": -136826,
+        "organ": -108,
+        "individual": -393664
+      },
+      "reason": "장기 역배열 (240일선 아래)",
+      "strategy_name": "장후 종가베팅"
+    },
+    {
+      "code": "018880",
+      "name": "한온시스템",
+      "market": "KOSPI",
+      "close": 3445,
+      "change_percent": 4.71,
+      "volume": 4025973,
+      "url": "https://m.stock.naver.com/domestic/stock/018880/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 364437,
+        "organ": 397418,
+        "individual": -763771
+      },
+      "reason": "장기 역배열 (240일선 아래)",
+      "strategy_name": "장후 종가베팅"
+    },
+    {
+      "code": "265740",
+      "name": "엔에프씨",
+      "market": "KOSDAQ",
+      "close": 8250,
+      "change_percent": 29.92,
+      "volume": 2954836,
+      "url": "https://m.stock.naver.com/domestic/stock/265740/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": 437369,
+        "organ": -247616,
+        "individual": -177530
+      },
+      "reason": "기관 3일 연속 순매도 이탈",
+      "strategy_name": "장후 종가베팅"
+    },
+    {
+      "code": "261780",
+      "name": "아리바이오랩",
+      "market": "KOSDAQ",
+      "close": 4195,
+      "change_percent": -2.1,
+      "volume": 1519191,
+      "url": "https://m.stock.naver.com/domestic/stock/261780/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": -280030,
+        "organ": -2750,
+        "individual": 155699
+      },
+      "reason": "외국인·기관 동반 순매도(양매도)",
+      "strategy_name": "장후 종가베팅"
+    },
+    {
+      "code": "025980",
+      "name": "아난티",
+      "market": "KOSDAQ",
+      "close": 5170,
+      "change_percent": 0.98,
+      "volume": 1445487,
+      "url": "https://m.stock.naver.com/domestic/stock/025980/total",
+      "flow": {
+        "date": "20260918",
+        "foreign": -134209,
+        "organ": 5021,
+        "individual": 128198
+      },
+      "reason": "장기 역배열 (240일선 아래)",
+      "strategy_name": "일봉 이평선 스윙"
+    }
+  ],
+  "built_slot": "2026-09-20/manual",
+  "rules_version": 1,
+  "updated_at": "2026-09-20T01:38:26.917670+00:00"
 }
