@@ -1,12 +1,16 @@
 """기술적 분석 스크리닝 엔진.
 
-scripts/screening_rules.py 에 정의한 규칙을 실제 시세/수급 데이터에 적용해
-docs/data/screening.json 을 만든다. 뉴스·테마는 일절 쓰지 않는다.
+screening_rules.py 에 정의한 규칙을 실제 시세/수급/테마 데이터에 적용해
+docs/data/screening.json 과 종목별 차트 파일을 만든다.
 
-전종목(약 2,900개)을 매번 훑으므로 3단계로 나눠 호출량을 줄인다.
-  1단계  전종목 일봉 -> 전략 매칭 (여기서 수백 개로 줄어든다)
-  2단계  통과 종목만 수급 조회 -> 킬스위치4 판정
-  3단계  통과 종목만 1분봉 조회 -> 킬스위치1의 분봉 부분 판정
+호출량을 줄이려고 단계를 나눈다. 특히 0단계가 핵심이다.
+네이버 목록 API 한 번이 거래대금·시가총액·종가를 다 주기 때문에,
+야후를 한 번도 부르지 않고 전종목의 3/4 을 먼저 걷어낼 수 있다.
+
+  0단계  네이버 목록 -> 체급 미달(거래대금·시총·주가) 원천 배제
+  1단계  살아남은 종목만 일봉 조회 -> 킬스위치 + 섹션 판정
+  2단계  후보만 수급 조회 -> 무수급 배제, 수급 관련 킬스위치/조건
+  3단계  테마 맵 작성 -> 종목별 태그와 오늘의 주도 테마
 """
 import datetime
 import json
@@ -15,10 +19,22 @@ from concurrent.futures import ThreadPoolExecutor
 
 import requests
 
-from screening_rules import STRATEGIES
+from screening_rules import (
+    ATTEMPT_GAP_DAYS,
+    BASE_QUALITY,
+    KILL_SWITCHES,
+    MAX_PER_SECTION,
+    SECTION_DESC,
+    SECTION_EXITS,
+    SECTION_NAME,
+    SECTION_ORDER,
+    SECTIONS,
+)
 
 UNIVERSE_URL = "https://m.stock.naver.com/api/stocks/marketValue/{market}"
 TREND_URL = "https://m.stock.naver.com/api/stock/{code}/trend"
+THEME_LIST_URL = "https://m.stock.naver.com/api/stocks/theme"
+THEME_MEMBERS_URL = "https://m.stock.naver.com/api/stocks/theme/{no}"
 CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 
 NAVER_HEADERS = {
@@ -28,118 +44,141 @@ NAVER_HEADERS = {
 }
 YAHOO_HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; stock-dashboard-bot/1.0)"}
 
-DAILY_WORKERS = 8  # 야후를 동시에 몇 개까지 두드릴지. 더 올리면 429 가 늘어난다.
+WORKERS = 8
 PAGE_SIZE = 100  # 네이버 목록 API 상한. 200 이상은 400 으로 거절된다.
-MIN_DAILY_BARS = 260  # 240일선을 만들려면 최소 이만큼은 있어야 한다
-MAX_PER_STRATEGY = 6  # 한 전략이 목록을 독점하지 않도록 자른다
-MAX_WATCH_PER_STRATEGY = 4  # 감시 후보도 마찬가지. 안 두면 갭 후보가 목록을 다 먹는다
-ATTEMPT_GAP_DAYS = 5  # 이만큼 떨어져 있어야 '다른 시도'로 센다 (붙어 있으면 한 번의 시도)
-STRATEGY_NAME = {s["id"]: s["name"] for s in STRATEGIES}
-STRATEGY_EXIT = {s["id"]: s["exit"] for s in STRATEGIES}
+MIN_DAILY_BARS = 260
+CHART_BARS = 620  # 480일선을 화면 왼쪽 끝부터 그리려면 이만큼 필요하다
+THEME_PAGES = 3  # 264개 그룹 = 3페이지
+MAX_TAGS = 2  # 태그가 너무 많으면 오히려 뭘 하는 회사인지 흐려진다
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 데이터 수집
+# 공통
+# ──────────────────────────────────────────────────────────────────────────
+def _get(url, params=None, headers=None, tries=3):
+    last = None
+    for attempt in range(tries):
+        try:
+            r = requests.get(url, params=params, headers=headers or NAVER_HEADERS, timeout=20)
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            last = e
+            if attempt < tries - 1:
+                time.sleep(0.8 * (attempt + 1))
+    raise last
+
+
+def _num(v):
+    try:
+        return int(str(v).replace(",", "").replace("+", ""))
+    except Exception:
+        return 0
+
+
+def ma(values, n, offset=0):
+    end = len(values) - offset
+    if end < n:
+        return None
+    return sum(values[end - n : end]) / n
+
+
+def pct(a, b):
+    return (a - b) / b * 100 if b else 0.0
+
+
+def body_ratio(o, h, l, c):
+    rng = h - l
+    return abs(c - o) / rng if rng > 0 else 1.0
+
+
+def upper_tail(o, h, l, c):
+    rng = h - l
+    return (h - max(o, c)) / rng if rng > 0 else 0.0
+
+
+def lower_tail(o, h, l, c):
+    rng = h - l
+    return (min(o, c) - l) / rng if rng > 0 else 0.0
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 0단계 — 체급 필터 (야후를 부르기 전에 여기서 대부분 걸러진다)
 # ──────────────────────────────────────────────────────────────────────────
 def _is_common_stock(row):
-    """ETF·ETN·우선주를 걷어낸다. 이걸 안 하면 대상의 3할이 지수 상품이 된다."""
+    """ETF·ETN·우선주 제거. 안 하면 대상의 3할이 지수 상품이 된다."""
     if row.get("stockEndType") != "stock":
         return False
     name = (row.get("stockName") or "").strip()
-    # 삼성전자우 / 현대차2우B 같은 우선주는 본주와 신호가 겹쳐 자리만 차지한다.
     return not (name.endswith("우") or (len(name) > 2 and name[-2] == "우"))
 
 
-def probe_sources():
-    """어느 출처가 살아 있는지 먼저 찔러본다.
-    깃허브 서버에서는 한국은행이 막혔던 전례가 있어, 네이버도 막힐 수 있다.
-    로그를 볼 수 없는 상황에서 원인을 알려면 결과 파일에 남기는 수밖에 없다."""
-    checks = {}
-    try:
-        r = requests.get(
-            UNIVERSE_URL.format(market="KOSPI"),
-            params={"page": 1, "pageSize": 5},
-            headers=NAVER_HEADERS,
-            timeout=15,
-        )
-        checks["naver_universe"] = f"{r.status_code} / {len((r.json() or {}).get('stocks') or [])}종목"
-    except Exception as e:
-        checks["naver_universe"] = f"실패: {type(e).__name__} {e}"
-    try:
-        r = requests.get(TREND_URL.format(code="005930"), headers=NAVER_HEADERS, timeout=15)
-        checks["naver_trend"] = f"{r.status_code} / {len(r.json() or [])}행"
-    except Exception as e:
-        checks["naver_trend"] = f"실패: {type(e).__name__} {e}"
-    try:
-        r = requests.get(
-            CHART_URL.format(symbol="005930.KS"),
-            params={"range": "1mo", "interval": "1d"},
-            headers=YAHOO_HEADERS,
-            timeout=15,
-        )
-        n = len(r.json()["chart"]["result"][0].get("timestamp") or [])
-        checks["yahoo_daily"] = f"{r.status_code} / {n}봉"
-    except Exception as e:
-        checks["yahoo_daily"] = f"실패: {type(e).__name__} {e}"
-
-    for k, v in checks.items():
-        print(f"[INFO] 출처 점검 {k}: {v}")
-    return checks
-
-
 def fetch_universe():
-    """코스피·코스닥 보통주 전종목을 [{code, name, market}] 로 모은다."""
-    out = []
+    """전종목을 체급 지표와 함께 가져와 0단계를 바로 적용한다."""
+    passed, rejected = [], []
     for market, suffix in (("KOSPI", "KS"), ("KOSDAQ", "KQ")):
         page = 1
         while True:
             try:
-                resp = requests.get(
-                    UNIVERSE_URL.format(market=market),
-                    params={"page": page, "pageSize": PAGE_SIZE},
-                    headers=NAVER_HEADERS,
-                    timeout=20,
-                )
-                resp.raise_for_status()
-                data = resp.json()
+                data = _get(UNIVERSE_URL.format(market=market), {"page": page, "pageSize": PAGE_SIZE})
             except Exception as e:
                 print(f"[WARN] 유니버스 조회 실패 {market} p{page}: {e}")
                 break
-
             rows = data.get("stocks") or []
             if not rows:
                 break
+
             for r in rows:
-                if _is_common_stock(r):
-                    out.append(
-                        {
-                            "code": r["itemCode"],
-                            "name": r["stockName"],
-                            "market": market,
-                            "symbol": f"{r['itemCode']}.{suffix}",
-                        }
-                    )
+                if not _is_common_stock(r):
+                    continue
+                s = {
+                    "code": r["itemCode"],
+                    "name": r["stockName"],
+                    "market": market,
+                    "symbol": f"{r['itemCode']}.{suffix}",
+                    "close": _num(r.get("closePriceRaw")),
+                    "trading_value": _num(r.get("accumulatedTradingValueRaw")),
+                    "market_cap": _num(r.get("marketValueRaw")),
+                    "volume": _num(r.get("accumulatedTradingVolumeRaw")),
+                }
+                reason = base_quality_reject(s)
+                (rejected if reason else passed).append({**s, "reason": reason} if reason else s)
+
             if page * PAGE_SIZE >= int(data.get("totalCount") or 0):
                 break
             page += 1
             time.sleep(0.05)
 
-    print(f"[INFO] 스크리닝 대상 {len(out)}종목 (ETF·ETN·우선주 제외)")
-    return out
+    print(f"[INFO] 0단계: 체급 통과 {len(passed)}종목 / 탈락 {len(rejected)}종목")
+    return passed, rejected
 
 
+def base_quality_reject(s):
+    """체급 미달이면 사유 문자열, 통과면 None. 수급 조건(4번)은 2단계에서 본다."""
+    if s["trading_value"] < BASE_QUALITY["min_trading_value"]:
+        return f"거래대금 {s['trading_value'] / 1e8:.0f}억 (100억 미만)"
+    if s["market_cap"] < BASE_QUALITY["min_market_cap"]:
+        return f"시가총액 {s['market_cap'] / 1e8:.0f}억 (1,000억 미만)"
+    if s["close"] < BASE_QUALITY["min_price"]:
+        return f"주가 {s['close']:,}원 (3,000원 미만)"
+    return None
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 시세·수급·테마 수집
+# ──────────────────────────────────────────────────────────────────────────
 def _yahoo_chart(symbol, rng, interval):
     last = None
     for attempt in range(3):
         try:
-            resp = requests.get(
+            r = requests.get(
                 CHART_URL.format(symbol=symbol),
                 params={"range": rng, "interval": interval},
                 headers=YAHOO_HEADERS,
                 timeout=20,
             )
-            resp.raise_for_status()
-            return resp.json()["chart"]["result"][0]
+            r.raise_for_status()
+            return r.json()["chart"]["result"][0]
         except Exception as e:
             last = e
             if attempt < 2:
@@ -147,312 +186,347 @@ def _yahoo_chart(symbol, rng, interval):
     raise last
 
 
-def fetch_daily(stock):
-    """일봉을 dict of list 로.
-    조회 자체가 실패하면 예외를 그대로 올린다(호출부가 '실패'로 센다).
-    신규 상장이라 240일선을 만들 봉이 모자란 경우는 실패가 아니므로 None 을 돌려준다.
-    이 둘을 뭉뚱그리면 실패 건수가 부풀어서 진짜 장애를 못 알아본다."""
-    result = _yahoo_chart(stock["symbol"], "3y", "1d")
-
+def _bars_from(result, limit=None):
     stamps = result.get("timestamp") or []
     q = (result.get("indicators", {}).get("quote") or [{}])[0]
     keys = ("open", "high", "low", "close", "volume")
     series = {k: (q.get(k) or []) for k in keys}
     bars = {"date": [], **{k: [] for k in keys}}
     for i, ts in enumerate(stamps):
-        # 야후는 배열 길이가 timestamp 와 어긋나게 오는 경우가 있어 길이를 같이 확인한다
+        # 야후는 배열 길이가 timestamp 와 어긋나게 오는 경우가 있어 길이를 같이 본다
         row = [series[k][i] if i < len(series[k]) else None for k in keys]
         if any(v is None for v in row):
             continue
         bars["date"].append(datetime.datetime.fromtimestamp(ts, datetime.timezone.utc).date().isoformat())
         for k, v in zip(keys, row):
             bars[k].append(float(v))
+    if limit:
+        for k in bars:
+            bars[k] = bars[k][-limit:]
+    return bars
+
+
+def fetch_daily(symbol):
+    """조회 실패는 예외로 올리고, 상장 기간이 짧아 장기선을 못 만드는 건 None 으로 구분한다.
+    둘을 뭉뚱그리면 실패 건수가 부풀어 진짜 장애를 못 알아본다."""
+    bars = _bars_from(_yahoo_chart(symbol, "3y", "1d"))
     return bars if len(bars["close"]) >= MIN_DAILY_BARS else None
 
 
 def fetch_flow(code):
-    """외국인·기관·개인 일별 순매수. 최신 거래일이 앞에 온다."""
+    """외국인·기관·개인 일별 순매수 수량. 최신 거래일이 앞에 온다."""
     try:
-        resp = requests.get(TREND_URL.format(code=code), headers=NAVER_HEADERS, timeout=15)
-        resp.raise_for_status()
-        rows = resp.json()
+        rows = _get(TREND_URL.format(code=code))
     except Exception:
         return []
-
-    def num(v):
-        try:
-            return int(str(v).replace(",", "").replace("+", ""))
-        except Exception:
-            return 0
-
     return [
         {
             "date": r.get("bizdate", ""),
-            "foreign": num(r.get("foreignerPureBuyQuant")),
-            "organ": num(r.get("organPureBuyQuant")),
-            "individual": num(r.get("individualPureBuyQuant")),
+            "foreign": _num(r.get("foreignerPureBuyQuant")),
+            "organ": _num(r.get("organPureBuyQuant")),
+            "individual": _num(r.get("individualPureBuyQuant")),
         }
         for r in rows
     ]
 
 
-def fetch_minute_ma(symbol):
-    """1분봉 240·480분선 대비 현재 위치. 데이터가 모자라면 None(=판정 불가)."""
-    try:
-        result = _yahoo_chart(symbol, "7d", "1m")
-    except Exception:
-        return None
-    closes = [c for c in ((result.get("indicators", {}).get("quote") or [{}])[0].get("close") or []) if c is not None]
-    if len(closes) < 480:
-        return None
-    return {
-        "last": closes[-1],
-        "ma240": sum(closes[-240:]) / 240,
-        "ma480": sum(closes[-480:]) / 480,
-    }
+def fetch_theme_map():
+    """종목코드 -> 테마명 목록, 그리고 오늘의 주도 테마 순위.
+    투자자가 '이 회사가 뭐 하는 곳인지' 바로 알 수 있게 태그를 붙이는 용도다."""
+    groups = []
+    for page in range(1, THEME_PAGES + 1):
+        try:
+            data = _get(THEME_LIST_URL, {"page": page, "pageSize": PAGE_SIZE})
+        except Exception as e:
+            print(f"[WARN] 테마 목록 조회 실패 p{page}: {e}")
+            break
+        rows = data.get("groups") or []
+        if not rows:
+            break
+        groups.extend(rows)
 
+    def members(g):
+        try:
+            data = _get(THEME_MEMBERS_URL.format(no=g["no"]))
+            return g, [s["itemCode"] for s in (data.get("stocks") or [])]
+        except Exception:
+            return g, []
 
-# ──────────────────────────────────────────────────────────────────────────
-# 지표 계산
-# ──────────────────────────────────────────────────────────────────────────
-def ma(values, n, offset=0):
-    """offset=0 이면 마지막 봉 기준, 1이면 한 봉 전 기준."""
-    end = len(values) - offset
-    if end < n:
-        return None
-    return sum(values[end - n : end]) / n
+    tag_map = {}
+    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        for g, codes in pool.map(members, groups):
+            for c in codes:
+                tag_map.setdefault(c, []).append(g["name"])
 
+    leaders = sorted(
+        (
+            {
+                "name": g["name"],
+                "change_percent": round(float(g.get("changeRate") or 0), 2),
+                "total": g.get("totalCount", 0),
+                "rise": g.get("riseCount", 0),
+            }
+            for g in groups
+            if g.get("totalCount", 0) >= 5
+        ),
+        key=lambda x: -x["change_percent"],
+    )[:8]
 
-def body_ratio(o, h, l, c):
-    """캔들 몸통이 전체 길이에서 차지하는 비율. 도지 판정에 쓴다."""
-    rng = h - l
-    return abs(c - o) / rng if rng > 0 else 1.0
-
-
-def lower_tail_ratio(o, h, l, c):
-    """밑꼬리 비율. 20일선 지지 음봉 판정에 쓴다."""
-    rng = h - l
-    return (min(o, c) - l) / rng if rng > 0 else 0.0
-
-
-def pct(a, b):
-    return (a - b) / b * 100 if b else 0.0
-
-
-# ──────────────────────────────────────────────────────────────────────────
-# 전략 판정 — 전부 일봉만으로 끝난다 (BATCH)
-# ──────────────────────────────────────────────────────────────────────────
-def match_long_ma_breakout(b):
-    """전략 7. 바닥권 종목이 장기선을 대량 거래로 뚫는 시점."""
-    c, o, v = b["close"], b["open"], b["volume"]
-    close, open_, vol = c[-1], o[-1], v[-1]
-    ma240, ma480 = ma(c, 240), ma(c, 480)
-    prev_close = c[-2]
-    avg20v = ma(v, 20, offset=1) or 0
-    is_bull = close > open_ and pct(close, open_) >= 3.0
-
-    for line, name in ((ma480, "480일선"), (ma240, "240일선")):
-        if not line:
-            continue
-        # A: 전일까지 선 아래 -> 오늘 종가로 완전히 돌파 + 거래량 300% 폭증
-        if prev_close < line <= close and is_bull and v[-2] > 0 and vol >= v[-2] * 4.0:
-            return "A", f"{name} 종가 돌파 (거래량 전일 대비 {vol / v[-2] * 100:.0f}%)"
-
-    # B: 480일선 돌파를 두 번 밀린 뒤 세 번째에 뚫는다.
-    # 밀린 '날'을 세면 안 된다. 한 번의 시도가 며칠씩 이어지므로 날짜로 세면
-    # 삼세판이 아니라 '10회 실패' 같은 엉뚱한 숫자가 나온다. 붙어 있는 날은 한 번의 시도로 묶는다.
-    if ma480 and prev_close < ma480 <= close and avg20v and vol >= avg20v * 2:
-        reject_days = []
-        for i in range(len(c) - 120, len(c) - 1):
-            line_i = ma(c, 480, offset=len(c) - 1 - i)
-            if line_i and c[i] < line_i <= b["high"][i]:
-                reject_days.append(i)  # 장중엔 뚫었는데 종가로 못 지킨 날
-        attempts = 0
-        for idx, day in enumerate(reject_days):
-            if idx == 0 or day - reject_days[idx - 1] > ATTEMPT_GAP_DAYS:
-                attempts += 1
-        if attempts >= 2:
-            return "B", f"480일선 돌파 {attempts}회 시도 실패 후 재돌파"
-
-    # C: 단기 골든크로스 + 대량 거래로 240일선 돌파 (기관 수급은 2단계에서 확인)
-    if ma240 and prev_close < ma240 <= close and avg20v and vol >= avg20v * 2:
-        ma5, ma20 = ma(c, 5), ma(c, 20)
-        ma5p, ma20p = ma(c, 5, offset=5), ma(c, 20, offset=5)
-        if ma5 and ma20 and ma5p and ma20p and ma5p <= ma20p and ma5 > ma20:
-            return "C", "단기 골든크로스 + 대량 거래 240일선 돌파"
-    return None, None
-
-
-def match_new_high(b):
-    """전략 5. 완전 정배열 + 480일선 위 + 신고가 돌파."""
-    c, v, h = b["close"], b["volume"], b["high"]
-    close, vol = c[-1], v[-1]
-    mas = [ma(c, n) for n in (5, 10, 20, 60, 120, 240)]
-    if any(x is None for x in mas) or not all(mas[i] > mas[i + 1] for i in range(len(mas) - 1)):
-        return None, None
-    ma480 = ma(c, 480)
-    if not ma480 or close <= ma480:
-        return None, None
-
-    window = h[-252:-1] if len(h) > 252 else h[:-1]
-    prior_high = max(window) if window else None
-    avg20v = ma(v, 20, offset=1) or 0
-    if prior_high and close > prior_high and vol >= avg20v * 2 and close > b["open"][-1]:
-        return "", f"52주 신고가 돌파 (거래량 20일 평균의 {vol / avg20v:.1f}배)"
-    return None, None
-
-
-def match_swing_pullback(b):
-    """전략 4. 급등 후 10~14일 조정, 거래량 바닥에서 이평선 지지 캔들."""
-    c, v, o, h, l = b["close"], b["volume"], b["open"], b["high"], b["low"]
-    if len(c) < 90:
-        return None, None
-
-    # 최근 60일 안에 저점 대비 +50% 이상 급등 구간이 있었는가
-    seg = c[-60:]
-    peak_i = seg.index(max(seg))
-    trough = min(seg[: peak_i + 1]) if peak_i > 0 else None
-    if not trough or pct(seg[peak_i], trough) < 50:
-        return None, None
-
-    # 고점 이후 10~14 거래일 조정
-    bars_since_peak = len(seg) - 1 - peak_i
-    if not 10 <= bars_since_peak <= 14:
-        return None, None
-
-    # 조정 구간 거래량이 급등 구간 대비 바닥 수준으로 급감
-    rally_v = sum(v[-60 : -60 + peak_i + 1]) / (peak_i + 1)
-    calm_v = sum(v[-5:]) / 5
-    if not rally_v or calm_v > rally_v * 0.5:
-        return None, None
-
-    close, open_, high, low = c[-1], o[-1], h[-1], l[-1]
-    near = lambda line: line and abs(close - line) / line <= 0.03
-
-    if near(ma(c, 20)) and close < open_ and lower_tail_ratio(open_, high, low, close) >= 0.4:
-        return "20일선", "20일선 지지 + 밑꼬리 긴 음봉 (종가 진입 / 3회 분할)"
-    for n, label in ((10, "10일선"), (60, "60일선")):
-        line = ma(c, n)
-        if near(line) and body_ratio(open_, high, low, close) <= 0.15:
-            return label, f"{label} 지지 + 도지 캔들 (3회 분할)"
-        if near(line) and len(l) >= 3 and all(abs(l[-i] - line) / line <= 0.03 for i in (1, 2, 3)):
-            return label, f"{label} 3일 연속 저점 지지 (3회 분할)"
-    return None, None
-
-
-def match_closing_bet(b):
-    """전략 6. Type C(장기선 돌파)는 전략 7 A 와 같은 규칙이라 여기서 다루지 않는다."""
-    c, o, h, l, v = b["close"], b["open"], b["high"], b["low"], b["volume"]
-    close, high = c[-1], h[-1]
-    # A 수급주: 당일 고가 부근 마감 (외인·기관 동반 순매수는 2단계에서 확인).
-    # 원 규칙은 '수급이 집중 유입' 이므로 문턱을 낮게 잡으면 안 된다.
-    # 거래량 1.5배 + 상승률 무관으로 잡았더니 +1.8% 짜리 대형주까지 올라와 목록을 다 먹었다.
-    if high > 0 and (high - close) / high <= 0.01 and close > o[-1]:
-        avg20v = ma(v, 20, offset=1) or 0
-        if avg20v and v[-1] >= avg20v * 2 and pct(close, c[-2]) >= 3:
-            return "A", f"당일 고가 마감 + 거래량 20일 평균의 {v[-1] / avg20v:.1f}배"
-    # B 도지: 전일 급등(윗꼬리) 후 당일 거래량 급감 도지
-    if len(c) >= 2 and pct(c[-2], o[-2]) >= 5 and body_ratio(o[-2], h[-2], l[-2], c[-2]) <= 0.7:
-        if v[-1] <= v[-2] * 0.5 and body_ratio(o[-1], high, l[-1], close) <= 0.15:
-            return "B", "전일 급등 후 거래량 급감 도지 (시간외 잔량은 확인 불가)"
-    return None, None
-
-
-MATCHERS = [
-    ("LONG_MA_BREAKOUT", match_long_ma_breakout),
-    ("NEW_HIGH", match_new_high),
-    ("SWING_PULLBACK", match_swing_pullback),
-    ("CLOSING_BET", match_closing_bet),
-]
+    print(f"[INFO] 테마 {len(groups)}개 / 태그가 붙은 종목 {len(tag_map)}개")
+    return tag_map, leaders
 
 
 # ──────────────────────────────────────────────────────────────────────────
 # 킬 스위치
 # ──────────────────────────────────────────────────────────────────────────
-def kill_long_term_bearish(b, breakout):
-    """일봉 240·480일선 아래면 진입 금지.
-    단 전략 7 트리거가 성립했다면 '지금은 선 위'라는 뜻이므로 예외로 통과시킨다."""
-    if breakout:
+def _long_line_breakout(b, trading_value):
+    """오늘 240·480일선을 장대양봉 종가로 돌파했는가. 돌파선 이름을 돌려준다.
+    역배열 킬스위치의 예외 판정과 섹션1 유형C 양쪽에서 쓴다."""
+    c, o, v = b["close"], b["open"], b["volume"]
+    if not (c[-1] > o[-1] and pct(c[-1], o[-1]) >= 3.0):
         return None
-    close = b["close"][-1]
-    for n in (240, 480):
-        line = ma(b["close"], n)
-        if line and close < line:
-            return f"장기 역배열 ({n}일선 아래)"
+    if v[-2] <= 0 or v[-1] < v[-2] * (1 + KILL_SWITCHES[0]["exception_params"]["min_volume_ratio"]):
+        return None
+    if trading_value < KILL_SWITCHES[0]["exception_params"]["min_trading_value"]:
+        return None
+    for n, label in ((480, "480일선"), (240, "240일선")):
+        line = ma(c, n)
+        if line and c[-2] < line <= c[-1]:
+            return label
     return None
 
 
-def kill_major_outflow(flow):
-    """외국인·기관 동반 순매도이거나, 어느 한쪽이 3일 연속 순매도면 진입 금지."""
+def kill_checks(b, s, flow):
+    """걸리면 사유 문자열, 통과면 None."""
+    c, o, h, l, v = b["close"], b["open"], b["high"], b["low"], b["volume"]
+    close = c[-1]
+    avg20v = ma(v, 20, offset=1) or 0
+
+    # 1. 역배열 침체 — 바닥권 돌파 종목은 예외로 살린다
+    below = [n for n in (240, 480) if (ma(c, n) or 0) and close < ma(c, n)]
+    if below and not _long_line_breakout(b, s["trading_value"]):
+        return f"역배열 침체 ({below[0]}일선 아래)"
+
+    # 2. 메이저 수급 이탈 — 3일 연속 외인·기관 동반 순매도
+    if len(flow) >= 3 and all(d["foreign"] < 0 and d["organ"] < 0 for d in flow[:3]):
+        return "3일 연속 외국인·기관 동반 순매도"
+
+    # 3. 단기 과열 음봉 — 5일선에서 크게 벌어진 상태에서 대량 장대음봉
+    p = KILL_SWITCHES[2]["params"]
+    ma5_prev = ma(c, 5, offset=1)
+    if ma5_prev and pct(c[-2], ma5_prev) >= p["min_gap_pct"]:
+        if close < o[-1] and pct(close, c[-2]) <= -p["min_drop_pct"] and avg20v and v[-1] >= avg20v * p["min_volume_ratio"]:
+            return "5일선 이격 과열 + 대량 장대음봉"
+
+    # 4. 추세 마지노선 붕괴 — 60일선을 거래량 실린 음봉으로 이탈
+    ma60 = ma(c, 60)
+    if ma60 and c[-2] >= ma60 > close and close < o[-1]:
+        if avg20v and v[-1] >= avg20v * KILL_SWITCHES[3]["params"]["min_volume_ratio"]:
+            return "60일선 거래량 실린 음봉 이탈"
+    return None
+
+
+def no_major_flow(flow, close):
+    """외국인+기관 순매수 거래대금이 3억 미만이면 무수급으로 본다.
+    API 가 금액을 안 줘서 순매수 수량 x 종가로 환산한다."""
     if not flow:
-        return None
-    if flow[0]["foreign"] < 0 and flow[0]["organ"] < 0:
-        return "외국인·기관 동반 순매도(양매도)"
-    if len(flow) >= 3:
-        for key, label in (("foreign", "외국인"), ("organ", "기관")):
-            if all(d[key] < 0 for d in flow[:3]):
-                return f"{label} 3일 연속 순매도 이탈"
+        return "수급 데이터 없음"
+    value = (abs(flow[0]["foreign"]) + abs(flow[0]["organ"])) * close
+    if value < BASE_QUALITY["min_major_flow_value"]:
+        return f"외인·기관 순매수 {value / 1e8:.1f}억 (3억 미만)"
     return None
 
 
-def kill_minute_bearish(mm):
-    if not mm:
-        return None  # 1분봉이 모자란 종목은 판정하지 않는다 (없는 근거로 죽이지 않는다)
-    for n in (240, 480):
-        if mm["last"] < mm[f"ma{n}"]:
-            return f"1분봉 {n}분선 아래"
-    return None
+# ──────────────────────────────────────────────────────────────────────────
+# 섹션 판정
+# ──────────────────────────────────────────────────────────────────────────
+def match_closing_bet(b, s, flow):
+    c, o, h, l, v = b["close"], b["open"], b["high"], b["low"], b["volume"]
+    close, open_, high, low = c[-1], o[-1], h[-1], l[-1]
+    p = SECTIONS[0]["params"]
+
+    # C: 바닥권 장기선 대량거래 돌파 (장기선 첫 돌파는 이 섹션 최우선)
+    if s["trading_value"] >= p["type_c_min_trading_value"] and v[-2] > 0:
+        if v[-1] >= v[-2] * (1 + p["type_c_min_volume_ratio"]) and close > open_ and pct(close, open_) >= 3.0:
+            for n, label in ((480, "480일선"), (240, "240일선")):
+                line = ma(c, n)
+                if line and c[-2] < line <= close:
+                    return "C", f"{label} 장대양봉 종가 돌파 · 거래대금 {s['trading_value'] / 1e8:.0f}억 · 거래량 전일 {v[-1] / v[-2] * 100:.0f}%"
+
+    # A: 메이저 수급 집중 + 윗꼬리 거의 없는 양봉 고가 마감
+    if close > open_ and upper_tail(open_, high, low, close) <= 0.12 and high > 0 and (high - close) / high <= 0.01:
+        if flow and (flow[0]["foreign"] > 0 or flow[0]["organ"] > 0):
+            big = max(flow[0]["foreign"], flow[0]["organ"]) * close
+            if big >= 1_000_000_000:  # 10억 이상이어야 '대량 순매수'로 본다
+                who = "외국인" if flow[0]["foreign"] >= flow[0]["organ"] else "기관"
+                return "A", f"{who} 순매수 {big / 1e8:.0f}억 집중 + 윗꼬리 없는 양봉 고가 마감"
+
+    # B: 전일 대량 급등 후 당일 거래급감 도지 + 10·20일선 지지
+    if len(c) >= 3 and v[-2] > 0 and pct(c[-2], o[-2]) >= 5 and upper_tail(o[-2], h[-2], l[-2], c[-2]) <= 0.4:
+        if v[-1] <= v[-2] * 0.5 and body_ratio(open_, high, low, close) <= 0.15:
+            for n, label in ((10, "10일선"), (20, "20일선")):
+                line = ma(c, n)
+                if line and abs(close - line) / line <= 0.03:
+                    return "B", f"전일 급등 후 거래량 {v[-1] / v[-2] * 100:.0f}% 급감 도지 + {label} 지지"
+    return None, None
+
+
+def match_swing_pullback(b, s, flow):
+    c, v, o, h, l = b["close"], b["volume"], b["open"], b["high"], b["low"]
+    if len(c) < 90:
+        return None, None
+    p = SECTIONS[1]["params"]
+
+    seg = c[-60:]
+    peak_i = seg.index(max(seg))
+    trough = min(seg[: peak_i + 1]) if peak_i > 0 else None
+    if not trough or pct(seg[peak_i], trough) < p["min_rally_pct"]:
+        return None, None
+
+    bars_since_peak = len(seg) - 1 - peak_i
+    lo_d, hi_d = p["pullback_days"]
+    if not lo_d <= bars_since_peak <= hi_d:
+        return None, None
+
+    peak_v = max(v[-60 : -60 + peak_i + 1]) if peak_i >= 0 else 0
+    calm_v = sum(v[-5:]) / 5
+    if not peak_v:
+        return None, None
+    drop = 1 - calm_v / peak_v
+    if not (p["volume_drop"][0] <= drop <= p["volume_drop"][1]):
+        return None, None
+
+    close, open_, high, low = c[-1], o[-1], h[-1], l[-1]
+    near = lambda line: line and abs(close - line) / line <= 0.03
+    held = lambda line: line and all(abs(l[-i] - line) / line <= 0.035 for i in (1, 2, 3))
+
+    ma20, ma10, ma60 = ma(c, 20), ma(c, 10), ma(c, 60)
+    if near(ma20) and ((close < open_ and lower_tail(open_, high, low, close) >= 0.4) or held(ma20)):
+        return "20일선", f"고점 후 {bars_since_peak}거래일 조정 · 거래량 {drop * 100:.0f}% 감소 · 20일선 지지"
+    if near(ma10) and body_ratio(open_, high, low, close) <= 0.15:
+        return "10일선", f"고점 후 {bars_since_peak}거래일 조정 · 거래량 {drop * 100:.0f}% 감소 · 10일선 도지 지지"
+    if near(ma60) and held(ma60) and ma20 and close < ma20:
+        return "60일선", f"20일선 이탈 후 60일선 3일 저점 지지 · 거래량 {drop * 100:.0f}% 감소"
+    return None, None
+
+
+def match_trend_rally(b, s, flow):
+    c, v, o, h = b["close"], b["volume"], b["open"], b["high"]
+    close = c[-1]
+    avg20v = ma(v, 20, offset=1) or 0
+    ma480, ma240 = ma(c, 480), ma(c, 240)
+
+    # A: 완전 정배열 + 480일선 안착 + 신고가 영역
+    mas = [ma(c, n) for n in (5, 10, 20, 60, 120, 240)]
+    if all(x is not None for x in mas) and all(mas[i] > mas[i + 1] for i in range(len(mas) - 1)):
+        if ma480 and close > ma480:
+            window = h[-252:-1] if len(h) > 252 else h[:-1]
+            if window and close >= max(window) * 0.98:
+                return "A", "완전 정배열 + 480일선 안착 + 52주 신고가 영역"
+
+    # B: 480일선 돌파 2회 실패 후 삼세판 돌파, 그 뒤 우상향
+    if ma480 and close > ma480:
+        rejects = []
+        for i in range(max(0, len(c) - 120), len(c) - 1):
+            line_i = ma(c, 480, offset=len(c) - 1 - i)
+            if line_i and c[i] < line_i <= h[i]:
+                rejects.append(i)
+        attempts = sum(1 for k, d in enumerate(rejects) if k == 0 or d - rejects[k - 1] > ATTEMPT_GAP_DAYS)
+        ma10 = ma(c, 10)
+        if attempts >= 2 and ma10 and close > ma10 and avg20v and v[-1] >= avg20v * 1.2:
+            return "B", f"480일선 돌파 {attempts}회 실패 후 재돌파 · 상단 우상향"
+
+    # C: 기관 지속 순매수 + 240일선 돌파 후 10·20일선 지지 저점 상승
+    if ma240 and close > ma240 and flow and len(flow) >= 3:
+        organ_days = sum(1 for d in flow[:5] if d["organ"] > 0)
+        ma10, ma20 = ma(c, 10), ma(c, 20)
+        if organ_days >= 3 and ma10 and ma20 and close > ma10 > ma20:
+            total = sum(d["organ"] for d in flow[:5]) * close
+            if total > 0:
+                return "C", f"기관 5일 중 {organ_days}일 순매수({total / 1e8:.0f}억) + 240일선 위 10·20일선 지지"
+    return None, None
+
+
+MATCHERS = [
+    ("CLOSING_BET", match_closing_bet),
+    ("TREND_RALLY", match_trend_rally),
+    ("SWING_PULLBACK", match_swing_pullback),
+]
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 차트 파일
+# ──────────────────────────────────────────────────────────────────────────
+def write_chart_files(stocks, charts_dir):
+    """목록에 오른 종목의 일봉을 종목별 파일로 저장한다.
+    브라우저에서 야후를 직접 부르면 CORS 로 막혀서(배포본에서 확인), 배치가 미리 받아둬야 한다."""
+    if charts_dir is None:
+        return 0
+    charts_dir.mkdir(parents=True, exist_ok=True)
+
+    def one(s):
+        try:
+            bars = _bars_from(_yahoo_chart(s["symbol"], "3y", "1d"), limit=CHART_BARS)
+        except Exception:
+            return None
+        rows = [
+            [bars["date"][i], round(bars["open"][i]), round(bars["high"][i]),
+             round(bars["low"][i]), round(bars["close"][i]), round(bars["volume"][i])]
+            for i in range(len(bars["close"]))
+        ]
+        return {"code": s["code"], "name": s["name"], "bars": rows} if rows else None
+
+    written = set()
+    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        for payload in pool.map(one, stocks):
+            if not payload:
+                continue
+            path = charts_dir / f"{payload['code']}.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+            written.add(path.name)
+
+    for old in charts_dir.glob("*.json"):
+        if old.name not in written:
+            old.unlink()  # 목록에서 빠진 종목 차트는 지운다. 안 그러면 저장소에 쌓인다.
+
+    print(f"[INFO] 차트 파일 {len(written)}개 저장")
+    return len(written)
 
 
 # ──────────────────────────────────────────────────────────────────────────
 # 조립
 # ──────────────────────────────────────────────────────────────────────────
-def _watch_candidate(bars):
-    """장중 실시간 전략(1·2·3)의 감시 후보인지. 배치는 여기까지만 좁혀준다.
-    전략 매칭과 독립이다. 배치 전략에 안 걸려도 CK480 후보일 수 있기 때문이다."""
-    c, v = bars["close"], bars["volume"]
-    chg = pct(c[-1], c[-2])
-    out = []
-    if chg >= 15:
-        out.append(("CK480", f"직전 거래일 +{chg:.1f}% → 1분봉 480분선 횡보 지지 확인"))
-    if v[-1] >= 20_000_000:
-        out.append(("DAY_MOMENTUM", f"거래량 {v[-1] / 10000:.0f}만 주 → 20분선 계단식 눌림 확인"))
-    if 8 <= chg < 15:
-        out.append(("GAP_PULLBACK", f"직전 거래일 +{chg:.1f}% → 갭상승 시 09:15~09:25 20분선 지지 확인"))
-    return out
+def probe_sources():
+    """어느 출처가 살아 있는지 먼저 찔러본다. 워크플로 로그를 볼 수 없어서
+    실패 원인을 알려면 결과 파일에 남기는 수밖에 없다."""
+    checks = {}
+    for key, fn in (
+        ("naver_universe", lambda: len((_get(UNIVERSE_URL.format(market="KOSPI"), {"page": 1, "pageSize": 5}) or {}).get("stocks") or [])),
+        ("naver_trend", lambda: len(_get(TREND_URL.format(code="005930")) or [])),
+        ("naver_theme", lambda: len((_get(THEME_LIST_URL, {"page": 1, "pageSize": 5}) or {}).get("groups") or [])),
+        ("yahoo_daily", lambda: len(_yahoo_chart("005930.KS", "1mo", "1d").get("timestamp") or [])),
+    ):
+        try:
+            checks[key] = f"OK / {fn()}건"
+        except Exception as e:
+            checks[key] = f"실패: {type(e).__name__} {e}"
+        print(f"[INFO] 출처 점검 {key}: {checks[key]}")
+    return checks
 
 
-def _scan_one(stock):
-    """일봉 한 번만 받아서 전략 매칭과 감시 후보를 같이 판정한다.
-    봉 데이터는 여기서 다 소비하고 필요한 값만 남긴다(전종목 분량을 메모리에 들고 있지 않으려고)."""
+def _scan_one(s):
     try:
-        bars = fetch_daily(stock)
+        bars = fetch_daily(s["symbol"])
     except Exception:
-        return {"stock": stock, "failed": True}
+        return {"stock": s, "failed": True}
     if bars is None:
         return None  # 상장 기간이 짧아 장기 이평선을 만들 수 없는 종목
 
-    hits = []
-    breakout = False
-    for sid, fn in MATCHERS:
-        kind, reason = fn(bars)
-        if reason:
-            hits.append({"strategy": sid, "type": kind, "reason": reason})
-            if sid == "LONG_MA_BREAKOUT":
-                breakout = True
-
-    watch = _watch_candidate(bars)
-    if not hits and not watch:
-        return None
-
     c, v = bars["close"], bars["volume"]
     return {
-        "stock": stock,
+        "stock": s,
         "failed": False,
-        "hits": hits,
-        "watch": watch,
-        "breakout": breakout,
-        "blocked_daily": kill_long_term_bearish(bars, breakout),
+        "bars": bars,
         "quote": {
             "close": round(c[-1]),
             "change_percent": round(pct(c[-1], c[-2]), 2),
@@ -462,96 +536,49 @@ def _scan_one(stock):
     }
 
 
-CHART_BARS = 620  # 480일선을 화면 왼쪽 끝부터 그리려면 480 + 볼 구간만큼 필요하다
-
-
-def write_chart_files(stocks, charts_dir):
-    """목록에 오른 종목의 일봉을 종목별 파일로 저장한다.
-
-    브라우저에서 야후를 직접 부르면 CORS 로 막힌다(배포본에서 확인함).
-    그래서 화면에 차트를 띄우려면 배치가 미리 받아두는 수밖에 없다.
-    한 파일에 다 담으면 첫 로딩이 무거워지므로 종목별로 쪼개 클릭할 때만 받게 한다."""
-    if charts_dir is None:
-        return 0
-    charts_dir.mkdir(parents=True, exist_ok=True)
-
-    def one(s):
-        try:
-            result = _yahoo_chart(f"{s['code']}.{'KS' if s['market'] == 'KOSPI' else 'KQ'}", "3y", "1d")
-        except Exception:
-            return None
-        stamps = result.get("timestamp") or []
-        q = (result.get("indicators", {}).get("quote") or [{}])[0]
-        keys = ("open", "high", "low", "close", "volume")
-        series = {k: (q.get(k) or []) for k in keys}
-        rows = []
-        for i, ts in enumerate(stamps):
-            vals = [series[k][i] if i < len(series[k]) else None for k in keys]
-            if any(v is None for v in vals):
-                continue
-            day = datetime.datetime.fromtimestamp(ts, datetime.timezone.utc).date().isoformat()
-            rows.append([day] + [round(v) for v in vals])
-        return {"code": s["code"], "name": s["name"], "bars": rows[-CHART_BARS:]} if rows else None
-
-    written = set()
-    with ThreadPoolExecutor(max_workers=DAILY_WORKERS) as pool:
-        for payload in pool.map(one, stocks):
-            if not payload:
-                continue
-            path = charts_dir / f"{payload['code']}.json"
-            path.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-            written.add(path.name)
-
-    # 목록에서 빠진 종목의 차트는 지운다. 안 그러면 저장소에 파일이 무한정 쌓인다.
-    for old in charts_dir.glob("*.json"):
-        if old.name not in written:
-            old.unlink()
-
-    print(f"[INFO] 차트 파일 {len(written)}개 저장")
-    return len(written)
-
-
 def build_screening(today=None, charts_dir=None):
     today = today or datetime.date.today()
     probe = probe_sources()
-    universe = fetch_universe()
-    if not universe:
-        raise RuntimeError(f"유니버스를 가져오지 못했습니다 — 출처 점검: {probe}")
 
-    # 1단계 — 전종목 일봉으로 전략 매칭 + 감시 후보 판정
-    cands, failures = [], 0
-    with ThreadPoolExecutor(max_workers=DAILY_WORKERS) as pool:
-        for res in pool.map(_scan_one, universe):
+    passed, rejected = fetch_universe()
+    if not passed:
+        raise RuntimeError(f"0단계를 통과한 종목이 없습니다 — 출처 점검: {probe}")
+
+    # 1단계 — 체급을 통과한 종목만 일봉 조회
+    scanned, failures = [], 0
+    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        for res in pool.map(_scan_one, passed):
             if res is None:
-                continue  # 조건에 안 걸린 정상 종목
+                continue
             if res["failed"]:
                 failures += 1
             else:
-                cands.append(res)
-    print(f"[INFO] 1단계: {len(universe)}종목 중 {len(cands)}종목 후보 (조회 실패 {failures})")
-    if failures > len(universe) * 0.2:
+                scanned.append(res)
+    print(f"[INFO] 1단계: 일봉 확보 {len(scanned)}종목 (조회 실패 {failures})")
+    if failures > len(passed) * 0.2:
         print(f"[WARN] 조회 실패가 {failures}건이다 — 결과가 상당수 빠졌을 수 있다")
 
-    # 2단계 — 후보만 수급 조회
-    with ThreadPoolExecutor(max_workers=DAILY_WORKERS) as pool:
-        flows = list(pool.map(lambda m: fetch_flow(m["stock"]["code"]), cands))
-    # 3단계 — 배치 전략에 걸린 것만 1분봉 조회 (감시 후보는 어차피 사람이 장중에 본다)
-    with ThreadPoolExecutor(max_workers=DAILY_WORKERS) as pool:
-        minutes = list(
-            pool.map(lambda m: fetch_minute_ma(m["stock"]["symbol"]) if m["hits"] else None, cands)
-        )
+    # 2단계 — 수급 조회 (전량. 킬스위치2와 0단계 4번 모두 수급이 있어야 판정된다)
+    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        flows = list(pool.map(lambda x: fetch_flow(x["stock"]["code"]), scanned))
 
-    entries, danger, watch = [], [], []
-    for m, flow, mm in zip(cands, flows, minutes):
-        stock = m["stock"]
+    # 3단계 — 테마 태그
+    tag_map, theme_leaders = fetch_theme_map()
+
+    sections = {sid: [] for sid in SECTION_ORDER}
+    danger = []
+    for res, flow in zip(scanned, flows):
+        s, bars = res["stock"], res["bars"]
         base = {
-            "code": stock["code"],
-            "name": stock["name"],
-            "market": stock["market"],
-            **m["quote"],
-            "url": f"https://m.stock.naver.com/domestic/stock/{stock['code']}/total",
+            "code": s["code"],
+            "name": s["name"],
+            "market": s["market"],
+            "tags": tag_map.get(s["code"], [])[:MAX_TAGS],
+            "trading_value_eok": round(s["trading_value"] / 1e8),
+            "market_cap_eok": round(s["market_cap"] / 1e8),
+            **{k: res["quote"][k] for k in ("close", "change_percent", "volume")},
+            "url": f"https://m.stock.naver.com/domestic/stock/{s['code']}/total",
         }
-        base.pop("trading_day", None)
         if flow:
             base["flow"] = {
                 "date": flow[0]["date"],
@@ -560,87 +587,52 @@ def build_screening(today=None, charts_dir=None):
                 "individual": flow[0]["individual"],
             }
 
-        blocked = m["blocked_daily"] or kill_major_outflow(flow) or kill_minute_bearish(mm)
+        blocked = no_major_flow(flow, res["quote"]["close"]) or kill_checks(bars, s, flow)
+        hit = None
+        for sid, fn in MATCHERS:
+            kind, reason = fn(bars, s, flow)
+            if reason:
+                hit = (sid, kind, reason)
+                break  # 중복 배정 금지. MATCHERS 순서가 곧 우선순위다.
 
-        if m["hits"]:
-            hit = m["hits"][0]  # MATCHERS 에서 전략 7 이 먼저라 6C 와 겹치면 7 로 잡힌다
-            if blocked:
-                danger.append({**base, "reason": blocked, "strategy_name": STRATEGY_NAME[hit["strategy"]]})
-            else:
-                ok = True
-                # 전략 7 C 는 '기관 자금' 이 전제다. 개인 주도 반등이면 조건 미달로 본다.
-                if hit["strategy"] == "LONG_MA_BREAKOUT" and hit["type"] == "C":
-                    ok = bool(flow) and flow[0]["organ"] > 0 and flow[0]["individual"] < 0
-                # 원 규칙은 '외인/기관 순매수 집중 유입' 이다. OR 로 잡으면 한쪽만 사도 통과해
-                # 의미가 사라진다. 동반 순매수(AND)여야 수급이 들어왔다고 볼 수 있다.
-                if hit["strategy"] == "CLOSING_BET" and hit["type"] == "A":
-                    ok = bool(flow) and flow[0]["foreign"] > 0 and flow[0]["organ"] > 0
-                if ok:
-                    entries.append(
-                        {
-                            **base,
-                            "strategy": hit["strategy"],
-                            "strategy_name": STRATEGY_NAME[hit["strategy"]],
-                            "type": hit["type"],
-                            "reason": hit["reason"],
-                            "exits": STRATEGY_EXIT[hit["strategy"]],
-                        }
-                    )
-
-        # 감시 후보는 배치 전략과 별개다. 다만 킬스위치에 걸린 종목은 감시 대상도 아니다.
-        if not blocked:
-            for sid, why in m["watch"]:
-                watch.append(
-                    {**base, "strategy": sid, "strategy_name": STRATEGY_NAME[sid], "reason": why}
-                )
-
-    # 한 전략이 목록을 독점하지 않도록 전략별로 잘라 20~30개로 맞춘다
-    capped, per = [], {}
-    for e in sorted(entries, key=lambda x: -x["volume"]):
-        n = per.get(e["strategy"], 0)
-        if n >= MAX_PER_STRATEGY:
+        if blocked:
+            if hit:  # 전략엔 맞는데 걸린 종목만 보여준다. 전종목을 띄우면 목록이 못 쓰게 된다.
+                danger.append({**base, "reason": blocked, "section_name": SECTION_NAME[hit[0]]})
             continue
-        per[e["strategy"]] = n + 1
-        capped.append(e)
+        if hit:
+            sid, kind, reason = hit
+            sections[sid].append(
+                {**base, "section": sid, "section_name": SECTION_NAME[sid], "type": kind,
+                 "reason": reason, "exits": SECTION_EXITS[sid]}
+            )
 
-    # 감시 후보 정리
-    #  - 이미 '진입 조건 충족' 에 올라간 종목은 뺀다. 같은 종목이 두 칸을 먹으면 자리만 낭비다.
-    #  - 한 종목이 여러 감시 전략에 걸려도 한 번만 보여준다.
-    #  - 전략별로도 자른다. 안 하면 갭 후보가 목록을 다 먹는다(실제로 12개 중 8개가 갭이었다).
-    entered = {e["code"] for e in capped}
-    seen, per_w, watch_uniq = set(), {}, []
-    for w in sorted(watch, key=lambda x: -x["volume"]):
-        if w["code"] in entered or w["code"] in seen:
-            continue
-        n = per_w.get(w["strategy"], 0)
-        if n >= MAX_WATCH_PER_STRATEGY:
-            continue
-        per_w[w["strategy"]] = n + 1
-        seen.add(w["code"])
-        watch_uniq.append(w)
-    watch = watch_uniq
-    danger = sorted(danger, key=lambda x: -x["volume"])[:8]
+    for sid in sections:
+        sections[sid] = sorted(sections[sid], key=lambda x: -x["trading_value_eok"])[:MAX_PER_SECTION]
 
-    print(f"[INFO] 스크리닝: 진입 {len(capped)} / 감시 {len(watch)} / 금지 {len(danger)} / 조회실패 {failures}")
+    picked = [e for sid in SECTION_ORDER for e in sections[sid]]
+    danger = sorted(danger, key=lambda x: -x["trading_value_eok"])[:8]
+    charts = write_chart_files(
+        [{"code": e["code"], "name": e["name"], "symbol": f"{e['code']}.{'KS' if e['market'] == 'KOSPI' else 'KQ'}"}
+         for e in picked + danger],
+        charts_dir,
+    )
 
-    # 차트는 목록에 실제로 오른 종목만 만든다 (진입 + 감시 + 금지)
-    chart_targets = {
-        e["code"]: {"code": e["code"], "name": e["name"], "market": e["market"]}
-        for e in capped + watch + danger
-    }
-    charts = write_chart_files(list(chart_targets.values()), charts_dir)
-
+    print(
+        "[INFO] 스크리닝: "
+        + " / ".join(f"{SECTION_NAME[sid]} {len(sections[sid])}" for sid in SECTION_ORDER)
+        + f" / 금지 {len(danger)} / 조회실패 {failures}"
+    )
     return {
         "probe": probe,
         "chart_count": charts,
-        "as_of_trading_day": cands[0]["quote"]["trading_day"] if cands else "",
-        "universe_count": len(universe),
+        "as_of_trading_day": scanned[0]["quote"]["trading_day"] if scanned else "",
+        "universe_count": len(passed) + len(rejected),
+        "base_passed": len(passed),
         "fetch_failures": failures,
-        "entries": capped,
-        "watch": watch,
+        "theme_leaders": theme_leaders,
+        "sections": [
+            {"id": sid, "name": SECTION_NAME[sid], "desc": SECTION_DESC[sid], "items": sections[sid]}
+            for sid in SECTION_ORDER
+        ],
         "danger": danger,
     }
-
-
-if __name__ == "__main__":
-    print(json.dumps(build_screening(), ensure_ascii=False, indent=2)[:4000])

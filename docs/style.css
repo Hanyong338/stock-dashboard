@@ -1087,7 +1087,31 @@ main {
   font-size: 10.5px; font-weight: 800; min-width: 17px; text-align: center;
   padding: 1px 5px; border-radius: 999px; background: var(--chip-bg); color: var(--text-muted);
 }
-.scr-group-desc { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--text-faint); }
+/* 매매 가이드는 섹션마다 한 번만. 카드마다 반복하면 목록이 안 읽힌다. */
+.scr-group-desc {
+  font-size: 11.5px; font-weight: 600; color: var(--text-muted);
+  margin: -4px 0 10px; line-height: 1.5;
+}
+
+/* 오늘 주도 테마 — 뽑힌 종목이 어느 흐름에 속하는지 위에서 먼저 보여준다 */
+.scr-themes { margin-bottom: 18px; }
+.scr-themes-head { font-size: 12.5px; font-weight: 800; margin-bottom: 8px; }
+.scr-themes-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.scr-theme {
+  display: inline-flex; align-items: baseline; gap: 5px;
+  padding: 5px 10px; border-radius: 999px;
+  background: var(--chip-bg); border: 1px solid var(--border);
+}
+.scr-theme b { font-size: 11.5px; font-weight: 700; }
+.scr-theme em { font-size: 11.5px; font-weight: 800; font-style: normal; }
+.scr-theme i { font-size: 10px; font-style: normal; color: var(--text-faint); }
+
+.scr-tag {
+  font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 5px;
+  background: var(--accent-soft); color: var(--accent-strong);
+}
+.scr-size { font-size: 11px; color: var(--text-faint); margin-top: 6px; font-variant-numeric: tabular-nums; }
+.scr-size b { color: var(--text-muted); font-weight: 700; }
 
 .scr-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 9px; }
 .scr-card {

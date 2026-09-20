@@ -1320,7 +1320,10 @@ function scrCard(item, kind) {
   const badge =
     kind === "danger"
       ? `<span class="scr-badge danger">진입 금지</span>`
-      : `<span class="scr-badge ${kind}">${escapeHtml(item.strategy_name)}${item.type ? ` ${escapeHtml(item.type)}` : ""}</span>`;
+      : `<span class="scr-badge ${kind}">유형 ${escapeHtml(item.type || "-")}</span>`;
+
+  // 태그가 있어야 뭘 하는 회사인지 바로 안다. 종목명만으론 판단이 안 된다.
+  const tags = (item.tags || []).map((t) => `<span class="scr-tag">${escapeHtml(t)}</span>`).join("");
 
   // 청산 규칙은 접어둔다. 종목을 훑을 때는 방해가 되고, 실제로 들어갈 때만 필요하다.
   const exits = (item.exits || []).length
@@ -1336,9 +1339,11 @@ function scrCard(item, kind) {
       <span class="scr-price num">${Number(item.close).toLocaleString()}</span>
       <span class="scr-chg num ${tone}">${changeWithMark(chg, tone)}</span>
     </div>
-    <div class="scr-badges">${badge}<span class="scr-mkt">${escapeHtml(item.market)}</span>
+    <div class="scr-badges">${badge}${tags}<span class="scr-mkt">${escapeHtml(item.market)}</span>
       <a class="scr-ext" href="${item.url}" target="_blank" rel="noopener">네이버 ↗</a></div>
     <p class="scr-reason">${escapeHtml(item.reason)}</p>
+    <div class="scr-size">거래대금 <b>${Number(item.trading_value_eok || 0).toLocaleString()}억</b>
+      · 시총 <b>${Number(item.market_cap_eok || 0).toLocaleString()}억</b></div>
     ${flow ? `<div class="scr-flows">${flow}</div>` : ""}
     ${exits}
     <div class="scr-chart" hidden></div>
@@ -1350,22 +1355,38 @@ function scrSection(icon, title, desc, rows, kind) {
   return `<section class="scr-group ${kind}">
     <div class="scr-group-head">
       <span class="scr-group-icon">${icon}</span>
-      <span class="scr-group-title">${title}</span>
+      <span class="scr-group-title">${escapeHtml(title)}</span>
       <span class="scr-group-count num">${rows.length}</span>
-      <span class="scr-group-desc">${desc}</span>
     </div>
+    <p class="scr-group-desc">${escapeHtml(desc)}</p>
     <div class="scr-list">${rows.map((r) => scrCard(r, kind)).join("")}</div>
+  </section>`;
+}
+
+function themeLeaders(list) {
+  if (!list || !list.length) return "";
+  return `<section class="scr-themes">
+    <div class="scr-themes-head">🔥 오늘 주도 테마</div>
+    <div class="scr-themes-row">${list
+      .map(
+        (t) => `<span class="scr-theme">
+          <b>${escapeHtml(t.name)}</b>
+          <em class="num up">+${Number(t.change_percent).toFixed(2)}%</em>
+          <i>${t.rise}/${t.total}</i>
+        </span>`
+      )
+      .join("")}</div>
   </section>`;
 }
 
 function renderScreening() {
   const list = document.getElementById("screeningList");
   const d = state.screening || {};
-  const entries = d.entries || [];
-  const watch = d.watch || [];
+  const sections = d.sections || [];
   const danger = d.danger || [];
+  const total = sections.reduce((n, s) => n + (s.items || []).length, 0);
 
-  if (!entries.length && !watch.length && !danger.length) {
+  if (!total && !danger.length) {
     // 실패했을 때 '준비 중'으로만 보이면 원인을 영영 모른다. 무엇이 막혔는지 그대로 띄운다.
     const diag = d.error
       ? `<div class="scr-error"><strong>스크리닝 실패</strong><p>${escapeHtml(d.error)}</p>${
@@ -1383,14 +1404,18 @@ function renderScreening() {
   }
 
   const meta = `<p class="scr-meta">${escapeHtml(d.as_of_trading_day || "")} 종가 기준 ·
-    전종목 ${Number(d.universe_count || 0).toLocaleString()}개 검사
+    전종목 ${Number(d.universe_count || 0).toLocaleString()}개 중
+    체급 통과 ${Number(d.base_passed || 0).toLocaleString()}개 검사
     ${d.fetch_failures ? ` · 조회 실패 ${d.fetch_failures}개` : ""}</p>`;
 
+  const icons = { CLOSING_BET: "🎯", SWING_PULLBACK: "📉", TREND_RALLY: "🚀" };
   list.innerHTML =
     meta +
-    scrSection("🟢", "진입 조건 충족", "일봉으로 판정 완료", entries, "entry") +
-    scrSection("🟡", "감시 후보", "장중 1분봉을 직접 확인해야 함", watch, "watch") +
-    scrSection("🔴", "진입 금지", "전략에는 맞지만 킬스위치에 걸림", danger, "danger");
+    themeLeaders(d.theme_leaders) +
+    sections
+      .map((s) => scrSection(icons[s.id] || "📊", s.name, s.desc, s.items || [], "entry"))
+      .join("") +
+    scrSection("🔴", "진입 금지", "섹션 조건에는 맞지만 체급·킬스위치에 걸린 종목", danger, "danger");
 
   // 종목명을 누르면 그 카드 안에서 차트가 펼쳐진다. 목록을 벗어나지 않게 하려는 것.
   list.querySelectorAll("[data-chart]").forEach((btn) => {
