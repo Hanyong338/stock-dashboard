@@ -48,6 +48,43 @@ def _is_common_stock(row):
     return not (name.endswith("우") or (len(name) > 2 and name[-2] == "우"))
 
 
+def probe_sources():
+    """어느 출처가 살아 있는지 먼저 찔러본다.
+    깃허브 서버에서는 한국은행이 막혔던 전례가 있어, 네이버도 막힐 수 있다.
+    로그를 볼 수 없는 상황에서 원인을 알려면 결과 파일에 남기는 수밖에 없다."""
+    checks = {}
+    try:
+        r = requests.get(
+            UNIVERSE_URL.format(market="KOSPI"),
+            params={"page": 1, "pageSize": 5},
+            headers=NAVER_HEADERS,
+            timeout=15,
+        )
+        checks["naver_universe"] = f"{r.status_code} / {len((r.json() or {}).get('stocks') or [])}종목"
+    except Exception as e:
+        checks["naver_universe"] = f"실패: {type(e).__name__} {e}"
+    try:
+        r = requests.get(TREND_URL.format(code="005930"), headers=NAVER_HEADERS, timeout=15)
+        checks["naver_trend"] = f"{r.status_code} / {len(r.json() or [])}행"
+    except Exception as e:
+        checks["naver_trend"] = f"실패: {type(e).__name__} {e}"
+    try:
+        r = requests.get(
+            CHART_URL.format(symbol="005930.KS"),
+            params={"range": "1mo", "interval": "1d"},
+            headers=YAHOO_HEADERS,
+            timeout=15,
+        )
+        n = len(r.json()["chart"]["result"][0].get("timestamp") or [])
+        checks["yahoo_daily"] = f"{r.status_code} / {n}봉"
+    except Exception as e:
+        checks["yahoo_daily"] = f"실패: {type(e).__name__} {e}"
+
+    for k, v in checks.items():
+        print(f"[INFO] 출처 점검 {k}: {v}")
+    return checks
+
+
 def fetch_universe():
     """코스피·코스닥 보통주 전종목을 [{code, name, market}] 로 모은다."""
     out = []
@@ -417,9 +454,10 @@ def _scan_one(stock):
 
 def build_screening(today=None):
     today = today or datetime.date.today()
+    probe = probe_sources()
     universe = fetch_universe()
     if not universe:
-        raise RuntimeError("유니버스를 가져오지 못했습니다")
+        raise RuntimeError(f"유니버스를 가져오지 못했습니다 — 출처 점검: {probe}")
 
     # 1단계 — 전종목 일봉으로 전략 매칭 + 감시 후보 판정
     cands, failures = [], 0
@@ -516,6 +554,7 @@ def build_screening(today=None):
 
     print(f"[INFO] 스크리닝: 진입 {len(capped)} / 감시 {len(watch)} / 금지 {len(danger)} / 조회실패 {failures}")
     return {
+        "probe": probe,
         "as_of_trading_day": cands[0]["quote"]["trading_day"] if cands else "",
         "universe_count": len(universe),
         "fetch_failures": failures,

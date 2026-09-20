@@ -296,7 +296,26 @@ def update_screening(now):
     else:
         return False
 
-    data = build_screening(kst.date())
+    try:
+        data = build_screening(kst.date())
+    except Exception as e:
+        # 실패를 조용히 삼키면 화면은 '아직 준비 중'으로만 보이고 원인을 알 수 없다.
+        # 워크플로 로그는 저장소 관리자만 볼 수 있어서, 실패 사실을 결과 파일에 남긴다.
+        print(f"[WARN] 스크리닝 실패: {e}")
+        save_json(
+            SCREENING_FILE,
+            {
+                "error": f"{type(e).__name__}: {e}",
+                "built_slot": "",  # 다음 실행에서 다시 시도하도록 슬롯은 비워둔다
+                "rules_version": SCREENING_RULES_VERSION,
+                "updated_at": now.isoformat(),
+                "entries": [],
+                "watch": [],
+                "danger": [],
+            },
+        )
+        return True
+
     data["built_slot"] = stamp
     data["rules_version"] = SCREENING_RULES_VERSION
     data["updated_at"] = now.isoformat()

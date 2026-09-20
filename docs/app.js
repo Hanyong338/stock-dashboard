@@ -1047,7 +1047,18 @@ function renderScreening() {
   const danger = d.danger || [];
 
   if (!entries.length && !watch.length && !danger.length) {
+    // 실패했을 때 '준비 중'으로만 보이면 원인을 영영 모른다. 무엇이 막혔는지 그대로 띄운다.
+    const diag = d.error
+      ? `<div class="scr-error"><strong>스크리닝 실패</strong><p>${escapeHtml(d.error)}</p>${
+          d.probe
+            ? `<ul>${Object.entries(d.probe)
+                .map(([k, v]) => `<li>${escapeHtml(k)}: ${escapeHtml(String(v))}</li>`)
+                .join("")}</ul>`
+            : ""
+        }</div>`
+      : "";
     list.innerHTML =
+      diag ||
       '<div class="empty-state"><span class="empty-icon">📉</span>스크리닝 결과가 아직 없습니다.<br>매일 아침 8시·저녁 7시에 전종목을 훑습니다.</div>';
     return;
   }
