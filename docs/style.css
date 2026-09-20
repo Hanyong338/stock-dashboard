@@ -872,12 +872,12 @@ main {
   padding-bottom: 7px;
   border-bottom: 2px solid var(--border);
 }
-.mbrief-checkgroup.watch .mbrief-checkgroup-head { border-bottom-color: rgba(var(--up-rgb), 0.5); }
-.mbrief-checkgroup.caution .mbrief-checkgroup-head { border-bottom-color: #f59e0b; }
+.mbrief-checkgroup.watch .mbrief-checkgroup-head { border-bottom-color: rgba(var(--down-rgb), 0.5); }
+.mbrief-checkgroup.caution .mbrief-checkgroup-head { border-bottom-color: rgba(var(--up-rgb), 0.5); }
 .mbrief-checkgroup-icon { font-size: 14px; line-height: 1; }
 .mbrief-checkgroup-title { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; }
-.mbrief-checkgroup.watch .mbrief-checkgroup-title { color: var(--up); }
-.mbrief-checkgroup.caution .mbrief-checkgroup-title { color: #d97706; }
+.mbrief-checkgroup.watch .mbrief-checkgroup-title { color: var(--down); }
+.mbrief-checkgroup.caution .mbrief-checkgroup-title { color: var(--up); }
 .mbrief-checkgroup-count {
   font-size: 10.5px;
   font-weight: 800;
@@ -891,15 +891,14 @@ main {
 .mbrief-checkgroup-desc { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--text-faint); }
 
 .mbrief-check { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 9px; }
+/* 카드마다 왼쪽에 색 띠를 두르면 화면이 산만해진다.
+   주목/주의 구분은 위쪽 그룹 머리글 한 곳에서만 색으로 알린다. */
 .mbrief-check-item {
   padding: 12px 13px;
   border-radius: var(--radius-md);
   background: var(--chip-bg);
   border: 1px solid var(--border);
-  border-left-width: 3px;
 }
-.mbrief-check-item.caution { border-left-color: #f59e0b; }
-.mbrief-check-item.watch { border-left-color: var(--up); }
 .mbrief-check-head { font-size: 12.5px; font-weight: 800; margin-bottom: 6px; }
 .mbrief-check-us { font-size: 12px; font-weight: 700; color: var(--text-muted); }
 .mbrief-check-cause { font-size: 12.5px; line-height: 1.5; margin-top: 4px; }
