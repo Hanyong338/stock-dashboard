@@ -232,9 +232,8 @@ def fetch_flow(code):
     ]
 
 
-def fetch_theme_map():
-    """종목코드 -> 테마명 목록, 그리고 오늘의 주도 테마 순위.
-    투자자가 '이 회사가 뭐 하는 곳인지' 바로 알 수 있게 태그를 붙이는 용도다."""
+def fetch_theme_groups():
+    """테마 그룹 목록(이름·등락률·구성종목수). 호출 3번이면 끝나 매시간 돌려도 부담이 없다."""
     groups = []
     for page in range(1, THEME_PAGES + 1):
         try:
@@ -246,6 +245,30 @@ def fetch_theme_map():
         if not rows:
             break
         groups.extend(rows)
+    return groups
+
+
+def theme_leaders(groups, top=8):
+    """오늘 가장 센 테마. 구성종목이 너무 적은 그룹은 등락률이 튀어서 뺀다."""
+    return sorted(
+        (
+            {
+                "name": g["name"],
+                "change_percent": round(float(g.get("changeRate") or 0), 2),
+                "total": g.get("totalCount", 0),
+                "rise": g.get("riseCount", 0),
+            }
+            for g in groups
+            if g.get("totalCount", 0) >= 5
+        ),
+        key=lambda x: -x["change_percent"],
+    )[:top]
+
+
+def fetch_theme_map():
+    """종목코드 -> 테마명 목록. 투자자가 '이 회사가 뭐 하는 곳인지' 바로 알 수 있게 태그를 붙인다.
+    구성종목까지 받아야 해서 264번을 더 부르므로, 스크리닝을 돌릴 때만 쓴다."""
+    groups = fetch_theme_groups()
 
     def members(g):
         try:
@@ -260,22 +283,8 @@ def fetch_theme_map():
             for c in codes:
                 tag_map.setdefault(c, []).append(g["name"])
 
-    leaders = sorted(
-        (
-            {
-                "name": g["name"],
-                "change_percent": round(float(g.get("changeRate") or 0), 2),
-                "total": g.get("totalCount", 0),
-                "rise": g.get("riseCount", 0),
-            }
-            for g in groups
-            if g.get("totalCount", 0) >= 5
-        ),
-        key=lambda x: -x["change_percent"],
-    )[:8]
-
     print(f"[INFO] 테마 {len(groups)}개 / 태그가 붙은 종목 {len(tag_map)}개")
-    return tag_map, leaders
+    return tag_map, theme_leaders(groups)
 
 
 # ──────────────────────────────────────────────────────────────────────────
@@ -580,7 +589,7 @@ def build_screening(today=None, charts_dir=None):
         flows = list(pool.map(lambda x: fetch_flow(x["stock"]["code"]), scanned))
 
     # 3단계 — 테마 태그
-    tag_map, theme_leaders = fetch_theme_map()
+    tag_map, leaders = fetch_theme_map()
 
     sections = {sid: [] for sid in SECTION_ORDER}
     dropped = 0
@@ -654,7 +663,7 @@ def build_screening(today=None, charts_dir=None):
         "base_passed": len(passed),
         "dropped": dropped,
         "fetch_failures": failures,
-        "theme_leaders": theme_leaders,
+        "theme_leaders": leaders,
         "sections": [
             {
                 "id": sid,

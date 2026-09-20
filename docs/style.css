@@ -1130,7 +1130,12 @@ main {
 
 /* 오늘 주도 테마 — 뽑힌 종목이 어느 흐름에 속하는지 위에서 먼저 보여준다 */
 .scr-themes { margin-bottom: 18px; }
-.scr-themes-head { font-size: 12.5px; font-weight: 800; margin-bottom: 8px; }
+.scr-themes-head {
+  display: flex; align-items: baseline; gap: 8px;
+  font-size: 12.5px; font-weight: 800; margin-bottom: 8px;
+}
+/* 테마는 매시간, 종목은 마감 후 1회로 갱신 주기가 달라 시점을 밝혀둔다 */
+.scr-themes-when { font-size: 10.5px; font-weight: 600; color: var(--text-faint); }
 .scr-themes-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .scr-theme {
   display: inline-flex; align-items: baseline; gap: 5px;

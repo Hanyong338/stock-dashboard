@@ -18,7 +18,7 @@ from transcript import get_transcript, is_retryable_error
 from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
 from calendar_data import KST, build_calendar
-from screening import build_screening
+from screening import build_screening, fetch_theme_groups, theme_leaders
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "data"
@@ -29,6 +29,7 @@ CHANNELS_OUT_FILE = DATA_DIR / "channels.json"
 MORNING_BRIEF_FILE = DATA_DIR / "morning_brief.json"
 CALENDAR_FILE = DATA_DIR / "calendar.json"
 SCREENING_FILE = DATA_DIR / "screening.json"
+THEMES_FILE = DATA_DIR / "themes.json"
 
 MAX_SUMMARIES = 500
 RETENTION_DAYS = 7
@@ -48,19 +49,17 @@ CALENDAR_BUILDER_VERSION = 5
 # 올릴 때마다 제미나이 호출이 1회 더 발생한다는 점을 알고 올릴 것.
 MORNING_BRIEF_PROMPT_VERSION = 5
 
-# 시그널 스크리너. 전종목을 훑어 2~3분 걸리므로 하루 네 번만 돈다.
-#   08:30  장 시작 전. 전 거래일 종가로 판정한 확정본.
-#   10:00  장중
-#   14:00  장중
-#   17:00  장 마감(15:30) 후. 그날 종가로 판정한 확정본.
-# 08:30 을 위해 워크플로에 UTC 23:30 크론을 따로 뒀다.
-# 매시 정각 크론만으론 한국시간이 늘 정각이라 08:30 에 도는 실행이 없다.
-SCREENING_SLOTS = {8: "open", 10: "mid1", 14: "mid2", 17: "close"}
+# 시그널 스크리너의 종목 선별은 전종목을 훑어 2~3분 걸리므로 하루 한 번, 장 마감 후에만 돈다.
+# 한국시간 15:50 — 정규장 마감(15:30) 직후라 그날 일봉이 확정된 시점이다.
+# 시각을 '분'까지 봐야 한다. 시(hour)만 보면 매시 크론의 15:00 실행이 먼저 걸려
+# 장이 끝나기도 전의 미완성 일봉으로 판정해버린다.
+# 끝을 18시로 둔 건 예약 실행이 늦게 시작될 때를 위한 여유다(깃허브 크론은 흔히 수십 분 늦는다).
+SCREENING_AFTER = (15, 45)
+SCREENING_BEFORE_HOUR = 18
 
-# 장중(09:00~15:30) 실행은 그날 일봉이 아직 안 끝난 상태로 판정한다.
-# '종가 기준 돌파', '고가 마감' 같은 규칙이 진행 중인 값으로 매겨지므로 결과가 뒤집힐 수 있다.
-# 사용자가 그걸 모르고 보면 안 되므로 결과에 표시를 남긴다.
-INTRADAY_SLOTS = {"mid1", "mid2"}
+# 오늘의 주도 테마는 목록 API 3번이면 끝나서 매시간 갱신해도 부담이 없다.
+# 종목 선별과 분리해 따로 저장한다(무거운 screening.json 을 매시간 건드리지 않으려는 것).
+THEME_TOP = 8
 SCREENING_RULES_VERSION = 7
 
 
@@ -309,13 +308,40 @@ def _refresh_market_overlay(report, now):
     return True
 
 
-def update_screening(now):
-    """기술적 분석 스크리닝을 한국시간 8시·19시 슬롯에 한 번씩만 돌린다.
-    전종목 약 2,900개를 훑어 3분쯤 걸리므로 매시간 돌릴 수는 없다.
+def update_themes(now):
+    """오늘의 주도 테마만 매시간 갱신한다.
+    목록 API 3번이면 끝나 부담이 없고, 무거운 종목 선별과 분리해 따로 저장한다.
+    값이 그대로면 저장하지 않아 의미 없는 커밋이 쌓이지 않는다."""
+    try:
+        groups = fetch_theme_groups()
+    except Exception as e:
+        print(f"[WARN] 테마 조회 실패: {e}")
+        return False
+    if not groups:
+        return False
 
-    다만 손으로 돌린 실행(Run workflow)은 슬롯 밖이어도 '그날 아직 안 만들었으면' 돌려준다.
-    규칙을 고쳐 배포해놓고 저녁 7시까지 기다리지 않고 바로 결과를 보기 위해서다.
-    그날 것이 이미 있으면 손으로 돌려도 건너뛰므로, 평소 수동 실행이 3분씩 길어지지는 않는다."""
+    leaders = theme_leaders(groups, top=THEME_TOP)
+    current = load_json(THEMES_FILE, {})
+    if not isinstance(current, dict):
+        current = {}
+    if current.get("leaders") == leaders:
+        return False
+
+    save_json(
+        THEMES_FILE,
+        {"leaders": leaders, "group_count": len(groups), "updated_at": now.isoformat()},
+    )
+    print(f"[INFO] 주도 테마 갱신: {', '.join(t['name'] for t in leaders[:3])} ...")
+    return True
+
+
+def update_screening(now):
+    """종목 선별은 하루 한 번, 한국시간 15:50(정규장 마감 직후)에만 돌린다.
+    전종목을 훑어 2~3분 걸리므로 매시간 돌릴 수는 없다.
+    주도 테마는 여기 끼지 않고 update_themes 가 매시간 따로 갱신한다.
+
+    손으로 돌린 실행(Run workflow)은 시간대 밖이어도 '그날 아직 안 만들었으면' 돌려준다.
+    규칙을 고쳐 배포해놓고 마감까지 기다리지 않고 결과를 보기 위해서다."""
     kst = now.astimezone(KST)
     today = kst.date().isoformat()
     current = load_json(SCREENING_FILE, {})
@@ -323,19 +349,19 @@ def update_screening(now):
         # 기능을 만들기 전 자리만 잡아둔 옛 파일이 빈 배열([])이라 .get 에서 터진다.
         # 그 예외가 바깥에서 삼켜져 '아무 일도 안 일어난 것처럼' 보였다.
         current = {}
-    slot = SCREENING_SLOTS.get(kst.hour)
 
+    in_window = (kst.hour, kst.minute) >= SCREENING_AFTER and kst.hour < SCREENING_BEFORE_HOUR
     up_to_date = (current.get("built_slot") or "").startswith(today) and (
         current.get("rules_version") == SCREENING_RULES_VERSION
     )
 
-    if slot:
-        stamp = f"{today}/{slot}"
-        if current.get("built_slot") == stamp and current.get("rules_version") == SCREENING_RULES_VERSION:
+    if in_window:
+        if up_to_date:
             return False
+        stamp = f"{today}/close"
     elif os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch" and not up_to_date:
         stamp = f"{today}/manual"
-        print(f"[INFO] 스크리닝: 슬롯 밖({kst.hour}시)이지만 수동 실행이라 진행한다")
+        print(f"[INFO] 스크리닝: 시간대 밖({kst:%H:%M})이지만 수동 실행이라 진행한다")
     else:
         return False
 
@@ -362,7 +388,9 @@ def update_screening(now):
     data["built_slot"] = stamp
     data["rules_version"] = SCREENING_RULES_VERSION
     data["updated_at"] = now.isoformat()
-    data["intraday"] = stamp.split("/")[-1] in INTRADAY_SLOTS
+    # 예약 실행은 마감 후에만 돌지만, 손으로 돌리면 장중일 수 있다.
+    # 그때는 그날 일봉이 아직 안 끝난 상태로 판정한 것이므로 화면에 표시해준다.
+    data["intraday"] = kst.weekday() < 5 and (9, 0) <= (kst.hour, kst.minute) < (15, 30)
     save_json(SCREENING_FILE, data)
     return True
 
@@ -511,6 +539,12 @@ def main():
             commit_and_push(f"chore: update calendar {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] calendar build failed: {e}")
+
+    try:
+        if update_themes(now):
+            commit_and_push(f"chore: update themes {now.isoformat()}")
+    except Exception as e:
+        print(f"[WARN] themes failed: {e}")
 
     try:
         if update_screening(now):

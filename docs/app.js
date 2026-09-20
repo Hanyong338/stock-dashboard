@@ -19,6 +19,7 @@ const state = {
   morningBrief: {},
   calendar: { months: [], events: [] },
   screening: {},
+  themes: {},
   channels: [],
   selectedChannel: "",
   selectedDate: "",
@@ -1366,10 +1367,12 @@ function scrSection(icon, title, desc, rows, kind, legend) {
   </section>`;
 }
 
-function themeLeaders(list) {
+function themeLeaders(list, updatedAt) {
   if (!list || !list.length) return "";
+  // 테마는 매시간 따로 갱신된다. 종목 목록(마감 후 1회)과 시점이 달라 언제 기준인지 밝혀둔다.
+  const when = updatedAt ? `<span class="scr-themes-when">${escapeHtml(formatRelativeTime(updatedAt))}</span>` : "";
   return `<section class="scr-themes">
-    <div class="scr-themes-head">🔥 오늘 주도 테마</div>
+    <div class="scr-themes-head">🔥 오늘 주도 테마${when}</div>
     <div class="scr-themes-row">${list
       .map(
         (t) => `<span class="scr-theme">
@@ -1416,10 +1419,12 @@ function renderScreening() {
     ${d.fetch_failures ? ` · 조회 실패 ${d.fetch_failures}개` : ""}</p>`;
 
   const icons = { CLOSING_BET: "🎯", SWING_PULLBACK: "📉", TREND_RALLY: "🚀" };
+  // 테마는 themes.json 이 매시간 갱신한다. 없으면 스크리닝에 박힌 값으로 물러난다.
+  const th = state.themes || {};
   list.innerHTML =
     intraday +
     meta +
-    themeLeaders(d.theme_leaders) +
+    themeLeaders(th.leaders || d.theme_leaders, th.updated_at) +
     sections
       .map((s) => scrSection(icons[s.id] || "📊", s.name, s.desc, s.items || [], "entry", s.legend))
       .join("");
@@ -1450,17 +1455,19 @@ function setLastUpdated() {
 
 async function loadAll() {
   try {
-    const [summaries, morningBrief, calendar, screening, channels] = await Promise.all([
+    const [summaries, morningBrief, calendar, screening, themes, channels] = await Promise.all([
       loadJSON("summaries.json"),
       loadJSON("morning_brief.json").catch(() => ({})),
       loadJSON("calendar.json").catch(() => ({ months: [], events: [] })),
       loadJSON("screening.json").catch(() => ({})),
+      loadJSON("themes.json").catch(() => ({})),
       loadJSON("channels.json").catch(() => []),
     ]);
     state.summaries = summaries;
     state.morningBrief = morningBrief;
     state.calendar = calendar;
     state.screening = screening;
+    state.themes = themes;
     state.channels = channels;
 
     const activeCount = channels.filter((c) => !c.paused).length;
