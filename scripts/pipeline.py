@@ -48,12 +48,19 @@ CALENDAR_BUILDER_VERSION = 5
 # 올릴 때마다 제미나이 호출이 1회 더 발생한다는 점을 알고 올릴 것.
 MORNING_BRIEF_PROMPT_VERSION = 5
 
-# 시그널 스크리너. 전종목을 훑어 2~3분 걸리므로 매시간 돌리지 않고 하루 두 번만 돈다.
-#   16시  장 마감(15:30) 직후. 그날 일봉이 막 확정된 시점이라 가장 빠르게 본다.
-#         다만 외국인·기관 수급은 이 시각엔 잠정치일 수 있다.
-#   8시대  다음날 장 시작 전. 밤새 확정된 수급으로 같은 거래일을 다시 판정한다.
-#         워크플로에 UTC 23:20 크론을 따로 둔 이유가 이것이다(매시 정각 크론은 한국시간이 늘 정각이라 8:20 이 없다).
-SCREENING_SLOTS = {8: "morning", 16: "close"}
+# 시그널 스크리너. 전종목을 훑어 2~3분 걸리므로 하루 네 번만 돈다.
+#   08:30  장 시작 전. 전 거래일 종가로 판정한 확정본.
+#   10:00  장중
+#   14:00  장중
+#   17:00  장 마감(15:30) 후. 그날 종가로 판정한 확정본.
+# 08:30 을 위해 워크플로에 UTC 23:30 크론을 따로 뒀다.
+# 매시 정각 크론만으론 한국시간이 늘 정각이라 08:30 에 도는 실행이 없다.
+SCREENING_SLOTS = {8: "open", 10: "mid1", 14: "mid2", 17: "close"}
+
+# 장중(09:00~15:30) 실행은 그날 일봉이 아직 안 끝난 상태로 판정한다.
+# '종가 기준 돌파', '고가 마감' 같은 규칙이 진행 중인 값으로 매겨지므로 결과가 뒤집힐 수 있다.
+# 사용자가 그걸 모르고 보면 안 되므로 결과에 표시를 남긴다.
+INTRADAY_SLOTS = {"mid1", "mid2"}
 SCREENING_RULES_VERSION = 7
 
 
@@ -155,6 +162,14 @@ def process_channel(ch, state, summaries, now):
         # (삼프로TV의 '마켓 인사이드'처럼 생방송 자체가 요약 대상인 채널도 있어서 전역 설정이 아니다)
         if ch.get("exclude_live") and v.get("was_live"):
             print(f"[INFO] skipping live stream: {name} - {v['title']}")
+            state[cid].append(v["video_id"])
+            continue
+
+        # 특정 출연자가 나오는 영상만 보고 싶은 채널은 channels.json 에 title_include 를 준다.
+        # 채널 전체를 대상으로 하되 제목에 그 이름이 있는 것만 요약한다.
+        # 이 필터가 없으면 채널의 모든 영상이 대상이 되어 비용이 크게 늘어난다.
+        wanted = ch.get("title_include")
+        if wanted and not any(w in v["title"] for w in wanted):
             state[cid].append(v["video_id"])
             continue
 
@@ -326,6 +341,7 @@ def update_screening(now):
     data["built_slot"] = stamp
     data["rules_version"] = SCREENING_RULES_VERSION
     data["updated_at"] = now.isoformat()
+    data["intraday"] = stamp.split("/")[-1] in INTRADAY_SLOTS
     save_json(SCREENING_FILE, data)
     return True
 

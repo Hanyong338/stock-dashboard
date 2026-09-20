@@ -1405,6 +1405,11 @@ function renderScreening() {
     return;
   }
 
+  // 장중 실행은 그날 일봉이 안 끝난 상태로 판정한 것이라 마감 후 결과와 달라질 수 있다.
+  const intraday = d.intraday
+    ? `<p class="scr-intraday">⏱ 장중 집계 — 당일 일봉이 아직 확정되지 않았습니다. 종가 기준 판정은 17시 결과를 보세요.</p>`
+    : "";
+
   const meta = `<p class="scr-meta">${escapeHtml(d.as_of_trading_day || "")} 종가 기준 ·
     전종목 ${Number(d.universe_count || 0).toLocaleString()}개 → 체급 통과 ${Number(d.base_passed || 0).toLocaleString()}개
     ${d.dropped ? ` → 킬스위치 탈락 ${Number(d.dropped).toLocaleString()}개` : ""}
@@ -1412,6 +1417,7 @@ function renderScreening() {
 
   const icons = { CLOSING_BET: "🎯", SWING_PULLBACK: "📉", TREND_RALLY: "🚀" };
   list.innerHTML =
+    intraday +
     meta +
     themeLeaders(d.theme_leaders) +
     sections
