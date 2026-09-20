@@ -126,6 +126,8 @@ def process_channel(ch, state, summaries, now):
     if cid not in state:
         # 첫 실행: 기존 영상은 요약하지 않고 '확인함'으로만 기록해서
         # 과거 영상 전체를 한번에 요약하며 API 비용이 폭증하는 것을 막는다.
+        # 채널의 대상 범위를 바꿨을 때도(재생목록 -> 채널 전체, 출연자 필터 추가 등)
+        # state.json 에서 그 채널 키를 지우면 이 경로를 타서 밀린 영상 없이 새것부터 시작한다.
         state[cid] = [v["video_id"] for v in videos]
         print(f"[INFO] Bootstrapped {name} with {len(videos)} existing videos (no summarization).")
         return
