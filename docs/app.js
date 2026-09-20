@@ -1081,10 +1081,31 @@ function buildChartOption(ec, data, dark) {
   const grid = dark ? "#262735" : "#ececf4";
   const text = dark ? "#989ab0" : "#6b6d80";
 
-  const maSeries = MA_SET.map((m) => ({
+  const maValues = MA_SET.map((m) => movingAverage(closes, m.n));
+
+  /** 보이는 구간의 캔들과 이평선이 모두 들어가도록 축 범위를 잡는다. */
+  function priceRange(s, e) {
+    let lo = Infinity;
+    let hi = -Infinity;
+    for (let i = Math.max(0, s); i <= Math.min(e, closes.length - 1); i++) {
+      lo = Math.min(lo, lows[i]);
+      hi = Math.max(hi, highs[i]);
+      for (const arr of maValues) {
+        if (arr[i] != null) {
+          lo = Math.min(lo, arr[i]);
+          hi = Math.max(hi, arr[i]);
+        }
+      }
+    }
+    if (!isFinite(lo) || !isFinite(hi)) return {};
+    const pad = (hi - lo) * 0.06 || hi * 0.05;
+    return { min: Math.max(0, Math.round(lo - pad)), max: Math.round(hi + pad) };
+  }
+
+  const maSeries = MA_SET.map((m, mi) => ({
     name: `${m.n}`,
     type: "line",
-    data: movingAverage(closes, m.n),
+    data: maValues[mi],
     smooth: true,
     symbol: "none",
     lineStyle: { width: m.w, color: m.color },
@@ -1092,8 +1113,8 @@ function buildChartOption(ec, data, dark) {
   }));
 
   // 5·20 골든/데드 크로스 지점에 화살표를 찍는다
-  const ma5 = movingAverage(closes, 5);
-  const ma20 = movingAverage(closes, 20);
+  const ma5 = maValues[0];
+  const ma20 = maValues[2];
   const marks = [];
   for (let i = 1; i < closes.length; i++) {
     if (ma5[i] == null || ma20[i] == null || ma5[i - 1] == null || ma20[i - 1] == null) continue;
@@ -1122,7 +1143,7 @@ function buildChartOption(ec, data, dark) {
   const lowVal = lows[lowIdx];
   const gain = (((closes[closes.length - 1] - lowVal) / lowVal) * 100).toFixed(2);
 
-  return {
+  const option = {
     backgroundColor: "transparent",
     animation: false,
     legend: {
@@ -1165,6 +1186,9 @@ function buildChartOption(ec, data, dark) {
       {
         scale: true,
         position: "right",
+        // 구름대를 두 시리즈로 쌓아 그리는데, 스팬이 없는 구간의 빈 값이 0으로 잡혀
+        // 축이 0까지 끌려 내려간다. 그래서 축 범위는 보이는 구간의 가격/이평선으로 직접 정한다.
+        ...priceRange(from, closes.length - 1),
         axisLabel: { color: text, fontSize: 10, formatter: (v) => v.toLocaleString() },
         splitLine: { lineStyle: { color: grid } },
       },
@@ -1244,6 +1268,8 @@ function buildChartOption(ec, data, dark) {
       },
     ],
   };
+
+  return { option, priceRange, axisLength: axis.length };
 }
 
 async function openChart(code, name, host) {
@@ -1259,7 +1285,17 @@ async function openChart(code, name, host) {
     host.appendChild(box);
     const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const inst = ec.init(box, null, { renderer: "canvas" });
-    inst.setOption(buildChartOption(ec, data, dark));
+    const built = buildChartOption(ec, data, dark);
+    inst.setOption(built.option);
+    // 증권앱처럼 보이는 구간에 맞춰 세로축이 따라 움직이게 한다.
+    // 고정해두면 옛 구간으로 스크롤했을 때 캔들이 화면 밖으로 나가거나 납작해진다.
+    inst.on("dataZoom", () => {
+      const z = inst.getOption().dataZoom[0];
+      const n = built.axisLength;
+      const s = Math.floor((z.start / 100) * n);
+      const e = Math.ceil((z.end / 100) * n);
+      inst.setOption({ yAxis: [built.priceRange(s, e), {}] });
+    });
     new ResizeObserver(() => inst.resize()).observe(box);
   } catch (e) {
     delete chartCache[code];
