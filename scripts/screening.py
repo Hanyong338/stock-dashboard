@@ -50,6 +50,7 @@ MIN_DAILY_BARS = 260
 CHART_BARS = 620  # 480일선을 화면 왼쪽 끝부터 그리려면 이만큼 필요하다
 THEME_PAGES = 3  # 264개 그룹 = 3페이지
 MAX_TAGS = 2  # 태그가 너무 많으면 오히려 뭘 하는 회사인지 흐려진다
+MIN_ORGAN_INFLOW = 1_000_000_000  # 섹션3 유형C 의 '기관 지속 순매수' 5일 누적 최소 금액(10억)
 
 
 # ──────────────────────────────────────────────────────────────────────────
@@ -442,7 +443,9 @@ def match_trend_rally(b, s, flow):
         ma10, ma20 = ma(c, 10), ma(c, 20)
         if organ_days >= 3 and ma10 and ma20 and close > ma10 > ma20:
             total = sum(d["organ"] for d in flow[:5]) * close
-            if total > 0:
+            # 금액 하한이 없으면 '5일 합계 306주 = 322만원' 짜리도 지속 순매수로 통과한다.
+            # 실제로 광전자가 그렇게 뽑혔다. 기관 자금이 들어왔다고 하려면 규모가 있어야 한다.
+            if total >= MIN_ORGAN_INFLOW:
                 return "C", f"기관 5일 중 {organ_days}일 순매수({total / 1e8:.0f}억) + 240일선 위 10·20일선 지지"
     return None, None
 
