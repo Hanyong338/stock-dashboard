@@ -224,55 +224,99 @@
   "indices_note": "지수·금리·유가는 시장 데이터 종가 기준",
   "sectors": [
     {
-      "name": "기술",
-      "change_percent": 2.245422197179434
+      "name": "태양광",
+      "change_percent": 3.8996004484962423
     },
     {
-      "name": "임의소비재",
-      "change_percent": 1.098202106662924
+      "name": "반도체",
+      "change_percent": 3.3940122914005055
     },
     {
-      "name": "유틸리티",
-      "change_percent": 0.8954475668379834
+      "name": "금광",
+      "change_percent": 3.3620635933032994
     },
     {
-      "name": "에너지",
-      "change_percent": 0.7028027271839038
+      "name": "원자력",
+      "change_percent": 3.166549207429079
     },
     {
-      "name": "소재",
-      "change_percent": 0.6949929902287395
+      "name": "구리",
+      "change_percent": 2.874448389082254
     },
     {
-      "name": "헬스케어",
-      "change_percent": 0.6198922689683242
+      "name": "바이오",
+      "change_percent": 2.6397765712555197
     },
     {
-      "name": "부동산",
-      "change_percent": 0.30366094194772325
+      "name": "전기차",
+      "change_percent": 1.995368971002566
     },
     {
-      "name": "필수소비재",
-      "change_percent": 0.19200291515560466
+      "name": "클라우드",
+      "change_percent": 1.5442584529158105
     },
     {
-      "name": "산업재",
-      "change_percent": 0.1778126850990709
+      "name": "2차전지",
+      "change_percent": 1.5032255901148384
     },
     {
-      "name": "금융",
-      "change_percent": -0.08939609652732279
+      "name": "전력망·전력기기",
+      "change_percent": 1.4921893725655144
     },
     {
-      "name": "커뮤니케이션",
-      "change_percent": -0.5752225892733683
+      "name": "사이버보안",
+      "change_percent": 1.3559327706597988
+    },
+    {
+      "name": "AI·로봇",
+      "change_percent": 1.1376740895047486
+    },
+    {
+      "name": "게임",
+      "change_percent": 1.1081190160293142
+    },
+    {
+      "name": "인터넷 플랫폼",
+      "change_percent": 1.0185001053515077
+    },
+    {
+      "name": "운송",
+      "change_percent": 0.7984023957211434
+    },
+    {
+      "name": "소프트웨어",
+      "change_percent": 0.7812497160601881
+    },
+    {
+      "name": "원유·가스",
+      "change_percent": 0.41188387568462675
+    },
+    {
+      "name": "통신장비",
+      "change_percent": 0.33112226030397357
+    },
+    {
+      "name": "소매",
+      "change_percent": 0.10878319139229482
+    },
+    {
+      "name": "은행",
+      "change_percent": 0.0
+    },
+    {
+      "name": "의료기기",
+      "change_percent": -0.38535791340916764
+    },
+    {
+      "name": "방산·우주항공",
+      "change_percent": -0.6457004515543912
     }
   ],
   "video_id": "6Wljggm-qTE",
   "title": "[🔴09/18 #당잠사] 美 증시 3대지수 상승ㅣ美 주간 신규 실업수당 19만6천건…예상치 하회ㅣ네비우스 “엔비디아 GPU 임대료 20% 인상”ㅣ#엔비디아 #아마존 #알파벳",
   "url": "https://www.youtube.com/watch?v=6Wljggm-qTE",
   "published": "2026-09-17T20:17:48Z",
-  "fetched_at": "2026-09-19T22:47:25.112703+00:00",
+  "fetched_at": "2026-09-20T00:04:34.853291+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
