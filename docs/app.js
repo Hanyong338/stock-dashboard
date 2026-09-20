@@ -532,18 +532,30 @@ function renderMorningBrief() {
   newsBox.innerHTML = "";
   const news = d.news || [];
   if (news.length) {
+    // 뉴스 한 건을 '팩트 -> 월가 해석 -> 국내 영향' 세 층으로 보여준다.
+    // comment 는 옛 리포트(한 줄 코멘트) 형식이라, 새 방송이 올라오기 전까지는 그걸 그대로 쓴다.
+    const layer = (icon, label, text) =>
+      text
+        ? `<div class="mbrief-news-layer">
+             <span class="mbrief-news-label">${icon} ${label}</span>
+             <p>${inlineMd(escapeHtml(text))}</p>
+           </div>`
+        : "";
+
     const list = document.createElement("div");
     list.className = "mbrief-news";
     list.innerHTML = news
       .map(
         (n) => `<div class="mbrief-news-item">
           <div class="mbrief-news-title">${inlineMd(escapeHtml(n.title))}</div>
-          <p class="mbrief-news-fact">${inlineMd(escapeHtml(n.fact))}</p>
-          <p class="mbrief-news-comment">💬 ${inlineMd(escapeHtml(n.comment))}</p>
+          ${layer("📌", "핵심 배경 및 팩트", n.fact)}
+          ${layer("🔍", "월가 시각 및 시장 행간", n.street_view)}
+          ${layer("💡", "국내 증시 &amp; 섹터 영향", n.korea_impact)}
+          ${layer("💬", "한 줄 코멘트", n.street_view || n.korea_impact ? "" : n.comment)}
         </div>`
       )
       .join("");
-    newsBox.appendChild(mbriefSection(`📰 간밤 핵심 뉴스 (${news.length})`, [list]));
+    newsBox.appendChild(mbriefSection(`📰 간밤 핵심 뉴스 심층 분석 (${news.length})`, [list]));
   }
 
   // 업종별 성과 (실제 업종 ETF 시세 기준. 방송 발언이 아님)

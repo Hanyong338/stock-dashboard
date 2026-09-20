@@ -805,17 +805,34 @@ main {
 .mbrief-ev-num.strong { color: var(--text); font-weight: 800; }
 .mbrief-ev-note { grid-column: 1 / -1; font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-top: 2px; }
 
-/* 뉴스 */
-.mbrief-news { display: flex; flex-direction: column; gap: 8px; }
+/* 뉴스 — 한 건을 팩트 / 월가 해석 / 국내 영향 세 층으로 쌓는다.
+   층마다 라벨을 달아야 어디까지가 사실이고 어디부터가 해석인지 구분된다. */
+.mbrief-news { display: flex; flex-direction: column; gap: 10px; }
 .mbrief-news-item {
-  padding: 11px 13px;
+  padding: 13px 14px;
   background: var(--chip-bg);
   border-radius: var(--radius-md);
-  border-left: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  border: 1px solid var(--border);
 }
-.mbrief-news-title { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
-.mbrief-news-fact { font-size: 12.5px; line-height: 1.55; color: var(--text); }
-.mbrief-news-comment { font-size: 12.5px; line-height: 1.55; color: var(--text-muted); margin-top: 5px; }
+.mbrief-news-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  padding-bottom: 8px;
+  margin-bottom: 9px;
+  border-bottom: 1px solid var(--border);
+}
+.mbrief-news-layer { margin-top: 9px; }
+.mbrief-news-layer:first-of-type { margin-top: 0; }
+.mbrief-news-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-faint);
+  letter-spacing: -0.01em;
+  margin-bottom: 3px;
+}
+.mbrief-news-layer p { font-size: 12.5px; line-height: 1.6; color: var(--text); }
 
 /* 미국 -> 국내 연결 */
 .mbrief-conns { display: flex; flex-direction: column; gap: 10px; }
