@@ -280,6 +280,10 @@ def update_screening(now):
     kst = now.astimezone(KST)
     today = kst.date().isoformat()
     current = load_json(SCREENING_FILE, {})
+    if not isinstance(current, dict):
+        # 기능을 만들기 전 자리만 잡아둔 옛 파일이 빈 배열([])이라 .get 에서 터진다.
+        # 그 예외가 바깥에서 삼켜져 '아무 일도 안 일어난 것처럼' 보였다.
+        current = {}
     slot = SCREENING_SLOTS.get(kst.hour)
 
     up_to_date = (current.get("built_slot") or "").startswith(today) and (
