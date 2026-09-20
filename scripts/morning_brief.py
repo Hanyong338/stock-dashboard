@@ -65,6 +65,13 @@ SYSTEM_PROMPT = """# Role & Objective
      * 2 = 산업 연관: 동일 산업 CAPEX/인프라 수혜, 장비·소재 밸류체인
      * 1 = 테마 연관: 시장 심리 및 뉴스 모멘텀으로 함께 동조화되는 종목
 
+5. **오늘 국내시장 체크리스트 (개수를 지켜라)**
+   - checklist_watch(주목 = 오늘 눈여겨볼 기회)는 **최소 3개**를 쓴다.
+   - checklist_caution(주의 = 오늘 조심할 리스크)은 **최소 2개**를 쓴다.
+   - 하나씩만 쓰고 끝내지 마라. 간밤 뉴스와 급등·급락 종목에서 오늘 국내장과 이어지는 테마를
+     빠짐없이 뽑아내면 이 개수는 자연히 채워진다.
+   - 각 항목은 theme(테마/섹터), us(관련 미국 종목과 등락률), cause(원인), action(오늘 대응)을 모두 채운다.
+
 ## 출력 규칙
 - 모든 텍스트는 한국어로 쓴다.
 - **[지표 수치 인용 금지] 지수(나스닥·S&P·다우·SOX)·금리·유가(WTI)·달러 인덱스의 등락률과 종가는
@@ -189,8 +196,16 @@ RESPONSE_SCHEMA = {
                 ],
             },
         },
-        "checklist_caution": {"type": "ARRAY", "items": CHECKLIST_ITEM_SCHEMA, "description": "주의 테마"},
-        "checklist_watch": {"type": "ARRAY", "items": CHECKLIST_ITEM_SCHEMA, "description": "주목 섹터"},
+        "checklist_caution": {
+            "type": "ARRAY",
+            "items": CHECKLIST_ITEM_SCHEMA,
+            "description": "오늘 조심할 리스크 테마. 최소 2개 이상",
+        },
+        "checklist_watch": {
+            "type": "ARRAY",
+            "items": CHECKLIST_ITEM_SCHEMA,
+            "description": "오늘 눈여겨볼 기회 섹터. 최소 3개 이상",
+        },
     },
     "required": [
         "as_of", "indices", "economic_events", "ai_summary",
@@ -208,4 +223,6 @@ def build_morning_brief(title, transcript_text, broadcast_date):
         f"영상 제목: {title}\n\n"
         f"자막:\n{transcript_text[:MAX_TRANSCRIPT_CHARS]}"
     )
-    return call_gemini(SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, f"당잠사 {title[:24]}", max_output_tokens=16384)
+    # 뉴스를 전수(최대 15건) 3단으로 쓰고 체크리스트까지 채우면 출력이 길어진다.
+    # 한도에 걸려 뒷부분이 잘리면 JSON 자체가 깨지므로 넉넉히 잡는다(한도일 뿐 그만큼 과금되지 않는다).
+    return call_gemini(SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, f"당잠사 {title[:24]}", max_output_tokens=32768)
