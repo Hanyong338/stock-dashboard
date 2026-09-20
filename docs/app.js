@@ -986,6 +986,281 @@ function renderSummaries() {
   }
 }
 
+// ──────────────────────────────────────────────────────────────────────────
+// 종목 차트 — 국내 증권앱과 같은 구성 (이평선 7개 + 일목균형표 + 거래량)
+// 브라우저에서 야후를 직접 못 부르므로(CORS) 배치가 저장해둔 파일을 읽는다.
+// ──────────────────────────────────────────────────────────────────────────
+const MA_SET = [
+  { n: 5, color: "#ef4444", w: 1 },
+  { n: 10, color: "#f59e0b", w: 1 },
+  { n: 20, color: "#16a34a", w: 1 },
+  { n: 60, color: "#0e7490", w: 1 },
+  { n: 120, color: "#6366f1", w: 1 },
+  { n: 240, color: "#c026d3", w: 2.4 },
+  { n: 480, color: "#0d9488", w: 2.4 },
+];
+const chartCache = {};
+let echartsReady = null;
+
+function loadECharts() {
+  // 1MB 짜리라 처음 차트를 열 때만 내려받는다. 목록만 볼 사람에게 부담을 주지 않는다.
+  if (echartsReady) return echartsReady;
+  echartsReady = new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js";
+    s.onload = () => resolve(window.echarts);
+    s.onerror = () => reject(new Error("차트 라이브러리를 불러오지 못했습니다"));
+    document.head.appendChild(s);
+  });
+  return echartsReady;
+}
+
+function movingAverage(closes, n) {
+  const out = [];
+  let sum = 0;
+  for (let i = 0; i < closes.length; i++) {
+    sum += closes[i];
+    if (i >= n) sum -= closes[i - n];
+    out.push(i >= n - 1 ? sum / n : null);
+  }
+  return out;
+}
+
+/** 일목균형표. 전환선(9) 기준선(26) 선행스팬 26칸 앞, 후행스팬 26칸 뒤. */
+function ichimoku(highs, lows, closes) {
+  const mid = (p) => (i) => {
+    if (i < p - 1) return null;
+    let h = -Infinity;
+    let l = Infinity;
+    for (let k = i - p + 1; k <= i; k++) {
+      h = Math.max(h, highs[k]);
+      l = Math.min(l, lows[k]);
+    }
+    return (h + l) / 2;
+  };
+  const n = closes.length;
+  const conv = [];
+  const base = [];
+  const midB = mid(26);
+  const midC = mid(9);
+  const midD = mid(52);
+  for (let i = 0; i < n; i++) {
+    conv.push(midC(i));
+    base.push(midB(i));
+  }
+  // 선행스팬은 26칸 오른쪽으로 민다. 그래서 차트가 미래 26칸까지 늘어난다.
+  const spanA = new Array(n + 26).fill(null);
+  const spanB = new Array(n + 26).fill(null);
+  const lag = new Array(n + 26).fill(null);
+  for (let i = 0; i < n; i++) {
+    if (conv[i] != null && base[i] != null) spanA[i + 26] = (conv[i] + base[i]) / 2;
+    const d = midD(i);
+    if (d != null) spanB[i + 26] = d;
+    if (i - 26 >= 0) lag[i - 26] = closes[i];
+  }
+  return { conv, base, spanA, spanB, lag };
+}
+
+function buildChartOption(ec, data, dark) {
+  const bars = data.bars;
+  const dates = bars.map((b) => b[0]);
+  const opens = bars.map((b) => b[1]);
+  const highs = bars.map((b) => b[2]);
+  const lows = bars.map((b) => b[3]);
+  const closes = bars.map((b) => b[4]);
+  const vols = bars.map((b) => b[5]);
+
+  const ich = ichimoku(highs, lows, closes);
+  // 선행스팬이 26칸 앞으로 나가므로 x축도 그만큼 늘려준다 (구름이 미래로 뻗는다)
+  const future = [];
+  for (let i = 1; i <= 26; i++) future.push(`+${i}`);
+  const axis = dates.concat(future);
+
+  const up = "#f2465a";
+  const down = "#3b82f6";
+  const grid = dark ? "#262735" : "#ececf4";
+  const text = dark ? "#989ab0" : "#6b6d80";
+
+  const maSeries = MA_SET.map((m) => ({
+    name: `${m.n}`,
+    type: "line",
+    data: movingAverage(closes, m.n),
+    smooth: true,
+    symbol: "none",
+    lineStyle: { width: m.w, color: m.color },
+    z: 3,
+  }));
+
+  // 5·20 골든/데드 크로스 지점에 화살표를 찍는다
+  const ma5 = movingAverage(closes, 5);
+  const ma20 = movingAverage(closes, 20);
+  const marks = [];
+  for (let i = 1; i < closes.length; i++) {
+    if (ma5[i] == null || ma20[i] == null || ma5[i - 1] == null || ma20[i - 1] == null) continue;
+    if (ma5[i - 1] <= ma20[i - 1] && ma5[i] > ma20[i])
+      marks.push({ coord: [dates[i], lows[i]], symbol: "triangle", symbolSize: 9, itemStyle: { color: up } });
+    if (ma5[i - 1] >= ma20[i - 1] && ma5[i] < ma20[i])
+      marks.push({
+        coord: [dates[i], highs[i]],
+        symbol: "triangle",
+        symbolRotate: 180,
+        symbolSize: 9,
+        itemStyle: { color: down },
+      });
+  }
+
+  const lowIdx = lows.indexOf(Math.min(...lows.slice(-260)));
+  const lowVal = lows[lowIdx];
+  const gain = (((closes[closes.length - 1] - lowVal) / lowVal) * 100).toFixed(2);
+
+  // 최근 120봉만 먼저 보여준다. 증권앱 기본 화면과 비슷한 밀도다.
+  const startPct = Math.max(0, ((dates.length - 120) / axis.length) * 100);
+
+  return {
+    backgroundColor: "transparent",
+    animation: false,
+    legend: {
+      data: MA_SET.map((m) => `${m.n}`).concat(["전환선", "기준선", "후행스팬"]),
+      top: 0,
+      textStyle: { color: text, fontSize: 10 },
+      itemWidth: 14,
+      itemHeight: 8,
+    },
+    tooltip: {
+      trigger: "axis",
+      axisPointer: { type: "cross" },
+      backgroundColor: dark ? "#1a1b25" : "#fff",
+      borderColor: grid,
+      textStyle: { color: dark ? "#eef0f7" : "#12131b", fontSize: 11 },
+    },
+    axisPointer: { link: [{ xAxisIndex: "all" }] },
+    grid: [
+      { left: 8, right: 58, top: 30, height: "58%" },
+      { left: 8, right: 58, top: "74%", height: "16%" },
+    ],
+    xAxis: [
+      {
+        type: "category",
+        data: axis,
+        boundaryGap: true,
+        axisLine: { lineStyle: { color: grid } },
+        axisLabel: { color: text, fontSize: 10 },
+        splitLine: { show: false },
+      },
+      {
+        type: "category",
+        gridIndex: 1,
+        data: axis,
+        axisLine: { lineStyle: { color: grid } },
+        axisLabel: { show: false },
+      },
+    ],
+    yAxis: [
+      {
+        scale: true,
+        position: "right",
+        axisLabel: { color: text, fontSize: 10, formatter: (v) => v.toLocaleString() },
+        splitLine: { lineStyle: { color: grid } },
+      },
+      {
+        scale: true,
+        gridIndex: 1,
+        position: "right",
+        axisLabel: { color: text, fontSize: 9, formatter: (v) => (v >= 10000 ? `${Math.round(v / 10000)}만` : v) },
+        splitLine: { show: false },
+      },
+    ],
+    dataZoom: [
+      { type: "inside", xAxisIndex: [0, 1], start: startPct, end: 100 },
+      { type: "slider", xAxisIndex: [0, 1], start: startPct, end: 100, height: 16, bottom: 4 },
+    ],
+    series: [
+      // 구름대: 아래쪽 스팬을 투명하게 깔고, 두 스팬의 차이만큼을 쌓아 색을 채운다
+      {
+        name: "선행스팬 하단",
+        type: "line",
+        data: ich.spanA.map((a, i) => (a != null && ich.spanB[i] != null ? Math.min(a, ich.spanB[i]) : null)),
+        stack: "cloud",
+        symbol: "none",
+        lineStyle: { opacity: 0 },
+        areaStyle: { opacity: 0 },
+        silent: true,
+        z: 1,
+      },
+      {
+        name: "구름대",
+        type: "line",
+        data: ich.spanA.map((a, i) =>
+          a != null && ich.spanB[i] != null ? Math.abs(a - ich.spanB[i]) : null
+        ),
+        stack: "cloud",
+        symbol: "none",
+        lineStyle: { opacity: 0 },
+        areaStyle: { color: dark ? "rgba(99,102,241,0.18)" : "rgba(99,102,241,0.12)" },
+        silent: true,
+        z: 1,
+      },
+      {
+        name: "캔들",
+        type: "candlestick",
+        data: bars.map((b) => [b[1], b[4], b[3], b[2]]),
+        itemStyle: {
+          color: up,
+          color0: down,
+          borderColor: up,
+          borderColor0: down,
+        },
+        markPoint: { data: marks, silent: true },
+        markLine: {
+          symbol: "none",
+          silent: true,
+          label: {
+            formatter: `최저 ${lowVal.toLocaleString()} (${dates[lowIdx]}) +${gain}%`,
+            color: text,
+            fontSize: 10,
+            position: "insideEndTop",
+          },
+          lineStyle: { color: down, type: "dashed", width: 1 },
+          data: [{ yAxis: lowVal }],
+        },
+        z: 5,
+      },
+      ...maSeries,
+      { name: "전환선", type: "line", data: ich.conv, symbol: "none", lineStyle: { width: 1, color: "#f97316" }, z: 2 },
+      { name: "기준선", type: "line", data: ich.base, symbol: "none", lineStyle: { width: 1, color: "#10b981" }, z: 2 },
+      { name: "후행스팬", type: "line", data: ich.lag, symbol: "none", lineStyle: { width: 1, color: "#a16207" }, z: 2 },
+      {
+        name: "거래량",
+        type: "bar",
+        xAxisIndex: 1,
+        yAxisIndex: 1,
+        data: vols.map((v, i) => ({ value: v, itemStyle: { color: closes[i] >= opens[i] ? up : down } })),
+      },
+    ],
+  };
+}
+
+async function openChart(code, name, host) {
+  host.innerHTML = '<p class="scr-chart-loading">차트를 불러오는 중...</p>';
+  try {
+    const [ec, data] = await Promise.all([
+      loadECharts(),
+      chartCache[code] || (chartCache[code] = loadJSON(`charts/${code}.json`)),
+    ]);
+    host.innerHTML = "";
+    const box = document.createElement("div");
+    box.className = "scr-chart-canvas";
+    host.appendChild(box);
+    const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const inst = ec.init(box, null, { renderer: "canvas" });
+    inst.setOption(buildChartOption(ec, data, dark));
+    new ResizeObserver(() => inst.resize()).observe(box);
+  } catch (e) {
+    delete chartCache[code];
+    host.innerHTML = `<p class="scr-chart-loading">차트를 불러오지 못했습니다. (${escapeHtml(e.message)})</p>`;
+  }
+}
+
 function scrCard(item, kind) {
   const tone = changeToneFromText(String(item.change_percent));
   const chg = `${item.change_percent > 0 ? "+" : ""}${Number(item.change_percent).toFixed(2)}%`;
@@ -1012,17 +1287,19 @@ function scrCard(item, kind) {
         .join("")}</ul></details>`
     : "";
 
-  return `<div class="scr-card ${kind}">
+  return `<div class="scr-card ${kind}" data-code="${item.code}" data-name="${escapeHtml(item.name)}">
     <div class="scr-head">
-      <a class="scr-name" href="${item.url}" target="_blank" rel="noopener">${escapeHtml(item.name)}</a>
+      <button class="scr-name" type="button" data-chart="${item.code}">${escapeHtml(item.name)}</button>
       <span class="scr-code">${escapeHtml(item.code)}</span>
       <span class="scr-price num">${Number(item.close).toLocaleString()}</span>
       <span class="scr-chg num ${tone}">${changeWithMark(chg, tone)}</span>
     </div>
-    <div class="scr-badges">${badge}<span class="scr-mkt">${escapeHtml(item.market)}</span></div>
+    <div class="scr-badges">${badge}<span class="scr-mkt">${escapeHtml(item.market)}</span>
+      <a class="scr-ext" href="${item.url}" target="_blank" rel="noopener">네이버 ↗</a></div>
     <p class="scr-reason">${escapeHtml(item.reason)}</p>
     ${flow ? `<div class="scr-flows">${flow}</div>` : ""}
     ${exits}
+    <div class="scr-chart" hidden></div>
   </div>`;
 }
 
@@ -1072,6 +1349,23 @@ function renderScreening() {
     scrSection("🟢", "진입 조건 충족", "일봉으로 판정 완료", entries, "entry") +
     scrSection("🟡", "감시 후보", "장중 1분봉을 직접 확인해야 함", watch, "watch") +
     scrSection("🔴", "진입 금지", "전략에는 맞지만 킬스위치에 걸림", danger, "danger");
+
+  // 종목명을 누르면 그 카드 안에서 차트가 펼쳐진다. 목록을 벗어나지 않게 하려는 것.
+  list.querySelectorAll("[data-chart]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".scr-card");
+      const host = card.querySelector(".scr-chart");
+      if (!host.hidden) {
+        host.hidden = true;
+        host.innerHTML = "";
+        card.classList.remove("open");
+        return;
+      }
+      host.hidden = false;
+      card.classList.add("open");
+      openChart(card.dataset.code, card.dataset.name, host);
+    });
+  });
 }
 
 function setLastUpdated() {

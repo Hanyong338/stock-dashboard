@@ -51,7 +51,7 @@ MORNING_BRIEF_PROMPT_VERSION = 5
 # 기술적 분석 스크리닝. 전종목 약 2,900개를 훑어 3분쯤 걸리므로 매시간 돌리지 않는다.
 # 19시(장 마감 후)가 일봉이 확정된 진짜 판정 런이고, 8시는 재시도 겸 신선도용이다.
 SCREENING_SLOTS = {8: "morning", 19: "evening"}
-SCREENING_RULES_VERSION = 2
+SCREENING_RULES_VERSION = 3
 
 
 def call_with_timeout(fn, timeout, *args, **kwargs):
@@ -301,7 +301,7 @@ def update_screening(now):
         return False
 
     try:
-        data = build_screening(kst.date())
+        data = build_screening(kst.date(), charts_dir=DATA_DIR / "charts")
     except Exception as e:
         # 실패를 조용히 삼키면 화면은 '아직 준비 중'으로만 보이고 원인을 알 수 없다.
         # 워크플로 로그는 저장소 관리자만 볼 수 있어서, 실패 사실을 결과 파일에 남긴다.

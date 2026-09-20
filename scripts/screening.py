@@ -462,7 +462,56 @@ def _scan_one(stock):
     }
 
 
-def build_screening(today=None):
+CHART_BARS = 620  # 480일선을 화면 왼쪽 끝부터 그리려면 480 + 볼 구간만큼 필요하다
+
+
+def write_chart_files(stocks, charts_dir):
+    """목록에 오른 종목의 일봉을 종목별 파일로 저장한다.
+
+    브라우저에서 야후를 직접 부르면 CORS 로 막힌다(배포본에서 확인함).
+    그래서 화면에 차트를 띄우려면 배치가 미리 받아두는 수밖에 없다.
+    한 파일에 다 담으면 첫 로딩이 무거워지므로 종목별로 쪼개 클릭할 때만 받게 한다."""
+    if charts_dir is None:
+        return 0
+    charts_dir.mkdir(parents=True, exist_ok=True)
+
+    def one(s):
+        try:
+            result = _yahoo_chart(f"{s['code']}.{'KS' if s['market'] == 'KOSPI' else 'KQ'}", "3y", "1d")
+        except Exception:
+            return None
+        stamps = result.get("timestamp") or []
+        q = (result.get("indicators", {}).get("quote") or [{}])[0]
+        keys = ("open", "high", "low", "close", "volume")
+        series = {k: (q.get(k) or []) for k in keys}
+        rows = []
+        for i, ts in enumerate(stamps):
+            vals = [series[k][i] if i < len(series[k]) else None for k in keys]
+            if any(v is None for v in vals):
+                continue
+            day = datetime.datetime.fromtimestamp(ts, datetime.timezone.utc).date().isoformat()
+            rows.append([day] + [round(v) for v in vals])
+        return {"code": s["code"], "name": s["name"], "bars": rows[-CHART_BARS:]} if rows else None
+
+    written = set()
+    with ThreadPoolExecutor(max_workers=DAILY_WORKERS) as pool:
+        for payload in pool.map(one, stocks):
+            if not payload:
+                continue
+            path = charts_dir / f"{payload['code']}.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+            written.add(path.name)
+
+    # 목록에서 빠진 종목의 차트는 지운다. 안 그러면 저장소에 파일이 무한정 쌓인다.
+    for old in charts_dir.glob("*.json"):
+        if old.name not in written:
+            old.unlink()
+
+    print(f"[INFO] 차트 파일 {len(written)}개 저장")
+    return len(written)
+
+
+def build_screening(today=None, charts_dir=None):
     today = today or datetime.date.today()
     probe = probe_sources()
     universe = fetch_universe()
@@ -573,8 +622,17 @@ def build_screening(today=None):
     danger = sorted(danger, key=lambda x: -x["volume"])[:8]
 
     print(f"[INFO] 스크리닝: 진입 {len(capped)} / 감시 {len(watch)} / 금지 {len(danger)} / 조회실패 {failures}")
+
+    # 차트는 목록에 실제로 오른 종목만 만든다 (진입 + 감시 + 금지)
+    chart_targets = {
+        e["code"]: {"code": e["code"], "name": e["name"], "market": e["market"]}
+        for e in capped + watch + danger
+    }
+    charts = write_chart_files(list(chart_targets.values()), charts_dir)
+
     return {
         "probe": probe,
+        "chart_count": charts,
         "as_of_trading_day": cands[0]["quote"]["trading_day"] if cands else "",
         "universe_count": len(universe),
         "fetch_failures": failures,
