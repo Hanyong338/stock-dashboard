@@ -165,7 +165,14 @@ def _match(stock, minutes, dailies, target_day):
     gap = pct(opens, prev_close)
     held_high = highs > 0 and last >= highs * P["high_hold"]
 
-    bars3 = to_3min([r for r in minutes if r[0].date() <= target_day])
+    # 09:30 이후 분봉은 섞이면 안 된다. 예약 실행이 늦게 시작되면(10시 넘어서) 그 뒤 분봉까지
+    # 들어와 '09:30 기준' 판정이 아니게 된다. 당일은 09:30 에서 잘라낸다.
+    upto = [
+        r
+        for r in minutes
+        if r[0].date() < target_day or (r[0].date() == target_day and r[0].time() < CUTOFF)
+    ]
+    bars3 = to_3min(upto)
     today3 = [b for b in bars3 if b[0].date() == target_day and SESSION_START <= b[0].time() < CUTOFF]
     closes3 = [b[4] for b in bars3]
     ma5, ma10, ma20 = ma(closes3, 5), ma(closes3, 10), ma(closes3, 20)
@@ -213,7 +220,8 @@ def _match(stock, minutes, dailies, target_day):
                 )
 
     # C: 장기 이평선 갭 돌파 — 240·480일선을 갭으로 넘거나 30분 만에 뚫고 정배열로 버틴다
-    closes_d = [d[4] for d in dailies]
+    # 이평선은 전일 종가까지로 계산한다. 당일 일봉은 장중이라 아직 끝나지 않았다.
+    closes_d = [d[4] for d in prev_days]
     aligned = ma5 and ma10 and ma20 and ma5 > ma10 > ma20
     if aligned:
         for n in P["c_ma_lines"]:
