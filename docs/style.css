@@ -1051,6 +1051,83 @@ main {
 }
 
 
+/* ---------- 기술적 분석 스크리닝 ---------- */
+
+.scr-meta { font-size: 11.5px; color: var(--text-faint); font-weight: 600; margin-bottom: 14px; }
+
+.scr-group { margin-bottom: 20px; }
+.scr-group-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-bottom: 7px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+}
+.scr-group.entry .scr-group-head { border-bottom-color: rgba(var(--up-rgb), 0.5); }
+.scr-group.watch .scr-group-head { border-bottom-color: #f59e0b; }
+.scr-group.danger .scr-group-head { border-bottom-color: rgba(var(--down-rgb), 0.5); }
+.scr-group-icon { font-size: 13px; line-height: 1; }
+.scr-group-title { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; }
+.scr-group.entry .scr-group-title { color: var(--up); }
+.scr-group.watch .scr-group-title { color: #d97706; }
+.scr-group.danger .scr-group-title { color: var(--down); }
+.scr-group-count {
+  font-size: 10.5px; font-weight: 800; min-width: 17px; text-align: center;
+  padding: 1px 5px; border-radius: 999px; background: var(--chip-bg); color: var(--text-muted);
+}
+.scr-group-desc { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--text-faint); }
+
+.scr-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 9px; }
+.scr-card {
+  padding: 12px 13px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  min-width: 0;
+}
+.scr-head { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.scr-name { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
+.scr-name:hover { color: var(--accent); text-decoration: underline; }
+.scr-code { font-size: 11px; color: var(--text-faint); font-weight: 600; }
+.scr-price { margin-left: auto; font-size: 13px; font-weight: 700; }
+.scr-chg { font-size: 12.5px; font-weight: 800; }
+.scr-chg.up { color: var(--up); }
+.scr-chg.down { color: var(--down); }
+.scr-chg.flat { color: var(--text-muted); }
+
+.scr-badges { display: flex; align-items: center; gap: 6px; margin: 7px 0 6px; flex-wrap: wrap; }
+.scr-badge { font-size: 10.5px; font-weight: 800; padding: 2px 8px; border-radius: 999px; }
+.scr-badge.entry { color: var(--up); background: rgba(var(--up-rgb), 0.12); }
+.scr-badge.watch { color: #d97706; background: rgba(245, 158, 11, 0.14); }
+.scr-badge.danger { color: var(--down); background: rgba(var(--down-rgb), 0.12); }
+.scr-mkt { font-size: 10.5px; font-weight: 700; color: var(--text-faint); }
+
+.scr-reason { font-size: 12.5px; line-height: 1.5; color: var(--text); }
+.scr-flows { display: flex; gap: 6px; margin-top: 7px; flex-wrap: wrap; }
+.scr-flow {
+  font-size: 10.5px; font-weight: 700; padding: 2px 7px;
+  border-radius: 5px; background: var(--chip-bg); color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.scr-flow.up { color: var(--up); }
+.scr-flow.down { color: var(--down); }
+
+.scr-exit { margin-top: 8px; }
+.scr-exit summary {
+  font-size: 11px; font-weight: 700; color: var(--text-faint);
+  cursor: pointer; list-style: none;
+}
+.scr-exit summary::before { content: "▸ "; }
+.scr-exit[open] summary::before { content: "▾ "; }
+.scr-exit ul { margin: 6px 0 0; padding-left: 15px; }
+.scr-exit li { font-size: 11.5px; line-height: 1.55; color: var(--text-muted); margin-bottom: 3px; }
+
+@media (max-width: 560px) {
+  .scr-list { grid-template-columns: 1fr; }
+  .scr-group-desc { display: none; }
+}
+
 /* ---------- 업종별 성과 히트맵 (실제 업종 ETF 시세 기준) ---------- */
 
 .sec-perf { display: flex; flex-direction: column; gap: 10px; }

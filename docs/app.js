@@ -18,7 +18,7 @@ const state = {
   summaries: [],
   morningBrief: {},
   calendar: { months: [], events: [] },
-  screening: [],
+  screening: {},
   channels: [],
   selectedChannel: "",
   selectedDate: "",
@@ -986,29 +986,81 @@ function renderSummaries() {
   }
 }
 
+function scrCard(item, kind) {
+  const tone = changeToneFromText(String(item.change_percent));
+  const chg = `${item.change_percent > 0 ? "+" : ""}${Number(item.change_percent).toFixed(2)}%`;
+  const flow = item.flow
+    ? ["foreign", "organ", "individual"]
+        .map((k, i) => {
+          const v = item.flow[k];
+          const label = ["외인", "기관", "개인"][i];
+          const t = v > 0 ? "up" : v < 0 ? "down" : "flat";
+          return `<span class="scr-flow ${t}">${label} ${v > 0 ? "+" : ""}${(v / 10000).toFixed(0)}만</span>`;
+        })
+        .join("")
+    : "";
+
+  const badge =
+    kind === "danger"
+      ? `<span class="scr-badge danger">진입 금지</span>`
+      : `<span class="scr-badge ${kind}">${escapeHtml(item.strategy_name)}${item.type ? ` ${escapeHtml(item.type)}` : ""}</span>`;
+
+  // 청산 규칙은 접어둔다. 종목을 훑을 때는 방해가 되고, 실제로 들어갈 때만 필요하다.
+  const exits = (item.exits || []).length
+    ? `<details class="scr-exit"><summary>청산·손절 규칙</summary><ul>${item.exits
+        .map((x) => `<li>${escapeHtml(x)}</li>`)
+        .join("")}</ul></details>`
+    : "";
+
+  return `<div class="scr-card ${kind}">
+    <div class="scr-head">
+      <a class="scr-name" href="${item.url}" target="_blank" rel="noopener">${escapeHtml(item.name)}</a>
+      <span class="scr-code">${escapeHtml(item.code)}</span>
+      <span class="scr-price num">${Number(item.close).toLocaleString()}</span>
+      <span class="scr-chg num ${tone}">${changeWithMark(chg, tone)}</span>
+    </div>
+    <div class="scr-badges">${badge}<span class="scr-mkt">${escapeHtml(item.market)}</span></div>
+    <p class="scr-reason">${escapeHtml(item.reason)}</p>
+    ${flow ? `<div class="scr-flows">${flow}</div>` : ""}
+    ${exits}
+  </div>`;
+}
+
+function scrSection(icon, title, desc, rows, kind) {
+  if (!rows.length) return "";
+  return `<section class="scr-group ${kind}">
+    <div class="scr-group-head">
+      <span class="scr-group-icon">${icon}</span>
+      <span class="scr-group-title">${title}</span>
+      <span class="scr-group-count num">${rows.length}</span>
+      <span class="scr-group-desc">${desc}</span>
+    </div>
+    <div class="scr-list">${rows.map((r) => scrCard(r, kind)).join("")}</div>
+  </section>`;
+}
+
 function renderScreening() {
   const list = document.getElementById("screeningList");
-  list.innerHTML = "";
+  const d = state.screening || {};
+  const entries = d.entries || [];
+  const watch = d.watch || [];
+  const danger = d.danger || [];
 
-  if (!state.screening.length) {
-    list.innerHTML = '<div class="empty-state"><span class="empty-icon">📉</span>기술적 분석 기능은 아직 준비 중입니다.<br>다음 단계에서 추가될 예정이에요.</div>';
+  if (!entries.length && !watch.length && !danger.length) {
+    list.innerHTML =
+      '<div class="empty-state"><span class="empty-icon">📉</span>스크리닝 결과가 아직 없습니다.<br>매일 아침 8시·저녁 7시에 전종목을 훑습니다.</div>';
     return;
   }
 
-  for (const item of state.screening) {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <div class="card-head">
-        <div>
-          <div class="card-title">${escapeHtml(item.name)}</div>
-        </div>
-        <div class="card-time">${item.price ?? ""}</div>
-      </div>
-      <div class="tag-row">${(item.matched_patterns || []).map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join("")}</div>
-    `;
-    list.appendChild(card);
-  }
+  const meta = `<p class="scr-meta">${escapeHtml(d.as_of_trading_day || "")} 종가 기준 ·
+    전종목 ${Number(d.universe_count || 0).toLocaleString()}개 검사
+    ${d.fetch_failures ? ` · 조회 실패 ${d.fetch_failures}개` : ""}</p>`;
+
+  list.innerHTML =
+    meta +
+    scrSection("🟢", "진입 조건 충족", "일봉으로 판정 완료", entries, "entry") +
+    scrSection("🟡", "감시 후보", "장중 1분봉을 직접 확인해야 함", watch, "watch") +
+    scrSection("🔴", "진입 금지", "전략에는 맞지만 킬스위치에 걸림", danger, "danger");
 }
 
 function setLastUpdated() {
@@ -1023,7 +1075,7 @@ async function loadAll() {
       loadJSON("summaries.json"),
       loadJSON("morning_brief.json").catch(() => ({})),
       loadJSON("calendar.json").catch(() => ({ months: [], events: [] })),
-      loadJSON("screening.json"),
+      loadJSON("screening.json").catch(() => ({})),
       loadJSON("channels.json").catch(() => []),
     ]);
     state.summaries = summaries;

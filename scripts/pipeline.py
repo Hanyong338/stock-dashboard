@@ -17,6 +17,7 @@ from transcript import get_transcript, is_retryable_error
 from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
 from calendar_data import KST, build_calendar
+from screening import build_screening
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "data"
@@ -26,6 +27,7 @@ SUMMARIES_FILE = DATA_DIR / "summaries.json"
 CHANNELS_OUT_FILE = DATA_DIR / "channels.json"
 MORNING_BRIEF_FILE = DATA_DIR / "morning_brief.json"
 CALENDAR_FILE = DATA_DIR / "calendar.json"
+SCREENING_FILE = DATA_DIR / "screening.json"
 
 MAX_SUMMARIES = 500
 RETENTION_DAYS = 7
@@ -44,6 +46,11 @@ CALENDAR_BUILDER_VERSION = 5
 # 같은 방송이면 다시 분석하지 않기 때문에, 이게 없으면 새 방송이 올라올 때까지 옛 형식이 남는다.
 # 올릴 때마다 제미나이 호출이 1회 더 발생한다는 점을 알고 올릴 것.
 MORNING_BRIEF_PROMPT_VERSION = 5
+
+# 기술적 분석 스크리닝. 전종목 약 2,900개를 훑어 3분쯤 걸리므로 매시간 돌리지 않는다.
+# 19시(장 마감 후)가 일봉이 확정된 진짜 판정 런이고, 8시는 재시도 겸 신선도용이다.
+SCREENING_SLOTS = {8: "morning", 19: "evening"}
+SCREENING_RULES_VERSION = 1
 
 
 def call_with_timeout(fn, timeout, *args, **kwargs):
@@ -262,6 +269,27 @@ def _refresh_market_overlay(report, now):
     return True
 
 
+def update_screening(now):
+    """기술적 분석 스크리닝을 한국시간 8시·19시 슬롯에 한 번씩만 돌린다.
+    같은 슬롯에서 이미 만들었으면 건너뛴다. 규칙을 고치면 버전을 올려 강제로 다시 돌린다."""
+    kst = now.astimezone(KST)
+    slot = SCREENING_SLOTS.get(kst.hour)
+    if not slot:
+        return False
+
+    current = load_json(SCREENING_FILE, {})
+    stamp = f"{kst.date().isoformat()}/{slot}"
+    if current.get("built_slot") == stamp and current.get("rules_version") == SCREENING_RULES_VERSION:
+        return False
+
+    data = build_screening(kst.date())
+    data["built_slot"] = stamp
+    data["rules_version"] = SCREENING_RULES_VERSION
+    data["updated_at"] = now.isoformat()
+    save_json(SCREENING_FILE, data)
+    return True
+
+
 def update_calendar(now):
     """증시 캘린더를 하루에 한 번만 다시 만든다.
     한 번에 100일 넘게 조회하므로 매시간 돌리면 API 호출이 낭비된다.
@@ -404,6 +432,12 @@ def main():
             commit_and_push(f"chore: update calendar {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] calendar build failed: {e}")
+
+    try:
+        if update_screening(now):
+            commit_and_push(f"chore: update screening {now.isoformat()}")
+    except Exception as e:
+        print(f"[WARN] screening failed: {e}")
 
     print("[INFO] Pipeline run complete.")
 
