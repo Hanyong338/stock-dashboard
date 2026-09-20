@@ -4,6 +4,7 @@
     "naver_trend": "200 / 10행",
     "yahoo_daily": "200 / 24봉"
   },
+  "chart_count": 27,
   "as_of_trading_day": "2026-09-18",
   "universe_count": 2646,
   "fetch_failures": 7,
@@ -548,6 +549,6 @@
     }
   ],
   "built_slot": "2026-09-20/manual",
-  "rules_version": 2,
-  "updated_at": "2026-09-20T01:45:03.687729+00:00"
+  "rules_version": 3,
+  "updated_at": "2026-09-20T02:03:06.863187+00:00"
 }
