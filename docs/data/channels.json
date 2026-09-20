@@ -2,8 +2,13 @@
   {
     "name": "한국경제TV",
     "channel_id": "UCF8AeLlUbEpKju6v1H6p8Eg",
-    "paused": true,
-    "note": "어떤 영상을 대상으로 할지 정할 때까지 요약 중지. 탭은 그대로 유지됨"
+    "exclude_live": true,
+    "title_include": [
+      "이선엽",
+      "박병창",
+      "황유현"
+    ],
+    "note": "채널 전체를 보되 제목에 지정 출연자가 들어간 영상만 요약. 당잠사는 별도 경로(morning_brief)로 처리되므로 여기서는 잡히지 않는다"
   },
   {
     "name": "815머니톡",
@@ -26,7 +31,12 @@
   {
     "name": "삼프로TV",
     "channel_id": "UChlv4GSd7OQl3js-jkLOnFA",
-    "playlist_id": "PLQvqXcm97CTCf_tqMOL0QpTCoMNwjCje5",
-    "note": "[박병창의 마켓 인사이드] 재생목록만 요약 (평일 오전 방송). 재생목록 자체가 대상을 한정하므로 exclude_live 는 켜지 않는다"
+    "exclude_live": true,
+    "title_include": [
+      "이선엽",
+      "박병창",
+      "황유현"
+    ],
+    "note": "재생목록 한정을 풀고 채널 전체에서 지정 출연자 영상을 잡는다. 박병창의 마켓 인사이드도 제목에 이름이 있어 그대로 포함된다"
   }
 ]
