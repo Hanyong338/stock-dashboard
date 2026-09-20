@@ -1109,12 +1109,18 @@ function buildChartOption(ec, data, dark) {
       });
   }
 
-  const lowIdx = lows.indexOf(Math.min(...lows.slice(-260)));
+  // 최근 120봉만 먼저 보여준다. 증권앱 기본 화면과 비슷한 밀도다.
+  const VIEW = 120;
+  const from = Math.max(0, closes.length - VIEW);
+  const startPct = (from / axis.length) * 100;
+
+  // 최저점은 반드시 '보이는 구간' 안에서 찾는다.
+  // 전체에서 찾으면 몇 년 전 바닥이 잡혀 기준선이 화면 밖으로 나가고,
+  // 그 선 때문에 Y축이 0까지 눌려서 캔들이 위쪽에 납작하게 깔린다.
+  let lowIdx = from;
+  for (let i = from; i < lows.length; i++) if (lows[i] < lows[lowIdx]) lowIdx = i;
   const lowVal = lows[lowIdx];
   const gain = (((closes[closes.length - 1] - lowVal) / lowVal) * 100).toFixed(2);
-
-  // 최근 120봉만 먼저 보여준다. 증권앱 기본 화면과 비슷한 밀도다.
-  const startPct = Math.max(0, ((dates.length - 120) / axis.length) * 100);
 
   return {
     backgroundColor: "transparent",
@@ -1196,7 +1202,7 @@ function buildChartOption(ec, data, dark) {
         stack: "cloud",
         symbol: "none",
         lineStyle: { opacity: 0 },
-        areaStyle: { color: dark ? "rgba(99,102,241,0.18)" : "rgba(99,102,241,0.12)" },
+        areaStyle: { color: dark ? "rgba(129,140,248,0.28)" : "rgba(99,102,241,0.18)" },
         silent: true,
         z: 1,
       },
