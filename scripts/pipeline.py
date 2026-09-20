@@ -36,6 +36,10 @@ SUMMARIZE_TIMEOUT_SECONDS = 300  # summarize.py의 재시도(최대 85초 대기
 MAX_VIDEO_DURATION_SECONDS = 3600  # 1시간 넘는 영상은 자막 생성 비용이 커서 아예 요약하지 않는다.
 MIN_VIDEO_DURATION_SECONDS = 181  # 3분 이하는 쇼츠(Shorts)라 요약하지 않는다. 유튜브 쇼츠 최대 길이가 3분.
 
+# 캘린더 생성 규칙(수집 범위·시간대 변환·범주 등)이 바뀌면 이 숫자를 올린다.
+# 캘린더는 하루 한 번만 만들기 때문에, 이게 없으면 코드를 고쳐도 그날은 옛 데이터가 그대로 남는다.
+CALENDAR_BUILDER_VERSION = 3
+
 
 def call_with_timeout(fn, timeout, *args, **kwargs):
     """무료 자막 라이브러리 등 내부에 자체 타임아웃이 없는 호출이 영원히 멈춰서
@@ -232,20 +236,48 @@ def _overlay_session_closes(report, published):
     )
 
 
+def _refresh_market_overlay(report, now):
+    """AI 요약은 그대로 두고, 시세로 채우는 블록(지수·업종)만 다시 덮는다.
+    바뀐 게 없으면 저장하지 않는다. 매시간 의미 없는 커밋이 쌓이는 걸 막기 위해서다."""
+    if not report.get("video_id"):
+        return False
+
+    snapshot = json.dumps(
+        [report.get("indices"), report.get("sectors")], ensure_ascii=False, sort_keys=True
+    )
+    _overlay_session_closes(report, parse_published(report.get("published", "")) or now)
+    if snapshot == json.dumps(
+        [report.get("indices"), report.get("sectors")], ensure_ascii=False, sort_keys=True
+    ):
+        return False
+
+    report["fetched_at"] = now.isoformat()
+    save_json(MORNING_BRIEF_FILE, report)
+    print("[INFO] morning brief: 시세 블록(지수·업종)만 갱신")
+    return True
+
+
 def update_calendar(now):
     """증시 캘린더를 하루에 한 번만 다시 만든다.
     한 번에 100일 넘게 조회하므로 매시간 돌리면 API 호출이 낭비된다.
 
     기준 날짜는 반드시 한국시간이어야 한다. UTC 로 잡으면 한국 기준 00~09시 사이에는
-    '어제'로 계산돼서, 그 시간대 실행이 전부 '오늘 이미 만들었다'며 건너뛴다."""
+    '어제'로 계산돼서, 그 시간대 실행이 전부 '오늘 이미 만들었다'며 건너뛴다.
+
+    생성 규칙을 고쳤을 때도 다시 만들어야 하므로 builder_version 을 같이 본다.
+    날짜만 보면, 코드를 고쳐 배포해도 그날 안에는 반영이 안 된다."""
     current = load_json(CALENDAR_FILE, {})
     kst_today = now.astimezone(KST).date()
     today = kst_today.isoformat()
-    if current.get("built_on") == today:
+    if (
+        current.get("built_on") == today
+        and current.get("builder_version") == CALENDAR_BUILDER_VERSION
+    ):
         return False
 
     data = build_calendar(kst_today)
     data["built_on"] = today
+    data["builder_version"] = CALENDAR_BUILDER_VERSION
     data["updated_at"] = now.isoformat()
     save_json(CALENDAR_FILE, data)
     return True
@@ -253,7 +285,8 @@ def update_calendar(now):
 
 def update_morning_brief(now):
     """당잠사(한국경제TV) 최신 방송 1건만 분석해 아침 리포트를 만든다.
-    이미 같은 영상으로 만들어둔 리포트가 있으면 아무것도 하지 않는다. True를 반환하면 저장된 것."""
+    이미 같은 영상으로 만들어둔 리포트가 있으면 AI 요약은 건너뛰고 시세 블록만 갱신한다.
+    True를 반환하면 파일이 저장된 것이다."""
     videos = fetch_channel_videos(mb.CHANNEL_ID, max_results=5, playlist_id=mb.PLAYLIST_ID)
     if not videos:
         print("[WARN] morning brief: 당잠사 재생목록이 비어 있습니다")
@@ -262,7 +295,10 @@ def update_morning_brief(now):
     latest = videos[0]
     current = load_json(MORNING_BRIEF_FILE, {})
     if current.get("video_id") == latest["video_id"]:
-        return False  # 이미 최신 방송으로 만들어둔 리포트가 있다
+        # 같은 방송이니 AI 요약은 다시 만들 필요가 없다(= Gemini 비용 0).
+        # 다만 지수·업종은 시세에서 채우는 블록이라, 업종 목록 같은 코드를 고치면
+        # 새 방송이 올라올 때까지 낡은 값이 그대로 남는다. 야후 조회는 공짜라 매번 다시 덮는다.
+        return _refresh_market_overlay(current, now)
 
     duration = latest.get("duration_seconds")
     if duration is not None and duration >= MAX_VIDEO_DURATION_SECONDS:
