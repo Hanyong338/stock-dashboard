@@ -54,7 +54,7 @@ MORNING_BRIEF_PROMPT_VERSION = 5
 #   8시대  다음날 장 시작 전. 밤새 확정된 수급으로 같은 거래일을 다시 판정한다.
 #         워크플로에 UTC 23:20 크론을 따로 둔 이유가 이것이다(매시 정각 크론은 한국시간이 늘 정각이라 8:20 이 없다).
 SCREENING_SLOTS = {8: "morning", 16: "close"}
-SCREENING_RULES_VERSION = 6
+SCREENING_RULES_VERSION = 7
 
 
 def call_with_timeout(fn, timeout, *args, **kwargs):

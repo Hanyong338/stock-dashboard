@@ -26,6 +26,7 @@ from screening_rules import (
     MAX_PER_SECTION,
     SECTION_DESC,
     SECTION_EXITS,
+    SECTION_LEGEND,
     SECTION_NAME,
     SECTION_ORDER,
     SECTIONS,
@@ -374,40 +375,53 @@ def match_closing_bet(b, s, flow):
 
 def match_swing_pullback(b, s, flow):
     c, v, o, h, l = b["close"], b["volume"], b["open"], b["high"], b["low"]
-    if len(c) < 90:
-        return None, None
     p = SECTIONS[1]["params"]
-
-    seg = c[-60:]
-    peak_i = seg.index(max(seg))
-    trough = min(seg[: peak_i + 1]) if peak_i > 0 else None
-    if not trough or pct(seg[peak_i], trough) < p["min_rally_pct"]:
+    win = p["rally_window"] + p["pullback_days"][1]  # 급등 구간 + 조정 구간을 모두 담을 만큼
+    if len(c) < win + 25:
         return None, None
 
-    bars_since_peak = len(seg) - 1 - peak_i
+    seg_c, seg_v, seg_o = c[-win:], v[-win:], o[-win:]
+    peak_i = max(range(len(seg_c)), key=lambda i: seg_c[i])
+    bars_since_peak = len(seg_c) - 1 - peak_i
     lo_d, hi_d = p["pullback_days"]
     if not lo_d <= bars_since_peak <= hi_d:
         return None, None
 
-    peak_v = max(v[-60 : -60 + peak_i + 1]) if peak_i >= 0 else 0
-    calm_v = sum(v[-5:]) / 5
-    if not peak_v:
+    # 1차 상승 파동: 고점 직전 저점 대비 상승률, 또는 고점일이 거래대금 큰 장대양봉이면 인정
+    trough = min(seg_c[: peak_i + 1]) if peak_i > 0 else seg_c[0]
+    rally = pct(seg_c[peak_i], trough) if trough else 0
+    peak_value = seg_c[peak_i] * seg_v[peak_i]  # 그날 거래대금(종가 x 거래량으로 근사)
+    big_candle = (
+        peak_value >= p["big_candle_value"]
+        and seg_c[peak_i] > seg_o[peak_i]
+        and pct(seg_c[peak_i], seg_o[peak_i]) >= 3.0
+    )
+    if rally < p["min_rally_pct"] and not big_candle:
         return None, None
-    drop = 1 - calm_v / peak_v
-    if not (p["volume_drop"][0] <= drop <= p["volume_drop"][1]):
+
+    # 거래량 마름: 급등일 대비 절반 이하 '또는' 20일 평균 이하
+    peak_v = seg_v[peak_i]
+    calm_v = sum(v[-3:]) / 3
+    avg20v = ma(v, 20) or 0
+    dried = (peak_v and calm_v <= peak_v * p["max_volume_ratio"]) or (avg20v and calm_v <= avg20v)
+    if not dried:
         return None, None
+    drop = (1 - calm_v / peak_v) * 100 if peak_v else 0
 
     close, open_, high, low = c[-1], o[-1], h[-1], l[-1]
     near = lambda line: line and abs(close - line) / line <= 0.03
     held = lambda line: line and all(abs(l[-i] - line) / line <= 0.035 for i in (1, 2, 3))
 
+    lead = f"1차 상승 +{rally:.0f}%" if rally >= p["min_rally_pct"] else f"거래대금 {peak_value / 1e8:.0f}억 장대양봉"
+    tail = f"고점 후 {bars_since_peak}거래일 조정 · 거래량 {drop:.0f}% 감소"
+
     ma20, ma10, ma60 = ma(c, 20), ma(c, 10), ma(c, 60)
     if near(ma20) and ((close < open_ and lower_tail(open_, high, low, close) >= 0.4) or held(ma20)):
-        return "20일선", f"고점 후 {bars_since_peak}거래일 조정 · 거래량 {drop * 100:.0f}% 감소 · 20일선 지지"
+        return "20일선", f"{lead} · {tail} · 20일선 지지"
     if near(ma10) and body_ratio(open_, high, low, close) <= 0.15:
-        return "10일선", f"고점 후 {bars_since_peak}거래일 조정 · 거래량 {drop * 100:.0f}% 감소 · 10일선 도지 지지"
+        return "10일선", f"{lead} · {tail} · 10일선 도지 지지"
     if near(ma60) and held(ma60) and ma20 and close < ma20:
-        return "60일선", f"20일선 이탈 후 60일선 3일 저점 지지 · 거래량 {drop * 100:.0f}% 감소"
+        return "60일선", f"{lead} · {tail} · 20일선 이탈 후 60일선 3일 저점 지지"
     return None, None
 
 
@@ -569,7 +583,7 @@ def build_screening(today=None, charts_dir=None):
     tag_map, theme_leaders = fetch_theme_map()
 
     sections = {sid: [] for sid in SECTION_ORDER}
-    danger = []
+    dropped = 0
     for res, flow in zip(scanned, flows):
         s, bars = res["stock"], res["bars"]
         base = {
@@ -590,24 +604,21 @@ def build_screening(today=None, charts_dir=None):
                 "individual": flow[0]["individual"],
             }
 
+        # 체급 미달·킬스위치는 즉시 영구 탈락이다. 결과에 노출하지 않는다.
+        # (예전엔 '진입 금지' 목록으로 보여줬는데, 안 살 종목을 보여줄 이유가 없다.)
         blocked = no_major_flow(flow, res["quote"]["close"]) or kill_checks(bars, s, flow)
-        hit = None
+        if blocked:
+            dropped += 1
+            continue
+
         for sid, fn in MATCHERS:
             kind, reason = fn(bars, s, flow)
             if reason:
-                hit = (sid, kind, reason)
+                sections[sid].append(
+                    {**base, "section": sid, "section_name": SECTION_NAME[sid], "type": kind,
+                     "reason": reason, "exits": SECTION_EXITS[sid]}
+                )
                 break  # 중복 배정 금지. MATCHERS 순서가 곧 우선순위다.
-
-        if blocked:
-            if hit:  # 전략엔 맞는데 걸린 종목만 보여준다. 전종목을 띄우면 목록이 못 쓰게 된다.
-                danger.append({**base, "reason": blocked, "section_name": SECTION_NAME[hit[0]]})
-            continue
-        if hit:
-            sid, kind, reason = hit
-            sections[sid].append(
-                {**base, "section": sid, "section_name": SECTION_NAME[sid], "type": kind,
-                 "reason": reason, "exits": SECTION_EXITS[sid]}
-            )
 
     # 섹션 안에서 거래대금순으로만 10개를 자르면, 조건이 느슨한 유형이 자리를 다 먹는다.
     # 실제로 대시세 추세가 전부 유형 C 로만 채워져 A(정배열 신고가)·B(480일선 삼세판)가
@@ -624,17 +635,16 @@ def build_screening(today=None, charts_dir=None):
         sections[sid] = sorted(picked_sec, key=lambda x: -x["trading_value_eok"])
 
     picked = [e for sid in SECTION_ORDER for e in sections[sid]]
-    danger = sorted(danger, key=lambda x: -x["trading_value_eok"])[:8]
     charts = write_chart_files(
         [{"code": e["code"], "name": e["name"], "symbol": f"{e['code']}.{'KS' if e['market'] == 'KOSPI' else 'KQ'}"}
-         for e in picked + danger],
+         for e in picked],
         charts_dir,
     )
 
     print(
         "[INFO] 스크리닝: "
         + " / ".join(f"{SECTION_NAME[sid]} {len(sections[sid])}" for sid in SECTION_ORDER)
-        + f" / 금지 {len(danger)} / 조회실패 {failures}"
+        + f" / 탈락 {dropped} / 조회실패 {failures}"
     )
     return {
         "probe": probe,
@@ -642,11 +652,17 @@ def build_screening(today=None, charts_dir=None):
         "as_of_trading_day": scanned[0]["quote"]["trading_day"] if scanned else "",
         "universe_count": len(passed) + len(rejected),
         "base_passed": len(passed),
+        "dropped": dropped,
         "fetch_failures": failures,
         "theme_leaders": theme_leaders,
         "sections": [
-            {"id": sid, "name": SECTION_NAME[sid], "desc": SECTION_DESC[sid], "items": sections[sid]}
+            {
+                "id": sid,
+                "name": SECTION_NAME[sid],
+                "desc": SECTION_DESC[sid],
+                "legend": SECTION_LEGEND[sid],
+                "items": sections[sid],
+            }
             for sid in SECTION_ORDER
         ],
-        "danger": danger,
     }
