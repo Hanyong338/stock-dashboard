@@ -76,6 +76,12 @@ COUNTRY_RULES = {
             "Retail Sales": "미국 소매판매",
             "ISM Manufacturing PMI": "ISM 제조업",
             "ISM Non-Manufacturing PMI": "ISM 서비스업",
+            # S&P글로벌 PMI 는 ISM 보다 먼저 나오는 속보치라 장중 변동성을 자주 만든다.
+            # Composite 은 위 둘의 합성이라 중복이므로 키를 정확히 잡아 제외한다.
+            "S&P Global Manufacturing PMI": "S&P글로벌 제조업 PMI",
+            "S&P Global Services PMI": "S&P글로벌 서비스업 PMI",
+            "Richmond Manufacturing Index": "리치먼드 연은지수",
+            "Current Account": "미국 경상수지",
             "Durable Goods Orders": "미국 내구재",
             "Michigan Consumer Sentiment": "미시간 소비심리",
             "CB Consumer Confidence": "미국 소비자신뢰",
