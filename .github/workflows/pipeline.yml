@@ -2,7 +2,10 @@ name: stock-youtube-pipeline
 
 on:
   schedule:
-    - cron: "0 * * * *" # 매시 정각 (UTC 기준, 1시간마다)
+    - cron: "0 * * * *" # 매시 정각 (UTC 기준, 1시간마다) — 유튜브·브리핑·캘린더
+    # 시그널 스크리너용 추가 실행. UTC 23:20 = 한국시간 08:20 (장 시작 전).
+    # 매시 정각 크론만으론 한국시간이 항상 정각이라 08:20 에 도는 실행이 없다.
+    - cron: "20 23 * * *"
   workflow_dispatch: {} # Actions 탭에서 수동 실행 가능
 
 permissions:
@@ -34,6 +37,6 @@ jobs:
         run: |
           git config user.name "stock-dashboard-bot"
           git config user.email "actions@github.com"
-          git add docs/data/*.json
+          git add docs/data
           git diff --cached --quiet || git commit -m "chore: update data $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           git push
