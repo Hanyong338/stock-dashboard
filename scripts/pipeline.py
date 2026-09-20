@@ -40,6 +40,11 @@ MIN_VIDEO_DURATION_SECONDS = 181  # 3분 이하는 쇼츠(Shorts)라 요약하�
 # 캘린더는 하루 한 번만 만들기 때문에, 이게 없으면 코드를 고쳐도 그날은 옛 데이터가 그대로 남는다.
 CALENDAR_BUILDER_VERSION = 4
 
+# 당잠사 리포트의 프롬프트/출력 형식을 바꾸면 이 숫자를 올린다.
+# 같은 방송이면 다시 분석하지 않기 때문에, 이게 없으면 새 방송이 올라올 때까지 옛 형식이 남는다.
+# 올릴 때마다 제미나이 호출이 1회 더 발생한다는 점을 알고 올릴 것.
+MORNING_BRIEF_PROMPT_VERSION = 2
+
 
 def call_with_timeout(fn, timeout, *args, **kwargs):
     """무료 자막 라이브러리 등 내부에 자체 타임아웃이 없는 호출이 영원히 멈춰서
@@ -294,8 +299,11 @@ def update_morning_brief(now):
 
     latest = videos[0]
     current = load_json(MORNING_BRIEF_FILE, {})
-    if current.get("video_id") == latest["video_id"]:
-        # 같은 방송이니 AI 요약은 다시 만들 필요가 없다(= Gemini 비용 0).
+    if (
+        current.get("video_id") == latest["video_id"]
+        and current.get("prompt_version") == MORNING_BRIEF_PROMPT_VERSION
+    ):
+        # 같은 방송이고 형식도 그대로니 AI 요약은 다시 만들 필요가 없다(= Gemini 비용 0).
         # 다만 지수·업종은 시세에서 채우는 블록이라, 업종 목록 같은 코드를 고치면
         # 새 방송이 올라올 때까지 낡은 값이 그대로 남는다. 야후 조회는 공짜라 매번 다시 덮는다.
         return _refresh_market_overlay(current, now)
@@ -323,6 +331,7 @@ def update_morning_brief(now):
     report.update(
         {
             "video_id": latest["video_id"],
+            "prompt_version": MORNING_BRIEF_PROMPT_VERSION,
             "title": latest["title"],
             "url": latest["url"],
             "published": latest.get("published", ""),
