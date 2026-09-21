@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "2026 하반기 신규상장",
-      "change_percent": 26.72,
+      "change_percent": 27.18,
       "total": 13,
       "rise": 9
     },
     {
+      "name": "지역화폐",
+      "change_percent": 4.45,
+      "total": 5,
+      "rise": 5
+    },
+    {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 4.15,
+      "change_percent": 4.37,
       "total": 7,
       "rise": 7
     },
     {
       "name": "시스템반도체",
-      "change_percent": 4.07,
+      "change_percent": 4.34,
       "total": 58,
-      "rise": 47
+      "rise": 49
     },
     {
       "name": "HBM(고대역폭메모리)",
-      "change_percent": 3.96,
+      "change_percent": 4.23,
       "total": 34,
       "rise": 30
+    },
+    {
+      "name": "반도체 재료/부품",
+      "change_percent": 4.1,
+      "total": 71,
+      "rise": 59
     },
     {
       "name": "가상화폐(비트코인 등)",
       "change_percent": 3.95,
       "total": 25,
-      "rise": 16
-    },
-    {
-      "name": "반도체 재료/부품",
-      "change_percent": 3.87,
-      "total": 71,
-      "rise": 55
-    },
-    {
-      "name": "의료AI",
-      "change_percent": 3.8,
-      "total": 29,
-      "rise": 18
+      "rise": 17
     },
     {
       "name": "지능형로봇/인공지능(AI)",
-      "change_percent": 3.55,
+      "change_percent": 3.94,
       "total": 69,
-      "rise": 31
+      "rise": 34
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-21T10:14:05.789354+00:00"
+  "updated_at": "2026-09-21T11:13:37.727919+00:00"
 }
