@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "2026 하반기 신규상장",
-      "change_percent": 20.09,
+      "change_percent": 23.81,
       "total": 13,
-      "rise": 10
+      "rise": 8
     },
     {
       "name": "의료AI",
-      "change_percent": 4.24,
+      "change_percent": 4.1,
       "total": 29,
-      "rise": 15
+      "rise": 18
     },
     {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 3.7,
+      "change_percent": 3.68,
       "total": 7,
       "rise": 7
     },
     {
+      "name": "반도체 재료/부품",
+      "change_percent": 3.52,
+      "total": 71,
+      "rise": 53
+    },
+    {
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 3.5,
+      "total": 34,
+      "rise": 27
+    },
+    {
       "name": "시스템반도체",
-      "change_percent": 3.51,
+      "change_percent": 3.37,
       "total": 58,
-      "rise": 37
+      "rise": 43
     },
     {
       "name": "가상화폐(비트코인 등)",
-      "change_percent": 3.1,
+      "change_percent": 3.06,
       "total": 25,
       "rise": 15
     },
     {
-      "name": "반도체 재료/부품",
-      "change_percent": 3.08,
-      "total": 71,
-      "rise": 49
-    },
-    {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 3.02,
-      "total": 34,
-      "rise": 24
-    },
-    {
-      "name": "퓨리오사AI",
-      "change_percent": 2.72,
-      "total": 11,
-      "rise": 6
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 2.82,
+      "total": 13,
+      "rise": 11
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-21T05:13:52.888174+00:00"
+  "updated_at": "2026-09-21T06:20:01.621923+00:00"
 }
