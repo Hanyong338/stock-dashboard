@@ -5,60 +5,60 @@
     "naver_theme": "OK / 5건",
     "yahoo_daily": "OK / 22건"
   },
-  "chart_count": 29,
-  "as_of_trading_day": "2026-09-21",
-  "universe_count": 2645,
-  "base_passed": 246,
-  "dropped": 104,
+  "chart_count": 25,
+  "as_of_trading_day": "2026-09-22",
+  "universe_count": 2646,
+  "base_passed": 259,
+  "dropped": 111,
   "fetch_failures": 0,
   "theme_leaders": [
     {
-      "name": "2026 하반기 신규상장",
-      "change_percent": 25.01,
-      "total": 13,
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 9.8,
+      "total": 14,
+      "rise": 14
+    },
+    {
+      "name": "소캠(SOCAMM)",
+      "change_percent": 7.93,
+      "total": 11,
+      "rise": 9
+    },
+    {
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": 4.98,
+      "total": 9,
       "rise": 8
     },
     {
-      "name": "의료AI",
-      "change_percent": 3.74,
-      "total": 29,
-      "rise": 17
-    },
-    {
-      "name": "반도체 재료/부품",
-      "change_percent": 3.7,
-      "total": 71,
-      "rise": 53
-    },
-    {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 3.61,
-      "total": 34,
-      "rise": 28
-    },
-    {
-      "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 3.6,
-      "total": 7,
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 4.35,
+      "total": 13,
       "rise": 7
     },
     {
-      "name": "시스템반도체",
-      "change_percent": 3.51,
-      "total": 58,
-      "rise": 46
+      "name": "PCB(FPCB 등)",
+      "change_percent": 3.35,
+      "total": 31,
+      "rise": 19
     },
     {
-      "name": "가상화폐(비트코인 등)",
-      "change_percent": 3.3,
-      "total": 25,
+      "name": "온디바이스 AI",
+      "change_percent": 3.24,
+      "total": 24,
       "rise": 16
     },
     {
-      "name": "지능형로봇/인공지능(AI)",
-      "change_percent": 3.0,
-      "total": 69,
-      "rise": 23
+      "name": "퓨리오사AI",
+      "change_percent": 2.61,
+      "total": 11,
+      "rise": 5
+    },
+    {
+      "name": "원자력발전소 해체",
+      "change_percent": 2.54,
+      "total": 15,
+      "rise": 12
     }
   ],
   "sections": [
@@ -73,29 +73,29 @@
       ],
       "items": [
         {
-          "code": "005930",
-          "name": "삼성전자",
+          "code": "003490",
+          "name": "대한항공",
           "market": "KOSPI",
           "tags": [
-            "HBM(고대역폭메모리)",
-            "S7(삼성전자/SK하이닉스 등)"
+            "항공/저가 항공사(LCC)",
+            "UAM(도심항공모빌리티)"
           ],
-          "trading_value_eok": 58542,
-          "market_cap_eok": 15931109,
-          "close": 274000,
-          "change_percent": 4.98,
-          "volume": 23003165,
-          "url": "https://m.stock.naver.com/domestic/stock/005930/total",
+          "trading_value_eok": 2090,
+          "market_cap_eok": 115621,
+          "close": 31400,
+          "change_percent": 8.84,
+          "volume": 6961195,
+          "url": "https://m.stock.naver.com/domestic/stock/003490/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -1673323,
-            "organ": 2746972,
-            "individual": -2975813
+            "date": "20260921",
+            "foreign": -137022,
+            "organ": 71645,
+            "individual": 72794
           },
           "section": "CLOSING_BET",
           "section_name": "종가베팅 유력주",
           "type": "A",
-          "reason": "기관 순매수 7527억 집중 + 윗꼬리 없는 양봉 고가 마감",
+          "reason": "기관 순매수 22억 집중 + 윗꼬리 없는 양봉 고가 마감",
           "exits": [
             "15:20 동시호가 종가 매수",
             "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
@@ -103,29 +103,29 @@
           ]
         },
         {
-          "code": "232140",
-          "name": "와이씨",
-          "market": "KOSDAQ",
+          "code": "007810",
+          "name": "코리아써키트",
+          "market": "KOSPI",
           "tags": [
-            "HBM(고대역폭메모리)",
-            "반도체 장비"
+            "반도체 기판(FC-BGA/PCB/MLB 등)",
+            "소캠(SOCAMM)"
           ],
-          "trading_value_eok": 1409,
-          "market_cap_eok": 11650,
-          "close": 14250,
-          "change_percent": 19.65,
-          "volume": 10271621,
-          "url": "https://m.stock.naver.com/domestic/stock/232140/total",
+          "trading_value_eok": 1854,
+          "market_cap_eok": 15733,
+          "close": 65600,
+          "change_percent": 25.43,
+          "volume": 2858744,
+          "url": "https://m.stock.naver.com/domestic/stock/007810/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -198911,
-            "organ": -4899,
-            "individual": 203315
+            "date": "20260921",
+            "foreign": -5008,
+            "organ": 2379,
+            "individual": 616
           },
           "section": "CLOSING_BET",
           "section_name": "종가베팅 유력주",
           "type": "C",
-          "reason": "480일선 장대양봉 종가 돌파 · 거래대금 1409억 · 거래량 전일 969%",
+          "reason": "240일선 장대양봉 종가 돌파 · 거래대금 1854억 · 거래량 전일 2390%",
           "exits": [
             "15:20 동시호가 종가 매수",
             "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
@@ -133,29 +133,29 @@
           ]
         },
         {
-          "code": "028260",
-          "name": "삼성물산",
+          "code": "033780",
+          "name": "KT&G",
           "market": "KOSPI",
           "tags": [
-            "S7(삼성전자/SK하이닉스 등)",
-            "태양광에너지"
+            "밸류업(24년 기업가치 제고계획 발표)",
+            "코리아 밸류업 지수(Korea Value-up Index)"
           ],
-          "trading_value_eok": 1124,
-          "market_cap_eok": 594344,
-          "close": 367500,
-          "change_percent": 4.7,
-          "volume": 351216,
-          "url": "https://m.stock.naver.com/domestic/stock/028260/total",
+          "trading_value_eok": 628,
+          "market_cap_eok": 184056,
+          "close": 177300,
+          "change_percent": 2.01,
+          "volume": 394042,
+          "url": "https://m.stock.naver.com/domestic/stock/033780/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -60640,
-            "organ": 12529,
-            "individual": 47930
+            "date": "20260921",
+            "foreign": 12071,
+            "organ": 2817,
+            "individual": -14228
           },
           "section": "CLOSING_BET",
           "section_name": "종가베팅 유력주",
           "type": "A",
-          "reason": "기관 순매수 46억 집중 + 윗꼬리 없는 양봉 고가 마감",
+          "reason": "외국인 순매수 21억 집중 + 윗꼬리 없는 양봉 고가 마감",
           "exits": [
             "15:20 동시호가 종가 매수",
             "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
@@ -163,89 +163,59 @@
           ]
         },
         {
-          "code": "000990",
-          "name": "DB하이텍",
-          "market": "KOSPI",
-          "tags": [
-            "반도체 대표주(생산)",
-            "전력반도체"
-          ],
-          "trading_value_eok": 818,
-          "market_cap_eok": 56730,
-          "close": 131900,
-          "change_percent": 4.6,
-          "volume": 657905,
-          "url": "https://m.stock.naver.com/domestic/stock/000990/total",
-          "flow": {
-            "date": "20260918",
-            "foreign": -41900,
-            "organ": 19198,
-            "individual": 21956
-          },
-          "section": "CLOSING_BET",
-          "section_name": "종가베팅 유력주",
-          "type": "A",
-          "reason": "기관 순매수 25억 집중 + 윗꼬리 없는 양봉 고가 마감",
-          "exits": [
-            "15:20 동시호가 종가 매수",
-            "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
-            "돌파선·지지선 이탈 시 손절"
-          ]
-        },
-        {
-          "code": "086790",
-          "name": "하나금융지주",
-          "market": "KOSPI",
-          "tags": [
-            "STO(토큰증권 발행)",
-            "토스(toss)"
-          ],
-          "trading_value_eok": 563,
-          "market_cap_eok": 367706,
-          "close": 135700,
-          "change_percent": 1.95,
-          "volume": 478310,
-          "url": "https://m.stock.naver.com/domestic/stock/086790/total",
-          "flow": {
-            "date": "20260918",
-            "foreign": -169498,
-            "organ": 40509,
-            "individual": 130691
-          },
-          "section": "CLOSING_BET",
-          "section_name": "종가베팅 유력주",
-          "type": "A",
-          "reason": "기관 순매수 55억 집중 + 윗꼬리 없는 양봉 고가 마감",
-          "exits": [
-            "15:20 동시호가 종가 매수",
-            "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
-            "돌파선·지지선 이탈 시 손절"
-          ]
-        },
-        {
-          "code": "095610",
-          "name": "테스",
+          "code": "440110",
+          "name": "파두",
           "market": "KOSDAQ",
           "tags": [
-            "반도체 장비",
-            "전력반도체"
+            "CXL(컴퓨트익스프레스링크)",
+            "시스템반도체"
           ],
-          "trading_value_eok": 412,
-          "market_cap_eok": 28963,
-          "close": 149600,
-          "change_percent": 8.33,
-          "volume": 289709,
-          "url": "https://m.stock.naver.com/domestic/stock/095610/total",
+          "trading_value_eok": 455,
+          "market_cap_eok": 36230,
+          "close": 72300,
+          "change_percent": 10.38,
+          "volume": 651046,
+          "url": "https://m.stock.naver.com/domestic/stock/440110/total",
           "flow": {
-            "date": "20260918",
-            "foreign": 24088,
-            "organ": -7092,
-            "individual": -17640
+            "date": "20260921",
+            "foreign": 7916,
+            "organ": 17258,
+            "individual": -26903
           },
           "section": "CLOSING_BET",
           "section_name": "종가베팅 유력주",
           "type": "A",
-          "reason": "외국인 순매수 36억 집중 + 윗꼬리 없는 양봉 고가 마감",
+          "reason": "기관 순매수 12억 집중 + 윗꼬리 없는 양봉 고가 마감",
+          "exits": [
+            "15:20 동시호가 종가 매수",
+            "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
+            "돌파선·지지선 이탈 시 손절"
+          ]
+        },
+        {
+          "code": "005160",
+          "name": "동국산업",
+          "market": "KOSDAQ",
+          "tags": [
+            "풍력에너지",
+            "철강 중소형"
+          ],
+          "trading_value_eok": 427,
+          "market_cap_eok": 1969,
+          "close": 3680,
+          "change_percent": 13.58,
+          "volume": 11423915,
+          "url": "https://m.stock.naver.com/domestic/stock/005160/total",
+          "flow": {
+            "date": "20260921",
+            "foreign": 83806,
+            "organ": 0,
+            "individual": -83306
+          },
+          "section": "CLOSING_BET",
+          "section_name": "종가베팅 유력주",
+          "type": "C",
+          "reason": "480일선 장대양봉 종가 돌파 · 거래대금 427억 · 거래량 전일 2099%",
           "exits": [
             "15:20 동시호가 종가 매수",
             "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
@@ -257,80 +227,20 @@
           "name": "티에스이",
           "market": "KOSDAQ",
           "tags": [
-            "반도체 장비",
-            "LED장비"
+            "LED장비",
+            "반도체 장비"
           ],
-          "trading_value_eok": 308,
-          "market_cap_eok": 29811,
-          "close": 269500,
-          "change_percent": 10.91,
-          "volume": 123274,
+          "trading_value_eok": 266,
+          "market_cap_eok": 31083,
+          "close": 281000,
+          "change_percent": 4.27,
+          "volume": 98940,
           "url": "https://m.stock.naver.com/domestic/stock/131290/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -29870,
-            "organ": 5698,
-            "individual": 23606
-          },
-          "section": "CLOSING_BET",
-          "section_name": "종가베팅 유력주",
-          "type": "A",
-          "reason": "기관 순매수 15억 집중 + 윗꼬리 없는 양봉 고가 마감",
-          "exits": [
-            "15:20 동시호가 종가 매수",
-            "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
-            "돌파선·지지선 이탈 시 손절"
-          ]
-        },
-        {
-          "code": "138040",
-          "name": "메리츠금융지주",
-          "market": "KOSPI",
-          "tags": [
-            "밸류업(24년 기업가치 제고계획 발표)",
-            "코리아 밸류업 지수(Korea Value-up Index)"
-          ],
-          "trading_value_eok": 217,
-          "market_cap_eok": 217384,
-          "close": 129900,
-          "change_percent": 2.36,
-          "volume": 184030,
-          "url": "https://m.stock.naver.com/domestic/stock/138040/total",
-          "flow": {
-            "date": "20260918",
-            "foreign": -32204,
-            "organ": 26766,
-            "individual": 5359
-          },
-          "section": "CLOSING_BET",
-          "section_name": "종가베팅 유력주",
-          "type": "A",
-          "reason": "기관 순매수 35억 집중 + 윗꼬리 없는 양봉 고가 마감",
-          "exits": [
-            "15:20 동시호가 종가 매수",
-            "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
-            "돌파선·지지선 이탈 시 손절"
-          ]
-        },
-        {
-          "code": "192650",
-          "name": "드림텍",
-          "market": "KOSPI",
-          "tags": [
-            "반도체 재료/부품",
-            "밸류업(24년 기업가치 제고계획 발표)"
-          ],
-          "trading_value_eok": 208,
-          "market_cap_eok": 5370,
-          "close": 8200,
-          "change_percent": 7.33,
-          "volume": 2625494,
-          "url": "https://m.stock.naver.com/domestic/stock/192650/total",
-          "flow": {
-            "date": "20260918",
-            "foreign": -334893,
-            "organ": 246290,
-            "individual": 89398
+            "date": "20260921",
+            "foreign": -11980,
+            "organ": 7086,
+            "individual": -382
           },
           "section": "CLOSING_BET",
           "section_name": "종가베팅 유력주",
@@ -343,28 +253,86 @@
           ]
         },
         {
-          "code": "420770",
-          "name": "기가비스",
-          "market": "KOSDAQ",
-          "tags": [
-            "반도체 기판(FC-BGA/PCB/MLB 등)"
-          ],
-          "trading_value_eok": 120,
-          "market_cap_eok": 13931,
-          "close": 109900,
-          "change_percent": -2.83,
-          "volume": 113420,
-          "url": "https://m.stock.naver.com/domestic/stock/420770/total",
+          "code": "003160",
+          "name": "디아이",
+          "market": "KOSPI",
+          "tags": [],
+          "trading_value_eok": 240,
+          "market_cap_eok": 9848,
+          "close": 34800,
+          "change_percent": -1.69,
+          "volume": 708600,
+          "url": "https://m.stock.naver.com/domestic/stock/003160/total",
           "flow": {
-            "date": "20260918",
-            "foreign": 20775,
-            "organ": 38216,
-            "individual": -59801
+            "date": "20260921",
+            "foreign": 427723,
+            "organ": 298898,
+            "individual": -707406
           },
           "section": "CLOSING_BET",
           "section_name": "종가베팅 유력주",
           "type": "B",
-          "reason": "전일 +11.6% 대량 급등 → 거래량 31% 급감 · 도지(-1.1%) · 10일선 종가 사수",
+          "reason": "전일 +12.4% 대량 급등 → 거래량 37% 급감 · 도지(-0.9%) · 10일선 종가 사수",
+          "exits": [
+            "15:20 동시호가 종가 매수",
+            "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
+            "돌파선·지지선 이탈 시 손절"
+          ]
+        },
+        {
+          "code": "100840",
+          "name": "SNT에너지",
+          "market": "KOSPI",
+          "tags": [
+            "원자력발전",
+            "셰일가스(Shale Gas)"
+          ],
+          "trading_value_eok": 219,
+          "market_cap_eok": 7962,
+          "close": 38500,
+          "change_percent": 4.76,
+          "volume": 565621,
+          "url": "https://m.stock.naver.com/domestic/stock/100840/total",
+          "flow": {
+            "date": "20260921",
+            "foreign": 1590,
+            "organ": 7605,
+            "individual": -12753
+          },
+          "section": "CLOSING_BET",
+          "section_name": "종가베팅 유력주",
+          "type": "C",
+          "reason": "480일선 장대양봉 종가 돌파 · 거래대금 219억 · 거래량 전일 628%",
+          "exits": [
+            "15:20 동시호가 종가 매수",
+            "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
+            "돌파선·지지선 이탈 시 손절"
+          ]
+        },
+        {
+          "code": "077360",
+          "name": "덕산하이메탈",
+          "market": "KOSDAQ",
+          "tags": [
+            "반도체 기판(FC-BGA/PCB/MLB 등)",
+            "그래핀"
+          ],
+          "trading_value_eok": 125,
+          "market_cap_eok": 5857,
+          "close": 12930,
+          "change_percent": 4.7,
+          "volume": 1002736,
+          "url": "https://m.stock.naver.com/domestic/stock/077360/total",
+          "flow": {
+            "date": "20260921",
+            "foreign": -291584,
+            "organ": 253533,
+            "individual": 36656
+          },
+          "section": "CLOSING_BET",
+          "section_name": "종가베팅 유력주",
+          "type": "A",
+          "reason": "기관 순매수 33억 집중 + 윗꼬리 없는 양봉 고가 마감",
           "exits": [
             "15:20 동시호가 종가 매수",
             "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
@@ -380,118 +348,29 @@
       "legend": [],
       "items": [
         {
-          "code": "006400",
-          "name": "삼성SDI",
-          "market": "KOSPI",
-          "tags": [
-            "IT 대표주",
-            "아이폰"
-          ],
-          "trading_value_eok": 1490,
-          "market_cap_eok": 429521,
-          "close": 533000,
-          "change_percent": -1.48,
-          "volume": 304411,
-          "url": "https://m.stock.naver.com/domestic/stock/006400/total",
-          "flow": {
-            "date": "20260918",
-            "foreign": -60841,
-            "organ": 17702,
-            "individual": 41974
-          },
-          "section": "SWING_PULLBACK",
-          "section_name": "눌림목 스윙 대기주",
-          "type": "20일선",
-          "reason": "1차 상승 +61% · 고점 후 15거래일 조정 · 거래량 67% 감소 · 20일선 지지",
-          "exits": [
-            "1회 매수 금지 — 3회 분할 매수",
-            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
-            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
-          ]
-        },
-        {
-          "code": "066570",
-          "name": "LG전자",
-          "market": "KOSPI",
-          "tags": [
-            "지능형로봇/인공지능(AI)",
-            "IT 대표주"
-          ],
-          "trading_value_eok": 968,
-          "market_cap_eok": 329841,
-          "close": 202500,
-          "change_percent": 2.07,
-          "volume": 508881,
-          "url": "https://m.stock.naver.com/domestic/stock/066570/total",
-          "flow": {
-            "date": "20260918",
-            "foreign": -78225,
-            "organ": 29662,
-            "individual": 50586
-          },
-          "section": "SWING_PULLBACK",
-          "section_name": "눌림목 스윙 대기주",
-          "type": "20일선",
-          "reason": "1차 상승 +46% · 고점 후 15거래일 조정 · 거래량 58% 감소 · 20일선 지지",
-          "exits": [
-            "1회 매수 금지 — 3회 분할 매수",
-            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
-            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
-          ]
-        },
-        {
-          "code": "108490",
-          "name": "로보티즈",
-          "market": "KOSDAQ",
-          "tags": [
-            "피지컬 AI/휴머노이드 로봇"
-          ],
-          "trading_value_eok": 470,
-          "market_cap_eok": 45028,
-          "close": 306000,
-          "change_percent": -0.16,
-          "volume": 159995,
-          "url": "https://m.stock.naver.com/domestic/stock/108490/total",
-          "flow": {
-            "date": "20260918",
-            "foreign": 7167,
-            "organ": -72514,
-            "individual": 64540
-          },
-          "section": "SWING_PULLBACK",
-          "section_name": "눌림목 스윙 대기주",
-          "type": "10일선",
-          "reason": "1차 상승 +105% · 고점 후 5거래일 조정 · 거래량 44% 감소 · 10일선 도지 지지",
-          "exits": [
-            "1회 매수 금지 — 3회 분할 매수",
-            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
-            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
-          ]
-        },
-        {
           "code": "000720",
           "name": "현대건설",
           "market": "KOSPI",
           "tags": [
-            "건설 대표주",
-            "풍력에너지"
+            "원자력발전소 해체",
+            "원자력발전"
           ],
-          "trading_value_eok": 470,
-          "market_cap_eok": 140420,
-          "close": 125600,
-          "change_percent": 0.64,
-          "volume": 395431,
+          "trading_value_eok": 1307,
+          "market_cap_eok": 146210,
+          "close": 131300,
+          "change_percent": 4.54,
+          "volume": 1004463,
           "url": "https://m.stock.naver.com/domestic/stock/000720/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -48429,
-            "organ": -19372,
-            "individual": 71125
+            "date": "20260921",
+            "foreign": -34543,
+            "organ": 11297,
+            "individual": 20369
           },
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
-          "type": "20일선",
-          "reason": "1차 상승 +65% · 고점 후 6거래일 조정 · 거래량 25% 감소 · 20일선 지지",
+          "type": "10일선",
+          "reason": "1차 상승 +43% · 고점 후 7거래일 조정 · 거래량 -2% 감소 · 10일선 도지 지지",
           "exits": [
             "1회 매수 금지 — 3회 분할 매수",
             "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
@@ -499,29 +378,59 @@
           ]
         },
         {
-          "code": "006360",
-          "name": "GS건설",
+          "code": "105560",
+          "name": "KB금융",
           "market": "KOSPI",
           "tags": [
-            "건설 대표주",
-            "수자원(양적/질적 개선)"
+            "카카오뱅크(kakao BANK)",
+            "은행"
           ],
-          "trading_value_eok": 446,
-          "market_cap_eok": 31366,
-          "close": 36600,
-          "change_percent": -0.68,
-          "volume": 1235596,
-          "url": "https://m.stock.naver.com/domestic/stock/006360/total",
+          "trading_value_eok": 1190,
+          "market_cap_eok": 623186,
+          "close": 175700,
+          "change_percent": -1.01,
+          "volume": 797400,
+          "url": "https://m.stock.naver.com/domestic/stock/105560/total",
           "flow": {
-            "date": "20260918",
-            "foreign": 112755,
-            "organ": 78643,
-            "individual": -175777
+            "date": "20260921",
+            "foreign": -48980,
+            "organ": 142205,
+            "individual": -91437
           },
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
           "type": "20일선",
-          "reason": "1차 상승 +73% · 고점 후 6거래일 조정 · 거래량 46% 감소 · 20일선 지지",
+          "reason": "거래대금 2007억 장대양봉 · 고점 후 6거래일 조정 · 거래량 22% 감소 · 20일선 지지",
+          "exits": [
+            "1회 매수 금지 — 3회 분할 매수",
+            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
+            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
+          ]
+        },
+        {
+          "code": "086790",
+          "name": "하나금융지주",
+          "market": "KOSPI",
+          "tags": [
+            "STO(토큰증권 발행)",
+            "토스(toss)"
+          ],
+          "trading_value_eok": 664,
+          "market_cap_eok": 368519,
+          "close": 136000,
+          "change_percent": 0.22,
+          "volume": 542338,
+          "url": "https://m.stock.naver.com/domestic/stock/086790/total",
+          "flow": {
+            "date": "20260921",
+            "foreign": -41212,
+            "organ": 104536,
+            "individual": -60104
+          },
+          "section": "SWING_PULLBACK",
+          "section_name": "눌림목 스윙 대기주",
+          "type": "20일선",
+          "reason": "거래대금 1006억 장대양봉 · 고점 후 6거래일 조정 · 거래량 1% 감소 · 20일선 지지",
           "exits": [
             "1회 매수 금지 — 3회 분할 매수",
             "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
@@ -535,52 +444,22 @@
           "tags": [
             "손해보험"
           ],
-          "trading_value_eok": 302,
-          "market_cap_eok": 291994,
-          "close": 651000,
-          "change_percent": 0.46,
-          "volume": 56657,
+          "trading_value_eok": 484,
+          "market_cap_eok": 292441,
+          "close": 655000,
+          "change_percent": 0.61,
+          "volume": 82651,
           "url": "https://m.stock.naver.com/domestic/stock/000810/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -18484,
-            "organ": 8095,
-            "individual": 10186
-          },
-          "section": "SWING_PULLBACK",
-          "section_name": "눌림목 스윙 대기주",
-          "type": "20일선",
-          "reason": "거래대금 1677억 장대양봉 · 고점 후 12거래일 조정 · 거래량 62% 감소 · 20일선 지지",
-          "exits": [
-            "1회 매수 금지 — 3회 분할 매수",
-            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
-            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
-          ]
-        },
-        {
-          "code": "003550",
-          "name": "LG",
-          "market": "KOSPI",
-          "tags": [
-            "스마트팩토리(스마트공장)",
-            "블록체인"
-          ],
-          "trading_value_eok": 151,
-          "market_cap_eok": 168277,
-          "close": 111300,
-          "change_percent": -0.54,
-          "volume": 164937,
-          "url": "https://m.stock.naver.com/domestic/stock/003550/total",
-          "flow": {
-            "date": "20260918",
-            "foreign": -8521,
-            "organ": 10719,
-            "individual": -637
+            "date": "20260921",
+            "foreign": -7603,
+            "organ": 8178,
+            "individual": -570
           },
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
           "type": "10일선",
-          "reason": "1차 상승 +29% · 고점 후 10거래일 조정 · 거래량 40% 감소 · 10일선 도지 지지",
+          "reason": "거래대금 1677억 장대양봉 · 고점 후 13거래일 조정 · 거래량 59% 감소 · 10일선 도지 지지",
           "exits": [
             "1회 매수 금지 — 3회 분할 매수",
             "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
@@ -593,24 +472,24 @@
           "market": "KOSPI",
           "tags": [
             "수자원(양적/질적 개선)",
-            "GTX(수도권 광역급행철도)"
+            "건설 중소형"
           ],
-          "trading_value_eok": 133,
-          "market_cap_eok": 4918,
-          "close": 12960,
-          "change_percent": -2.85,
-          "volume": 1019164,
+          "trading_value_eok": 240,
+          "market_cap_eok": 4929,
+          "close": 13230,
+          "change_percent": 2.08,
+          "volume": 1775693,
           "url": "https://m.stock.naver.com/domestic/stock/002990/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -128884,
-            "organ": 1727,
-            "individual": 144803
+            "date": "20260921",
+            "foreign": 26786,
+            "organ": 4238,
+            "individual": -52387
           },
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
           "type": "60일선",
-          "reason": "1차 상승 +93% · 고점 후 13거래일 조정 · 거래량 91% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
+          "reason": "1차 상승 +93% · 고점 후 14거래일 조정 · 거래량 88% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
           "exits": [
             "1회 매수 금지 — 3회 분할 매수",
             "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
@@ -618,29 +497,28 @@
           ]
         },
         {
-          "code": "088350",
-          "name": "한화생명",
+          "code": "112610",
+          "name": "씨에스윈드",
           "market": "KOSPI",
           "tags": [
-            "생명보험",
-            "야놀자(Yanolja)"
+            "풍력에너지"
           ],
-          "trading_value_eok": 131,
-          "market_cap_eok": 50375,
-          "close": 5780,
-          "change_percent": -1.37,
-          "volume": 2326477,
-          "url": "https://m.stock.naver.com/domestic/stock/088350/total",
+          "trading_value_eok": 101,
+          "market_cap_eok": 21254,
+          "close": 50400,
+          "change_percent": 0.0,
+          "volume": 204927,
+          "url": "https://m.stock.naver.com/domestic/stock/112610/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -834329,
-            "organ": 33193,
-            "individual": 779836
+            "date": "20260921",
+            "foreign": 1197,
+            "organ": 7926,
+            "individual": -7236
           },
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
           "type": "20일선",
-          "reason": "1차 상승 +45% · 고점 후 12거래일 조정 · 거래량 84% 감소 · 20일선 지지",
+          "reason": "1차 상승 +42% · 고점 후 5거래일 조정 · 거래량 41% 감소 · 20일선 지지",
           "exits": [
             "1회 매수 금지 — 3회 분할 매수",
             "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
@@ -660,29 +538,59 @@
       ],
       "items": [
         {
-          "code": "036540",
-          "name": "SFA반도체",
-          "market": "KOSDAQ",
+          "code": "000660",
+          "name": "SK하이닉스",
+          "market": "KOSPI",
           "tags": [
-            "시스템반도체",
-            "반도체 장비"
+            "소캠(SOCAMM)",
+            "CXL(컴퓨트익스프레스링크)"
           ],
-          "trading_value_eok": 2806,
-          "market_cap_eok": 17301,
-          "close": 10550,
-          "change_percent": 16.96,
-          "volume": 26707885,
-          "url": "https://m.stock.naver.com/domestic/stock/036540/total",
+          "trading_value_eok": 56439,
+          "market_cap_eok": 13324181,
+          "close": 1840000,
+          "change_percent": -1.5,
+          "volume": 3157700,
+          "url": "https://m.stock.naver.com/domestic/stock/000660/total",
           "flow": {
-            "date": "20260918",
-            "foreign": 368087,
-            "organ": 449275,
-            "individual": -815640
+            "date": "20260921",
+            "foreign": -360986,
+            "organ": 96093,
+            "individual": -327282
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
           "type": "C",
-          "reason": "기관 5일 중 4일 순매수(110억) + 240일선 위 10·20일선 지지",
+          "reason": "기관 5일 중 3일 순매수(5866억) + 240일선 위 10·20일선 지지",
+          "exits": [
+            "일봉 5·10일선 추종",
+            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
+            "일봉 60일선 이탈 시 전량 손절"
+          ]
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "market": "KOSPI",
+          "tags": [
+            "소캠(SOCAMM)",
+            "CXL(컴퓨트익스프레스링크)"
+          ],
+          "trading_value_eok": 47050,
+          "market_cap_eok": 16164960,
+          "close": 276500,
+          "change_percent": 0.91,
+          "volume": 18053994,
+          "url": "https://m.stock.naver.com/domestic/stock/005930/total",
+          "flow": {
+            "date": "20260921",
+            "foreign": 4080410,
+            "organ": 4186614,
+            "individual": -10152588
+          },
+          "section": "TREND_RALLY",
+          "section_name": "대시세 추세 랠리주",
+          "type": "C",
+          "reason": "기관 5일 중 4일 순매수(17886억) + 240일선 위 10·20일선 지지",
           "exits": [
             "일봉 5·10일선 추종",
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
@@ -696,17 +604,17 @@
           "tags": [
             "광통신(광케이블/광섬유 등)"
           ],
-          "trading_value_eok": 2308,
-          "market_cap_eok": 27599,
-          "close": 17720,
-          "change_percent": -3.28,
-          "volume": 12956544,
+          "trading_value_eok": 1767,
+          "market_cap_eok": 27676,
+          "close": 17810,
+          "change_percent": 0.51,
+          "volume": 9893153,
           "url": "https://m.stock.naver.com/domestic/stock/010170/total",
           "flow": {
-            "date": "20260918",
-            "foreign": 5001928,
-            "organ": 447738,
-            "individual": -5401901
+            "date": "20260921",
+            "foreign": -2502204,
+            "organ": 16659,
+            "individual": 2412672
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -719,59 +627,29 @@
           ]
         },
         {
-          "code": "437730",
-          "name": "삼현",
+          "code": "067310",
+          "name": "하나마이크론",
           "market": "KOSDAQ",
           "tags": [
-            "로봇(산업용/협동로봇 등)",
-            "자율주행차"
+            "반도체 재료/부품",
+            "시스템반도체"
           ],
-          "trading_value_eok": 1781,
-          "market_cap_eok": 17629,
-          "close": 55700,
-          "change_percent": 11.18,
-          "volume": 3202373,
-          "url": "https://m.stock.naver.com/domestic/stock/437730/total",
+          "trading_value_eok": 1705,
+          "market_cap_eok": 30353,
+          "close": 45650,
+          "change_percent": 1.9,
+          "volume": 3729592,
+          "url": "https://m.stock.naver.com/domestic/stock/067310/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -34959,
-            "organ": 34970,
-            "individual": -2826
+            "date": "20260921",
+            "foreign": 843488,
+            "organ": 219044,
+            "individual": -1069188
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
           "type": "C",
-          "reason": "기관 5일 중 3일 순매수(59억) + 240일선 위 10·20일선 지지",
-          "exits": [
-            "일봉 5·10일선 추종",
-            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
-            "일봉 60일선 이탈 시 전량 손절"
-          ]
-        },
-        {
-          "code": "001820",
-          "name": "삼화콘덴서",
-          "market": "KOSPI",
-          "tags": [
-            "MLCC(적층세라믹콘덴서)",
-            "MLCC(적층세라믹콘덴서)"
-          ],
-          "trading_value_eok": 1709,
-          "market_cap_eok": 15125,
-          "close": 146000,
-          "change_percent": 0.97,
-          "volume": 1159058,
-          "url": "https://m.stock.naver.com/domestic/stock/001820/total",
-          "flow": {
-            "date": "20260918",
-            "foreign": 81441,
-            "organ": 9041,
-            "individual": -85235
-          },
-          "section": "TREND_RALLY",
-          "section_name": "대시세 추세 랠리주",
-          "type": "C",
-          "reason": "기관 5일 중 4일 순매수(190억) + 240일선 위 10·20일선 지지",
+          "reason": "기관 5일 중 3일 순매수(159억) + 240일선 위 10·20일선 지지",
           "exits": [
             "일봉 5·10일선 추종",
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
@@ -783,20 +661,19 @@
           "name": "제이앤티씨",
           "market": "KOSDAQ",
           "tags": [
-            "유리 기판",
-            "스마트폰"
+            "유리 기판"
           ],
-          "trading_value_eok": 691,
-          "market_cap_eok": 14665,
-          "close": 25200,
-          "change_percent": 7.01,
-          "volume": 2762051,
+          "trading_value_eok": 469,
+          "market_cap_eok": 14231,
+          "close": 25050,
+          "change_percent": -0.6,
+          "volume": 1848516,
           "url": "https://m.stock.naver.com/domestic/stock/204270/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -73857,
-            "organ": 1262,
-            "individual": 73965
+            "date": "20260921",
+            "foreign": 149181,
+            "organ": -60521,
+            "individual": -92745
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -809,24 +686,54 @@
           ]
         },
         {
-          "code": "452280",
-          "name": "한선엔지니어링",
+          "code": "064290",
+          "name": "인텍플러스",
           "market": "KOSDAQ",
           "tags": [
-            "피팅(관이음쇠)/밸브",
-            "고체산화물 연료전지(SOFC)"
+            "반도체 기판(FC-BGA/PCB/MLB 등)",
+            "반도체 장비"
           ],
-          "trading_value_eok": 224,
-          "market_cap_eok": 2597,
-          "close": 13450,
-          "change_percent": -0.37,
-          "volume": 1650204,
-          "url": "https://m.stock.naver.com/domestic/stock/452280/total",
+          "trading_value_eok": 382,
+          "market_cap_eok": 7204,
+          "close": 55600,
+          "change_percent": 9.45,
+          "volume": 688787,
+          "url": "https://m.stock.naver.com/domestic/stock/064290/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -216589,
-            "organ": -2441,
-            "individual": 222239
+            "date": "20260921",
+            "foreign": 21566,
+            "organ": -16372,
+            "individual": 16307
+          },
+          "section": "TREND_RALLY",
+          "section_name": "대시세 추세 랠리주",
+          "type": "A",
+          "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
+          "exits": [
+            "일봉 5·10일선 추종",
+            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
+            "일봉 60일선 이탈 시 전량 손절"
+          ]
+        },
+        {
+          "code": "425420",
+          "name": "티에프이",
+          "market": "KOSDAQ",
+          "tags": [
+            "소캠(SOCAMM)",
+            "반도체 장비"
+          ],
+          "trading_value_eok": 348,
+          "market_cap_eok": 7952,
+          "close": 64400,
+          "change_percent": 10.65,
+          "volume": 538545,
+          "url": "https://m.stock.naver.com/domestic/stock/425420/total",
+          "flow": {
+            "date": "20260921",
+            "foreign": 5747,
+            "organ": -5822,
+            "individual": -107
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -839,29 +746,56 @@
           ]
         },
         {
-          "code": "054920",
-          "name": "한컴위드",
+          "code": "425040",
+          "name": "티이엠씨",
           "market": "KOSDAQ",
-          "tags": [
-            "스테이블코인",
-            "핀테크(FinTech)"
-          ],
-          "trading_value_eok": 188,
-          "market_cap_eok": 1405,
-          "close": 4970,
-          "change_percent": 0.81,
-          "volume": 3715687,
-          "url": "https://m.stock.naver.com/domestic/stock/054920/total",
+          "tags": [],
+          "trading_value_eok": 279,
+          "market_cap_eok": 2716,
+          "close": 12460,
+          "change_percent": -2.81,
+          "volume": 2184052,
+          "url": "https://m.stock.naver.com/domestic/stock/425040/total",
           "flow": {
-            "date": "20260918",
-            "foreign": -228284,
-            "organ": 100,
-            "individual": 228861
+            "date": "20260921",
+            "foreign": -548996,
+            "organ": -2000,
+            "individual": 583810
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
           "type": "B",
-          "reason": "480일선 돌파 2회 실패 후 재돌파 · 상단 우상향",
+          "reason": "480일선 돌파 4회 실패 후 재돌파 · 상단 우상향",
+          "exits": [
+            "일봉 5·10일선 추종",
+            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
+            "일봉 60일선 이탈 시 전량 손절"
+          ]
+        },
+        {
+          "code": "042370",
+          "name": "비츠로테크",
+          "market": "KOSDAQ",
+          "tags": [
+            "원자력발전소 해체",
+            "우주항공산업(누리호/인공위성 등)"
+          ],
+          "trading_value_eok": 170,
+          "market_cap_eok": 2858,
+          "close": 10970,
+          "change_percent": 0.55,
+          "volume": 1548499,
+          "url": "https://m.stock.naver.com/domestic/stock/042370/total",
+          "flow": {
+            "date": "20260921",
+            "foreign": -266242,
+            "organ": 0,
+            "individual": 267165
+          },
+          "section": "TREND_RALLY",
+          "section_name": "대시세 추세 랠리주",
+          "type": "B",
+          "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
           "exits": [
             "일봉 5·10일선 추종",
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
@@ -875,17 +809,17 @@
           "tags": [
             "CXL(컴퓨트익스프레스링크)"
           ],
-          "trading_value_eok": 174,
-          "market_cap_eok": 5633,
-          "close": 13020,
-          "change_percent": 6.37,
-          "volume": 1368253,
+          "trading_value_eok": 158,
+          "market_cap_eok": 5791,
+          "close": 13200,
+          "change_percent": 1.38,
+          "volume": 1197885,
           "url": "https://m.stock.naver.com/domestic/stock/253590/total",
           "flow": {
-            "date": "20260918",
-            "foreign": 31187,
-            "organ": 644,
-            "individual": -32724
+            "date": "20260921",
+            "foreign": 101235,
+            "organ": 46013,
+            "individual": -150014
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -896,68 +830,12 @@
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ]
-        },
-        {
-          "code": "252990",
-          "name": "샘씨엔에스",
-          "market": "KOSDAQ",
-          "tags": [],
-          "trading_value_eok": 149,
-          "market_cap_eok": 10893,
-          "close": 18090,
-          "change_percent": 4.45,
-          "volume": 830572,
-          "url": "https://m.stock.naver.com/domestic/stock/252990/total",
-          "flow": {
-            "date": "20260918",
-            "foreign": -14561,
-            "organ": 49602,
-            "individual": -29369
-          },
-          "section": "TREND_RALLY",
-          "section_name": "대시세 추세 랠리주",
-          "type": "A",
-          "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
-          "exits": [
-            "일봉 5·10일선 추종",
-            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
-            "일봉 60일선 이탈 시 전량 손절"
-          ]
-        },
-        {
-          "code": "098120",
-          "name": "마이크로컨텍솔",
-          "market": "KOSDAQ",
-          "tags": [
-            "반도체 재료/부품"
-          ],
-          "trading_value_eok": 114,
-          "market_cap_eok": 4772,
-          "close": 57600,
-          "change_percent": 7.66,
-          "volume": 202591,
-          "url": "https://m.stock.naver.com/domestic/stock/098120/total",
-          "flow": {
-            "date": "20260918",
-            "foreign": -23771,
-            "organ": 11457,
-            "individual": 9430
-          },
-          "section": "TREND_RALLY",
-          "section_name": "대시세 추세 랠리주",
-          "type": "A",
-          "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
-          "exits": [
-            "일봉 5·10일선 추종",
-            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
-            "일봉 60일선 이탈 시 전량 손절"
-          ]
         }
       ]
     }
   ],
-  "built_slot": "2026-09-21/close",
+  "built_slot": "2026-09-22/close",
   "rules_version": 8,
-  "updated_at": "2026-09-21T07:01:14.391508+00:00",
+  "updated_at": "2026-09-22T07:00:10.194012+00:00",
   "intraday": false
 }
