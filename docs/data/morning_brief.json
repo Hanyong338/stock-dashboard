@@ -33,15 +33,15 @@
     },
     {
       "name": "달러 인덱스",
-      "value": "100.22",
-      "change": "+0.00%",
-      "close_date": "2026-09-18"
+      "value": "100.43",
+      "change": "+0.21%",
+      "close_date": "2026-09-21"
     },
     {
       "name": "WTI 유가",
-      "value": "$100.30",
-      "change": "-1.58%",
-      "close_date": "2026-09-18"
+      "value": "$95.78",
+      "change": "-4.51%",
+      "close_date": "2026-09-21"
     }
   ],
   "economic_events": [],
@@ -227,91 +227,91 @@
   "sectors": [
     {
       "name": "반도체",
-      "change_percent": 2.691202541959761
-    },
-    {
-      "name": "전력망·전력기기",
-      "change_percent": 0.7973330079781621
-    },
-    {
-      "name": "구리",
-      "change_percent": 0.7735806075785142
-    },
-    {
-      "name": "의료기기",
-      "change_percent": 0.13539592609522208
-    },
-    {
-      "name": "은행",
-      "change_percent": 0.013750531377800098
-    },
-    {
-      "name": "AI·로봇",
-      "change_percent": -0.014241970315214672
-    },
-    {
-      "name": "방산·우주항공",
-      "change_percent": -0.018706070697817767
-    },
-    {
-      "name": "통신장비",
-      "change_percent": -0.27179070900864744
-    },
-    {
-      "name": "금광",
-      "change_percent": -0.4587101964250973
-    },
-    {
-      "name": "2차전지",
-      "change_percent": -0.5641770342316613
-    },
-    {
-      "name": "운송",
-      "change_percent": -0.6559485008334736
-    },
-    {
-      "name": "게임",
-      "change_percent": -0.8501426047424157
-    },
-    {
-      "name": "소매",
-      "change_percent": -0.9538769843496079
-    },
-    {
-      "name": "바이오",
-      "change_percent": -0.9668238731733808
-    },
-    {
-      "name": "원유·가스",
-      "change_percent": -1.0280885638863857
-    },
-    {
-      "name": "인터넷 플랫폼",
-      "change_percent": -1.1865539721044644
-    },
-    {
-      "name": "소프트웨어",
-      "change_percent": -1.3518626599338355
+      "change_percent": 4.928061824958818
     },
     {
       "name": "클라우드",
-      "change_percent": -1.4416905687614094
-    },
-    {
-      "name": "태양광",
-      "change_percent": -1.509923972656619
+      "change_percent": 3.8205173917887523
     },
     {
       "name": "사이버보안",
-      "change_percent": -1.7607720352606198
-    },
-    {
-      "name": "전기차",
-      "change_percent": -1.842930301793708
+      "change_percent": 3.2241849431798433
     },
     {
       "name": "원자력",
-      "change_percent": -2.4133054637583204
+      "change_percent": 3.1932724312891994
+    },
+    {
+      "name": "인터넷 플랫폼",
+      "change_percent": 3.0228330021101972
+    },
+    {
+      "name": "소프트웨어",
+      "change_percent": 2.664110033491105
+    },
+    {
+      "name": "태양광",
+      "change_percent": 2.299604118636584
+    },
+    {
+      "name": "AI·로봇",
+      "change_percent": 2.0222132501567818
+    },
+    {
+      "name": "게임",
+      "change_percent": 1.69421419209207
+    },
+    {
+      "name": "전력망·전력기기",
+      "change_percent": 1.5876588112508767
+    },
+    {
+      "name": "통신장비",
+      "change_percent": 1.5330003994404715
+    },
+    {
+      "name": "방산·우주항공",
+      "change_percent": 1.075571965556694
+    },
+    {
+      "name": "바이오",
+      "change_percent": 0.9634982740393594
+    },
+    {
+      "name": "소매",
+      "change_percent": 0.6461036050029038
+    },
+    {
+      "name": "2차전지",
+      "change_percent": 0.4680877036236702
+    },
+    {
+      "name": "전기차",
+      "change_percent": 0.46216017431690526
+    },
+    {
+      "name": "의료기기",
+      "change_percent": 0.34769229975694843
+    },
+    {
+      "name": "구리",
+      "change_percent": 0.2406039039982993
+    },
+    {
+      "name": "운송",
+      "change_percent": -0.5107712094943242
+    },
+    {
+      "name": "은행",
+      "change_percent": -1.0446764759181701
+    },
+    {
+      "name": "금광",
+      "change_percent": -1.09970990243117
+    },
+    {
+      "name": "원유·가스",
+      "change_percent": -3.0743405863214295
     }
   ],
   "video_id": "cyYv1nozkZ0",
@@ -319,7 +319,7 @@
   "title": "[🔴09/22 #당잠사] 뉴욕증시 급등…필라델피아 반도체 4%대 상승 | AMD, 시총 1조 달러 돌파 | 비트코인 86000달러 돌파 | #메타 #AMD #스페이스X",
   "url": "https://www.youtube.com/watch?v=cyYv1nozkZ0",
   "published": "2026-09-21T20:10:14Z",
-  "fetched_at": "2026-09-22T00:18:56.319537+00:00",
+  "fetched_at": "2026-09-22T02:13:51.000702+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
