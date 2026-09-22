@@ -641,7 +641,7 @@
       "end": "2026-10-20",
       "title": "GE 실적",
       "category": "earnings",
-      "detail": "GE"
+      "detail": "GE 장전"
     },
     {
       "start": "2026-10-20",
@@ -667,6 +667,13 @@
     {
       "start": "2026-10-22",
       "end": "2026-10-22",
+      "title": "P&G 실적",
+      "category": "earnings",
+      "detail": "PG 장전"
+    },
+    {
+      "start": "2026-10-22",
+      "end": "2026-10-22",
       "title": "인텔 실적",
       "category": "earnings",
       "detail": "INTC"
@@ -677,13 +684,6 @@
       "title": "한국 금통위",
       "category": "major",
       "detail": "10:00"
-    },
-    {
-      "start": "2026-10-23",
-      "end": "2026-10-23",
-      "title": "P&G 실적",
-      "category": "earnings",
-      "detail": "PG"
     },
     {
       "start": "2026-10-27",
@@ -973,7 +973,7 @@
       "detail": ""
     }
   ],
-  "built_on": "2026-09-22",
+  "built_on": "2026-09-23",
   "builder_version": 5,
-  "updated_at": "2026-09-21T15:12:50.384238+00:00"
+  "updated_at": "2026-09-22T15:13:56.200280+00:00"
 }
