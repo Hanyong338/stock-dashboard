@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "2026 하반기 신규상장",
-      "change_percent": 16.45,
+      "change_percent": 13.68,
       "total": 15,
-      "rise": 6
+      "rise": 4
     },
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 11.48,
+      "change_percent": 10.28,
       "total": 14,
       "rise": 14
     },
     {
       "name": "소캠(SOCAMM)",
-      "change_percent": 11.12,
+      "change_percent": 10.06,
       "total": 11,
       "rise": 10
     },
     {
       "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 5.89,
+      "change_percent": 5.63,
       "total": 13,
-      "rise": 10
+      "rise": 9
+    },
+    {
+      "name": "온디바이스 AI",
+      "change_percent": 5.31,
+      "total": 24,
+      "rise": 21
     },
     {
       "name": "PCB(FPCB 등)",
-      "change_percent": 5.67,
+      "change_percent": 4.96,
       "total": 31,
       "rise": 24
     },
     {
-      "name": "온디바이스 AI",
-      "change_percent": 5.58,
-      "total": 24,
-      "rise": 23
+      "name": "MLCC(적층세라믹콘덴서)",
+      "change_percent": 4.0,
+      "total": 11,
+      "rise": 9
     },
     {
       "name": "전선",
-      "change_percent": 4.52,
+      "change_percent": 4.0,
       "total": 8,
       "rise": 8
-    },
-    {
-      "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 4.15,
-      "total": 11,
-      "rise": 9
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-22T01:11:50.321942+00:00"
+  "updated_at": "2026-09-22T02:13:51.000702+00:00"
 }
