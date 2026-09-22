@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 9.8,
+      "change_percent": 9.15,
       "total": 14,
       "rise": 14
     },
     {
       "name": "소캠(SOCAMM)",
-      "change_percent": 7.93,
+      "change_percent": 7.52,
       "total": 11,
       "rise": 9
     },
     {
       "name": "항공/저가 항공사(LCC)",
-      "change_percent": 4.98,
+      "change_percent": 5.13,
       "total": 9,
       "rise": 8
     },
     {
       "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 4.41,
+      "change_percent": 4.35,
       "total": 13,
-      "rise": 7
+      "rise": 8
     },
     {
       "name": "PCB(FPCB 등)",
-      "change_percent": 3.35,
+      "change_percent": 3.4,
       "total": 31,
       "rise": 19
     },
     {
-      "name": "온디바이스 AI",
-      "change_percent": 3.27,
-      "total": 24,
-      "rise": 16
-    },
-    {
       "name": "퓨리오사AI",
-      "change_percent": 2.61,
+      "change_percent": 3.38,
       "total": 11,
-      "rise": 5
+      "rise": 6
     },
     {
-      "name": "원자력발전소 해체",
-      "change_percent": 2.54,
+      "name": "온디바이스 AI",
+      "change_percent": 3.19,
+      "total": 24,
+      "rise": 15
+    },
+    {
+      "name": "항공기부품",
+      "change_percent": 3.04,
       "total": 15,
-      "rise": 12
+      "rise": 11
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-22T07:00:10.194012+00:00"
+  "updated_at": "2026-09-22T07:14:08.734577+00:00"
 }
