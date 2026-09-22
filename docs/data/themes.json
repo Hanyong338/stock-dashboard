@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "2026 하반기 신규상장",
-      "change_percent": 12.16,
-      "total": 15,
-      "rise": 5
-    },
-    {
-      "name": "소캠(SOCAMM)",
-      "change_percent": 9.5,
-      "total": 11,
-      "rise": 10
-    },
-    {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 9.23,
+      "change_percent": 9.41,
       "total": 14,
       "rise": 14
     },
     {
+      "name": "소캠(SOCAMM)",
+      "change_percent": 8.62,
+      "total": 11,
+      "rise": 10
+    },
+    {
+      "name": "2026 하반기 신규상장",
+      "change_percent": 7.71,
+      "total": 15,
+      "rise": 2
+    },
+    {
       "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 5.33,
+      "change_percent": 4.65,
       "total": 13,
-      "rise": 11
-    },
-    {
-      "name": "온디바이스 AI",
-      "change_percent": 4.97,
-      "total": 24,
-      "rise": 22
-    },
-    {
-      "name": "PCB(FPCB 등)",
-      "change_percent": 4.25,
-      "total": 31,
-      "rise": 23
+      "rise": 10
     },
     {
       "name": "항공/저가 항공사(LCC)",
-      "change_percent": 3.97,
+      "change_percent": 4.31,
       "total": 9,
       "rise": 9
     },
     {
+      "name": "온디바이스 AI",
+      "change_percent": 4.05,
+      "total": 24,
+      "rise": 21
+    },
+    {
+      "name": "PCB(FPCB 등)",
+      "change_percent": 3.67,
+      "total": 31,
+      "rise": 22
+    },
+    {
       "name": "전선",
-      "change_percent": 3.93,
+      "change_percent": 3.51,
       "total": 8,
-      "rise": 8
+      "rise": 7
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-22T03:14:59.598760+00:00"
+  "updated_at": "2026-09-22T04:13:54.501224+00:00"
 }
