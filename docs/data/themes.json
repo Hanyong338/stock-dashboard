@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "2026 하반기 신규상장",
+      "change_percent": 15.7,
+      "total": 16,
+      "rise": 6
+    },
+    {
+      "name": "광고",
+      "change_percent": 10.35,
+      "total": 26,
+      "rise": 15
+    },
+    {
+      "name": "양자암호/양자컴퓨팅",
+      "change_percent": 5.05,
+      "total": 26,
+      "rise": 24
+    },
+    {
+      "name": "의료AI",
+      "change_percent": 4.34,
+      "total": 29,
+      "rise": 23
+    },
+    {
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 3.71,
+      "total": 13,
+      "rise": 10
+    },
+    {
+      "name": "화장품",
+      "change_percent": 2.9,
+      "total": 94,
+      "rise": 54
+    },
+    {
+      "name": "퓨리오사AI",
+      "change_percent": 2.74,
+      "total": 11,
+      "rise": 7
+    },
+    {
+      "name": "S7(삼성전자/SK하이닉스 등)",
+      "change_percent": 2.6,
+      "total": 7,
+      "rise": 7
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-09-22T23:11:51.953601+00:00"
+  "updated_at": "2026-09-23T00:18:16.154066+00:00"
 }
