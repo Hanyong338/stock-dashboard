@@ -2,18 +2,6 @@
   "as_of": "2026년 09월 23일 마감 기준",
   "indices": [
     {
-      "name": "나스닥",
-      "value": "27,244.28",
-      "change": "+0.45%",
-      "close_date": "2026-09-22"
-    },
-    {
-      "name": "S&P 500",
-      "value": "7,764.64",
-      "change": "-0.00%",
-      "close_date": "2026-09-22"
-    },
-    {
       "name": "다우",
       "value": "51,863.69",
       "change": "-0.36%",
@@ -33,15 +21,15 @@
     },
     {
       "name": "달러 인덱스",
-      "value": "100.54",
-      "change": "+0.11%",
-      "close_date": "2026-09-22"
+      "value": "100.43",
+      "change": "+0.21%",
+      "close_date": "2026-09-21"
     },
     {
       "name": "WTI 유가",
-      "value": "$89.68",
-      "change": "-6.37%",
-      "close_date": "2026-09-22"
+      "value": "$95.78",
+      "change": "-4.51%",
+      "close_date": "2026-09-21"
     }
   ],
   "economic_events": [],
@@ -208,92 +196,60 @@
   "indices_note": "지수·금리·유가는 시장 데이터 종가 기준",
   "sectors": [
     {
-      "name": "금광",
-      "change_percent": 3.6005522767032643
-    },
-    {
-      "name": "구리",
-      "change_percent": 2.8460458954876695
-    },
-    {
-      "name": "반도체",
-      "change_percent": 2.4028322301488165
-    },
-    {
-      "name": "바이오",
-      "change_percent": 2.3004483902763044
-    },
-    {
-      "name": "원자력",
-      "change_percent": 1.7682692981036836
-    },
-    {
-      "name": "소매",
-      "change_percent": 1.344477523226406
-    },
-    {
-      "name": "전력망·전력기기",
-      "change_percent": 0.9829902591659962
-    },
-    {
-      "name": "2차전지",
-      "change_percent": 0.7059155542486236
-    },
-    {
-      "name": "의료기기",
-      "change_percent": 0.6737217882213752
-    },
-    {
-      "name": "게임",
-      "change_percent": 0.6095067647709849
-    },
-    {
-      "name": "AI·로봇",
-      "change_percent": 0.5304260980673265
-    },
-    {
-      "name": "전기차",
-      "change_percent": 0.40252844899975515
-    },
-    {
-      "name": "운송",
-      "change_percent": 0.3631366307424664
-    },
-    {
-      "name": "통신장비",
-      "change_percent": 0.05751575247045662
-    },
-    {
-      "name": "소프트웨어",
-      "change_percent": -0.3547066770841768
+      "name": "클라우드",
+      "change_percent": 3.8205173917887523
     },
     {
       "name": "태양광",
-      "change_percent": -0.44958057929498907
+      "change_percent": 2.299604118636584
     },
     {
-      "name": "클라우드",
-      "change_percent": -0.4874902154980705
+      "name": "AI·로봇",
+      "change_percent": 2.0222132501567818
     },
     {
-      "name": "사이버보안",
-      "change_percent": -0.4995629139033638
+      "name": "게임",
+      "change_percent": 1.69421419209207
+    },
+    {
+      "name": "전력망·전력기기",
+      "change_percent": 1.5876588112508767
+    },
+    {
+      "name": "통신장비",
+      "change_percent": 1.5330003994404715
     },
     {
       "name": "방산·우주항공",
-      "change_percent": -0.9900987303097625
+      "change_percent": 1.075571965556694
     },
     {
-      "name": "은행",
-      "change_percent": -1.1112591277987738
+      "name": "바이오",
+      "change_percent": 0.9634982740393594
     },
     {
-      "name": "인터넷 플랫폼",
-      "change_percent": -1.1487295240008384
+      "name": "2차전지",
+      "change_percent": 0.4680877036236702
+    },
+    {
+      "name": "전기차",
+      "change_percent": 0.46216017431690526
+    },
+    {
+      "name": "의료기기",
+      "change_percent": 0.34769229975694843
+    },
+    {
+      "name": "구리",
+      "change_percent": 0.2406039039982993
+    },
+    {
+      "name": "금광",
+      "change_percent": -1.09970990243117
     },
     {
       "name": "원유·가스",
-      "change_percent": -1.6995937156419147
+      "change_percent": -3.0743405863214295
     }
   ],
   "video_id": "8lmlcgQBtvQ",
@@ -301,7 +257,7 @@
   "title": "[🔴09/23 #당잠사] 미-이란, 3시간 유엔 회담…트럼프 “중간선거 후 합의할 것” | 로젠블랫 “샌디스크 목표가 상향”…메모리주 동반 강세 | #마이크론 #애플 #샌디스크",
   "url": "https://www.youtube.com/watch?v=8lmlcgQBtvQ",
   "published": "2026-09-22T20:26:15Z",
-  "fetched_at": "2026-09-22T23:11:51.953601+00:00",
+  "fetched_at": "2026-09-23T00:18:16.154066+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
