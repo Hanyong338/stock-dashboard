@@ -492,6 +492,13 @@
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
+      "title": "미국 실업수당",
+      "category": "macro",
+      "detail": "21:30"
+    },
+    {
+      "start": "2026-10-01",
+      "end": "2026-10-01",
       "title": "한국 무역수지",
       "category": "macro",
       "detail": "09:00"
@@ -609,6 +616,13 @@
       "detail": "JNJ 장전"
     },
     {
+      "start": "2026-10-13",
+      "end": "2026-10-13",
+      "title": "미국 기존주택판매",
+      "category": "macro",
+      "detail": "23:00"
+    },
+    {
       "start": "2026-10-14",
       "end": "2026-10-14",
       "title": "ASML 실적",
@@ -628,6 +642,20 @@
       "title": "뱅크오브아메리카 실적",
       "category": "earnings",
       "detail": "BAC 장전"
+    },
+    {
+      "start": "2026-10-14",
+      "end": "2026-10-14",
+      "title": "미국 CPI",
+      "category": "macro",
+      "detail": "21:30"
+    },
+    {
+      "start": "2026-10-14",
+      "end": "2026-10-14",
+      "title": "미국 근원 CPI",
+      "category": "macro",
+      "detail": "21:30"
     },
     {
       "start": "2026-10-15",
@@ -924,11 +952,18 @@
       "detail": "ABNB"
     },
     {
-      "start": "2026-11-12",
-      "end": "2026-11-12",
+      "start": "2026-11-13",
+      "end": "2026-11-13",
       "title": "어플라이드 실적",
       "category": "earnings",
-      "detail": "AMAT"
+      "detail": "AMAT 장마감 후"
+    },
+    {
+      "start": "2026-11-17",
+      "end": "2026-11-17",
+      "title": "홈디포 실적",
+      "category": "earnings",
+      "detail": "HD 장전"
     },
     {
       "start": "2026-11-26",
@@ -973,7 +1008,7 @@
       "detail": ""
     }
   ],
-  "built_on": "2026-09-23",
+  "built_on": "2026-09-24",
   "builder_version": 5,
-  "updated_at": "2026-09-22T15:13:56.200280+00:00"
+  "updated_at": "2026-09-23T15:13:37.337120+00:00"
 }
