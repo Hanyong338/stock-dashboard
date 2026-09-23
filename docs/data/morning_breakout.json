@@ -7,75 +7,117 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-09-22 09:30",
-  "universe_count": 403,
+  "as_of": "2026-09-23 09:30",
+  "universe_count": 363,
   "fetch_failures": 0,
   "dropped": 0,
   "items": [
     {
-      "code": "010120",
-      "name": "LS ELECTRIC",
-      "market": "KOSPI",
-      "tags": [],
-      "market_cap_eok": 323250,
-      "type": "B",
-      "reason": "시초 +2.4% 갭 · 시초가 214,000 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 317억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/010120/total",
-      "open_gap": 2.39,
-      "value_30m_eok": 317,
-      "vol_vs_prev_day": 53,
-      "close": 216500,
-      "volume": 146730,
-      "change_percent": 3.59
-    },
-    {
-      "code": "195870",
-      "name": "해성디에스",
-      "market": "KOSPI",
-      "tags": [],
-      "market_cap_eok": 10404,
-      "type": "C",
-      "reason": "240일선 58,354 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 60억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/195870/total",
-      "open_gap": 4.62,
-      "value_30m_eok": 60,
-      "vol_vs_prev_day": 52,
-      "close": 60500,
-      "volume": 99200,
-      "change_percent": 7.46
-    },
-    {
-      "code": "036710",
-      "name": "심텍홀딩스",
+      "code": "356680",
+      "name": "엑스게이트",
       "market": "KOSDAQ",
       "tags": [],
-      "market_cap_eok": 2285,
+      "market_cap_eok": 5426,
       "type": "B",
-      "reason": "시초 +3.3% 갭 · 시초가 4,060 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 28억",
+      "reason": "시초 +6.0% 갭 · 시초가 17,530 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 1676억",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/036710/total",
-      "open_gap": 3.31,
-      "value_30m_eok": 28,
-      "vol_vs_prev_day": 596,
-      "close": 4380,
-      "volume": 637785,
-      "change_percent": 11.45
+      "url": "https://m.stock.naver.com/domestic/stock/356680/total",
+      "open_gap": 5.99,
+      "value_30m_eok": 1676,
+      "vol_vs_prev_day": 343,
+      "close": 19430,
+      "volume": 8730977,
+      "change_percent": 17.47
+    },
+    {
+      "code": "240810",
+      "name": "원익IPS",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 67294,
+      "type": "A",
+      "reason": "전일 고가 134,900 돌파 · 30분 거래대금 1556억 · 거래량 전일 하루의 81%",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/240810/total",
+      "open_gap": 2.61,
+      "value_30m_eok": 1556,
+      "vol_vs_prev_day": 81,
+      "close": 143900,
+      "volume": 1119677,
+      "change_percent": 10.44
+    },
+    {
+      "code": "030530",
+      "name": "원익홀딩스",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 22515,
+      "type": "A",
+      "reason": "전일 고가 27,500 돌파 · 30분 거래대금 741억 · 거래량 전일 하루의 211%",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/030530/total",
+      "open_gap": 2.26,
+      "value_30m_eok": 741,
+      "vol_vs_prev_day": 211,
+      "close": 29800,
+      "volume": 2558558,
+      "change_percent": 12.45
+    },
+    {
+      "code": "010060",
+      "name": "OCI홀딩스",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 37994,
+      "type": "C",
+      "reason": "240일선 189,775 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 280억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/010060/total",
+      "open_gap": 3.67,
+      "value_30m_eok": 280,
+      "vol_vs_prev_day": 45,
+      "close": 204500,
+      "volume": 139286,
+      "change_percent": 8.78
+    },
+    {
+      "code": "007660",
+      "name": "이수페타시스",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 85889,
+      "type": "C",
+      "reason": "240일선 113,242 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 216억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/007660/total",
+      "open_gap": 3.72,
+      "value_30m_eok": 216,
+      "vol_vs_prev_day": 18,
+      "close": 118400,
+      "volume": 185854,
+      "change_percent": 4.87
     }
   ],
-  "built_on": "2026-09-22",
-  "updated_at": "2026-09-22T00:48:27.016590+00:00"
+  "built_on": "2026-09-23",
+  "updated_at": "2026-09-23T00:47:44.579550+00:00"
 }
