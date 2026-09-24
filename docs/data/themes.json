@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "전선",
-      "change_percent": 10.87,
-      "total": 8,
-      "rise": 8
+      "name": "2026 하반기 신규상장",
+      "change_percent": 18.02,
+      "total": 16,
+      "rise": 10
     },
     {
-      "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 6.97,
-      "total": 15,
-      "rise": 13
+      "name": "광고",
+      "change_percent": 11.17,
+      "total": 26,
+      "rise": 15
     },
     {
-      "name": "뉴로모픽 반도체",
-      "change_percent": 6.67,
-      "total": 7,
-      "rise": 6
+      "name": "양자암호/양자컴퓨팅",
+      "change_percent": 4.04,
+      "total": 26,
+      "rise": 20
     },
     {
-      "name": "전력설비",
-      "change_percent": 5.16,
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 3.67,
+      "total": 13,
+      "rise": 11
+    },
+    {
+      "name": "화장품",
+      "change_percent": 3.29,
+      "total": 94,
+      "rise": 50
+    },
+    {
+      "name": "반도체 재료/부품",
+      "change_percent": 3.24,
+      "total": 71,
+      "rise": 58
+    },
+    {
+      "name": "반도체 장비",
+      "change_percent": 2.9,
+      "total": 96,
+      "rise": 79
+    },
+    {
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 2.73,
       "total": 34,
-      "rise": 30
-    },
-    {
-      "name": "지역화폐",
-      "change_percent": 5.08,
-      "total": 5,
-      "rise": 5
-    },
-    {
-      "name": "CCTV＆DVR",
-      "change_percent": 4.93,
-      "total": 7,
-      "rise": 5
-    },
-    {
-      "name": "통신장비",
-      "change_percent": 4.13,
-      "total": 47,
-      "rise": 38
-    },
-    {
-      "name": "해저터널(지하화/지하도로 등)",
-      "change_percent": 4.07,
-      "total": 9,
-      "rise": 8
+      "rise": 31
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-20T11:23:04.693109+00:00"
+  "updated_at": "2026-09-23T11:13:45.722992+00:00"
 }
