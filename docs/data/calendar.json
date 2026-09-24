@@ -375,7 +375,7 @@
       "end": "2026-09-24",
       "title": "미국 건축허가",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:00"
     },
     {
       "start": "2026-09-24",
@@ -663,6 +663,55 @@
       "title": "TSMC 실적",
       "category": "earnings",
       "detail": "TSM"
+    },
+    {
+      "start": "2026-10-15",
+      "end": "2026-10-15",
+      "title": "미국 PPI",
+      "category": "macro",
+      "detail": "21:30"
+    },
+    {
+      "start": "2026-10-15",
+      "end": "2026-10-15",
+      "title": "미국 근원 PPI",
+      "category": "macro",
+      "detail": "21:30"
+    },
+    {
+      "start": "2026-10-15",
+      "end": "2026-10-15",
+      "title": "미국 소매판매",
+      "category": "macro",
+      "detail": "21:30"
+    },
+    {
+      "start": "2026-10-15",
+      "end": "2026-10-15",
+      "title": "필라델피아 연은지수",
+      "category": "macro",
+      "detail": "21:30"
+    },
+    {
+      "start": "2026-10-15",
+      "end": "2026-10-15",
+      "title": "한국 무역수지",
+      "category": "macro",
+      "detail": "09:00"
+    },
+    {
+      "start": "2026-10-15",
+      "end": "2026-10-15",
+      "title": "한국 수입",
+      "category": "macro",
+      "detail": "09:00"
+    },
+    {
+      "start": "2026-10-15",
+      "end": "2026-10-15",
+      "title": "한국 수출",
+      "category": "macro",
+      "detail": "09:00"
     },
     {
       "start": "2026-10-20",
@@ -1008,7 +1057,7 @@
       "detail": ""
     }
   ],
-  "built_on": "2026-09-24",
+  "built_on": "2026-09-25",
   "builder_version": 5,
-  "updated_at": "2026-09-23T15:13:37.337120+00:00"
+  "updated_at": "2026-09-24T15:14:57.478159+00:00"
 }
