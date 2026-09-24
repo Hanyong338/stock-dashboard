@@ -17,16 +17,29 @@
     "note": "하루 10편씩 올라와 전체를 다 요약할 수 없다. 지정 출연자가 나온 영상만"
   },
   {
+    "name": "하나TV [하나증권]",
+    "channel_id": "UCP8KMauNQ5YhTL8fzoSYcfQ",
+    "title_include": [
+      "모닝브리프"
+    ],
+    "note": "라이브 탭에 매일 올라오는 '하나증권 리서치센터 모닝브리프' 시리즈만 요약. 이 채널의 일반 업로드(이벤트·홍보 영상)는 제목에 '모닝브리프'가 없어 title_include만으로 자동 제외된다. exclude_live 는 켜지 않는다 — 원하는 영상 자체가 생방송 다시보기다"
+  },
+  {
+    "name": "한국경제TV",
+    "channel_id": "UCF8AeLlUbEpKju6v1H6p8Eg",
+    "exclude_live": true,
+    "title_include": [
+      "박병창",
+      "황유현",
+      "이선엽"
+    ],
+    "note": "채널 전체를 보되 제목에 지정 출연자가 들어간 영상만 요약"
+  },
+  {
     "name": "경제사냥꾼",
     "channel_id": "UC7usMJDHmtbs_oegmzQKKMA",
     "exclude_live": true,
     "note": "채널 전체 요약"
-  },
-  {
-    "name": "상한가추월차선",
-    "channel_id": "UCRDXoxD0x0J2CzPTQNLJLhg",
-    "exclude_live": true,
-    "note": "채널 전체 요약. 하루 1~2편"
   },
   {
     "name": "올랜도 킴 미국주식",
