@@ -39,7 +39,7 @@ MAX_LOG_ENTRIES = 300
 ATTEMPTS_KEY = "_attempts"  # state.json 안에서 영상별 시도 횟수를 담는 키 (채널 ID 와 겹치지 않는다)
 
 MAX_SUMMARIES = 500
-RETENTION_DAYS = 7
+RETENTION_DAYS = 4  # 마켓 라이브에 보여줄 기간. 이보다 오래된 요약은 지우고, 그보다 오래된 영상은 새로 요약하지 않는다
 STATE_HISTORY_PER_CHANNEL = 100
 REQUEST_INTERVAL_SECONDS = 3  # 자막/AI API를 너무 빨리 연달아 호출해서 429(요청 한도 초과)에 걸리는 것을 막는다.
 # 자막 요청의 바깥 제한. transcript.py 가 안에서 최대 120초까지 기다리므로 그보다 넉넉해야 한다.
