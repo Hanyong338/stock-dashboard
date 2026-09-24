@@ -32,12 +32,19 @@ CALENDAR_FILE = DATA_DIR / "calendar.json"
 SCREENING_FILE = DATA_DIR / "screening.json"
 THEMES_FILE = DATA_DIR / "themes.json"
 MORNING_FILE = DATA_DIR / "morning_breakout.json"
+# 자막 캐시. 요약이 실패해도 자막을 다시 받지 않기 위해 남겨둔다(성공하면 지운다).
+TRANSCRIPT_CACHE_DIR = DATA_DIR / "transcripts"
+ATTEMPTS_KEY = "_attempts"  # state.json 안에서 영상별 시도 횟수를 담는 키 (채널 ID 와 겹치지 않는다)
 
 MAX_SUMMARIES = 500
 RETENTION_DAYS = 7
 STATE_HISTORY_PER_CHANNEL = 100
 REQUEST_INTERVAL_SECONDS = 3  # 자막/AI API를 너무 빨리 연달아 호출해서 429(요청 한도 초과)에 걸리는 것을 막는다.
-TRANSCRIPT_TIMEOUT_SECONDS = 90
+# 자막 요청의 바깥 제한. transcript.py 가 안에서 최대 120초까지 기다리므로 그보다 넉넉해야 한다.
+# 예전에 90초로 잡혀 있어서, 90~120초 걸리는 긴 영상은 매번 강제 종료됐다.
+# Supadata 쪽에는 작업이 이미 생성돼 크레딧은 나가는데 결과는 못 받고,
+# 타임아웃은 '일시적 오류'라 확인함 처리도 안 되어 매시간 같은 영상을 다시 받는 루프가 됐다.
+TRANSCRIPT_TIMEOUT_SECONDS = 180
 SUMMARIZE_TIMEOUT_SECONDS = 300  # summarize.py의 재시도(최대 85초 대기)까지 포함해서 넉넉히 잡는다
 MAX_VIDEO_DURATION_SECONDS = 3600  # 1시간 넘는 영상은 자막 생성 비용이 커서 아예 요약하지 않는다.
 MIN_VIDEO_DURATION_SECONDS = 181  # 3분 이하는 쇼츠(Shorts)라 요약하지 않는다. 유튜브 쇼츠 최대 길이가 3분.
@@ -134,6 +141,54 @@ def save_json(path, data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
+# ── 자막 캐시 ──────────────────────────────────────────────────────────────
+# 자막 1건 = Supadata 크레딧 1개다. 요약이 실패했다고 자막을 다시 받을 이유가 없다.
+# 받아둔 자막을 파일로 남겨두고, 재시도 때는 그걸 그대로 쓴다.
+# 요약에 성공하면 지운다. 그래서 저장소에는 '아직 요약 못 한 것'만 잠깐 남는다.
+def _transcript_cache_path(video_id):
+    return TRANSCRIPT_CACHE_DIR / f"{video_id}.txt"
+
+
+def read_transcript_cache(video_id):
+    path = _transcript_cache_path(video_id)
+    if not path.exists():
+        return None
+    try:
+        text = path.read_text(encoding="utf-8")
+        return text or None
+    except Exception as e:
+        print(f"[WARN] 자막 캐시 읽기 실패 {video_id}: {e}")
+        return None
+
+
+def write_transcript_cache(video_id, text):
+    if not text:
+        return
+    try:
+        TRANSCRIPT_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        _transcript_cache_path(video_id).write_text(text, encoding="utf-8")
+    except Exception as e:
+        print(f"[WARN] 자막 캐시 저장 실패 {video_id}: {e}")
+
+
+def clear_transcript_cache(video_id):
+    try:
+        _transcript_cache_path(video_id).unlink(missing_ok=True)
+    except Exception:
+        pass
+
+
+def fetch_transcript_cached(video_id, url, title=""):
+    """캐시에 있으면 그걸 쓰고(크레딧 0), 없을 때만 받아온다."""
+    cached = read_transcript_cache(video_id)
+    if cached:
+        print(f"[INFO] 자막 캐시 사용 (크레딧 0): {title[:40]}")
+        return cached
+    text = call_with_timeout(get_transcript, TRANSCRIPT_TIMEOUT_SECONDS, url)
+    write_transcript_cache(video_id, text)
+    return text
+
+
 def process_channel(ch, state, summaries, now):
     cid, name = ch["channel_id"], ch["name"]
     now_iso = now.isoformat()
@@ -201,11 +256,19 @@ def process_channel(ch, state, summaries, now):
             state[cid].append(v["video_id"])
             continue
 
+        # 같은 영상을 몇 번째 시도하는지 센다. 포기시키지는 않는다(그러면 영상이 영영 누락된다).
+        # 다만 비정상적으로 반복되면 로그에 드러나야 원인을 찾을 수 있다.
+        attempts = state.setdefault(ATTEMPTS_KEY, {})
+        tries = attempts.get(v["video_id"], 0) + 1
+        attempts[v["video_id"]] = tries
+        if tries >= 5:
+            print(f"[WARN] {name} - {v['title'][:40]} : {tries}번째 시도. 계속 실패 중이니 원인을 확인할 것")
+
         print(f"[INFO] New video: {name} - {v['title']}")
         time.sleep(REQUEST_INTERVAL_SECONDS)
 
         try:
-            transcript_text = call_with_timeout(get_transcript, TRANSCRIPT_TIMEOUT_SECONDS, v["url"])
+            transcript_text = fetch_transcript_cached(v["video_id"], v["url"], v["title"])
         except Exception as e:
             print(f"[WARN] transcript failed for {v['url']}: {e}")
             if not is_retryable_error(e) and not isinstance(e, TimeoutError):
@@ -216,13 +279,14 @@ def process_channel(ch, state, summaries, now):
         if not transcript_text:
             print(f"[WARN] empty transcript for {v['url']}")
             state[cid].append(v["video_id"])
+            clear_transcript_cache(v["video_id"])
             continue
 
         try:
             result = call_with_timeout(summarize_transcript, SUMMARIZE_TIMEOUT_SECONDS, name, v["title"], transcript_text)
         except Exception as e:
-            # 요약 실패(예: 일시적인 API 요청 한도 초과, 타임아웃)는 '확인함' 처리하지 않아서
-            # 다음 시간 실행 때 자동으로 재시도된다.
+            # 요약만 실패한 것이므로 자막 캐시는 남겨둔다.
+            # 다음 실행에서 자막을 다시 받지 않고(크레딧 0) 요약만 다시 시도한다.
             print(f"[WARN] summarize failed for {v['url']}: {e}")
             continue
 
@@ -244,6 +308,9 @@ def process_channel(ch, state, summaries, now):
             }
         )
         state[cid].append(v["video_id"])
+        # 요약까지 끝났으니 캐시와 시도 기록을 정리한다
+        clear_transcript_cache(v["video_id"])
+        state.get(ATTEMPTS_KEY, {}).pop(v["video_id"], None)
 
     state[cid] = state[cid][-STATE_HISTORY_PER_CHANNEL:]
 
@@ -486,9 +553,11 @@ def update_morning_brief(now):
         return False
 
     print(f"[INFO] morning brief: {latest['title']}")
-    transcript_text = call_with_timeout(get_transcript, TRANSCRIPT_TIMEOUT_SECONDS, latest["url"])
+    # 프롬프트를 고쳐 같은 방송을 다시 분석할 때 자막을 또 받지 않도록 캐시를 쓴다
+    transcript_text = fetch_transcript_cached(latest["video_id"], latest["url"], latest["title"])
     if not transcript_text:
         print("[WARN] morning brief: 자막이 비어 있습니다")
+        clear_transcript_cache(latest["video_id"])
         return False
 
     published = parse_published(latest.get("published", ""))
