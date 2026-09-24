@@ -23,7 +23,6 @@ const state = {
   morningBreakout: {},
   channels: [],
   selectedChannel: "",
-  selectedDate: "",
 };
 
 function channelColor(name) {
@@ -78,16 +77,6 @@ function dateKeyLocal(iso) {
   const d = new Date(iso);
   if (isNaN(d.getTime())) return "";
   return dateKeyFromDate(d);
-}
-
-function last7DateKeys() {
-  const keys = [];
-  for (let i = 0; i < 7; i++) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    keys.push(dateKeyFromDate(d));
-  }
-  return keys;
 }
 
 function dateTabLabel(key, idx) {
@@ -760,48 +749,6 @@ function renderChannelTabs() {
   }
 }
 
-function renderDateTabs() {
-  const box = document.getElementById("dateTabs");
-  box.innerHTML = "";
-
-  const counts = {};
-  for (const s of state.summaries) {
-    const key = dateKeyLocal(s.published);
-    counts[key] = (counts[key] || 0) + 1;
-  }
-
-  const makeTab = (label, value) => {
-    const btn = document.createElement("button");
-    btn.className = "date-tab" + (state.selectedDate === value ? " active" : "");
-    btn.dataset.date = value;
-
-    const text = document.createElement("span");
-    text.textContent = label;
-    btn.appendChild(text);
-
-    const count = value ? counts[value] || 0 : state.summaries.length;
-    if (count > 0) {
-      const badge = document.createElement("span");
-      badge.className = "channel-count";
-      badge.textContent = count;
-      btn.appendChild(badge);
-    }
-
-    btn.addEventListener("click", () => {
-      state.selectedDate = value;
-      document.querySelectorAll(".date-tab").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      renderSummaries();
-    });
-    return btn;
-  };
-
-  box.appendChild(makeTab("전체 기간", ""));
-  last7DateKeys().forEach((key, idx) => {
-    box.appendChild(makeTab(dateTabLabel(key, idx), key));
-  });
-}
-
 function inlineMd(escapedText) {
   return escapedText.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 }
@@ -961,11 +908,7 @@ function renderSummaries() {
   const list = document.getElementById("summaryList");
   list.innerHTML = "";
 
-  const filtered = state.summaries.filter(
-    (s) =>
-      (!state.selectedChannel || s.channel === state.selectedChannel) &&
-      (!state.selectedDate || dateKeyLocal(s.published) === state.selectedDate)
-  );
+  const filtered = state.summaries.filter((s) => !state.selectedChannel || s.channel === state.selectedChannel);
 
   if (!filtered.length) {
     const who = state.selectedChannel ? `"${escapeHtml(state.selectedChannel)}" 채널의` : "";
@@ -1505,7 +1448,6 @@ async function loadAll() {
     renderMorningBrief();
     renderBriefingEmptyState();
     renderChannelTabs();
-    renderDateTabs();
     renderSummaries();
     renderScreening();
     setLastUpdated();

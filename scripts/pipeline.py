@@ -105,10 +105,15 @@ def parse_published(pub_iso):
 
 
 def within_retention(pub_iso, now):
+    """오늘(한국시간)을 포함해 RETENTION_DAYS 일치만 남긴다.
+
+    '몇 시간 전'이 아니라 '며칠 전'으로 세야 한다. 시각으로 재면 같은 날 영상인데도
+    올라온 시간에 따라 어떤 건 남고 어떤 건 빠져서, 화면에 날짜가 하나 더 보인다."""
     pub = parse_published(pub_iso)
     if pub is None:
         return True  # 날짜를 못 읽으면 실수로 지우지 않고 남겨둔다
-    return pub >= now - datetime.timedelta(days=RETENTION_DAYS)
+    cutoff = (now.astimezone(KST) - datetime.timedelta(days=RETENTION_DAYS - 1)).date()
+    return pub.astimezone(KST).date() >= cutoff
 
 
 def load_json(path, default, required=False):
