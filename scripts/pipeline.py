@@ -34,6 +34,8 @@ THEMES_FILE = DATA_DIR / "themes.json"
 MORNING_FILE = DATA_DIR / "morning_breakout.json"
 # 자막 캐시. 요약이 실패해도 자막을 다시 받지 않기 위해 남겨둔다(성공하면 지운다).
 TRANSCRIPT_CACHE_DIR = DATA_DIR / "transcripts"
+PIPELINE_LOG_FILE = DATA_DIR / "pipeline_log.json"  # 실패 기록. 워크플로 로그를 볼 수 없어 파일로 남긴다
+MAX_LOG_ENTRIES = 300
 ATTEMPTS_KEY = "_attempts"  # state.json 안에서 영상별 시도 횟수를 담는 키 (채널 ID 와 겹치지 않는다)
 
 MAX_SUMMARIES = 500
@@ -139,6 +141,33 @@ def save_json(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+# ── 실패 기록 ──────────────────────────────────────────────────────────────
+# 워크플로 로그는 저장소 관리자만 볼 수 있어서, 무엇이 왜 실패했는지 확인할 방법이 없었다.
+# 크레딧이 왜 나갔는지 추측만 하다 틀린 적이 있다. 그래서 실패를 파일로 남긴다.
+_warnings = []
+
+
+def warn(message):
+    """로그에도 찍고 파일에도 남긴다. 파일은 공개 저장소에 올라가 나중에 읽을 수 있다."""
+    print(f"[WARN] {message}")
+    _warnings.append({"at": datetime.datetime.now(datetime.timezone.utc).isoformat(), "message": str(message)[:300]})
+
+
+def save_warnings(now):
+    """이번 실행에서 난 실패를 기록에 덧붙인다. 최근 것만 남기고 오래된 건 버린다."""
+    if not _warnings:
+        return False
+    prev = load_json(PIPELINE_LOG_FILE, {})
+    if not isinstance(prev, dict):
+        prev = {}
+    entries = (prev.get("entries") or []) + _warnings
+    save_json(
+        PIPELINE_LOG_FILE,
+        {"updated_at": now.isoformat(), "entries": entries[-MAX_LOG_ENTRIES:]},
+    )
+    return True
 
 
 # ── 자막 캐시 ──────────────────────────────────────────────────────────────
@@ -262,7 +291,7 @@ def process_channel(ch, state, summaries, now):
         tries = attempts.get(v["video_id"], 0) + 1
         attempts[v["video_id"]] = tries
         if tries >= 5:
-            print(f"[WARN] {name} - {v['title'][:40]} : {tries}번째 시도. 계속 실패 중이니 원인을 확인할 것")
+            warn(f"{tries}번째 시도 [{name}] {v['title'][:40]}")
 
         print(f"[INFO] New video: {name} - {v['title']}")
         time.sleep(REQUEST_INTERVAL_SECONDS)
@@ -270,14 +299,14 @@ def process_channel(ch, state, summaries, now):
         try:
             transcript_text = fetch_transcript_cached(v["video_id"], v["url"], v["title"])
         except Exception as e:
-            print(f"[WARN] transcript failed for {v['url']}: {e}")
+            warn(f"자막 실패 [{name}] {v['title'][:40]} : {e}")
             if not is_retryable_error(e) and not isinstance(e, TimeoutError):
                 state[cid].append(v["video_id"])  # 자막 자체가 없는 영상일 확률이 높아 재시도하지 않는다.
             # 요청 한도 초과/크레딧 부족/타임아웃 등 일시적 오류면 '확인함' 처리하지 않아 다음 시간에 재시도된다.
             continue
 
         if not transcript_text:
-            print(f"[WARN] empty transcript for {v['url']}")
+            warn(f"자막 비어있음 [{name}] {v['title'][:40]}")
             state[cid].append(v["video_id"])
             clear_transcript_cache(v["video_id"])
             continue
@@ -287,7 +316,7 @@ def process_channel(ch, state, summaries, now):
         except Exception as e:
             # 요약만 실패한 것이므로 자막 캐시는 남겨둔다.
             # 다음 실행에서 자막을 다시 받지 않고(크레딧 0) 요약만 다시 시도한다.
-            print(f"[WARN] summarize failed for {v['url']}: {e}")
+            warn(f"요약 실패 [{name}] {v['title'][:40]} : {e}")
             continue
 
         summaries.append(
@@ -665,6 +694,12 @@ def main():
             commit_and_push(f"chore: update screening {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] screening failed: {e}")
+
+    try:
+        if save_warnings(now):
+            commit_and_push(f"chore: update pipeline log {now.isoformat()}")
+    except Exception as e:
+        print(f"[WARN] 실패 기록 저장 실패: {e}")
 
     print("[INFO] Pipeline run complete.")
 
