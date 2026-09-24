@@ -1,34 +1,53 @@
 [
   {
-    "name": "한국경제TV",
-    "channel_id": "UCF8AeLlUbEpKju6v1H6p8Eg",
-    "exclude_live": true,
-    "title_include": ["이선엽", "박병창", "황유현"],
-    "note": "채널 전체를 보되 제목에 지정 출연자가 들어간 영상만 요약. 당잠사는 별도 경로(morning_brief)로 처리되므로 여기서는 잡히지 않는다"
-  },
-  {
     "name": "815머니톡",
     "channel_id": "UCCG6BEYjfQMGzypJw2EJCDQ",
     "exclude_live": true,
-    "note": "[장시작전] 등 생방송 다시보기는 제외하고 일반 영상만 요약"
-  },
-  {
-    "name": "경제사냥꾼",
-    "channel_id": "UC7usMJDHmtbs_oegmzQKKMA",
-    "exclude_live": true,
-    "note": "Videos 탭의 일반 영상만. 쇼츠는 길이 필터로, 생방송은 exclude_live 로 제외"
-  },
-  {
-    "name": "올랜도 킴 미국주식",
-    "channel_id": "UCwSSqi-s0wcH6pJbH3YPZqQ",
-    "exclude_live": true,
-    "note": "Videos 탭의 일반 영상만"
+    "note": "채널 전체 요약. [장시작전] 등 생방송 다시보기는 제외"
   },
   {
     "name": "삼프로TV",
     "channel_id": "UChlv4GSd7OQl3js-jkLOnFA",
     "exclude_live": true,
+    "title_include": ["박병창", "황유현", "이선엽"],
+    "note": "하루 10편씩 올라와 전체를 다 요약할 수 없다. 지정 출연자가 나온 영상만"
+  },
+  {
+    "name": "경제사냥꾼",
+    "channel_id": "UC7usMJDHmtbs_oegmzQKKMA",
+    "exclude_live": true,
+    "note": "채널 전체 요약"
+  },
+  {
+    "name": "상한가추월차선",
+    "channel_id": "UCRDXoxD0x0J2CzPTQNLJLhg",
+    "exclude_live": true,
+    "note": "채널 전체 요약. 하루 1~2편"
+  },
+  {
+    "name": "올랜도 킴 미국주식",
+    "channel_id": "UCwSSqi-s0wcH6pJbH3YPZqQ",
+    "exclude_live": true,
+    "note": "채널 전체 요약"
+  },
+  {
+    "name": "소수몽키",
+    "channel_id": "UCC3yfxS5qC6PCwDzetUuEWg",
+    "exclude_live": true,
+    "note": "채널 전체 요약. 하루 1~2편"
+  },
+  {
+    "name": "김작가TV",
+    "channel_id": "UCvil4OAt-zShzkKHsg9EQAw",
+    "exclude_live": true,
+    "title_include": ["박세익", "이정윤", "이형수", "박병창", "황유현", "이선엽"],
+    "note": "투자 외 주제가 많은 채널이라 출연자로 좁힌다. 지정 3인(박세익·이정윤·이형수)에 더해 공통 3인도 함께 본다"
+  },
+  {
+    "name": "와이스트릿",
+    "channel_id": "UCupslRq5jW95UGzPjOZz0FA",
+    "exclude_live": true,
     "title_include": ["이선엽", "박병창", "황유현"],
-    "note": "재생목록 한정을 풀고 채널 전체에서 지정 출연자 영상을 잡는다. 박병창의 마켓 인사이드도 제목에 이름이 있어 그대로 포함된다"
+    "note": "와이스트릿 - 지식과 자산의 복리효과. 이선엽 대표 영상이 주 대상이고, 공통 3인도 함께 본다"
   }
 ]
