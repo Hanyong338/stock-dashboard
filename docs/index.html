@@ -9,7 +9,7 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
 <!-- app.js / style.css 를 수정하면 아래 v 값을 그날 날짜로 바꿀 것.
      안 바꾸면 브라우저가 옛날 파일을 계속 써서 수정이 반영 안 된 것처럼 보인다. -->
-<link rel="stylesheet" href="style.css?v=20260924a" />
+<link rel="stylesheet" href="style.css?v=20260924b" />
 </head>
 <body>
 <header class="topbar">
@@ -104,6 +104,10 @@
       <button class="channel-tab active" data-channel="">전체</button>
     </div>
 
+    <div class="date-tabs" id="dateTabs">
+      <button class="date-tab active" data-date="">전체 기간</button>
+    </div>
+
     <div id="summaryList" class="summary-list">
       <p class="empty-state">데이터를 불러오는 중입니다...</p>
     </div>
@@ -116,6 +120,6 @@
   </section>
 </main>
 
-<script src="app.js?v=20260924a"></script>
+<script src="app.js?v=20260924b"></script>
 </body>
 </html>

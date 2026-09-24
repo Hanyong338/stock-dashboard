@@ -23,6 +23,7 @@ const state = {
   morningBreakout: {},
   channels: [],
   selectedChannel: "",
+  selectedDate: "",
 };
 
 function channelColor(name) {
@@ -84,6 +85,20 @@ function dateTabLabel(key, idx) {
   if (idx === 1) return "어제";
   const d = new Date(`${key}T00:00:00`);
   return d.toLocaleDateString("ko-KR", { month: "numeric", day: "numeric", weekday: "short" });
+}
+
+// 파이프라인이 오늘 포함 4일치만 남기고 나머지를 지운다(pipeline.py 의 RETENTION_DAYS).
+// 탭도 같은 4일로 맞춘다 — 더 만들면 항상 빈 탭이 된다.
+const SUMMARY_RETENTION_DAYS = 4;
+
+function retainedDateKeys() {
+  const keys = [];
+  for (let i = 0; i < SUMMARY_RETENTION_DAYS; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    keys.push(dateKeyFromDate(d));
+  }
+  return keys;
 }
 
 
@@ -749,6 +764,49 @@ function renderChannelTabs() {
   }
 }
 
+function renderDateTabs() {
+  const box = document.getElementById("dateTabs");
+  if (!box) return;
+  box.innerHTML = "";
+
+  const counts = {};
+  for (const s of state.summaries) {
+    const key = dateKeyLocal(s.published);
+    counts[key] = (counts[key] || 0) + 1;
+  }
+
+  const makeTab = (label, value) => {
+    const btn = document.createElement("button");
+    btn.className = "date-tab" + (state.selectedDate === value ? " active" : "");
+    btn.dataset.date = value;
+
+    const text = document.createElement("span");
+    text.textContent = label;
+    btn.appendChild(text);
+
+    const count = value ? counts[value] || 0 : state.summaries.length;
+    if (count > 0) {
+      const badge = document.createElement("span");
+      badge.className = "channel-count";
+      badge.textContent = count;
+      btn.appendChild(badge);
+    }
+
+    btn.addEventListener("click", () => {
+      state.selectedDate = value;
+      document.querySelectorAll(".date-tab").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderSummaries();
+    });
+    return btn;
+  };
+
+  box.appendChild(makeTab("전체 기간", ""));
+  retainedDateKeys().forEach((key, idx) => {
+    box.appendChild(makeTab(dateTabLabel(key, idx), key));
+  });
+}
+
 function inlineMd(escapedText) {
   return escapedText.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 }
@@ -908,7 +966,11 @@ function renderSummaries() {
   const list = document.getElementById("summaryList");
   list.innerHTML = "";
 
-  const filtered = state.summaries.filter((s) => !state.selectedChannel || s.channel === state.selectedChannel);
+  const filtered = state.summaries.filter(
+    (s) =>
+      (!state.selectedChannel || s.channel === state.selectedChannel) &&
+      (!state.selectedDate || dateKeyLocal(s.published) === state.selectedDate)
+  );
 
   if (!filtered.length) {
     const who = state.selectedChannel ? `"${escapeHtml(state.selectedChannel)}" 채널의` : "";
@@ -1448,6 +1510,7 @@ async function loadAll() {
     renderMorningBrief();
     renderBriefingEmptyState();
     renderChannelTabs();
+    renderDateTabs();
     renderSummaries();
     renderScreening();
     setLastUpdated();
