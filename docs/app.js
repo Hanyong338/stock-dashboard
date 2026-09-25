@@ -365,7 +365,33 @@ function parseCalNum(s) {
 
 /** 예상치 vs 실제치. 주가를 움직이는 건 발표치 자체보다 예상과의 차이라서 그걸 먼저 보이게 한다.
  *  색은 방향만 뜻한다(빨강=예상보다 높음, 파랑=낮음). CPI 가 높으면 악재인 것처럼 좋고 나쁨은 지표마다 달라 색으로 판단하지 않는다. */
+/** 억원 -> '110.6조' / '8,512억'. 적자는 앞에 - 가 붙는다. */
+function fmtEok(v) {
+  const n = Number(v);
+  return Math.abs(n) >= 10000 ? `${(n / 10000).toFixed(1)}조` : `${n.toLocaleString()}억`;
+}
+
 function calValues(e) {
+  // 국내 실적: 영업이익 컨센서스(네이버·FnGuide) vs 실제. 발표 전엔 예상과 비교 기준만 보인다.
+  if (e.category === "earnings" && (e.op_consensus != null || e.op_actual != null)) {
+    const parts = [];
+    if (e.op_consensus != null) parts.push(`영업이익 예상 ${fmtEok(e.op_consensus)}`);
+    if (e.op_actual != null) {
+      let sp = "";
+      let tone = "";
+      if (e.op_consensus && e.op_consensus > 0) {
+        const s = ((e.op_actual - e.op_consensus) / e.op_consensus) * 100;
+        tone = s > 0 ? "up" : s < 0 ? "down" : "";
+        sp = ` (${s > 0 ? "+" : ""}${s.toFixed(1)}%)`;
+      }
+      parts.push(`<b class="${tone}">실제 ${fmtEok(e.op_actual)}${sp}</b>`);
+    }
+    const base = [];
+    if (e.op_prev_year != null) base.push(`전년 동기 ${fmtEok(e.op_prev_year)}`);
+    if (e.op_prev_q != null) base.push(`직전 분기 ${fmtEok(e.op_prev_q)}`);
+    if (base.length) parts.push(base.join(" · "));
+    return `<span class="cal-agenda-vals">${parts.join(" · ")}</span>`;
+  }
   if (e.category === "earnings" && (e.eps_forecast || e.eps)) {
     const parts = [];
     if (e.eps_forecast) parts.push(`EPS 예상 ${escapeHtml(e.eps_forecast)}`);

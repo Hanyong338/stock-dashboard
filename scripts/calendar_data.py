@@ -18,6 +18,7 @@ BOK_URL = "https://www.bok.or.kr/portal/singl/crncyPolicyDrcMtg/listYear.do"
 MSCI_DATES_URL = "https://app2.msci.com/eqb/pressreleases/archive/ir_dates.csv"
 KIND_IR_URL = "https://kind.krx.co.kr/corpgeneral/irschedule.do"
 NAVER_CAP_URL = "https://m.stock.naver.com/api/stocks/marketValue/{market}"
+NAVER_QUARTER_URL = "https://m.stock.naver.com/api/stock/{code}/finance/quarter"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36",
@@ -512,7 +513,7 @@ def _kind_ir_rows(start, end):
     return out
 
 
-def kr_earnings_events(start, end):
+def kr_earnings_events(start, end, store=None, today=None):
     """국내 대형주 실적발표(컨퍼런스콜) 일정. 회사가 보통 1주일쯤 전에 KIND 에 올리므로
     먼 달은 비어 있다가 실적 시즌이 다가오면 채워진다.
     삼성전자 '잠정실적'은 IR 일정 없이 당일 공시로 나와서 여기 잡히지 않는다(확정실적 설명회는 잡힌다)."""
@@ -549,10 +550,104 @@ def kr_earnings_events(start, end):
                 "title": f"{r['name']} 실적",
                 "category": "earnings",
                 "detail": f"{labels[r['market']]} {r['time']}".strip(),
+                "code": r["kind_code"] + "0",
             }
         )
     print(f"[INFO] 국내 실적발표 {len(out)}건 (KIND IR {len(rows)}건 중 시총 2조 이상 실적 설명회)")
+    attach_kr_consensus(out, store if store is not None else {}, today or datetime.date.today())
     return out
+
+
+def _quarter_keys(d):
+    """실적 발표일 -> (이번에 발표되는 분기, 전년 동기, 직전 분기). 네이버 표의 'YYYYMM' 키 형식."""
+    y, m = d.year, d.month
+    if m <= 3:
+        q = (y - 1, 12)
+    elif m <= 5:
+        q = (y, 3)
+    elif m <= 8:
+        q = (y, 6)
+    else:
+        q = (y, 9)
+    prev_year = (q[0] - 1, q[1])
+    prev_q = (q[0], q[1] - 3) if q[1] > 3 else (q[0] - 1, 12)
+    return tuple(f"{a}{b:02d}" for a, b in (q, prev_year, prev_q))
+
+
+def _eok(s):
+    """'1,105,736' -> 1105736 (억원). '-' 나 빈 값은 None."""
+    try:
+        return int(str(s).replace(",", "").strip())
+    except (TypeError, ValueError):
+        return None
+
+
+def _naver_quarter(code):
+    """네이버 증권 분기 실적표. 다음 분기 칸은 FnGuide 컨센서스(isConsensus=Y)다. 단위 억원."""
+    resp = requests.get(
+        NAVER_QUARTER_URL.format(code=code),
+        headers={"User-Agent": HEADERS["User-Agent"], "Referer": "https://m.stock.naver.com/"},
+        timeout=20,
+    )
+    resp.raise_for_status()
+    info = resp.json().get("financeInfo") or {}
+    is_cons = {t["key"]: t.get("isConsensus") == "Y" for t in info.get("trTitleList") or []}
+    rows = {r.get("title"): r.get("columns") or {} for r in info.get("rowList") or []}
+    return is_cons, rows
+
+
+def attach_kr_consensus(events, store, today):
+    """국내 실적 일정에 영업이익·매출 컨센서스와 비교 기준(전년 동기, 직전 분기)을 붙인다.
+
+    발표가 나면 네이버 표에서 컨센서스 칸이 실제치로 바뀌어 사라진다. 그래서 발표 전에 본
+    컨센서스를 store(docs/data/kr_consensus.json)에 적어두고, 발표 후엔 그 값과 실제치를 비교한다.
+    store 는 호출한 쪽이 읽고 저장한다."""
+    def one(e):
+        try:
+            return e, _naver_quarter(e["code"])
+        except Exception:
+            return e, None
+
+    got_any = 0
+    with ThreadPoolExecutor(max_workers=FETCH_WORKERS) as pool:
+        for e, got in pool.map(one, [e for e in events if e.get("code")]):
+            if not got:
+                continue
+            is_cons, rows = got
+            key, prev_year, prev_q = _quarter_keys(datetime.date.fromisoformat(e["start"]))
+            op, rev = rows.get("영업이익", {}), rows.get("매출액", {})
+            val = lambda cols, k: _eok((cols.get(k) or {}).get("value"))
+            skey = f"{e['code']}:{key}"
+            e["quarter"] = f"{key[:4]}.{key[4:]}"
+
+            if is_cons.get(key):
+                c_op, c_rev = val(op, key), val(rev, key)
+                if c_op is not None:
+                    e["op_consensus"] = c_op
+                    store[skey] = {"op": c_op, "rev": c_rev, "at": today.isoformat()}
+                if c_rev is not None:
+                    e["rev_consensus"] = c_rev
+            elif key in is_cons:
+                # 실제치가 올라온 분기. 발표 전에 적어둔 컨센서스가 있으면 같이 싣는다(서프라이즈 계산용).
+                a_op = val(op, key)
+                if a_op is not None:
+                    e["op_actual"] = a_op
+                    saved = store.get(skey) or {}
+                    if saved.get("op") is not None:
+                        e["op_consensus"] = saved["op"]
+
+            for k, name in ((prev_year, "op_prev_year"), (prev_q, "op_prev_q")):
+                v = val(op, k)
+                if v is not None and not is_cons.get(k):
+                    e[name] = v
+            got_any += 1
+
+    # 반년 넘은 기록은 지운다(파일이 끝없이 커지지 않게).
+    cutoff = (today - datetime.timedelta(days=200)).isoformat()
+    for k in [k for k, v in store.items() if v.get("at", "") < cutoff]:
+        del store[k]
+    if events:
+        print(f"[INFO] 국내 실적 컨센서스: {got_any}/{len(events)}건 조회")
 
 
 def _get_json(url, date_str):
@@ -735,8 +830,9 @@ def _month_starts(today, count):
     return starts
 
 
-def build_calendar(today=None):
-    """당월부터 MONTHS_AHEAD 개월치 캘린더 데이터를 만든다."""
+def build_calendar(today=None, kr_consensus=None):
+    """당월부터 MONTHS_AHEAD 개월치 캘린더 데이터를 만든다.
+    kr_consensus 는 국내 실적 컨센서스 저장소(dict). 넘기면 안에서 갱신된다."""
     today = today or datetime.date.today()
     months = _month_starts(today, MONTHS_AHEAD + 1)
     start = months[0]
@@ -780,7 +876,11 @@ def build_calendar(today=None):
     # 수급 이벤트(만기일·지수 정기변경)와 국내 실적발표
     kr_closed = _holiday_dates(kr_holidays)
     us_closed = _holiday_dates([h for yr in {start.year, end.year} for h in us_market_holidays(yr)])
-    extra = expiry_events(months, kr_closed, us_closed) + msci_events(kr_closed) + kr_earnings_events(start, end)
+    extra = (
+        expiry_events(months, kr_closed, us_closed)
+        + msci_events(kr_closed)
+        + kr_earnings_events(start, end, kr_consensus, today)
+    )
     events.extend(e for e in extra if start.isoformat() <= e["start"] <= end.isoformat())
 
     # 주말은 어차피 장이 안 열려서 발표되는 게 없다. 여기 걸리는 건 한국시간으로 옮기다가

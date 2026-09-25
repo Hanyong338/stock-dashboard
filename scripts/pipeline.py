@@ -30,6 +30,7 @@ SUMMARIES_FILE = DATA_DIR / "summaries.json"
 CHANNELS_OUT_FILE = DATA_DIR / "channels.json"
 MORNING_BRIEF_FILE = DATA_DIR / "morning_brief.json"
 CALENDAR_FILE = DATA_DIR / "calendar.json"
+KR_CONSENSUS_FILE = DATA_DIR / "kr_consensus.json"
 SCREENING_FILE = DATA_DIR / "screening.json"
 US_SCREENING_FILE = DATA_DIR / "screening_us.json"
 THEMES_FILE = DATA_DIR / "themes.json"
@@ -55,7 +56,7 @@ MIN_VIDEO_DURATION_SECONDS = 181  # 3분 이하는 쇼츠(Shorts)라 요약하�
 
 # 캘린더 생성 규칙(수집 범위·시간대 변환·범주 등)이 바뀌면 이 숫자를 올린다.
 # 캘린더는 하루 한 번만 만들기 때문에, 이게 없으면 코드를 고쳐도 그날은 옛 데이터가 그대로 남는다.
-CALENDAR_BUILDER_VERSION = 9
+CALENDAR_BUILDER_VERSION = 10
 
 # 당잠사 리포트의 프롬프트/출력 형식을 바꾸면 이 숫자를 올린다.
 # 같은 방송이면 다시 분석하지 않기 때문에, 이게 없으면 새 방송이 올라올 때까지 옛 형식이 남는다.
@@ -639,7 +640,12 @@ def update_calendar(now):
             return True
         return False
 
-    data = build_calendar(kst_today)
+    # 국내 실적 컨센서스 저장소. 발표 순간 네이버에서 컨센서스가 사라지므로 발표 전 값을 여기 적어둔다.
+    consensus = load_json(KR_CONSENSUS_FILE, {})
+    if not isinstance(consensus, dict):
+        consensus = {}
+    data = build_calendar(kst_today, kr_consensus=consensus)
+    save_json(KR_CONSENSUS_FILE, consensus)
     data["built_on"] = today
     data["builder_version"] = CALENDAR_BUILDER_VERSION
     data["updated_at"] = now.isoformat()
