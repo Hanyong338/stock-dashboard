@@ -11,147 +11,219 @@
       "end": "2026-08-31",
       "title": "한국 산업생산",
       "category": "macro",
-      "detail": "08:00"
+      "detail": "08:00",
+      "actual": "0.2%",
+      "previous": "6.7%"
     },
     {
       "start": "2026-08-31",
       "end": "2026-08-31",
       "title": "한국 소매판매",
       "category": "macro",
-      "detail": "08:00"
+      "detail": "08:00",
+      "actual": "-2.4%",
+      "previous": "2.7%"
     },
     {
       "start": "2026-09-01",
       "end": "2026-09-01",
       "title": "델 실적",
       "category": "earnings",
-      "detail": "DELL"
+      "detail": "DELL",
+      "eps_forecast": "$4.72",
+      "eps": "$6.76",
+      "surprise": "43.22"
     },
     {
       "start": "2026-09-01",
       "end": "2026-09-01",
       "title": "팔로알토 실적",
       "category": "earnings",
-      "detail": "PANW"
+      "detail": "PANW",
+      "eps_forecast": "$0.51",
+      "eps": "$0.53",
+      "surprise": "3.92"
     },
     {
       "start": "2026-09-01",
       "end": "2026-09-01",
       "title": "ISM 제조업",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "consensus": "55.2",
+      "actual": "54.6",
+      "previous": "55.6"
     },
     {
       "start": "2026-09-01",
       "end": "2026-09-01",
       "title": "JOLTS 구인",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "consensus": "7.330M",
+      "actual": "7.271M",
+      "previous": "7.182M"
     },
     {
       "start": "2026-09-01",
       "end": "2026-09-01",
       "title": "S&P글로벌 제조업 PMI",
       "category": "macro",
-      "detail": "22:45"
+      "detail": "22:45",
+      "consensus": "53.2",
+      "actual": "53.9",
+      "previous": "53.9"
     },
     {
       "start": "2026-09-01",
       "end": "2026-09-01",
       "title": "한국 무역수지",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "consensus": "30.70B",
+      "actual": "34.75B",
+      "previous": "30.39B"
     },
     {
       "start": "2026-09-01",
       "end": "2026-09-01",
       "title": "한국 수입",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "consensus": "24.7%",
+      "actual": "22.5%",
+      "previous": "26.5%"
     },
     {
       "start": "2026-09-01",
       "end": "2026-09-01",
       "title": "한국 수출",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "consensus": "62.6%",
+      "actual": "68.7%",
+      "previous": "63.0%"
     },
     {
       "start": "2026-09-01",
       "end": "2026-09-01",
       "title": "한국 제조업 PMI",
       "category": "macro",
-      "detail": "09:30"
+      "detail": "09:30",
+      "actual": "52.3",
+      "previous": "53.1"
     },
     {
       "start": "2026-09-02",
       "end": "2026-09-02",
       "title": "브로드컴 실적",
       "category": "earnings",
-      "detail": "AVGO"
+      "detail": "AVGO",
+      "eps_forecast": "$2.83",
+      "eps": "$3.03",
+      "surprise": "7.07"
     },
     {
       "start": "2026-09-02",
       "end": "2026-09-02",
       "title": "스노우플레이크 실적",
       "category": "earnings",
-      "detail": "SNOW"
+      "detail": "SNOW",
+      "eps_forecast": "($0.51)",
+      "eps": "($0.44)",
+      "surprise": "13.73"
+    },
+    {
+      "start": "2026-09-02",
+      "end": "2026-09-02",
+      "title": "한국가스공사 실적",
+      "category": "earnings",
+      "detail": "코스피 14:00"
     },
     {
       "start": "2026-09-02",
       "end": "2026-09-02",
       "title": "ADP 고용",
       "category": "macro",
-      "detail": "21:15"
+      "detail": "21:15",
+      "consensus": "47K",
+      "actual": "38K",
+      "previous": "46K"
     },
     {
       "start": "2026-09-02",
       "end": "2026-09-02",
       "title": "한국 CPI",
       "category": "macro",
-      "detail": "08:00"
+      "detail": "08:00",
+      "consensus": "3.2%",
+      "actual": "3.1%",
+      "previous": "2.8%"
     },
     {
       "start": "2026-09-03",
       "end": "2026-09-03",
       "title": "ISM 서비스업",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "consensus": "54.1",
+      "actual": "55.4",
+      "previous": "54.1"
     },
     {
       "start": "2026-09-03",
       "end": "2026-09-03",
       "title": "S&P글로벌 서비스업 PMI",
       "category": "macro",
-      "detail": "22:45"
+      "detail": "22:45",
+      "consensus": "56.8",
+      "actual": "56.5",
+      "previous": "54.6"
     },
     {
       "start": "2026-09-03",
       "end": "2026-09-03",
       "title": "미국 실업수당",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "205K",
+      "actual": "206K",
+      "previous": "204K"
     },
     {
       "start": "2026-09-04",
       "end": "2026-09-04",
       "title": "미국 고용지표",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "55K",
+      "actual": "162K",
+      "previous": "21K"
     },
     {
       "start": "2026-09-04",
       "end": "2026-09-04",
       "title": "미국 실업률",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "actual": "7.7%",
+      "previous": "7.9%"
     },
     {
       "start": "2026-09-04",
       "end": "2026-09-04",
       "title": "한국 경상수지",
       "category": "macro",
-      "detail": "08:00"
+      "detail": "08:00",
+      "actual": "42.08B",
+      "previous": "49.73B"
+    },
+    {
+      "start": "2026-09-07",
+      "end": "2026-09-07",
+      "title": "동진쎄미켐 실적",
+      "category": "earnings",
+      "detail": "코스닥 09:00"
     },
     {
       "start": "2026-09-07",
@@ -165,140 +237,240 @@
       "end": "2026-09-08",
       "title": "한국 GDP",
       "category": "macro",
-      "detail": "08:00"
+      "detail": "08:00",
+      "consensus": "0.6%",
+      "actual": "0.6%",
+      "previous": "1.7%"
+    },
+    {
+      "start": "2026-09-09",
+      "end": "2026-09-09",
+      "title": "실리콘투 실적",
+      "category": "earnings",
+      "detail": "코스닥 13:00"
     },
     {
       "start": "2026-09-09",
       "end": "2026-09-09",
       "title": "한국 실업률",
       "category": "macro",
-      "detail": "08:00"
+      "detail": "08:00",
+      "actual": "2.7%",
+      "previous": "2.8%"
     },
     {
       "start": "2026-09-10",
       "end": "2026-09-10",
       "title": "어도비 실적",
       "category": "earnings",
-      "detail": "ADBE"
+      "detail": "ADBE",
+      "eps_forecast": "$4.86",
+      "eps": "$4.75",
+      "surprise": "-2.26"
     },
     {
       "start": "2026-09-10",
       "end": "2026-09-10",
       "title": "오라클 실적",
       "category": "earnings",
-      "detail": "ORCL"
+      "detail": "ORCL",
+      "eps_forecast": "$1.39",
+      "eps": "$1.63",
+      "surprise": "17.27"
+    },
+    {
+      "start": "2026-09-10",
+      "end": "2026-09-10",
+      "title": "티에스이 실적",
+      "category": "earnings",
+      "detail": "코스닥 10:00"
+    },
+    {
+      "start": "2026-09-10",
+      "end": "2026-09-10",
+      "title": "국내 선물·옵션 동시만기",
+      "category": "flow",
+      "detail": "최종거래일 · 장 막판 프로그램 매매 변동성"
     },
     {
       "start": "2026-09-10",
       "end": "2026-09-10",
       "title": "미국 PPI",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "5.3%",
+      "actual": "5.4%",
+      "previous": "4.8%"
     },
     {
       "start": "2026-09-10",
       "end": "2026-09-10",
       "title": "미국 근원 PPI",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "0.3%",
+      "actual": "0.2%",
+      "previous": "0.3%"
     },
     {
       "start": "2026-09-10",
       "end": "2026-09-10",
       "title": "미국 기존주택판매",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "consensus": "3.98M",
+      "actual": "3.98M",
+      "previous": "4.06M"
     },
     {
       "start": "2026-09-10",
       "end": "2026-09-10",
       "title": "미국 실업수당",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "205K",
+      "actual": "206K",
+      "previous": "207K"
     },
     {
       "start": "2026-09-11",
       "end": "2026-09-11",
       "title": "미국 CPI",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "0.4%",
+      "actual": "0.4%",
+      "previous": "0.1%"
     },
     {
       "start": "2026-09-11",
       "end": "2026-09-11",
       "title": "미국 근원 CPI",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "0.2%",
+      "actual": "0.3%",
+      "previous": "0.2%"
     },
     {
       "start": "2026-09-11",
       "end": "2026-09-11",
       "title": "미시간 소비심리",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "consensus": "51.0",
+      "actual": "47.8",
+      "previous": "51.7"
+    },
+    {
+      "start": "2026-09-14",
+      "end": "2026-09-14",
+      "title": "iM금융지주 실적",
+      "category": "earnings",
+      "detail": "코스피"
     },
     {
       "start": "2026-09-15",
       "end": "2026-09-15",
       "title": "한국 무역수지",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "consensus": "34.75B",
+      "actual": "34.79B",
+      "previous": "30.39B"
     },
     {
       "start": "2026-09-15",
       "end": "2026-09-15",
       "title": "한국 수입",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "consensus": "22.5%",
+      "actual": "22.4%",
+      "previous": "26.5%"
     },
     {
       "start": "2026-09-15",
       "end": "2026-09-15",
       "title": "한국 수출",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "consensus": "68.7%",
+      "actual": "68.7%",
+      "previous": "63.0%"
     },
     {
       "start": "2026-09-16",
       "end": "2026-09-16",
       "title": "미국 소매판매",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "0.6%",
+      "actual": "1.4%",
+      "previous": "-0.2%"
+    },
+    {
+      "start": "2026-09-17",
+      "end": "2026-09-17",
+      "title": "현대로템 실적",
+      "category": "earnings",
+      "detail": "코스피 14:00"
     },
     {
       "start": "2026-09-17",
       "end": "2026-09-17",
       "title": "미국 건축허가",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "1.400M",
+      "actual": "1.394M",
+      "previous": "1.433M"
     },
     {
       "start": "2026-09-17",
       "end": "2026-09-17",
       "title": "미국 실업수당",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "207K",
+      "actual": "196K",
+      "previous": "206K"
     },
     {
       "start": "2026-09-17",
       "end": "2026-09-17",
       "title": "미국 주택착공",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "actual": "-2.6%",
+      "previous": "-9.0%"
     },
     {
       "start": "2026-09-17",
       "end": "2026-09-17",
       "title": "필라델피아 연은지수",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "31.3",
+      "actual": "37.8",
+      "previous": "47.4"
     },
     {
       "start": "2026-09-17",
       "end": "2026-09-17",
       "title": "FOMC 금리결정",
       "category": "major",
-      "detail": "03:00"
+      "detail": "03:00",
+      "consensus": "4.00%",
+      "actual": "4.00%",
+      "previous": "3.75%"
+    },
+    {
+      "start": "2026-09-17",
+      "end": "2026-09-17",
+      "title": "FOMC 기자회견",
+      "category": "major",
+      "detail": "03:30"
     },
     {
       "start": "2026-09-17",
@@ -317,16 +489,28 @@
     {
       "start": "2026-09-18",
       "end": "2026-09-18",
+      "title": "미국 쿼드러플 위칭",
+      "category": "flow",
+      "detail": "지수·주식 선물옵션 동시만기 · 한국시간 토 새벽 마감"
+    },
+    {
+      "start": "2026-09-18",
+      "end": "2026-09-18",
       "title": "한국 PPI",
       "category": "macro",
-      "detail": "06:00"
+      "detail": "06:00",
+      "actual": "0.2%",
+      "previous": "-0.4%"
     },
     {
       "start": "2026-09-18",
       "end": "2026-09-18",
       "title": "BOJ 금리결정",
       "category": "major",
-      "detail": "12:00"
+      "detail": "12:00",
+      "consensus": "1.25%",
+      "actual": "1.25%",
+      "previous": "1.00%"
     },
     {
       "start": "2026-09-18",
@@ -338,35 +522,57 @@
     {
       "start": "2026-09-22",
       "end": "2026-09-22",
-      "title": "리치먼드 연은지수",
+      "title": "S&P글로벌 서비스업 PMI",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "22:45",
+      "consensus": "55.8",
+      "actual": "58.7",
+      "previous": "56.5"
+    },
+    {
+      "start": "2026-09-22",
+      "end": "2026-09-22",
+      "title": "S&P글로벌 제조업 PMI",
+      "category": "macro",
+      "detail": "22:45",
+      "consensus": "53.6",
+      "actual": "57.0",
+      "previous": "53.9"
     },
     {
       "start": "2026-09-23",
       "end": "2026-09-23",
       "title": "S&P글로벌 서비스업 PMI",
       "category": "macro",
-      "detail": "22:45"
+      "detail": "22:45",
+      "consensus": "55.8",
+      "actual": "58.7",
+      "previous": "56.5"
     },
     {
       "start": "2026-09-23",
       "end": "2026-09-23",
       "title": "S&P글로벌 제조업 PMI",
       "category": "macro",
-      "detail": "22:45"
+      "detail": "22:45",
+      "consensus": "53.6",
+      "actual": "57.0",
+      "previous": "53.9"
     },
     {
-      "start": "2026-09-23",
-      "end": "2026-09-23",
-      "title": "한국 소비자심리",
-      "category": "macro",
-      "detail": "06:00"
+      "start": "2026-09-24",
+      "end": "2026-09-24",
+      "title": "코스트코 실적",
+      "category": "earnings",
+      "detail": "COST",
+      "eps_forecast": "$6.48",
+      "eps": "$6.60",
+      "surprise": "1.85"
     },
     {
       "start": "2026-09-24",
       "end": "2026-09-26",
-      "title": "추석 연휴 (한국 휴장)",
+      "title": "The day preceding Chuseok·Chuseok·The second day of Chuseok (한국 휴장)",
       "category": "holiday",
       "detail": ""
     },
@@ -375,208 +581,255 @@
       "end": "2026-09-24",
       "title": "미국 건축허가",
       "category": "macro",
-      "detail": "21:00"
+      "detail": "21:00",
+      "consensus": "-2.7%",
+      "actual": "-2.1%",
+      "previous": "4.3%"
     },
     {
       "start": "2026-09-24",
       "end": "2026-09-24",
       "title": "미국 경상수지",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "-258.0B",
+      "actual": "-246.0B",
+      "previous": "-212.6B"
     },
     {
       "start": "2026-09-24",
       "end": "2026-09-24",
       "title": "미국 신규주택판매",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "consensus": "615K",
+      "actual": "684K",
+      "previous": "643K"
     },
     {
       "start": "2026-09-24",
       "end": "2026-09-24",
       "title": "미국 실업수당",
       "category": "macro",
-      "detail": "21:30"
-    },
-    {
-      "start": "2026-09-25",
-      "end": "2026-09-25",
-      "title": "코스트코 실적",
-      "category": "earnings",
-      "detail": "COST 장마감 후"
+      "detail": "21:30",
+      "consensus": "201K",
+      "actual": "197K",
+      "previous": "198K"
     },
     {
       "start": "2026-09-25",
       "end": "2026-09-25",
       "title": "미국 내구재",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "consensus": "0.6%",
+      "actual": "0.3%",
+      "previous": "0.7%"
     },
     {
       "start": "2026-09-25",
       "end": "2026-09-25",
       "title": "미시간 소비심리",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "consensus": "47.8",
+      "previous": "51.7"
     },
     {
       "start": "2026-09-29",
       "end": "2026-09-29",
       "title": "JOLTS 구인",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "previous": "7.271M"
     },
     {
       "start": "2026-09-29",
       "end": "2026-09-29",
       "title": "미국 소비자신뢰",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "previous": "89.4"
     },
     {
       "start": "2026-09-30",
       "end": "2026-09-30",
       "title": "ADP 고용",
       "category": "macro",
-      "detail": "21:15"
+      "detail": "21:15",
+      "previous": "38K"
     },
     {
       "start": "2026-09-30",
       "end": "2026-09-30",
       "title": "미국 PCE",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "0.2%"
     },
     {
       "start": "2026-09-30",
       "end": "2026-09-30",
       "title": "미국 근원 PCE",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "0.2%"
     },
     {
       "start": "2026-09-30",
       "end": "2026-09-30",
       "title": "한국 산업생산",
       "category": "macro",
-      "detail": "08:00"
+      "detail": "08:00",
+      "previous": "3.6%"
     },
     {
       "start": "2026-09-30",
       "end": "2026-09-30",
       "title": "한국 소매판매",
       "category": "macro",
-      "detail": "08:00"
+      "detail": "08:00",
+      "previous": "-2.4%"
     },
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
       "title": "마이크론 실적",
       "category": "earnings",
-      "detail": "MU 장마감 후"
+      "detail": "MU 장마감 후",
+      "eps_forecast": "$31.24"
     },
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
       "title": "ISM 제조업",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "previous": "54.6"
     },
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
       "title": "S&P글로벌 제조업 PMI",
       "category": "macro",
-      "detail": "22:45"
+      "detail": "22:45",
+      "consensus": "57.0",
+      "previous": "53.9"
     },
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
       "title": "미국 실업수당",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "197K"
     },
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
       "title": "한국 무역수지",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "previous": "34.79B"
     },
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
       "title": "한국 수입",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "previous": "22.4%"
     },
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
       "title": "한국 수출",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "previous": "68.7%"
     },
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
       "title": "한국 제조업 PMI",
       "category": "macro",
-      "detail": "09:30"
+      "detail": "09:30",
+      "previous": "52.3"
     },
     {
       "start": "2026-10-02",
       "end": "2026-10-02",
       "title": "나이키 실적",
       "category": "earnings",
-      "detail": "NKE 장마감 후"
+      "detail": "NKE 장마감 후",
+      "eps_forecast": "$0.44"
     },
     {
       "start": "2026-10-02",
       "end": "2026-10-02",
       "title": "미국 고용지표",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "162K"
     },
     {
       "start": "2026-10-02",
       "end": "2026-10-02",
       "title": "미국 실업률",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "7.7%"
     },
     {
       "start": "2026-10-02",
       "end": "2026-10-02",
       "title": "한국 CPI",
       "category": "macro",
-      "detail": "08:00"
+      "detail": "08:00",
+      "previous": "3.1%"
+    },
+    {
+      "start": "2026-10-05",
+      "end": "2026-10-05",
+      "title": "Alternative holiday for National Foundation Day (한국 휴장)",
+      "category": "holiday",
+      "detail": ""
     },
     {
       "start": "2026-10-05",
       "end": "2026-10-05",
       "title": "ISM 서비스업",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "previous": "55.4"
     },
     {
       "start": "2026-10-05",
       "end": "2026-10-05",
       "title": "S&P글로벌 서비스업 PMI",
       "category": "macro",
-      "detail": "22:45"
+      "detail": "22:45",
+      "previous": "58.7"
+    },
+    {
+      "start": "2026-10-08",
+      "end": "2026-10-08",
+      "title": "국내 옵션만기",
+      "category": "flow",
+      "detail": "코스피200 옵션 최종거래일"
     },
     {
       "start": "2026-10-08",
       "end": "2026-10-08",
       "title": "한국 경상수지",
       "category": "macro",
-      "detail": "08:00"
+      "detail": "08:00",
+      "previous": "42.08B"
     },
     {
       "start": "2026-10-09",
       "end": "2026-10-09",
-      "title": "한글날 (한국 휴장)",
+      "title": "Hangul Day (한국 휴장)",
       "category": "holiday",
       "detail": ""
     },
@@ -592,168 +845,207 @@
       "end": "2026-10-13",
       "title": "JP모건 실적",
       "category": "earnings",
-      "detail": "JPM 장전"
+      "detail": "JPM 장전",
+      "eps_forecast": "$5.84"
     },
     {
       "start": "2026-10-13",
       "end": "2026-10-13",
       "title": "골드만삭스 실적",
       "category": "earnings",
-      "detail": "GS 장전"
+      "detail": "GS 장전",
+      "eps_forecast": "$15.18"
     },
     {
       "start": "2026-10-13",
       "end": "2026-10-13",
       "title": "유나이티드헬스 실적",
       "category": "earnings",
-      "detail": "UNH 장전"
+      "detail": "UNH 장전",
+      "eps_forecast": "$4.12"
     },
     {
       "start": "2026-10-13",
       "end": "2026-10-13",
       "title": "존슨앤존슨 실적",
       "category": "earnings",
-      "detail": "JNJ 장전"
+      "detail": "JNJ 장전",
+      "eps_forecast": "$2.96"
     },
     {
       "start": "2026-10-13",
       "end": "2026-10-13",
       "title": "미국 기존주택판매",
       "category": "macro",
-      "detail": "23:00"
+      "detail": "23:00",
+      "previous": "3.98M"
     },
     {
       "start": "2026-10-14",
       "end": "2026-10-14",
       "title": "ASML 실적",
       "category": "earnings",
-      "detail": "ASML 장전"
+      "detail": "ASML 장전",
+      "eps_forecast": "$12.54"
     },
     {
       "start": "2026-10-14",
       "end": "2026-10-14",
       "title": "모건스탠리 실적",
       "category": "earnings",
-      "detail": "MS 장전"
+      "detail": "MS 장전",
+      "eps_forecast": "$3.06"
     },
     {
       "start": "2026-10-14",
       "end": "2026-10-14",
       "title": "뱅크오브아메리카 실적",
       "category": "earnings",
-      "detail": "BAC 장전"
+      "detail": "BAC 장전",
+      "eps_forecast": "$1.16"
     },
     {
       "start": "2026-10-14",
       "end": "2026-10-14",
       "title": "미국 CPI",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "0.4%"
     },
     {
       "start": "2026-10-14",
       "end": "2026-10-14",
       "title": "미국 근원 CPI",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "0.3%"
     },
     {
       "start": "2026-10-15",
       "end": "2026-10-15",
       "title": "TSMC 실적",
       "category": "earnings",
-      "detail": "TSM"
+      "detail": "TSM",
+      "eps_forecast": "$4.45"
     },
     {
       "start": "2026-10-15",
       "end": "2026-10-15",
       "title": "미국 PPI",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "0.4%"
     },
     {
       "start": "2026-10-15",
       "end": "2026-10-15",
       "title": "미국 근원 PPI",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "0.2%"
     },
     {
       "start": "2026-10-15",
       "end": "2026-10-15",
       "title": "미국 소매판매",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "1.4%"
     },
     {
       "start": "2026-10-15",
       "end": "2026-10-15",
       "title": "필라델피아 연은지수",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "37.8"
     },
     {
       "start": "2026-10-15",
       "end": "2026-10-15",
       "title": "한국 무역수지",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "previous": "34.79B"
     },
     {
       "start": "2026-10-15",
       "end": "2026-10-15",
       "title": "한국 수입",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "previous": "22.4%"
     },
     {
       "start": "2026-10-15",
       "end": "2026-10-15",
       "title": "한국 수출",
       "category": "macro",
-      "detail": "09:00"
+      "detail": "09:00",
+      "previous": "68.7%"
+    },
+    {
+      "start": "2026-10-16",
+      "end": "2026-10-16",
+      "title": "미국 옵션만기",
+      "category": "flow",
+      "detail": "월간 옵션 · 한국시간 토 새벽 마감"
+    },
+    {
+      "start": "2026-10-16",
+      "end": "2026-10-16",
+      "title": "한국 실업률",
+      "category": "macro",
+      "detail": "08:00",
+      "previous": "2.7%"
     },
     {
       "start": "2026-10-20",
       "end": "2026-10-20",
       "title": "GE 실적",
       "category": "earnings",
-      "detail": "GE 장전"
+      "detail": "GE 장전",
+      "eps_forecast": "$2.01"
     },
     {
       "start": "2026-10-20",
       "end": "2026-10-20",
       "title": "TI 실적",
       "category": "earnings",
-      "detail": "TXN"
+      "detail": "TXN",
+      "eps_forecast": "$2.39"
     },
     {
       "start": "2026-10-20",
       "end": "2026-10-20",
       "title": "코카콜라 실적",
       "category": "earnings",
-      "detail": "KO"
+      "detail": "KO",
+      "eps_forecast": "$0.87"
     },
     {
       "start": "2026-10-21",
       "end": "2026-10-21",
       "title": "넷플릭스 실적",
       "category": "earnings",
-      "detail": "NFLX 장마감 후"
+      "detail": "NFLX 장마감 후",
+      "eps_forecast": "$0.82"
     },
     {
       "start": "2026-10-22",
       "end": "2026-10-22",
       "title": "P&G 실적",
       "category": "earnings",
-      "detail": "PG 장전"
+      "detail": "PG 장전",
+      "eps_forecast": "$1.89"
     },
     {
       "start": "2026-10-22",
       "end": "2026-10-22",
       "title": "인텔 실적",
       "category": "earnings",
-      "detail": "INTC"
+      "detail": "INTC",
+      "eps_forecast": "$0.28"
     },
     {
       "start": "2026-10-22",
@@ -767,105 +1059,120 @@
       "end": "2026-10-27",
       "title": "UPS 실적",
       "category": "earnings",
-      "detail": "UPS"
+      "detail": "UPS",
+      "eps_forecast": "$1.63"
     },
     {
       "start": "2026-10-27",
       "end": "2026-10-27",
       "title": "비자 실적",
       "category": "earnings",
-      "detail": "V"
+      "detail": "V",
+      "eps_forecast": "$3.43"
     },
     {
       "start": "2026-10-27",
       "end": "2026-10-27",
       "title": "시게이트 실적",
       "category": "earnings",
-      "detail": "STX"
+      "detail": "STX",
+      "eps_forecast": "$7.11"
     },
     {
       "start": "2026-10-28",
       "end": "2026-10-28",
       "title": "램리서치 실적",
       "category": "earnings",
-      "detail": "LRCX"
+      "detail": "LRCX",
+      "eps_forecast": "$2.17"
     },
     {
       "start": "2026-10-28",
       "end": "2026-10-28",
       "title": "테슬라 실적",
       "category": "earnings",
-      "detail": "TSLA"
+      "detail": "TSLA",
+      "eps_forecast": "$0.26"
     },
     {
       "start": "2026-10-29",
       "end": "2026-10-29",
       "title": "마스터카드 실적",
       "category": "earnings",
-      "detail": "MA"
+      "detail": "MA",
+      "eps_forecast": "$5.13"
     },
     {
       "start": "2026-10-29",
       "end": "2026-10-29",
       "title": "머크 실적",
       "category": "earnings",
-      "detail": "MRK"
+      "detail": "MRK",
+      "eps_forecast": "$2.25"
     },
     {
       "start": "2026-10-29",
       "end": "2026-10-29",
       "title": "아마존 실적",
       "category": "earnings",
-      "detail": "AMZN"
+      "detail": "AMZN",
+      "eps_forecast": "$2.01"
     },
     {
       "start": "2026-10-29",
       "end": "2026-10-29",
       "title": "애플 실적",
       "category": "earnings",
-      "detail": "AAPL"
+      "detail": "AAPL",
+      "eps_forecast": "$1.98"
     },
     {
       "start": "2026-10-29",
       "end": "2026-10-29",
       "title": "웨스턴디지털 실적",
       "category": "earnings",
-      "detail": "WDC"
+      "detail": "WDC",
+      "eps_forecast": "$3.97"
     },
     {
       "start": "2026-10-29",
       "end": "2026-10-29",
       "title": "일라이릴리 실적",
       "category": "earnings",
-      "detail": "LLY 장전"
+      "detail": "LLY 장전",
+      "eps_forecast": "$9.80"
     },
     {
       "start": "2026-10-29",
       "end": "2026-10-29",
       "title": "코인베이스 실적",
       "category": "earnings",
-      "detail": "COIN"
+      "detail": "COIN",
+      "eps_forecast": "($0.11)"
     },
     {
       "start": "2026-10-29",
       "end": "2026-10-29",
       "title": "FOMC 금리결정",
       "category": "major",
-      "detail": "03:00"
+      "detail": "03:00",
+      "previous": "4.00%"
     },
     {
       "start": "2026-10-30",
       "end": "2026-10-30",
       "title": "셰브론 실적",
       "category": "earnings",
-      "detail": "CVX"
+      "detail": "CVX",
+      "eps_forecast": "$4.85"
     },
     {
       "start": "2026-10-30",
       "end": "2026-10-30",
       "title": "엑슨모빌 실적",
       "category": "earnings",
-      "detail": "XOM"
+      "detail": "XOM",
+      "eps_forecast": "$3.78"
     },
     {
       "start": "2026-10-30",
@@ -879,140 +1186,205 @@
       "end": "2026-11-02",
       "title": "온세미 실적",
       "category": "earnings",
-      "detail": "ON"
+      "detail": "ON",
+      "eps_forecast": "$0.88"
     },
     {
       "start": "2026-11-02",
       "end": "2026-11-02",
       "title": "팔란티어 실적",
       "category": "earnings",
-      "detail": "PLTR"
+      "detail": "PLTR",
+      "eps_forecast": "$0.34"
     },
     {
       "start": "2026-11-03",
       "end": "2026-11-03",
       "title": "AMD 실적",
       "category": "earnings",
-      "detail": "AMD"
+      "detail": "AMD",
+      "eps_forecast": "$1.64"
     },
     {
       "start": "2026-11-03",
       "end": "2026-11-03",
       "title": "슈퍼마이크로 실적",
       "category": "earnings",
-      "detail": "SMCI"
+      "detail": "SMCI",
+      "eps_forecast": "$0.95"
     },
     {
       "start": "2026-11-03",
       "end": "2026-11-03",
       "title": "우버 실적",
       "category": "earnings",
-      "detail": "UBER"
+      "detail": "UBER",
+      "eps_forecast": "$1.03"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "ARM 실적",
       "category": "earnings",
-      "detail": "ARM"
+      "detail": "ARM",
+      "eps_forecast": "$0.22"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "KLA 실적",
       "category": "earnings",
-      "detail": "KLAC"
+      "detail": "KLAC",
+      "eps_forecast": "$1.18"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "로빈후드 실적",
       "category": "earnings",
-      "detail": "HOOD"
+      "detail": "HOOD",
+      "eps_forecast": "$0.53"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "마이크로소프트 실적",
       "category": "earnings",
-      "detail": "MSFT"
+      "detail": "MSFT",
+      "eps_forecast": "$4.69"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "맥도날드 실적",
       "category": "earnings",
-      "detail": "MCD"
+      "detail": "MCD",
+      "eps_forecast": "$3.38"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "메타 실적",
       "category": "earnings",
-      "detail": "META"
+      "detail": "META",
+      "eps_forecast": "$6.39"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "보잉 실적",
       "category": "earnings",
-      "detail": "BA"
+      "detail": "BA",
+      "eps_forecast": "($0.15)"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "서비스나우 실적",
       "category": "earnings",
-      "detail": "NOW"
+      "detail": "NOW",
+      "eps_forecast": "$0.57"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "스타벅스 실적",
       "category": "earnings",
-      "detail": "SBUX"
+      "detail": "SBUX",
+      "eps_forecast": "$0.71"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "알파벳 실적",
       "category": "earnings",
-      "detail": "GOOGL"
+      "detail": "GOOGL",
+      "eps_forecast": "$2.93"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "캐터필러 실적",
       "category": "earnings",
-      "detail": "CAT"
+      "detail": "CAT",
+      "eps_forecast": "$6.95"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "퀄컴 실적",
       "category": "earnings",
-      "detail": "QCOM"
+      "detail": "QCOM",
+      "eps_forecast": "$1.47"
     },
     {
       "start": "2026-11-05",
       "end": "2026-11-05",
       "title": "에어비앤비 실적",
       "category": "earnings",
-      "detail": "ABNB"
+      "detail": "ABNB",
+      "eps_forecast": "$2.89"
+    },
+    {
+      "start": "2026-11-12",
+      "end": "2026-11-12",
+      "title": "MSCI 정기변경 발표",
+      "category": "flow",
+      "detail": "한국시간 아침 6~7시 편입·편출 명단"
+    },
+    {
+      "start": "2026-11-12",
+      "end": "2026-11-12",
+      "title": "국내 옵션만기",
+      "category": "flow",
+      "detail": "코스피200 옵션 최종거래일"
     },
     {
       "start": "2026-11-13",
       "end": "2026-11-13",
       "title": "어플라이드 실적",
       "category": "earnings",
-      "detail": "AMAT 장마감 후"
+      "detail": "AMAT 장마감 후",
+      "eps_forecast": "$4.06"
     },
     {
       "start": "2026-11-17",
       "end": "2026-11-17",
       "title": "홈디포 실적",
       "category": "earnings",
-      "detail": "HD 장전"
+      "detail": "HD 장전",
+      "eps_forecast": "$3.87"
+    },
+    {
+      "start": "2026-11-18",
+      "end": "2026-11-18",
+      "title": "엔비디아 실적",
+      "category": "earnings",
+      "detail": "NVDA",
+      "eps_forecast": "$2.47"
+    },
+    {
+      "start": "2026-11-18",
+      "end": "2026-11-18",
+      "title": "팔로알토 실적",
+      "category": "earnings",
+      "detail": "PANW",
+      "eps_forecast": "$0.52"
+    },
+    {
+      "start": "2026-11-19",
+      "end": "2026-11-19",
+      "title": "월마트 실적",
+      "category": "earnings",
+      "detail": "WMT 장전",
+      "eps_forecast": "$0.63"
+    },
+    {
+      "start": "2026-11-20",
+      "end": "2026-11-20",
+      "title": "미국 옵션만기",
+      "category": "flow",
+      "detail": "월간 옵션 · 한국시간 토 새벽 마감"
     },
     {
       "start": "2026-11-26",
@@ -1029,11 +1401,39 @@
       "detail": "10:00"
     },
     {
+      "start": "2026-11-30",
+      "end": "2026-11-30",
+      "title": "MSCI 정기변경 반영",
+      "category": "flow",
+      "detail": "장 마감 동시호가에 패시브 자금 집중"
+    },
+    {
+      "start": "2026-12-10",
+      "end": "2026-12-10",
+      "title": "국내 선물·옵션 동시만기",
+      "category": "flow",
+      "detail": "최종거래일 · 장 막판 프로그램 매매 변동성"
+    },
+    {
       "start": "2026-12-10",
       "end": "2026-12-10",
       "title": "FOMC 금리결정",
       "category": "major",
       "detail": "04:00"
+    },
+    {
+      "start": "2026-12-11",
+      "end": "2026-12-11",
+      "title": "코스피200·코스닥150 정기변경 반영",
+      "category": "flow",
+      "detail": "전날(만기일) 종가에 패시브 편입·편출 매매"
+    },
+    {
+      "start": "2026-12-18",
+      "end": "2026-12-18",
+      "title": "미국 쿼드러플 위칭",
+      "category": "flow",
+      "detail": "지수·주식 선물옵션 동시만기 · 한국시간 토 새벽 마감"
     },
     {
       "start": "2026-12-18",
@@ -1045,19 +1445,26 @@
     {
       "start": "2026-12-25",
       "end": "2026-12-25",
-      "title": "성탄절 (미국 휴장)",
+      "title": "Christmas Day (한국 휴장)",
       "category": "holiday",
       "detail": ""
     },
     {
       "start": "2026-12-25",
       "end": "2026-12-25",
-      "title": "성탄절 (한국 휴장)",
+      "title": "성탄절 (미국 휴장)",
+      "category": "holiday",
+      "detail": ""
+    },
+    {
+      "start": "2026-12-31",
+      "end": "2026-12-31",
+      "title": "연말 휴장 (한국 휴장)",
       "category": "holiday",
       "detail": ""
     }
   ],
   "built_on": "2026-09-25",
-  "builder_version": 5,
-  "updated_at": "2026-09-24T15:14:57.478159+00:00"
+  "builder_version": 8,
+  "updated_at": "2026-09-25T13:13:07.057398+00:00"
 }
