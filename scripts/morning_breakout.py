@@ -300,13 +300,26 @@ def _scan(stock, target_day):
     return {"failed": False, "stock": stock, "type": kind, "reason": reason, "metrics": metrics}
 
 
+MARKET_PROBE = "005930.KS"  # 장이 열렸는지 볼 대표 종목. 삼성전자는 개장일에 반드시 거래된다
+
+
+def market_opened(target_day):
+    """그날 장이 열렸는가. 휴장일(추석 등)엔 당일 분봉이 하나도 없다.
+    이걸 안 보면 휴장일 09:30 실행이 '0종목'을 저장해 직전 거래일 결과를 지워버린다(9/24·25 추석에 실제로 그랬다)."""
+    rows = _minute_rows(MARKET_PROBE)
+    return any(r[0].date() == target_day and r[0].time() >= SESSION_START for r in rows)
+
+
 def build_morning_breakout(target_day=None, tag_map=None):
-    """09:30 기준 모닝 브레이크아웃 후보를 만든다."""
+    """09:30 기준 모닝 브레이크아웃 후보를 만든다. 휴장일이면 {"market_closed": True} 만 돌려준다."""
+    target_day = target_day or datetime.datetime.now(KST).date()
+    if not market_opened(target_day):
+        print(f"[INFO] 모닝 브레이크아웃: {target_day} 휴장 — 직전 결과를 그대로 둔다")
+        return {"market_closed": True}
+
     universe = fetch_universe()
     if not universe:
         raise RuntimeError("모닝: 체급을 통과한 종목이 없습니다")
-
-    target_day = target_day or datetime.datetime.now(KST).date()
     hits, failures = [], 0
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:
         for res in pool.map(lambda s: _scan(s, target_day), universe):

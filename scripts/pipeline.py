@@ -479,6 +479,9 @@ def update_morning_breakout(now):
         save_json(MORNING_FILE, {"error": f"{type(e).__name__}: {e}", "items": [], "updated_at": now.isoformat()})
         return True
 
+    if data.get("market_closed"):
+        return False  # 휴장일. 직전 거래일 결과를 지우지 않는다
+
     data["built_on"] = today
     data["updated_at"] = now.isoformat()
     save_json(MORNING_FILE, data)
