@@ -1790,36 +1790,6 @@
       "checked_for": "2026-09-25"
     },
     {
-      "id": "us:SU:SWING_PULLBACK:2026-09-25",
-      "market": "us",
-      "code": "SU",
-      "name": "Suncor Energy Inc",
-      "board": "NYSE",
-      "tags": [
-        "종합 석유"
-      ],
-      "section": "SWING_PULLBACK",
-      "section_name": "눌림목 스윙 대기주",
-      "type": "20일선",
-      "found_on": "2026-09-25",
-      "entry": 68.19,
-      "stop": 65.61,
-      "symbol": "SU",
-      "status": "PENDING",
-      "rets": [],
-      "last_date": "",
-      "snapshot_at": "2026-09-25T22:13:27.511577+00:00",
-      "reason": "거래대금 $305M 장대양봉 · 고점 후 8거래일 조정 · 거래량 11% 감소 · 20일선 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": null,
-      "final_ret": null,
-      "closed_on": "",
-      "stop_line": 67.29,
-      "last_close": null,
-      "checked_for": "2026-09-25"
-    },
-    {
       "id": "us:ADM:SWING_PULLBACK:2026-09-25",
       "market": "us",
       "code": "ADM",
@@ -1846,36 +1816,6 @@
       "final_ret": null,
       "closed_on": "",
       "stop_line": 80.4,
-      "last_close": null,
-      "checked_for": "2026-09-25"
-    },
-    {
-      "id": "us:CNH:SWING_PULLBACK:2026-09-25",
-      "market": "us",
-      "code": "CNH",
-      "name": "CNH Industrial N.V",
-      "board": "NYSE",
-      "tags": [
-        "건설·농기계"
-      ],
-      "section": "SWING_PULLBACK",
-      "section_name": "눌림목 스윙 대기주",
-      "type": "20일선",
-      "found_on": "2026-09-25",
-      "entry": 13.09,
-      "stop": 12.63,
-      "symbol": "CNH",
-      "status": "PENDING",
-      "rets": [],
-      "last_date": "",
-      "snapshot_at": "2026-09-25T22:13:27.511577+00:00",
-      "reason": "1차 상승 +44% · 고점 후 14거래일 조정 · 거래량 42% 감소 · 20일선 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": null,
-      "final_ret": null,
-      "closed_on": "",
-      "stop_line": 12.95,
       "last_close": null,
       "checked_for": "2026-09-25"
     },
@@ -1936,36 +1876,6 @@
       "final_ret": null,
       "closed_on": "",
       "stop_line": 33.6,
-      "last_close": null,
-      "checked_for": "2026-09-25"
-    },
-    {
-      "id": "us:VIST:SWING_PULLBACK:2026-09-25",
-      "market": "us",
-      "code": "VIST",
-      "name": "Vista Energy S.A.B. de C.V",
-      "board": "NYSE",
-      "tags": [
-        "원유·가스 생산"
-      ],
-      "section": "SWING_PULLBACK",
-      "section_name": "눌림목 스윙 대기주",
-      "type": "60일선",
-      "found_on": "2026-09-25",
-      "entry": 67.43,
-      "stop": 64.86,
-      "symbol": "VIST",
-      "status": "PENDING",
-      "rets": [],
-      "last_date": "",
-      "snapshot_at": "2026-09-25T22:13:27.511577+00:00",
-      "reason": "거래대금 $181M 장대양봉 · 고점 후 11거래일 조정 · 거래량 57% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": null,
-      "final_ret": null,
-      "closed_on": "",
-      "stop_line": 66.52,
       "last_close": null,
       "checked_for": "2026-09-25"
     },
@@ -2125,8 +2035,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 69,
-    "pending": 49,
+    "total": 66,
+    "pending": 46,
     "active": 19,
     "closed": 1,
     "in_the_money": 36.8,
@@ -2137,6 +2047,6 @@
     "closed_win_rate": 0.0,
     "closed_avg_final": -4.3
   },
-  "updated_at": "2026-09-25T23:47:47.475583+00:00",
+  "updated_at": "2026-09-25T23:51:39.835799+00:00",
   "rules_version": 2
 }
