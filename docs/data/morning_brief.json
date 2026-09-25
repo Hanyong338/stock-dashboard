@@ -33,9 +33,9 @@
     },
     {
       "name": "달러 인덱스",
-      "value": "101.10",
-      "change": "+0.67%",
-      "close_date": "2026-09-23"
+      "value": "101.29",
+      "change": "+0.19%",
+      "close_date": "2026-09-24"
     },
     {
       "name": "WTI 유가",
@@ -210,92 +210,92 @@
   "indices_note": "지수·금리·유가는 시장 데이터 종가 기준",
   "sectors": [
     {
-      "name": "소프트웨어",
-      "change_percent": 1.2646355729471603
-    },
-    {
-      "name": "사이버보안",
-      "change_percent": 0.8924297516942452
-    },
-    {
-      "name": "운송",
-      "change_percent": -0.12521722183424552
-    },
-    {
-      "name": "의료기기",
-      "change_percent": -0.3272415421480718
-    },
-    {
-      "name": "클라우드",
-      "change_percent": -0.39831960108895187
-    },
-    {
-      "name": "구리",
-      "change_percent": -0.5257733406153693
-    },
-    {
-      "name": "소매",
-      "change_percent": -0.5571694501882583
-    },
-    {
-      "name": "게임",
-      "change_percent": -0.670462866457388
-    },
-    {
-      "name": "전력망·전력기기",
-      "change_percent": -0.8228437586135097
-    },
-    {
-      "name": "방산·우주항공",
-      "change_percent": -1.0271126246748048
-    },
-    {
-      "name": "원유·가스",
-      "change_percent": -1.1366744809286198
-    },
-    {
       "name": "은행",
-      "change_percent": -1.1378075013481919
-    },
-    {
-      "name": "반도체",
-      "change_percent": -1.2325951032923903
-    },
-    {
-      "name": "통신장비",
-      "change_percent": -1.4667101984264206
-    },
-    {
-      "name": "AI·로봇",
-      "change_percent": -1.479616928565906
-    },
-    {
-      "name": "2차전지",
-      "change_percent": -1.7647888856215592
-    },
-    {
-      "name": "전기차",
-      "change_percent": -1.8401363200432408
-    },
-    {
-      "name": "바이오",
-      "change_percent": -1.9149332371305376
+      "change_percent": 0.7956879935244455
     },
     {
       "name": "인터넷 플랫폼",
-      "change_percent": -2.199763734220634
+      "change_percent": 0.7681111919577901
     },
     {
-      "name": "원자력",
-      "change_percent": -2.303391983047052
+      "name": "원유·가스",
+      "change_percent": 0.7664983312656901
     },
     {
-      "name": "태양광",
-      "change_percent": -3.5538426031867054
+      "name": "바이오",
+      "change_percent": 0.5476843558180574
+    },
+    {
+      "name": "반도체",
+      "change_percent": 0.06187453850333314
+    },
+    {
+      "name": "소매",
+      "change_percent": 0.0
+    },
+    {
+      "name": "AI·로봇",
+      "change_percent": -0.19835560501053826
+    },
+    {
+      "name": "통신장비",
+      "change_percent": -0.24809541638077004
+    },
+    {
+      "name": "클라우드",
+      "change_percent": -0.3760234268050322
+    },
+    {
+      "name": "방산·우주항공",
+      "change_percent": -0.5422605048796099
+    },
+    {
+      "name": "게임",
+      "change_percent": -0.6443007376589978
+    },
+    {
+      "name": "전력망·전력기기",
+      "change_percent": -0.740576790564853
+    },
+    {
+      "name": "사이버보안",
+      "change_percent": -0.7883854225386878
+    },
+    {
+      "name": "의료기기",
+      "change_percent": -0.849746305681468
+    },
+    {
+      "name": "소프트웨어",
+      "change_percent": -0.8788131005104637
+    },
+    {
+      "name": "구리",
+      "change_percent": -0.8962412848871887
+    },
+    {
+      "name": "운송",
+      "change_percent": -1.0531644242566913
+    },
+    {
+      "name": "2차전지",
+      "change_percent": -1.0922709345076036
     },
     {
       "name": "금광",
-      "change_percent": -4.364718585853576
+      "change_percent": -1.2932867850011123
+    },
+    {
+      "name": "전기차",
+      "change_percent": -1.7867622180934202
+    },
+    {
+      "name": "원자력",
+      "change_percent": -2.6911193687680144
+    },
+    {
+      "name": "태양광",
+      "change_percent": -3.5072098626310977
     }
   ],
   "video_id": "mkDwLFyHP04",
@@ -303,7 +303,7 @@
   "title": "[전격인터뷰] AI 과잉투자 아냐, 성장 확인된다! | 美 중간선거 이후 강세장 가능성 | #AI #포트폴리오",
   "url": "https://www.youtube.com/watch?v=mkDwLFyHP04",
   "published": "2026-09-24T12:28:50Z",
-  "fetched_at": "2026-09-25T01:12:31.260812+00:00",
+  "fetched_at": "2026-09-25T02:13:04.175670+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
