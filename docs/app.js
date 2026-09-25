@@ -19,6 +19,8 @@ const state = {
   morningBrief: {},
   calendar: { months: [], events: [] },
   screening: {},
+  screeningUS: {},
+  screeningMarket: loadScreeningMarket(),
   themes: {},
   morningBreakout: {},
   channels: [],
@@ -1279,12 +1281,14 @@ function buildChartOption(ec, data, dark) {
   return { option, priceRange, axisLength: axis.length };
 }
 
-async function openChart(code, name, host) {
+// 국장·미장 차트는 폴더가 다르다. 배치가 목록에서 빠진 종목 파일을 지우는데, 한 폴더를 쓰면 서로의 차트를 지운다.
+async function openChart(code, name, host, dir = "charts") {
   host.innerHTML = '<p class="scr-chart-loading">차트를 불러오는 중...</p>';
+  const key = `${dir}/${code}`;
   try {
     const [ec, data] = await Promise.all([
       loadECharts(),
-      chartCache[code] || (chartCache[code] = loadJSON(`charts/${code}.json`)),
+      chartCache[key] || (chartCache[key] = loadJSON(`${key}.json`)),
     ]);
     host.innerHTML = "";
     const box = document.createElement("div");
@@ -1305,12 +1309,37 @@ async function openChart(code, name, host) {
     });
     new ResizeObserver(() => inst.resize()).observe(box);
   } catch (e) {
-    delete chartCache[code];
+    delete chartCache[key];
     host.innerHTML = `<p class="scr-chart-loading">차트를 불러오지 못했습니다. (${escapeHtml(e.message)})</p>`;
   }
 }
 
-function scrCard(item, kind) {
+// 국장/미장 선택은 보는 사람 브라우저에만 기억한다. 저장이 막힌 환경이면 국장으로 시작한다.
+function loadScreeningMarket() {
+  try {
+    return localStorage.getItem("scrMarket") === "us" ? "us" : "kr";
+  } catch {
+    return "kr";
+  }
+}
+
+function saveScreeningMarket(market) {
+  try {
+    localStorage.setItem("scrMarket", market);
+  } catch {
+    /* 저장이 안 돼도 화면 전환은 된다 */
+  }
+}
+
+function fmtUSD(v) {
+  const n = Number(v) || 0;
+  if (n >= 1e12) return `$${(n / 1e12).toFixed(2)}T`;
+  if (n >= 1e9) return `$${(n / 1e9).toFixed(1)}B`;
+  return `$${Math.round(n / 1e6).toLocaleString()}M`;
+}
+
+function scrCard(item, kind, market = "kr") {
+  const us = market === "us";
   const tone = changeToneFromText(String(item.change_percent));
   const chg = `${item.change_percent > 0 ? "+" : ""}${Number(item.change_percent).toFixed(2)}%`;
   const flow = item.flow
@@ -1336,31 +1365,41 @@ function scrCard(item, kind) {
         .join("")}</ul></details>`
     : "";
 
-  return `<div class="scr-card ${kind}" data-code="${item.code}" data-name="${escapeHtml(item.name)}">
+  const price = us
+    ? `$${Number(item.close).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    : Number(item.close).toLocaleString();
+
+  let size;
+  if (item.value_30m_eok != null) {
+    size = `30분 거래대금 <b>${Number(item.value_30m_eok).toLocaleString()}억</b>
+           · 거래량 전일의 <b>${Number(item.vol_vs_prev_day || 0)}%</b>
+           · 시초 갭 <b>${item.open_gap > 0 ? "+" : ""}${Number(item.open_gap || 0).toFixed(1)}%</b>`;
+  } else if (us) {
+    size = `거래대금 <b>${fmtUSD(item.trading_value_usd)}</b> · 시총 <b>${fmtUSD(item.market_cap_usd)}</b>`;
+  } else {
+    size = `거래대금 <b>${Number(item.trading_value_eok || 0).toLocaleString()}억</b>
+           · 시총 <b>${Number(item.market_cap_eok || 0).toLocaleString()}억</b>`;
+  }
+
+  return `<div class="scr-card ${kind}" data-code="${escapeHtml(item.code)}" data-name="${escapeHtml(item.name)}"
+      data-dir="${us ? "charts_us" : "charts"}">
     <div class="scr-head">
-      <button class="scr-name" type="button" data-chart="${item.code}">${escapeHtml(item.name)}</button>
+      <button class="scr-name" type="button" data-chart="${escapeHtml(item.code)}">${escapeHtml(item.name)}</button>
       <span class="scr-code">${escapeHtml(item.code)}</span>
-      <span class="scr-price num">${Number(item.close).toLocaleString()}</span>
+      <span class="scr-price num">${price}</span>
       <span class="scr-chg num ${tone}">${changeWithMark(chg, tone)}</span>
     </div>
     <div class="scr-badges">${badge}${tags}<span class="scr-mkt">${escapeHtml(item.market)}</span>
-      <a class="scr-ext" href="${item.url}" target="_blank" rel="noopener">네이버 ↗</a></div>
+      <a class="scr-ext" href="${item.url}" target="_blank" rel="noopener">${us ? "야후" : "네이버"} ↗</a></div>
     <p class="scr-reason">${escapeHtml(item.reason)}</p>
-    <div class="scr-size">${
-      item.value_30m_eok != null
-        ? `30분 거래대금 <b>${Number(item.value_30m_eok).toLocaleString()}억</b>
-           · 거래량 전일의 <b>${Number(item.vol_vs_prev_day || 0)}%</b>
-           · 시초 갭 <b>${item.open_gap > 0 ? "+" : ""}${Number(item.open_gap || 0).toFixed(1)}%</b>`
-        : `거래대금 <b>${Number(item.trading_value_eok || 0).toLocaleString()}억</b>
-           · 시총 <b>${Number(item.market_cap_eok || 0).toLocaleString()}억</b>`
-    }</div>
+    <div class="scr-size">${size}</div>
     ${flow ? `<div class="scr-flows">${flow}</div>` : ""}
     ${exits}
     <div class="scr-chart" hidden></div>
   </div>`;
 }
 
-function scrSection(icon, title, desc, rows, kind, legend) {
+function scrSection(icon, title, desc, rows, kind, legend, market = "kr") {
   if (!rows.length) return "";
   // 카드 뱃지에 'A/B/C' 만 뜨면 무슨 뜻인지 알 수 없어 제목 아래에 범례를 깔아둔다.
   // 눌림목은 뱃지가 '20일선' 처럼 그 자체로 읽히므로 범례를 넣지 않는다.
@@ -1375,35 +1414,49 @@ function scrSection(icon, title, desc, rows, kind, legend) {
     </div>
     ${legendBar}
     <p class="scr-group-desc">${escapeHtml(desc)}</p>
-    <div class="scr-list">${rows.map((r) => scrCard(r, kind)).join("")}</div>
+    <div class="scr-list">${rows.map((r) => scrCard(r, kind, market)).join("")}</div>
   </section>`;
 }
 
-function themeLeaders(list, updatedAt) {
+function themeLeaders(list, updatedAt, title = "오늘 주도 테마") {
   if (!list || !list.length) return "";
   // 테마는 매시간 따로 갱신된다. 종목 목록(마감 후 1회)과 시점이 달라 언제 기준인지 밝혀둔다.
   const when = updatedAt ? `<span class="scr-themes-when">${escapeHtml(formatRelativeTime(updatedAt))}</span>` : "";
   return `<section class="scr-themes">
-    <div class="scr-themes-head">🔥 오늘 주도 테마${when}</div>
+    <div class="scr-themes-head">🔥 ${escapeHtml(title)}${when}</div>
     <div class="scr-themes-row">${list
-      .map(
-        (t) => `<span class="scr-theme">
+      .map((t) => {
+        // 시장 전체가 빠진 날엔 1위 테마도 마이너스일 수 있다. 부호와 색을 값대로 붙인다.
+        const v = Number(t.change_percent);
+        const tone = v > 0 ? "up" : v < 0 ? "down" : "";
+        return `<span class="scr-theme">
           <b>${escapeHtml(t.name)}</b>
-          <em class="num up">+${Number(t.change_percent).toFixed(2)}%</em>
+          <em class="num ${tone}">${v > 0 ? "+" : ""}${v.toFixed(2)}%</em>
           <i>${t.rise}/${t.total}</i>
-        </span>`
-      )
+        </span>`;
+      })
       .join("")}</div>
   </section>`;
 }
 
+function syncMarketTabs() {
+  document.querySelectorAll(".scr-market-tab").forEach((b) => {
+    const on = b.dataset.market === state.screeningMarket;
+    b.classList.toggle("active", on);
+    b.setAttribute("aria-selected", on ? "true" : "false");
+  });
+}
+
 function renderScreening() {
+  syncMarketTabs();
+  const us = state.screeningMarket === "us";
+  const market = us ? "us" : "kr";
   const list = document.getElementById("screeningList");
-  const d = state.screening || {};
+  const d = (us ? state.screeningUS : state.screening) || {};
   const sections = d.sections || [];
-  const total =
-    sections.reduce((n, s) => n + (s.items || []).length, 0) +
-    ((state.morningBreakout || {}).items || []).length;
+  // 섹션4(모닝 브레이크아웃)는 국장에만 있다.
+  const mb = us ? {} : state.morningBreakout || {};
+  const total = sections.reduce((n, s) => n + (s.items || []).length, 0) + (mb.items || []).length;
 
   if (!total) {
     // 실패했을 때 '준비 중'으로만 보이면 원인을 영영 모른다. 무엇이 막혔는지 그대로 띄운다.
@@ -1416,24 +1469,30 @@ function renderScreening() {
             : ""
         }</div>`
       : "";
+    const when = us
+      ? "한국시간 화~토 아침 7시(미국 장 마감 뒤)에 미국 전종목을 훑습니다."
+      : "평일 15:50(장 마감 직후)에 전종목을 훑습니다.";
     list.innerHTML =
       diag ||
-      '<div class="empty-state"><span class="empty-icon">📉</span>스크리닝 결과가 아직 없습니다.<br>매일 아침 8시·저녁 7시에 전종목을 훑습니다.</div>';
+      `<div class="empty-state"><span class="empty-icon">📉</span>스크리닝 결과가 아직 없습니다.<br>${when}</div>`;
     return;
   }
 
   // 장중 실행은 그날 일봉이 안 끝난 상태로 판정한 것이라 마감 후 결과와 달라질 수 있다.
   const intraday = d.intraday
-    ? `<p class="scr-intraday">⏱ 장중 집계 — 당일 일봉이 아직 확정되지 않았습니다. 종가 기준 판정은 17시 결과를 보세요.</p>`
+    ? `<p class="scr-intraday">⏱ ${us ? "미국 " : ""}장중 집계 — 당일 일봉이 아직 확정되지 않았습니다. ${
+        us ? "종가 기준 판정은 다음 날 아침 7시 결과를 보세요." : "종가 기준 판정은 15:50 결과를 보세요."
+      }</p>`
     : "";
 
-  const meta = `<p class="scr-meta">${escapeHtml(d.as_of_trading_day || "")} 종가 기준 ·
+  // 미장의 날짜는 미국 현지 거래일이다. 한국 날짜로 오해하지 않게 밝혀둔다.
+  const meta = `<p class="scr-meta">${escapeHtml(d.as_of_trading_day || "")} ${us ? "미국 " : ""}종가 기준 ·
     전종목 ${Number(d.universe_count || 0).toLocaleString()}개 → 체급 통과 ${Number(d.base_passed || 0).toLocaleString()}개
     ${d.dropped ? ` → 킬스위치 탈락 ${Number(d.dropped).toLocaleString()}개` : ""}
     ${d.fetch_failures ? ` · 조회 실패 ${d.fetch_failures}개` : ""}</p>`;
+  const note = d.note ? `<p class="scr-note">ℹ️ ${escapeHtml(d.note)}</p>` : "";
 
   // 섹션4는 09:30 장중 분봉 기준이라 1~3(마감 후 일봉)과 기준 시각이 다르다. 맨 위에 따로 둔다.
-  const mb = state.morningBreakout || {};
   const morning = (mb.items || []).length
     ? `<section class="scr-group morning">
         <div class="scr-group-head">
@@ -1449,15 +1508,20 @@ function renderScreening() {
     : "";
 
   const icons = { CLOSING_BET: "🎯", SWING_PULLBACK: "📉", TREND_RALLY: "🚀" };
-  // 테마는 themes.json 이 매시간 갱신한다. 없으면 스크리닝에 박힌 값으로 물러난다.
+  // 국장 테마는 themes.json 이 매시간 갱신한다. 없으면 스크리닝에 박힌 값으로 물러난다.
+  // 미장은 산업분류 기준 '주도 업종'이고, 종목 선별과 같은 시점에 만든다(미국 장은 한국 낮에 닫혀 있다).
   const th = state.themes || {};
+  const leaders = us
+    ? themeLeaders(d.theme_leaders, null, "오늘 주도 업종")
+    : themeLeaders(th.leaders || d.theme_leaders, th.updated_at);
   list.innerHTML =
     intraday +
     meta +
-    themeLeaders(th.leaders || d.theme_leaders, th.updated_at) +
+    note +
+    leaders +
     morning +
     sections
-      .map((s) => scrSection(icons[s.id] || "📊", s.name, s.desc, s.items || [], "entry", s.legend))
+      .map((s) => scrSection(icons[s.id] || "📊", s.name, s.desc, s.items || [], "entry", s.legend, market))
       .join("");
 
   // 종목명을 누르면 그 카드 안에서 차트가 펼쳐진다. 목록을 벗어나지 않게 하려는 것.
@@ -1473,10 +1537,19 @@ function renderScreening() {
       }
       host.hidden = false;
       card.classList.add("open");
-      openChart(card.dataset.code, card.dataset.name, host);
+      openChart(card.dataset.code, card.dataset.name, host, card.dataset.dir);
     });
   });
 }
+
+document.querySelectorAll(".scr-market-tab").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (state.screeningMarket === btn.dataset.market) return;
+    state.screeningMarket = btn.dataset.market;
+    saveScreeningMarket(state.screeningMarket);
+    renderScreening();
+  });
+});
 
 function setLastUpdated() {
   const el = document.getElementById("lastUpdated");
@@ -1486,19 +1559,22 @@ function setLastUpdated() {
 
 async function loadAll() {
   try {
-    const [summaries, morningBrief, calendar, screening, themes, morningBreakout, channels] = await Promise.all([
-      loadJSON("summaries.json"),
-      loadJSON("morning_brief.json").catch(() => ({})),
-      loadJSON("calendar.json").catch(() => ({ months: [], events: [] })),
-      loadJSON("screening.json").catch(() => ({})),
-      loadJSON("themes.json").catch(() => ({})),
-      loadJSON("morning_breakout.json").catch(() => ({})),
-      loadJSON("channels.json").catch(() => []),
-    ]);
+    const [summaries, morningBrief, calendar, screening, screeningUS, themes, morningBreakout, channels] =
+      await Promise.all([
+        loadJSON("summaries.json"),
+        loadJSON("morning_brief.json").catch(() => ({})),
+        loadJSON("calendar.json").catch(() => ({ months: [], events: [] })),
+        loadJSON("screening.json").catch(() => ({})),
+        loadJSON("screening_us.json").catch(() => ({})),
+        loadJSON("themes.json").catch(() => ({})),
+        loadJSON("morning_breakout.json").catch(() => ({})),
+        loadJSON("channels.json").catch(() => []),
+      ]);
     state.summaries = summaries;
     state.morningBrief = morningBrief;
     state.calendar = calendar;
     state.screening = screening;
+    state.screeningUS = screeningUS;
     state.themes = themes;
     state.morningBreakout = morningBreakout;
     state.channels = channels;

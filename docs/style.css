@@ -1058,6 +1058,46 @@ main {
 
 /* ---------- 기술적 분석 스크리닝 ---------- */
 
+/* 국장/미장 전환. 목록 전체가 바뀌는 스위치라 날짜 칩보다 굵고 크게 둔다. */
+.scr-market-tabs {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  margin-bottom: 14px;
+  background: var(--chip-bg);
+  border-radius: 12px;
+}
+.scr-market-tab {
+  padding: 7px 18px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.scr-market-tab:hover { color: var(--text); }
+.scr-market-tab.active {
+  background: var(--surface);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  box-shadow: var(--shadow-1);
+}
+
+/* 미장은 수급 조건이 빠진 판정이라는 걸 결과 위에 항상 밝혀둔다. */
+.scr-note {
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  background: var(--chip-bg);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  margin-bottom: 14px;
+}
+
 .scr-meta { font-size: 11.5px; color: var(--text-faint); font-weight: 600; margin-bottom: 14px; }
 
 /* 장중 집계 경고. 종가가 안 나온 상태의 판정이라는 걸 모르고 보면 안 된다. */
@@ -1150,6 +1190,8 @@ main {
 }
 .scr-theme b { font-size: 11.5px; font-weight: 700; }
 .scr-theme em { font-size: 11.5px; font-weight: 800; font-style: normal; }
+.scr-theme em.up { color: var(--up); }
+.scr-theme em.down { color: var(--down); }
 .scr-theme i { font-size: 10px; font-style: normal; color: var(--text-faint); }
 
 .scr-tag {

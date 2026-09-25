@@ -53,6 +53,15 @@ THEME_PAGES = 3  # 264개 그룹 = 3페이지
 MAX_TAGS = 2  # 태그가 너무 많으면 오히려 뭘 하는 회사인지 흐려진다
 MIN_ORGAN_INFLOW = 1_000_000_000  # 섹션3 유형C 의 '기관 지속 순매수' 5일 누적 최소 금액(10억)
 
+# 시장별로 다른 건 금액 기준과 금액 표기뿐이다. 판정 함수는 이 설정만 바꿔 끼워 국장·미장에 같이 쓴다.
+# (미장 설정은 screening_us.py 의 US_CFG)
+KR_CFG = {
+    "breakout_min_value": KILL_SWITCHES[0]["exception_params"]["min_trading_value"],
+    "type_c_min_value": SECTIONS[0]["params"]["type_c_min_trading_value"],
+    "big_candle_value": SECTIONS[1]["params"]["big_candle_value"],
+    "money": lambda v: f"{v / 1e8:.0f}억",
+}
+
 
 # ──────────────────────────────────────────────────────────────────────────
 # 공통
@@ -290,7 +299,7 @@ def fetch_theme_map():
 # ──────────────────────────────────────────────────────────────────────────
 # 킬 스위치
 # ──────────────────────────────────────────────────────────────────────────
-def _long_line_breakout(b, trading_value):
+def _long_line_breakout(b, trading_value, cfg=KR_CFG):
     """오늘 240·480일선을 장대양봉 종가로 돌파했는가. 돌파선 이름을 돌려준다.
     역배열 킬스위치의 예외 판정과 섹션1 유형C 양쪽에서 쓴다."""
     c, o, v = b["close"], b["open"], b["volume"]
@@ -298,7 +307,7 @@ def _long_line_breakout(b, trading_value):
         return None
     if v[-2] <= 0 or v[-1] < v[-2] * (1 + KILL_SWITCHES[0]["exception_params"]["min_volume_ratio"]):
         return None
-    if trading_value < KILL_SWITCHES[0]["exception_params"]["min_trading_value"]:
+    if trading_value < cfg["breakout_min_value"]:
         return None
     for n, label in ((480, "480일선"), (240, "240일선")):
         line = ma(c, n)
@@ -307,7 +316,7 @@ def _long_line_breakout(b, trading_value):
     return None
 
 
-def kill_checks(b, s, flow):
+def kill_checks(b, s, flow, cfg=KR_CFG):
     """걸리면 사유 문자열, 통과면 None."""
     c, o, h, l, v = b["close"], b["open"], b["high"], b["low"], b["volume"]
     close = c[-1]
@@ -315,10 +324,11 @@ def kill_checks(b, s, flow):
 
     # 1. 역배열 침체 — 바닥권 돌파 종목은 예외로 살린다
     below = [n for n in (240, 480) if (ma(c, n) or 0) and close < ma(c, n)]
-    if below and not _long_line_breakout(b, s["trading_value"]):
+    if below and not _long_line_breakout(b, s["trading_value"], cfg):
         return f"역배열 침체 ({below[0]}일선 아래)"
 
     # 2. 메이저 수급 이탈 — 3일 연속 외인·기관 동반 순매도
+    # (미장은 수급 데이터가 없어 flow 가 빈 목록으로 들어온다 -> 이 스위치는 자연히 건너뛴다)
     if len(flow) >= 3 and all(d["foreign"] < 0 and d["organ"] < 0 for d in flow[:3]):
         return "3일 연속 외국인·기관 동반 순매도"
 
@@ -351,20 +361,20 @@ def no_major_flow(flow, close):
 # ──────────────────────────────────────────────────────────────────────────
 # 섹션 판정
 # ──────────────────────────────────────────────────────────────────────────
-def match_closing_bet(b, s, flow):
+def match_closing_bet(b, s, flow, cfg=KR_CFG):
     c, o, h, l, v = b["close"], b["open"], b["high"], b["low"], b["volume"]
     close, open_, high, low = c[-1], o[-1], h[-1], l[-1]
     p = SECTIONS[0]["params"]
 
     # C: 바닥권 장기선 대량거래 돌파 (장기선 첫 돌파는 이 섹션 최우선)
-    if s["trading_value"] >= p["type_c_min_trading_value"] and v[-2] > 0:
+    if s["trading_value"] >= cfg["type_c_min_value"] and v[-2] > 0:
         if v[-1] >= v[-2] * (1 + p["type_c_min_volume_ratio"]) and close > open_ and pct(close, open_) >= 3.0:
             for n, label in ((480, "480일선"), (240, "240일선")):
                 line = ma(c, n)
                 if line and c[-2] < line <= close:
-                    return "C", f"{label} 장대양봉 종가 돌파 · 거래대금 {s['trading_value'] / 1e8:.0f}억 · 거래량 전일 {v[-1] / v[-2] * 100:.0f}%"
+                    return "C", f"{label} 장대양봉 종가 돌파 · 거래대금 {cfg['money'](s['trading_value'])} · 거래량 전일 {v[-1] / v[-2] * 100:.0f}%"
 
-    # A: 메이저 수급 집중 + 윗꼬리 거의 없는 양봉 고가 마감
+    # A: 메이저 수급 집중 + 윗꼬리 거의 없는 양봉 고가 마감 (수급이 없는 미장에선 판정되지 않는다)
     if close > open_ and upper_tail(open_, high, low, close) <= 0.12 and high > 0 and (high - close) / high <= 0.01:
         if flow and (flow[0]["foreign"] > 0 or flow[0]["organ"] > 0):
             big = max(flow[0]["foreign"], flow[0]["organ"]) * close
@@ -394,7 +404,7 @@ def match_closing_bet(b, s, flow):
     return None, None
 
 
-def match_swing_pullback(b, s, flow):
+def match_swing_pullback(b, s, flow, cfg=KR_CFG):
     c, v, o, h, l = b["close"], b["volume"], b["open"], b["high"], b["low"]
     p = SECTIONS[1]["params"]
     win = p["rally_window"] + p["pullback_days"][1]  # 급등 구간 + 조정 구간을 모두 담을 만큼
@@ -413,7 +423,7 @@ def match_swing_pullback(b, s, flow):
     rally = pct(seg_c[peak_i], trough) if trough else 0
     peak_value = seg_c[peak_i] * seg_v[peak_i]  # 그날 거래대금(종가 x 거래량으로 근사)
     big_candle = (
-        peak_value >= p["big_candle_value"]
+        peak_value >= cfg["big_candle_value"]
         and seg_c[peak_i] > seg_o[peak_i]
         and pct(seg_c[peak_i], seg_o[peak_i]) >= 3.0
     )
@@ -433,7 +443,7 @@ def match_swing_pullback(b, s, flow):
     near = lambda line: line and abs(close - line) / line <= 0.03
     held = lambda line: line and all(abs(l[-i] - line) / line <= 0.035 for i in (1, 2, 3))
 
-    lead = f"1차 상승 +{rally:.0f}%" if rally >= p["min_rally_pct"] else f"거래대금 {peak_value / 1e8:.0f}억 장대양봉"
+    lead = f"1차 상승 +{rally:.0f}%" if rally >= p["min_rally_pct"] else f"거래대금 {cfg['money'](peak_value)} 장대양봉"
     tail = f"고점 후 {bars_since_peak}거래일 조정 · 거래량 {drop:.0f}% 감소"
 
     ma20, ma10, ma60 = ma(c, 20), ma(c, 10), ma(c, 60)
@@ -446,7 +456,7 @@ def match_swing_pullback(b, s, flow):
     return None, None
 
 
-def match_trend_rally(b, s, flow):
+def match_trend_rally(b, s, flow, cfg=KR_CFG):
     c, v, o, h = b["close"], b["volume"], b["open"], b["high"]
     close = c[-1]
     avg20v = ma(v, 20, offset=1) or 0
@@ -472,7 +482,7 @@ def match_trend_rally(b, s, flow):
         if attempts >= 2 and ma10 and close > ma10 and avg20v and v[-1] >= avg20v * 1.2:
             return "B", f"480일선 돌파 {attempts}회 실패 후 재돌파 · 상단 우상향"
 
-    # C: 기관 지속 순매수 + 240일선 돌파 후 10·20일선 지지 저점 상승
+    # C: 기관 지속 순매수 + 240일선 돌파 후 10·20일선 지지 저점 상승 (수급이 없는 미장에선 판정되지 않는다)
     if ma240 and close > ma240 and flow and len(flow) >= 3:
         organ_days = sum(1 for d in flow[:5] if d["organ"] > 0)
         ma10, ma20 = ma(c, 10), ma(c, 20)
@@ -495,9 +505,15 @@ MATCHERS = [
 # ──────────────────────────────────────────────────────────────────────────
 # 차트 파일
 # ──────────────────────────────────────────────────────────────────────────
-def write_chart_files(stocks, charts_dir):
+def _round_price(x, digits):
+    # 국장은 원 단위 정수, 미장은 센트까지(소수 2자리). round(x, 0) 은 172.0 같은 실수를 돌려줘서 따로 나눈다.
+    return round(x, digits) if digits else round(x)
+
+
+def write_chart_files(stocks, charts_dir, digits=0):
     """목록에 오른 종목의 일봉을 종목별 파일로 저장한다.
-    브라우저에서 야후를 직접 부르면 CORS 로 막혀서(배포본에서 확인), 배치가 미리 받아둬야 한다."""
+    브라우저에서 야후를 직접 부르면 CORS 로 막혀서(배포본에서 확인), 배치가 미리 받아둬야 한다.
+    목록에서 빠진 종목의 파일은 지우므로, 시장마다 폴더를 따로 써야 한다(안 그러면 서로의 차트를 지운다)."""
     if charts_dir is None:
         return 0
     charts_dir.mkdir(parents=True, exist_ok=True)
@@ -507,9 +523,10 @@ def write_chart_files(stocks, charts_dir):
             bars = _bars_from(_yahoo_chart(s["symbol"], "3y", "1d"), limit=CHART_BARS)
         except Exception:
             return None
+        rp = lambda x: _round_price(x, digits)
         rows = [
-            [bars["date"][i], round(bars["open"][i]), round(bars["high"][i]),
-             round(bars["low"][i]), round(bars["close"][i]), round(bars["volume"][i])]
+            [bars["date"][i], rp(bars["open"][i]), rp(bars["high"][i]),
+             rp(bars["low"][i]), rp(bars["close"][i]), round(bars["volume"][i])]
             for i in range(len(bars["close"]))
         ]
         return {"code": s["code"], "name": s["name"], "bars": rows} if rows else None
@@ -552,7 +569,7 @@ def probe_sources():
     return checks
 
 
-def _scan_one(s):
+def _scan_one(s, digits=0):
     try:
         bars = fetch_daily(s["symbol"])
     except Exception:
@@ -566,7 +583,7 @@ def _scan_one(s):
         "failed": False,
         "bars": bars,
         "quote": {
-            "close": round(c[-1]),
+            "close": _round_price(c[-1], digits),
             "change_percent": round(pct(c[-1], c[-2]), 2),
             "volume": int(v[-1]),
             "trading_day": bars["date"][-1],
@@ -574,18 +591,11 @@ def _scan_one(s):
     }
 
 
-def build_screening(today=None, charts_dir=None):
-    today = today or datetime.date.today()
-    probe = probe_sources()
-
-    passed, rejected = fetch_universe()
-    if not passed:
-        raise RuntimeError(f"0단계를 통과한 종목이 없습니다 — 출처 점검: {probe}")
-
-    # 1단계 — 체급을 통과한 종목만 일봉 조회
+def scan_daily(passed, digits=0):
+    """1단계 — 체급을 통과한 종목만 일봉 조회. (결과, 조회 실패 수)"""
     scanned, failures = [], 0
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        for res in pool.map(_scan_one, passed):
+        for res in pool.map(lambda s: _scan_one(s, digits), passed):
             if res is None:
                 continue
             if res["failed"]:
@@ -595,45 +605,26 @@ def build_screening(today=None, charts_dir=None):
     print(f"[INFO] 1단계: 일봉 확보 {len(scanned)}종목 (조회 실패 {failures})")
     if failures > len(passed) * 0.2:
         print(f"[WARN] 조회 실패가 {failures}건이다 — 결과가 상당수 빠졌을 수 있다")
+    return scanned, failures
 
-    # 2단계 — 수급 조회 (전량. 킬스위치2와 0단계 4번 모두 수급이 있어야 판정된다)
-    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        flows = list(pool.map(lambda x: fetch_flow(x["stock"]["code"]), scanned))
 
-    # 3단계 — 테마 태그
-    tag_map, leaders = fetch_theme_map()
+def assign_sections(candidates, cfg=KR_CFG):
+    """킬스위치 -> 섹션 판정 -> 섹션별 상한 자르기. 국장·미장이 같이 쓴다.
 
+    candidates: (화면용 기본 정보, 일봉, 종목, 수급) 묶음의 목록.
+      기본 정보에는 정렬용 '_rank'(거래대금)를 넣어 보낸다. 결과에서는 지운다.
+    반환: ({섹션ID: [종목]}, 킬스위치 탈락 수)"""
     sections = {sid: [] for sid in SECTION_ORDER}
     dropped = 0
-    for res, flow in zip(scanned, flows):
-        s, bars = res["stock"], res["bars"]
-        base = {
-            "code": s["code"],
-            "name": s["name"],
-            "market": s["market"],
-            "tags": tag_map.get(s["code"], [])[:MAX_TAGS],
-            "trading_value_eok": round(s["trading_value"] / 1e8),
-            "market_cap_eok": round(s["market_cap"] / 1e8),
-            **{k: res["quote"][k] for k in ("close", "change_percent", "volume")},
-            "url": f"https://m.stock.naver.com/domestic/stock/{s['code']}/total",
-        }
-        if flow:
-            base["flow"] = {
-                "date": flow[0]["date"],
-                "foreign": flow[0]["foreign"],
-                "organ": flow[0]["organ"],
-                "individual": flow[0]["individual"],
-            }
-
+    for base, bars, s, flow in candidates:
         # 체급 미달·킬스위치는 즉시 영구 탈락이다. 결과에 노출하지 않는다.
         # (예전엔 '진입 금지' 목록으로 보여줬는데, 안 살 종목을 보여줄 이유가 없다.)
-        blocked = no_major_flow(flow, res["quote"]["close"]) or kill_checks(bars, s, flow)
-        if blocked:
+        if kill_checks(bars, s, flow, cfg):
             dropped += 1
             continue
 
         for sid, fn in MATCHERS:
-            kind, reason = fn(bars, s, flow)
+            kind, reason = fn(bars, s, flow, cfg)
             if reason:
                 sections[sid].append(
                     {**base, "section": sid, "section_name": SECTION_NAME[sid], "type": kind,
@@ -646,14 +637,65 @@ def build_screening(today=None, charts_dir=None):
     # 매칭돼도 11위 밖으로 밀려 안 보였다. 유형별로 돌아가며 뽑아 자리를 보장한다.
     for sid in sections:
         by_type = {}
-        for e in sorted(sections[sid], key=lambda x: -x["trading_value_eok"]):
+        for e in sorted(sections[sid], key=lambda x: -x["_rank"]):
             by_type.setdefault(e["type"], []).append(e)
         picked_sec, order = [], sorted(by_type)
         while len(picked_sec) < MAX_PER_SECTION and any(by_type[t] for t in order):
             for t in order:
                 if by_type[t] and len(picked_sec) < MAX_PER_SECTION:
                     picked_sec.append(by_type[t].pop(0))
-        sections[sid] = sorted(picked_sec, key=lambda x: -x["trading_value_eok"])
+        sections[sid] = sorted(picked_sec, key=lambda x: -x["_rank"])
+        for e in sections[sid]:
+            e.pop("_rank", None)
+    return sections, dropped
+
+
+def build_screening(today=None, charts_dir=None):
+    today = today or datetime.date.today()
+    probe = probe_sources()
+
+    passed, rejected = fetch_universe()
+    if not passed:
+        raise RuntimeError(f"0단계를 통과한 종목이 없습니다 — 출처 점검: {probe}")
+
+    scanned, failures = scan_daily(passed)
+
+    # 2단계 — 수급 조회 (전량. 킬스위치2와 0단계 4번 모두 수급이 있어야 판정된다)
+    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        flows = list(pool.map(lambda x: fetch_flow(x["stock"]["code"]), scanned))
+
+    # 3단계 — 테마 태그
+    tag_map, leaders = fetch_theme_map()
+
+    candidates, no_flow = [], 0
+    for res, flow in zip(scanned, flows):
+        s, bars = res["stock"], res["bars"]
+        # 0단계 4번(외인·기관 순매수 3억)은 수급을 받아야 볼 수 있어 여기서 거른다. 국장 전용이다.
+        if no_major_flow(flow, res["quote"]["close"]):
+            no_flow += 1
+            continue
+        base = {
+            "code": s["code"],
+            "name": s["name"],
+            "market": s["market"],
+            "tags": tag_map.get(s["code"], [])[:MAX_TAGS],
+            "trading_value_eok": round(s["trading_value"] / 1e8),
+            "market_cap_eok": round(s["market_cap"] / 1e8),
+            **{k: res["quote"][k] for k in ("close", "change_percent", "volume")},
+            "url": f"https://m.stock.naver.com/domestic/stock/{s['code']}/total",
+            "_rank": s["trading_value"],
+        }
+        if flow:
+            base["flow"] = {
+                "date": flow[0]["date"],
+                "foreign": flow[0]["foreign"],
+                "organ": flow[0]["organ"],
+                "individual": flow[0]["individual"],
+            }
+        candidates.append((base, bars, s, flow))
+
+    sections, killed = assign_sections(candidates)
+    dropped = no_flow + killed
 
     picked = [e for sid in SECTION_ORDER for e in sections[sid]]
     charts = write_chart_files(

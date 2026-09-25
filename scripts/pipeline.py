@@ -19,6 +19,7 @@ from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_secto
 import morning_brief as mb
 from calendar_data import KST, build_calendar
 from screening import build_screening, fetch_theme_groups, theme_leaders
+from screening_us import build_us_screening
 from morning_breakout import build_morning_breakout
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -30,6 +31,7 @@ CHANNELS_OUT_FILE = DATA_DIR / "channels.json"
 MORNING_BRIEF_FILE = DATA_DIR / "morning_brief.json"
 CALENDAR_FILE = DATA_DIR / "calendar.json"
 SCREENING_FILE = DATA_DIR / "screening.json"
+US_SCREENING_FILE = DATA_DIR / "screening_us.json"
 THEMES_FILE = DATA_DIR / "themes.json"
 MORNING_FILE = DATA_DIR / "morning_breakout.json"
 # 자막 캐시. 요약이 실패해도 자막을 다시 받지 않기 위해 남겨둔다(성공하면 지운다).
@@ -78,6 +80,14 @@ THEME_TOP = 8
 MORNING_AFTER = (9, 30)
 MORNING_BEFORE_HOUR = 11
 SCREENING_RULES_VERSION = 8
+
+# 미장 섹션 1~3. 미국 정규장 마감(현지 16:00) = 한국시간 05:00(서머타임) / 06:00(겨울).
+# 06:30 부터 잡으면 두 경우 모두 마감 뒤라 매시 크론의 07:00 실행이 받는다.
+# 끝을 12시로 둔 건 예약 실행이 늦게 시작될 때를 위한 여유다.
+# 요일은 한국 기준 화~토 = 미국 월~금 장이 끝난 다음 날 아침.
+US_SCREENING_AFTER = (6, 30)
+US_SCREENING_BEFORE_HOUR = 12
+US_SCREENING_WEEKDAYS = (1, 2, 3, 4, 5)
 
 
 def call_with_timeout(fn, timeout, *args, **kwargs):
@@ -491,12 +501,13 @@ def update_screening(now):
         current = {}
 
     in_window = (kst.hour, kst.minute) >= SCREENING_AFTER and kst.hour < SCREENING_BEFORE_HOUR
-    up_to_date = (current.get("built_slot") or "").startswith(today) and (
-        current.get("rules_version") == SCREENING_RULES_VERSION
-    )
+    same_rules = current.get("rules_version") == SCREENING_RULES_VERSION
+    up_to_date = (current.get("built_slot") or "").startswith(today) and same_rules
 
     if in_window:
-        if up_to_date:
+        # 마감 실행은 '마감 후 결과'가 있을 때만 건너뛴다. 그날 낮에 손으로 돌린 결과(장중 미완성 일봉)가 있어도
+        # 마감 결과로 덮어써야 한다. 예전엔 '오늘 만든 게 있으면' 건너뛰어서 장중 결과가 하루 종일 남았다.
+        if current.get("built_slot") == f"{today}/close" and same_rules:
             return False
         stamp = f"{today}/close"
     elif os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch" and not up_to_date:
@@ -532,6 +543,66 @@ def update_screening(now):
     # 그때는 그날 일봉이 아직 안 끝난 상태로 판정한 것이므로 화면에 표시해준다.
     data["intraday"] = kst.weekday() < 5 and (9, 0) <= (kst.hour, kst.minute) < (15, 30)
     save_json(SCREENING_FILE, data)
+    return True
+
+
+def update_us_screening(now):
+    """미장 종목 선별. 한국시간 화~토 아침(미국 장 마감 뒤) 하루 한 번.
+    국장과 같이, 손으로 돌린 실행은 시간대 밖이어도 그날 아직 안 만들었으면 돌려준다."""
+    kst = now.astimezone(KST)
+    today = kst.date().isoformat()
+    current = load_json(US_SCREENING_FILE, {})
+    if not isinstance(current, dict):
+        current = {}
+
+    in_window = (
+        kst.weekday() in US_SCREENING_WEEKDAYS
+        and (kst.hour, kst.minute) >= US_SCREENING_AFTER
+        and kst.hour < US_SCREENING_BEFORE_HOUR
+    )
+    manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+    same_rules = current.get("rules_version") == SCREENING_RULES_VERSION
+    slot = current.get("built_slot") or ""
+
+    if in_window:
+        # 국장과 같다. 아침 결과가 이미 있을 때만 건너뛴다. 새벽에 손으로 돌린 장중 결과는 덮어쓴다.
+        if slot == f"{today}/close" and same_rules:
+            return False
+        stamp = f"{today}/close"
+    elif manual and not (slot.startswith(today) and same_rules):
+        stamp = f"{today}/manual"
+        print(f"[INFO] 미장 스크리닝: 시간대 밖({kst:%H:%M})이지만 수동 실행이라 진행한다")
+    else:
+        return False
+
+    try:
+        data = build_us_screening(charts_dir=DATA_DIR / "charts_us")
+    except Exception as e:
+        # 국장과 같은 이유로 실패를 결과 파일에 남긴다. 슬롯을 비워 다음 실행에서 다시 시도한다.
+        print(f"[WARN] 미장 스크리닝 실패: {e}")
+        save_json(
+            US_SCREENING_FILE,
+            {
+                "market": "us",
+                "error": f"{type(e).__name__}: {e}",
+                "built_slot": "",
+                "rules_version": SCREENING_RULES_VERSION,
+                "updated_at": now.isoformat(),
+                "sections": [],
+            },
+        )
+        return True
+
+    data["built_slot"] = stamp
+    data["rules_version"] = SCREENING_RULES_VERSION
+    data["updated_at"] = now.isoformat()
+    # 손으로 미국 정규장 중에 돌리면 그날 일봉이 미완성이다. 화면에 표시해준다.
+    # 미국 장중 = 한국시간 22:30~05:00(서머타임) / 23:30~06:00(겨울). 넉넉히 22:30~06:00 으로 본다.
+    # 월~금 밤에 열려 화~토 새벽에 닫힌다.
+    us_evening = (kst.hour, kst.minute) >= (22, 30) and kst.weekday() <= 4
+    us_early = kst.hour < 6 and 1 <= kst.weekday() <= 5
+    data["intraday"] = bool(manual and not in_window and (us_evening or us_early))
+    save_json(US_SCREENING_FILE, data)
     return True
 
 
@@ -699,6 +770,12 @@ def main():
             commit_and_push(f"chore: update screening {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] screening failed: {e}")
+
+    try:
+        if update_us_screening(now):
+            commit_and_push(f"chore: update us screening {now.isoformat()}")
+    except Exception as e:
+        print(f"[WARN] us screening failed: {e}")
 
     try:
         if save_warnings(now):
