@@ -154,7 +154,8 @@ def kr_market_holidays(years):
     try:
         import holidays as pyholidays  # build_calendar 의 지역변수 holidays 와 겹치지 않게 별칭
 
-        for d, name in pyholidays.country_holidays("KR", years=sorted(years)).items():
+        # 언어를 안 주면 서버 설정(깃허브는 영어)을 따라가 'Chuseok' 처럼 영어로 나왔다.
+        for d, name in pyholidays.country_holidays("KR", years=sorted(years), language="ko").items():
             names[d] = name
     except Exception as e:
         print(f"[WARN] 공휴일 라이브러리 실패 — 손으로 적은 휴장일만 쓴다: {e}")
@@ -186,9 +187,9 @@ def kr_market_holidays(years):
 def _kr_holiday_entry(days, names):
     labels = [names[d] for d in days]
     joined = " ".join(labels)
-    if "설날" in joined:
+    if "설날" in joined or "Korean New Year" in joined:
         title = "설 연휴"
-    elif "추석" in joined:
+    elif "추석" in joined or "Chuseok" in joined:
         title = "추석 연휴"
     else:
         title = "·".join(dict.fromkeys(labels))  # 순서 유지 중복 제거
@@ -436,6 +437,15 @@ _EARNINGS_PURPOSE = re.compile(
     r"|(실적|Earnings|earnings).{0,12}(발표|설명|Release|release|Announcement|Conference|conference)"
 )
 _NOT_EARNINGS = re.compile(r"non-deal|NDR|[Rr]oadshow|Post-earnings")
+# 실적 발표 시즌별로 그때 나오는 분기. 분기 보고서 기한(분기 끝 45일, 연간 90일) 안쪽이다.
+# 시즌 밖(6·9·12월)이나 다른 분기를 말하는 IR 은 '지난 실적 설명회'라 실적 발표가 아니다.
+# 실제로 9월에 '2분기 실적 설명' IR 이 실적 발표처럼 달력에 찍혔다.
+_SEASON_QUARTER = {
+    1: r"4\s*분기|4Q|Q4|연간|결산|FY", 2: r"4\s*분기|4Q|Q4|연간|결산|FY", 3: r"4\s*분기|4Q|Q4|연간|결산|FY",
+    4: r"1\s*분기|1Q|Q1", 5: r"1\s*분기|1Q|Q1",
+    7: r"2\s*분기|2Q|Q2|상반기|반기|1H", 8: r"2\s*분기|2Q|Q2|상반기|반기|1H",
+    10: r"3\s*분기|3Q|Q3", 11: r"3\s*분기|3Q|Q3",
+}
 
 
 def _kr_market_caps(min_cap):
@@ -519,6 +529,9 @@ def kr_earnings_events(start, end):
         if r["market"] not in labels:
             continue  # 코넥스 제외
         if not _EARNINGS_PURPOSE.search(r["purpose"]) or _NOT_EARNINGS.search(r["purpose"]):
+            continue
+        season = _SEASON_QUARTER.get(int(r["date"][5:7]))
+        if not season or not re.search(season, r["purpose"]):
             continue
         # KIND 는 6자리 종목코드의 앞 5자리를 쓴다(삼성전자 005930 -> 00593).
         if caps.get(r["kind_code"] + "0", 0) < KR_EARNINGS_MIN_CAP:
