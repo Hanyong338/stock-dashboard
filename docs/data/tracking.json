@@ -937,7 +937,7 @@
       "symbol": "CRCL",
       "status": "SL_HIT",
       "rets": [
-        -4.34
+        -4.3
       ],
       "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
@@ -945,9 +945,11 @@
       "hwm": -0.86,
       "hwm_day": 1,
       "mdd": -5.82,
-      "final_ret": -4.34,
+      "final_ret": -4.3,
       "closed_on": "2026-09-25",
-      "stop_line": 92.26
+      "stop_line": 92.26,
+      "last_close": 89.0,
+      "checked_for": "2026-09-25"
     },
     {
       "id": "us:REGN:SWING_PULLBACK:2026-09-24",
@@ -965,7 +967,7 @@
       "entry": 796.02,
       "stop": 769.66,
       "symbol": "REGN",
-      "status": "SL_HIT",
+      "status": "ACTIVE",
       "rets": [
         -1.0
       ],
@@ -975,9 +977,11 @@
       "hwm": 0.99,
       "hwm_day": 1,
       "mdd": -1.49,
-      "final_ret": -1.0,
-      "closed_on": "2026-09-25",
-      "stop_line": 789.39
+      "final_ret": null,
+      "closed_on": "",
+      "stop_line": 789.39,
+      "last_close": 788.04,
+      "checked_for": "2026-09-25"
     },
     {
       "id": "us:SU:SWING_PULLBACK:2026-09-24",
@@ -995,9 +999,9 @@
       "entry": 68.65,
       "stop": 66.57,
       "symbol": "SU",
-      "status": "SL_HIT",
+      "status": "ACTIVE",
       "rets": [
-        -0.61
+        -0.67
       ],
       "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
@@ -1005,9 +1009,11 @@
       "hwm": -0.38,
       "hwm_day": 1,
       "mdd": -1.98,
-      "final_ret": -0.61,
-      "closed_on": "2026-09-25",
-      "stop_line": 68.28
+      "final_ret": null,
+      "closed_on": "",
+      "stop_line": 68.28,
+      "last_close": 68.19,
+      "checked_for": "2026-09-25"
     },
     {
       "id": "us:IOT:SWING_PULLBACK:2026-09-24",
@@ -1025,9 +1031,9 @@
       "entry": 39.32,
       "stop": 37.39,
       "symbol": "IOT",
-      "status": "SL_HIT",
+      "status": "ACTIVE",
       "rets": [
-        -3.4
+        -3.46
       ],
       "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
@@ -1035,9 +1041,11 @@
       "hwm": 1.86,
       "hwm_day": 1,
       "mdd": -3.56,
-      "final_ret": -3.4,
-      "closed_on": "2026-09-25",
-      "stop_line": 38.35
+      "final_ret": null,
+      "closed_on": "",
+      "stop_line": 38.35,
+      "last_close": 37.96,
+      "checked_for": "2026-09-25"
     },
     {
       "id": "us:CNH:SWING_PULLBACK:2026-09-24",
@@ -1055,9 +1063,9 @@
       "entry": 13.28,
       "stop": 12.81,
       "symbol": "CNH",
-      "status": "SL_HIT",
+      "status": "ACTIVE",
       "rets": [
-        -1.47
+        -1.43
       ],
       "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
@@ -1065,9 +1073,11 @@
       "hwm": 0.08,
       "hwm_day": 1,
       "mdd": -2.48,
-      "final_ret": -1.47,
-      "closed_on": "2026-09-25",
-      "stop_line": 13.14
+      "final_ret": null,
+      "closed_on": "",
+      "stop_line": 13.14,
+      "last_close": 13.09,
+      "checked_for": "2026-09-25"
     },
     {
       "id": "us:ZETA:SWING_PULLBACK:2026-09-24",
@@ -1117,7 +1127,7 @@
       "entry": 11.18,
       "stop": 10.72,
       "symbol": "PTEN",
-      "status": "SL_HIT",
+      "status": "ACTIVE",
       "rets": [
         -2.42
       ],
@@ -1127,9 +1137,11 @@
       "hwm": -0.09,
       "hwm_day": 1,
       "mdd": -3.76,
-      "final_ret": -2.42,
-      "closed_on": "2026-09-25",
-      "stop_line": 10.99
+      "final_ret": null,
+      "closed_on": "",
+      "stop_line": 10.99,
+      "last_close": 10.91,
+      "checked_for": "2026-09-25"
     },
     {
       "id": "us:VIST:SWING_PULLBACK:2026-09-24",
@@ -1147,9 +1159,9 @@
       "entry": 68.3,
       "stop": 66.57,
       "symbol": "VIST",
-      "status": "SL_HIT",
+      "status": "ACTIVE",
       "rets": [
-        -1.19
+        -1.27
       ],
       "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
@@ -1157,9 +1169,11 @@
       "hwm": 0.16,
       "hwm_day": 1,
       "mdd": -2.61,
-      "final_ret": -1.19,
-      "closed_on": "2026-09-25",
-      "stop_line": 68.28
+      "final_ret": null,
+      "closed_on": "",
+      "stop_line": 68.28,
+      "last_close": 67.43,
+      "checked_for": "2026-09-25"
     },
     {
       "id": "us:HCC:SWING_PULLBACK:2026-09-24",
@@ -2113,15 +2127,16 @@
   "summary": {
     "total": 69,
     "pending": 49,
-    "active": 13,
-    "closed": 7,
-    "in_the_money": 53.8,
+    "active": 19,
+    "closed": 1,
+    "in_the_money": 36.8,
     "hit_5": 10.0,
     "hit_10": 0.0,
     "avg_hwm": 1.45,
     "avg_mdd": -2.25,
     "closed_win_rate": 0.0,
-    "closed_avg_final": -2.06
+    "closed_avg_final": -4.3
   },
-  "updated_at": "2026-09-25T23:43:34.016632+00:00"
+  "updated_at": "2026-09-25T23:47:47.475583+00:00",
+  "rules_version": 2
 }
