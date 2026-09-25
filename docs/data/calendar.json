@@ -136,13 +136,6 @@
     {
       "start": "2026-09-02",
       "end": "2026-09-02",
-      "title": "한국가스공사 실적",
-      "category": "earnings",
-      "detail": "코스피 14:00"
-    },
-    {
-      "start": "2026-09-02",
-      "end": "2026-09-02",
       "title": "ADP 고용",
       "category": "macro",
       "detail": "21:15",
@@ -221,13 +214,6 @@
     {
       "start": "2026-09-07",
       "end": "2026-09-07",
-      "title": "동진쎄미켐 실적",
-      "category": "earnings",
-      "detail": "코스닥 09:00"
-    },
-    {
-      "start": "2026-09-07",
-      "end": "2026-09-07",
       "title": "노동절 (미국 휴장)",
       "category": "holiday",
       "detail": ""
@@ -241,13 +227,6 @@
       "consensus": "0.6%",
       "actual": "0.6%",
       "previous": "1.7%"
-    },
-    {
-      "start": "2026-09-09",
-      "end": "2026-09-09",
-      "title": "실리콘투 실적",
-      "category": "earnings",
-      "detail": "코스닥 13:00"
     },
     {
       "start": "2026-09-09",
@@ -277,13 +256,6 @@
       "eps_forecast": "$1.39",
       "eps": "$1.63",
       "surprise": "17.27"
-    },
-    {
-      "start": "2026-09-10",
-      "end": "2026-09-10",
-      "title": "티에스이 실적",
-      "category": "earnings",
-      "detail": "코스닥 10:00"
     },
     {
       "start": "2026-09-10",
@@ -363,13 +335,6 @@
       "previous": "51.7"
     },
     {
-      "start": "2026-09-14",
-      "end": "2026-09-14",
-      "title": "iM금융지주 실적",
-      "category": "earnings",
-      "detail": "코스피"
-    },
-    {
       "start": "2026-09-15",
       "end": "2026-09-15",
       "title": "한국 무역수지",
@@ -408,13 +373,6 @@
       "consensus": "0.6%",
       "actual": "1.4%",
       "previous": "-0.2%"
-    },
-    {
-      "start": "2026-09-17",
-      "end": "2026-09-17",
-      "title": "현대로템 실적",
-      "category": "earnings",
-      "detail": "코스피 14:00"
     },
     {
       "start": "2026-09-17",
@@ -522,22 +480,12 @@
     {
       "start": "2026-09-22",
       "end": "2026-09-22",
-      "title": "S&P글로벌 서비스업 PMI",
+      "title": "리치먼드 연은지수",
       "category": "macro",
-      "detail": "22:45",
-      "consensus": "55.8",
-      "actual": "58.7",
-      "previous": "56.5"
-    },
-    {
-      "start": "2026-09-22",
-      "end": "2026-09-22",
-      "title": "S&P글로벌 제조업 PMI",
-      "category": "macro",
-      "detail": "22:45",
-      "consensus": "53.6",
-      "actual": "57.0",
-      "previous": "53.9"
+      "detail": "23:00",
+      "consensus": "2",
+      "actual": "-2",
+      "previous": "4"
     },
     {
       "start": "2026-09-23",
@@ -558,6 +506,15 @@
       "consensus": "53.6",
       "actual": "57.0",
       "previous": "53.9"
+    },
+    {
+      "start": "2026-09-23",
+      "end": "2026-09-23",
+      "title": "한국 소비자심리",
+      "category": "macro",
+      "detail": "06:00",
+      "actual": "106.6",
+      "previous": "104.5"
     },
     {
       "start": "2026-09-24",
@@ -572,7 +529,7 @@
     {
       "start": "2026-09-24",
       "end": "2026-09-26",
-      "title": "The day preceding Chuseok·Chuseok·The second day of Chuseok (한국 휴장)",
+      "title": "추석 연휴 (한국 휴장)",
       "category": "holiday",
       "detail": ""
     },
@@ -791,7 +748,7 @@
     {
       "start": "2026-10-05",
       "end": "2026-10-05",
-      "title": "Alternative holiday for National Foundation Day (한국 휴장)",
+      "title": "개천절 대체 휴일 (한국 휴장)",
       "category": "holiday",
       "detail": ""
     },
@@ -829,7 +786,7 @@
     {
       "start": "2026-10-09",
       "end": "2026-10-09",
-      "title": "Hangul Day (한국 휴장)",
+      "title": "한글날 (한국 휴장)",
       "category": "holiday",
       "detail": ""
     },
@@ -1445,7 +1402,7 @@
     {
       "start": "2026-12-25",
       "end": "2026-12-25",
-      "title": "Christmas Day (한국 휴장)",
+      "title": "기독탄신일 (한국 휴장)",
       "category": "holiday",
       "detail": ""
     },
@@ -1465,6 +1422,6 @@
     }
   ],
   "built_on": "2026-09-25",
-  "builder_version": 8,
-  "updated_at": "2026-09-25T13:13:07.057398+00:00"
+  "builder_version": 9,
+  "updated_at": "2026-09-25T13:18:59.309736+00:00"
 }
