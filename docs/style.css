@@ -1563,64 +1563,89 @@ main {
 
 /* ---------- 성과 추적 ---------- */
 .trk-filters { display: flex; flex-wrap: wrap; gap: 8px; }
-.trk-note { font-size: 11.5px; line-height: 1.55; color: var(--text-muted); margin: 2px 0 14px; }
+.trk-note { font-size: 11.5px; line-height: 1.55; color: var(--text-muted); margin: 2px 0 12px; }
+.trk-muted { color: var(--text-faint); font-weight: 600; }
+.trk-num.up, .trk-kpi-value .up { color: var(--up); }
+.trk-num.down, .trk-kpi-value .down { color: var(--down); }
 
-/* 상단 요약. 종결된 것만으로 계산한 값이라 '종결 N건 기준'을 같이 적는다. */
+/* 상단 핵심 통계 — 5칸 한 줄. 좁으면 2~3칸으로 접힌다 */
 .trk-kpis {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 .trk-kpi {
-  padding: 12px 12px 10px;
+  padding: 10px 11px 9px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  min-width: 0;
+}
+.trk-kpi-label { font-size: 10.5px; font-weight: 700; color: var(--text-faint); }
+.trk-kpi-value { font-size: 17px; font-weight: 800; margin-top: 3px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.trk-kpi-sub { font-size: 10px; color: var(--text-faint); margin-top: 2px; line-height: 1.35; }
+
+.trk-block { margin-bottom: 16px; }
+.trk-block-title { font-size: 13px; font-weight: 800; margin-bottom: 7px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.trk-block-title .trk-muted { font-size: 10.5px; font-weight: 600; }
+
+/* 표 공통 — 줄 높이를 낮게 잡아 60~70종목이 쌓여도 한눈에 보이게 한다 */
+.trk-table-wrap {
+  overflow-x: auto;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 }
-.trk-kpi-label { font-size: 11px; font-weight: 700; color: var(--text-faint); }
-.trk-kpi-value { font-size: 20px; font-weight: 800; margin-top: 4px; font-variant-numeric: tabular-nums; }
-.trk-kpi-sub { font-size: 10.5px; color: var(--text-faint); margin-top: 2px; }
-.trk-kpi-value.up, .trk-num.up { color: var(--up); }
-.trk-kpi-value.down, .trk-num.down { color: var(--down); }
-
-.trk-block { margin-bottom: 18px; }
-.trk-block-title { font-size: 13px; font-weight: 800; margin-bottom: 8px; }
-
-/* 섹션별 성적표 */
-.trk-table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); }
-.trk-table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
-.trk-table th, .trk-table td { padding: 8px 10px; text-align: right; white-space: nowrap; }
-.trk-table th { font-size: 11px; font-weight: 700; color: var(--text-faint); border-bottom: 1px solid var(--border); }
-.trk-table td:first-child, .trk-table th:first-child { text-align: left; }
-.trk-table tr + tr td { border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent); }
-.trk-muted { color: var(--text-faint); }
-
-/* 종목별 기록 */
-.trk-list { display: flex; flex-direction: column; gap: 8px; }
-.trk-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) 90px;
-  gap: 4px 12px;
-  align-items: center;
-  padding: 11px 13px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+.trk-table { width: 100%; border-collapse: collapse; font-size: 11.5px; font-variant-numeric: tabular-nums; }
+.trk-table th, .trk-table td { padding: 6px 6px; text-align: right; white-space: nowrap; vertical-align: middle; }
+/* 머리글은 두 줄까지 허용한다('현재 / 수익률'). 한 줄로 두면 머리글 때문에 표가 옆으로 밀린다 */
+.trk-table th {
+  font-size: 10.5px; font-weight: 700; color: var(--text-faint); line-height: 1.25;
+  white-space: normal; border-bottom: 1px solid var(--border); background: var(--surface);
 }
-.trk-name { font-size: 13.5px; font-weight: 800; }
-.trk-name small { font-size: 10.5px; font-weight: 600; color: var(--text-faint); margin-left: 4px; }
-.trk-meta { font-size: 11px; color: var(--text-faint); margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
-.trk-badge { font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 5px; background: var(--accent-soft); color: var(--accent-strong); }
-.trk-status { font-size: 10.5px; font-weight: 800; padding: 1px 7px; border-radius: 5px; background: var(--chip-bg); color: var(--text-muted); }
+.trk-table tbody tr + tr td { border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent); }
+.trk-table .trk-left { text-align: left; }
+
+/* 섹션 요약표: 행을 누르면 아래 표가 걸러진다 */
+.trk-sec-row { cursor: pointer; transition: background 0.12s ease; }
+.trk-sec-row:hover td { background: color-mix(in srgb, var(--accent-soft) 45%, transparent); }
+.trk-sec-row.on td { background: var(--accent-soft); }
+.trk-sec-row.on td:first-child { box-shadow: inset 3px 0 0 var(--accent); font-weight: 800; }
+
+/* 종목 표 */
+.trk-list-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px; }
+.trk-list-head .scr-market-tabs { margin-bottom: 0; }
+.trk-scope {
+  font: inherit; font-size: 11.5px; font-weight: 700; cursor: pointer;
+  padding: 5px 10px; border-radius: 999px; border: 1px solid var(--accent);
+  background: var(--accent-soft); color: var(--accent-strong);
+}
+/* 종목명·티커를 한 줄에 둔다. 두 줄로 쌓으면 행 높이가 1.5배가 된다 */
+.trk-name {
+  display: inline-block; vertical-align: middle; max-width: 94px;
+  overflow: hidden; text-overflow: ellipsis; font-size: 12px; font-weight: 800;
+}
+.trk-code { font-size: 10px; color: var(--text-faint); font-weight: 600; margin-left: 5px; vertical-align: middle; }
+.trk-sector { display: inline-block; vertical-align: middle; max-width: 68px; overflow: hidden; text-overflow: ellipsis; }
+.trk-list td b { font-weight: 800; }
+/* 가로로 밀어도 종목명은 붙어 있게 */
+.trk-sticky { position: sticky; left: 0; z-index: 1; background: var(--surface); text-align: left !important; }
+.trk-list thead .trk-sticky { z-index: 2; }
+.trk-state { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
+.trk-status { font-size: 10px; font-weight: 800; padding: 1px 6px; border-radius: 5px; background: var(--chip-bg); color: var(--text-muted); }
+.trk-status.act { background: color-mix(in srgb, var(--accent-soft) 70%, transparent); color: var(--accent-strong); }
 .trk-status.sl { background: rgba(var(--down-rgb), 0.12); color: var(--down); }
-.trk-status.exp { background: var(--accent-soft); color: var(--accent-strong); }
-.trk-figs { font-size: 11.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; line-height: 1.6; }
-.trk-figs b { font-size: 15px; font-weight: 800; }
-.trk-spark { width: 90px; height: 30px; }
+.trk-status.exp { background: var(--chip-bg); color: var(--text); }
+.trk-status.pend { background: var(--chip-bg); color: var(--text-faint); }
+.trk-pending { text-align: center !important; }
+.trk-spark { width: 46px; height: 18px; flex: 0 0 auto; }
+.trk-empty { text-align: center !important; color: var(--text-faint); padding: 16px !important; }
 
-@media (max-width: 560px) {
+@media (max-width: 760px) {
+  .trk-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
   .trk-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .trk-row { grid-template-columns: minmax(0, 1fr) 90px; }
-  .trk-figs { grid-column: 1 / -1; grid-row: 2; }
+  .trk-name { max-width: 88px; }
 }
