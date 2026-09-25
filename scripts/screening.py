@@ -60,6 +60,7 @@ KR_CFG = {
     "type_c_min_value": SECTIONS[0]["params"]["type_c_min_trading_value"],
     "big_candle_value": SECTIONS[1]["params"]["big_candle_value"],
     "money": lambda v: f"{v / 1e8:.0f}억",
+    "digits": 0,  # 가격 소수 자리 (원 단위)
 }
 
 
@@ -611,6 +612,33 @@ def scan_daily(passed, digits=0):
     return scanned, failures
 
 
+def stop_price(sid, kind, bars, reason, digits=0):
+    """발굴 당일 기준 손절가. 각 섹션 청산 규칙의 '손절' 조건을 가격 하나로 옮긴 것이다.
+    성과 추적이 이 값을 영구 고정해서 쓴다(이후 이평선이 움직여도 바꾸지 않는다).
+
+      종가베팅 A  고가 마감 양봉의 당일 저가 (규칙: 지지선 이탈 시 손절)
+               B  종가를 지킨 10일선 또는 20일선
+               C  돌파한 240일선 또는 480일선 (규칙: 돌파선 이탈 시 손절)
+      눌림목      지지받은 이평선(10·20·60일선). 종가가 이미 그 선 아래면(밑꼬리 지지형) 당일 저가
+      대시세 추세  60일선 (규칙: 60일선 이탈 시 전량 손절)"""
+    c, l = bars["close"], bars["low"]
+    line = None
+    if sid == "CLOSING_BET":
+        if kind == "A":
+            line = l[-1]
+        elif kind == "B":
+            line = ma(c, 10 if "10일선" in reason else 20)
+        elif kind == "C":
+            line = ma(c, 480 if "480일선" in reason else 240)
+    elif sid == "SWING_PULLBACK":
+        line = ma(c, int(str(kind).replace("일선", "")))
+        if line and line >= c[-1]:
+            line = l[-1]  # 손절가가 진입가 위면 다음 날 바로 손절 처리돼 의미가 없다
+    elif sid == "TREND_RALLY":
+        line = ma(c, 60)
+    return _round_price(line, digits) if line else None
+
+
 def assign_sections(candidates, cfg=KR_CFG):
     """킬스위치 -> 섹션 판정 -> 섹션별 상한 자르기. 국장·미장이 같이 쓴다.
 
@@ -631,7 +659,8 @@ def assign_sections(candidates, cfg=KR_CFG):
             if reason:
                 sections[sid].append(
                     {**base, "section": sid, "section_name": SECTION_NAME[sid], "type": kind,
-                     "reason": reason, "exits": SECTION_EXITS[sid]}
+                     "reason": reason, "exits": SECTION_EXITS[sid],
+                     "stop": stop_price(sid, kind, bars, reason, cfg.get("digits", 0))}
                 )
                 break  # 중복 배정 금지. MATCHERS 순서가 곧 우선순위다.
 

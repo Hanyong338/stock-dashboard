@@ -21,6 +21,7 @@ const state = {
   screening: {},
   screeningUS: {},
   screeningMarket: loadScreeningMarket(),
+  tracking: {},
   themes: {},
   morningBreakout: {},
   channels: [],
@@ -1618,6 +1619,161 @@ document.querySelectorAll(".scr-market-tab").forEach((btn) => {
   });
 });
 
+/* ---------- 성과 추적 ---------- */
+
+const trkState = { market: "all", status: "all" };
+const TRK_DAYS = 20;
+const TRK_STATUS = { ACTIVE: ["추적 중", ""], SL_HIT: ["손절", "sl"], EXPIRED: ["만기", "exp"] };
+
+function trkPrice(p, v) {
+  if (v == null) return "-";
+  return p.market === "us"
+    ? `$${Number(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    : `${Number(v).toLocaleString()}원`;
+}
+
+function trkPct(v, digits = 1) {
+  if (v == null || !Number.isFinite(Number(v))) return `<span class="trk-muted">-</span>`;
+  const n = Number(v);
+  const tone = n > 0 ? "up" : n < 0 ? "down" : "";
+  return `<span class="trk-num ${tone}">${n > 0 ? "+" : ""}${n.toFixed(digits)}%</span>`;
+}
+
+/** 종결된 기록으로 낸 성적. 추적 중인 건 결과가 아직 없어 넣지 않는다. */
+function trkStats(list) {
+  const closed = list.filter((p) => p.status !== "ACTIVE" && p.final_ret != null);
+  const n = closed.length;
+  const avg = (k) => (n ? closed.reduce((s, p) => s + (Number(p[k]) || 0), 0) / n : null);
+  return {
+    active: list.filter((p) => p.status === "ACTIVE").length,
+    closed: n,
+    sl: closed.filter((p) => p.status === "SL_HIT").length,
+    win: n ? (closed.filter((p) => p.final_ret > 0).length / n) * 100 : null,
+    final: avg("final_ret"),
+    hwm: avg("hwm"),
+    mdd: avg("mdd"),
+  };
+}
+
+/** D+1 ~ D+N 누적 수익률 꺾은선. 0% 기준선 위아래로 보인다. */
+function trkSpark(rets) {
+  if (!rets || !rets.length) return `<svg class="trk-spark"></svg>`;
+  const pts = [0, ...rets];
+  const lo = Math.min(0, ...pts);
+  const hi = Math.max(0, ...pts);
+  const span = hi - lo || 1;
+  const W = 90;
+  const H = 30;
+  const x = (i) => (i / TRK_DAYS) * (W - 2) + 1;
+  const y = (v) => H - 2 - ((v - lo) / span) * (H - 4);
+  const last = pts[pts.length - 1];
+  const color = last > 0 ? "var(--up)" : last < 0 ? "var(--down)" : "var(--text-faint)";
+  return `<svg class="trk-spark" viewBox="0 0 ${W} ${H}" aria-hidden="true">
+    <line x1="0" x2="${W}" y1="${y(0)}" y2="${y(0)}" stroke="var(--border)" stroke-dasharray="2 2"/>
+    <polyline fill="none" stroke="${color}" stroke-width="1.6" points="${pts.map((v, i) => `${x(i)},${y(v)}`).join(" ")}"/>
+  </svg>`;
+}
+
+function renderTracking() {
+  const body = document.getElementById("trackingBody");
+  if (!body) return;
+  document.querySelectorAll("[data-trk-market]").forEach((b) => b.classList.toggle("active", b.dataset.trkMarket === trkState.market));
+  document.querySelectorAll("[data-trk-status]").forEach((b) => b.classList.toggle("active", b.dataset.trkStatus === trkState.status));
+
+  const all = (state.tracking && state.tracking.positions) || [];
+  const byMarket = all.filter((p) => trkState.market === "all" || p.market === trkState.market);
+  if (!all.length) {
+    body.innerHTML =
+      '<div class="empty-state"><span class="empty-icon">📒</span>아직 추적 기록이 없습니다.<br>시그널 스크리너에 종목이 뽑히면 그날 종가로 자동 박제됩니다.</div>';
+    return;
+  }
+
+  const s = trkStats(byMarket);
+  const kpi = (label, value, sub) =>
+    `<div class="trk-kpi"><div class="trk-kpi-label">${label}</div><div class="trk-kpi-value">${value}</div>${
+      sub ? `<div class="trk-kpi-sub">${sub}</div>` : ""
+    }</div>`;
+  const kpis = `<div class="trk-kpis">
+    ${kpi("추적 중", `${s.active}`, `종결 ${s.closed}건 (손절 ${s.sl} · 만기 ${s.closed - s.sl})`)}
+    ${kpi("승률", s.win == null ? "-" : `${s.win.toFixed(0)}%`, "종결 기준, 최종 수익 > 0")}
+    ${kpi("평균 최종 수익률", trkPct(s.final), "손절 확정 또는 20일차 종가")}
+    ${kpi("평균 최고 / 낙폭", `${trkPct(s.hwm)} <span class="trk-muted">/</span> ${trkPct(s.mdd)}`, "장중 고가·저가, 진입가 대비")}
+  </div>`;
+
+  // 섹션별 성적표. 같은 섹션이라도 국장·미장은 따로 본다.
+  const MK = { kr: "🇰🇷", us: "🇺🇸" };
+  const groups = {};
+  for (const p of byMarket) (groups[`${p.market}|${p.section}`] ||= []).push(p);
+  const order = ["MORNING_BREAKOUT", "CLOSING_BET", "SWING_PULLBACK", "TREND_RALLY"];
+  const rows = Object.entries(groups)
+    .sort(([a], [b]) => a.split("|")[0].localeCompare(b.split("|")[0]) || order.indexOf(a.split("|")[1]) - order.indexOf(b.split("|")[1]))
+    .map(([key, list]) => {
+      const g = trkStats(list);
+      const name = list[0].section_name || key.split("|")[1];
+      return `<tr><td>${MK[list[0].market] || ""} ${escapeHtml(name)}</td>
+        <td>${g.active}</td><td>${g.closed}</td>
+        <td>${g.win == null ? '<span class="trk-muted">-</span>' : `${g.win.toFixed(0)}%`}</td>
+        <td>${trkPct(g.final)}</td><td>${trkPct(g.hwm)}</td><td>${trkPct(g.mdd)}</td>
+        <td>${g.closed ? `${((g.sl / g.closed) * 100).toFixed(0)}%` : '<span class="trk-muted">-</span>'}</td></tr>`;
+    })
+    .join("");
+  const table = `<section class="trk-block"><div class="trk-block-title">섹션별 성적</div>
+    <div class="trk-table-wrap"><table class="trk-table">
+      <thead><tr><th>섹션</th><th>추적 중</th><th>종결</th><th>승률</th><th>평균 최종</th><th>평균 최고</th><th>평균 낙폭</th><th>손절률</th></tr></thead>
+      <tbody>${rows}</tbody></table></div></section>`;
+
+  const shown = byMarket
+    .filter((p) => trkState.status === "all" || p.status === trkState.status)
+    .sort((a, b) => (a.found_on < b.found_on ? 1 : a.found_on > b.found_on ? -1 : a.name.localeCompare(b.name)));
+  const list = shown
+    .map((p) => {
+      const [label, cls] = TRK_STATUS[p.status] || [p.status, ""];
+      const days = (p.rets || []).length;
+      const cur = p.status === "ACTIVE" ? (p.rets || []).slice(-1)[0] : p.final_ret;
+      const curLabel = p.status === "ACTIVE" ? "현재" : "최종";
+      const progress = p.entry == null ? "진입가 대기(발굴일 종가)" : days ? `D+${days}/${TRK_DAYS}` : "D+1 대기";
+      return `<div class="trk-row">
+        <div>
+          <div class="trk-name">${escapeHtml(p.name)}<small>${escapeHtml(p.code)}</small></div>
+          <div class="trk-meta">
+            <span>${MK[p.market] || ""}</span>
+            <span class="trk-badge">${escapeHtml(p.section_name || p.section)} ${escapeHtml(p.type || "")}</span>
+            <span class="trk-status ${cls}">${label}</span>
+            <span>${escapeHtml(p.found_on)} 발굴 · ${progress}</span>
+          </div>
+        </div>
+        <div class="trk-figs">
+          ${curLabel} <b>${trkPct(cur, 2)}</b><br>
+          최고 ${trkPct(p.hwm)}${p.hwm_day ? ` <span class="trk-muted">(D+${p.hwm_day})</span>` : ""} · 낙폭 ${trkPct(days ? p.mdd : null)}<br>
+          <span class="trk-muted">진입 ${trkPrice(p, p.entry)} · 손절 ${trkPrice(p, p.stop)}</span>
+        </div>
+        ${trkSpark(p.rets)}
+      </div>`;
+    })
+    .join("");
+
+  body.innerHTML =
+    `<p class="trk-note">발굴일 종가를 진입가로 고정하고, 다음 거래일부터 20거래일 동안 추적합니다. 목표가는 없고,
+      종가가 기준 손절가 아래로 마감하면 그날 손절로 종결합니다. 승률·평균은 종결된 기록만으로 계산합니다.</p>` +
+    kpis +
+    table +
+    `<section class="trk-block"><div class="trk-block-title">종목별 기록 <span class="trk-muted">${shown.length}건</span></div>
+      <div class="trk-list">${list || '<p class="empty-state">해당하는 기록이 없습니다.</p>'}</div></section>`;
+}
+
+document.querySelectorAll("[data-trk-market]").forEach((b) =>
+  b.addEventListener("click", () => {
+    trkState.market = b.dataset.trkMarket;
+    renderTracking();
+  })
+);
+document.querySelectorAll("[data-trk-status]").forEach((b) =>
+  b.addEventListener("click", () => {
+    trkState.status = b.dataset.trkStatus;
+    renderTracking();
+  })
+);
+
 function setLastUpdated() {
   const el = document.getElementById("lastUpdated");
   const latest = state.summaries[0]?.fetched_at;
@@ -1626,7 +1782,7 @@ function setLastUpdated() {
 
 async function loadAll() {
   try {
-    const [summaries, morningBrief, calendar, screening, screeningUS, themes, morningBreakout, channels] =
+    const [summaries, morningBrief, calendar, screening, screeningUS, themes, morningBreakout, channels, tracking] =
       await Promise.all([
         loadJSON("summaries.json"),
         loadJSON("morning_brief.json").catch(() => ({})),
@@ -1636,7 +1792,9 @@ async function loadAll() {
         loadJSON("themes.json").catch(() => ({})),
         loadJSON("morning_breakout.json").catch(() => ({})),
         loadJSON("channels.json").catch(() => []),
+        loadJSON("tracking.json").catch(() => ({})),
       ]);
+    state.tracking = tracking;
     state.summaries = summaries;
     state.morningBrief = morningBrief;
     state.calendar = calendar;
@@ -1656,6 +1814,7 @@ async function loadAll() {
     renderDateTabs();
     renderSummaries();
     renderScreening();
+    renderTracking();
     setLastUpdated();
   } catch (err) {
     document.getElementById("summaryList").innerHTML = `<p class="empty-state">데이터를 불러오지 못했습니다: ${escapeHtml(err.message)}</p>`;

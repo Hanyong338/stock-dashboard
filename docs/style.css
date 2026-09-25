@@ -1067,7 +1067,7 @@ main {
   background: var(--chip-bg);
   border-radius: 12px;
 }
-.scr-market-tab {
+.scr-market-tab, .trk-tab {
   padding: 7px 18px;
   border: 1px solid transparent;
   border-radius: 9px;
@@ -1079,8 +1079,8 @@ main {
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }
-.scr-market-tab:hover { color: var(--text); }
-.scr-market-tab.active {
+.scr-market-tab:hover, .trk-tab:hover { color: var(--text); }
+.scr-market-tab.active, .trk-tab.active {
   background: var(--surface);
   border-color: var(--accent);
   color: var(--accent-strong);
@@ -1560,3 +1560,67 @@ main {
 
 /* 이슈·정책 (법안 통과, 규제 변경 등). 경제지표 API 에 없어 당잠사 뉴스에서 가져온다 */
 
+
+/* ---------- 성과 추적 ---------- */
+.trk-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.trk-note { font-size: 11.5px; line-height: 1.55; color: var(--text-muted); margin: 2px 0 14px; }
+
+/* 상단 요약. 종결된 것만으로 계산한 값이라 '종결 N건 기준'을 같이 적는다. */
+.trk-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.trk-kpi {
+  padding: 12px 12px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.trk-kpi-label { font-size: 11px; font-weight: 700; color: var(--text-faint); }
+.trk-kpi-value { font-size: 20px; font-weight: 800; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.trk-kpi-sub { font-size: 10.5px; color: var(--text-faint); margin-top: 2px; }
+.trk-kpi-value.up, .trk-num.up { color: var(--up); }
+.trk-kpi-value.down, .trk-num.down { color: var(--down); }
+
+.trk-block { margin-bottom: 18px; }
+.trk-block-title { font-size: 13px; font-weight: 800; margin-bottom: 8px; }
+
+/* 섹션별 성적표 */
+.trk-table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.trk-table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
+.trk-table th, .trk-table td { padding: 8px 10px; text-align: right; white-space: nowrap; }
+.trk-table th { font-size: 11px; font-weight: 700; color: var(--text-faint); border-bottom: 1px solid var(--border); }
+.trk-table td:first-child, .trk-table th:first-child { text-align: left; }
+.trk-table tr + tr td { border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent); }
+.trk-muted { color: var(--text-faint); }
+
+/* 종목별 기록 */
+.trk-list { display: flex; flex-direction: column; gap: 8px; }
+.trk-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) 90px;
+  gap: 4px 12px;
+  align-items: center;
+  padding: 11px 13px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.trk-name { font-size: 13.5px; font-weight: 800; }
+.trk-name small { font-size: 10.5px; font-weight: 600; color: var(--text-faint); margin-left: 4px; }
+.trk-meta { font-size: 11px; color: var(--text-faint); margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
+.trk-badge { font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 5px; background: var(--accent-soft); color: var(--accent-strong); }
+.trk-status { font-size: 10.5px; font-weight: 800; padding: 1px 7px; border-radius: 5px; background: var(--chip-bg); color: var(--text-muted); }
+.trk-status.sl { background: rgba(var(--down-rgb), 0.12); color: var(--down); }
+.trk-status.exp { background: var(--accent-soft); color: var(--accent-strong); }
+.trk-figs { font-size: 11.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; line-height: 1.6; }
+.trk-figs b { font-size: 15px; font-weight: 800; }
+.trk-spark { width: 90px; height: 30px; }
+
+@media (max-width: 560px) {
+  .trk-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trk-row { grid-template-columns: minmax(0, 1fr) 90px; }
+  .trk-figs { grid-column: 1 / -1; grid-row: 2; }
+}

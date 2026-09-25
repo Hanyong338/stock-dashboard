@@ -20,6 +20,7 @@ import morning_brief as mb
 from calendar_data import KST, build_calendar, refresh_values
 from screening import build_screening, fetch_theme_groups, theme_leaders
 from screening_us import build_us_screening
+import tracking as trk
 from morning_breakout import build_morning_breakout
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,6 +34,7 @@ CALENDAR_FILE = DATA_DIR / "calendar.json"
 KR_CONSENSUS_FILE = DATA_DIR / "kr_consensus.json"
 SCREENING_FILE = DATA_DIR / "screening.json"
 US_SCREENING_FILE = DATA_DIR / "screening_us.json"
+TRACKING_FILE = DATA_DIR / "tracking.json"
 THEMES_FILE = DATA_DIR / "themes.json"
 MORNING_FILE = DATA_DIR / "morning_breakout.json"
 # 자막 캐시. 요약이 실패해도 자막을 다시 받지 않기 위해 남겨둔다(성공하면 지운다).
@@ -616,6 +618,33 @@ def update_us_screening(now):
     return True
 
 
+def update_tracking(now):
+    """스크리너가 뽑은 종목을 박제하고 20거래일 성과를 추적한다(tracking.py 참고).
+    매시간 불리지만 야후 조회는 시장마다 하루 한 번(마감 뒤)뿐이다. 바뀐 게 없으면 저장하지 않는다."""
+    data = load_json(TRACKING_FILE, {})
+    if not isinstance(data, dict):
+        data = {}
+    before = json.dumps(data, ensure_ascii=False, sort_keys=True)
+
+    added = trk.snapshot(
+        data,
+        load_json(SCREENING_FILE, {}),
+        load_json(US_SCREENING_FILE, {}),
+        load_json(MORNING_FILE, {}),
+        now,
+    )
+    if added:
+        print(f"[INFO] 성과 추적: {added}종목 새로 박제")
+    trk.update(data, now)
+    data["summary"] = trk.summarize(data)
+
+    if json.dumps(data, ensure_ascii=False, sort_keys=True) == before:
+        return False
+    data["updated_at"] = now.isoformat()
+    save_json(TRACKING_FILE, data)
+    return True
+
+
 def update_calendar(now):
     """증시 캘린더를 하루에 한 번만 다시 만든다.
     한 번에 100일 넘게 조회하므로 매시간 돌리면 API 호출이 낭비된다.
@@ -797,6 +826,13 @@ def main():
             commit_and_push(f"chore: update us screening {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] us screening failed: {e}")
+
+    # 스크리닝들이 끝난 뒤에 돌아야 그날 뽑힌 종목을 바로 박제한다.
+    try:
+        if update_tracking(now):
+            commit_and_push(f"chore: update tracking {now.isoformat()}")
+    except Exception as e:
+        print(f"[WARN] tracking failed: {e}")
 
     try:
         if save_warnings(now):

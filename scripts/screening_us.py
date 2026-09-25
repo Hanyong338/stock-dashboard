@@ -68,7 +68,7 @@ def _get_screener(params, tries=3):
     raise last
 
 
-US_CFG = {**US_MONEY_RULES, "money": _usd}
+US_CFG = {**US_MONEY_RULES, "money": _usd, "digits": 2}
 
 # 나스닥 산업분류 -> 한국어. '기술' 같은 대분류(sector)는 쓰지 않는다 — 뭘 하는 회사인지 안 보인다.
 # 없는 분류는 영어 그대로 둔다(틀린 번역보다 낫다).

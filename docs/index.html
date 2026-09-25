@@ -9,7 +9,7 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
 <!-- app.js / style.css 를 수정하면 아래 v 값을 그날 날짜로 바꿀 것.
      안 바꾸면 브라우저가 옛날 파일을 계속 써서 수정이 반영 안 된 것처럼 보인다. -->
-<link rel="stylesheet" href="style.css?v=20260925d" />
+<link rel="stylesheet" href="style.css?v=20260925e" />
 </head>
 <body>
 <header class="topbar">
@@ -35,6 +35,7 @@
   <button class="tab-btn" data-tab="briefing">글로벌 모닝 브리핑</button>
   <button class="tab-btn" data-tab="summaries">마켓 라이브</button>
   <button class="tab-btn" data-tab="screening">시그널 스크리너</button>
+  <button class="tab-btn" data-tab="tracking">성과 추적</button>
 </nav>
 
 <main>
@@ -123,8 +124,27 @@
       <p class="empty-state">시그널 스크리너 결과를 불러오는 중입니다...</p>
     </div>
   </section>
+
+  <section id="tab-tracking" class="tab-panel">
+    <div class="trk-filters">
+      <div class="scr-market-tabs" role="tablist">
+        <button class="trk-tab active" type="button" data-trk-market="all">전체</button>
+        <button class="trk-tab" type="button" data-trk-market="kr">🇰🇷 국장</button>
+        <button class="trk-tab" type="button" data-trk-market="us">🇺🇸 미장</button>
+      </div>
+      <div class="scr-market-tabs" role="tablist">
+        <button class="trk-tab active" type="button" data-trk-status="all">모두</button>
+        <button class="trk-tab" type="button" data-trk-status="ACTIVE">추적 중</button>
+        <button class="trk-tab" type="button" data-trk-status="SL_HIT">손절</button>
+        <button class="trk-tab" type="button" data-trk-status="EXPIRED">만기</button>
+      </div>
+    </div>
+    <div id="trackingBody">
+      <p class="empty-state">성과 추적 기록을 불러오는 중입니다...</p>
+    </div>
+  </section>
 </main>
 
-<script src="app.js?v=20260925d"></script>
+<script src="app.js?v=20260925e"></script>
 </body>
 </html>
