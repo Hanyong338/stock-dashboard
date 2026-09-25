@@ -5,6 +5,7 @@
 그래서 종목은 관심 리스트, 지표는 화이트리스트로 좁힌다.
 """
 import datetime
+import html
 import re
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -14,6 +15,9 @@ import requests
 EARNINGS_URL = "https://api.nasdaq.com/api/calendar/earnings"
 ECONOMIC_URL = "https://api.nasdaq.com/api/calendar/economicevents"
 BOK_URL = "https://www.bok.or.kr/portal/singl/crncyPolicyDrcMtg/listYear.do"
+MSCI_DATES_URL = "https://app2.msci.com/eqb/pressreleases/archive/ir_dates.csv"
+KIND_IR_URL = "https://kind.krx.co.kr/corpgeneral/irschedule.do"
+NAVER_CAP_URL = "https://m.stock.naver.com/api/stocks/marketValue/{market}"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36",
@@ -257,6 +261,230 @@ def _bok_from_site(year):
     return out
 
 
+# ──────────────────────────────────────────────────────────────────────────
+# 수급 이벤트 — 선물·옵션 만기일, 지수 정기변경 (category: flow)
+# ──────────────────────────────────────────────────────────────────────────
+def _holiday_dates(entries):
+    """휴장 목록({start, end})을 날짜 집합으로 푼다."""
+    out = set()
+    for h in entries:
+        d = datetime.date.fromisoformat(h["start"])
+        last = datetime.date.fromisoformat(h["end"])
+        while d <= last:
+            out.add(d)
+            d += datetime.timedelta(days=1)
+    return out
+
+
+def _prev_business_day(d, closed):
+    while d.weekday() >= 5 or d in closed:
+        d -= datetime.timedelta(days=1)
+    return d
+
+
+def _next_business_day(d, closed):
+    d += datetime.timedelta(days=1)
+    while d.weekday() >= 5 or d in closed:
+        d += datetime.timedelta(days=1)
+    return d
+
+
+def _flow(d, title, detail):
+    return {"start": d.isoformat(), "end": d.isoformat(), "title": title, "category": "flow", "detail": detail}
+
+
+def expiry_events(months, kr_closed, us_closed):
+    """만기일은 규칙으로 정해져 있어 조회 없이 계산한다(틀릴 여지가 없다).
+      국장  코스피200 옵션 — 매월 둘째 목요일. 3·6·9·12월은 선물과 겹치는 동시만기
+      미장  주식·지수 옵션 — 매월 셋째 금요일. 3·6·9·12월은 쿼드러플 위칭
+    만기일이 휴장이면 직전 거래일로 당겨진다.
+    코스피200·코스닥150 정기변경은 6·12월 동시만기 다음 거래일에 반영된다
+    (거래소 보도자료로 확인: 2026년 6월 만기 6/11 -> 반영 6/12)."""
+    out = []
+    for m in months:
+        quarter = m.month in (3, 6, 9, 12)
+
+        kr = _prev_business_day(_nth_weekday(m.year, m.month, 3, 2), kr_closed)
+        if quarter:
+            out.append(_flow(kr, "국내 선물·옵션 동시만기", "최종거래일 · 장 막판 프로그램 매매 변동성"))
+        else:
+            out.append(_flow(kr, "국내 옵션만기", "코스피200 옵션 최종거래일"))
+        if m.month in (6, 12):
+            out.append(
+                _flow(_next_business_day(kr, kr_closed), "코스피200·코스닥150 정기변경 반영",
+                      "전날(만기일) 종가에 패시브 편입·편출 매매")
+            )
+
+        us = _prev_business_day(_nth_weekday(m.year, m.month, 4, 3), us_closed)
+        if quarter:
+            out.append(_flow(us, "미국 쿼드러플 위칭", "지수·주식 선물옵션 동시만기 · 한국시간 토 새벽 마감"))
+        else:
+            out.append(_flow(us, "미국 옵션만기", "월간 옵션 · 한국시간 토 새벽 마감"))
+    return out
+
+
+# MSCI 공식 발표 일정. 아래 CSV 조회가 실패할 때 쓰는 대비책이다.
+# 출처: MSCI 'Announces the Next Eight Index Review Dates' (2026-08-12 발표)
+MSCI_FALLBACK = [
+    ("2026-11-11", "2026-12-01"), ("2027-02-09", "2027-03-01"), ("2027-05-10", "2027-05-28"),
+    ("2027-08-12", "2027-09-01"), ("2027-11-11", "2027-12-01"), ("2028-02-10", "2028-03-01"),
+    ("2028-05-11", "2028-06-01"), ("2028-08-14", "2028-09-01"),
+]
+
+
+def _msci_dates():
+    """MSCI 가 정기변경 때마다 앞으로 8회분 일정을 CSV 로 올려둔다. 연도가 바뀌어도 손댈 필요가 없다."""
+    try:
+        resp = requests.get(MSCI_DATES_URL, headers={"User-Agent": HEADERS["User-Agent"]}, timeout=20)
+        resp.raise_for_status()
+        pairs = [
+            (f"{a[2]}-{a[0]}-{a[1]}", f"{b[2]}-{b[0]}-{b[1]}")
+            for a, b in (
+                (m[0:3], m[3:6])
+                for m in re.findall(r"(\d\d)-(\d\d)-(\d{4})\|(\d\d)-(\d\d)-(\d{4})", resp.text)
+            )
+        ]
+        if pairs:
+            print(f"[INFO] MSCI 정기변경 일정 {len(pairs)}건 (공식 CSV)")
+            return pairs
+    except Exception as e:
+        print(f"[WARN] MSCI 일정 조회 실패: {e}")
+    print(f"[INFO] MSCI: 확인해둔 일정 {len(MSCI_FALLBACK)}건으로 대체")
+    return MSCI_FALLBACK
+
+
+def msci_events(kr_closed):
+    """MSCI 는 발표일 현지 밤 11시(중유럽)에 명단을 내고 = 한국시간 다음 날 아침 6~7시,
+    '발효일 전 거래일 종가 기준'으로 반영한다(공식 공지 문구: 'as of the close of ...').
+    국내 패시브 자금이 실제로 움직이는 건 그 반영 거래일 장 마감이다."""
+    out = []
+    for ann, eff in _msci_dates():
+        ann_kst = datetime.date.fromisoformat(ann) + datetime.timedelta(days=1)
+        out.append(_flow(ann_kst, "MSCI 정기변경 발표", "한국시간 아침 6~7시 편입·편출 명단"))
+        last_day = _prev_business_day(datetime.date.fromisoformat(eff) - datetime.timedelta(days=1), kr_closed)
+        out.append(_flow(last_day, "MSCI 정기변경 반영", "장 마감 동시호가에 패시브 자금 집중"))
+    return out
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 국내 기업 실적발표 — 한국거래소 KIND 'IR 일정' (category: earnings)
+# ──────────────────────────────────────────────────────────────────────────
+# 실적 시즌 한 분기에 180곳 넘게 설명회를 연다. 달력이 못 쓰게 되지 않도록 시총으로 좁힌다.
+# 2026년 2분기 실측: 1조 이상 127곳 / 2조 이상 107곳 / 5조 이상 68곳. 2조면 삼성전자·SK하이닉스는 물론
+# 한미반도체·ISC·심텍 같은 반도체 중형주까지 들어온다.
+KR_EARNINGS_MIN_CAP = 2_000_000_000_000
+# 실적 설명회만 고른다. KIND IR 일정의 대부분은 증권사 컨퍼런스 참가·소형주 설명회다.
+_EARNINGS_PURPOSE = re.compile(
+    r"(\d\s*분기|상반기|하반기|반기|연간|결산|[1-4]Q|Q[1-4]|[12]H|FY).{0,20}(실적|Earnings|earnings)"
+    r"|(실적|Earnings|earnings).{0,12}(발표|설명|Release|release|Announcement|Conference|conference)"
+)
+_NOT_EARNINGS = re.compile(r"non-deal|NDR|[Rr]oadshow|Post-earnings")
+
+
+def _kr_market_caps(min_cap):
+    """종목코드(6자리) -> 시가총액. 네이버 목록은 시총 큰 순이라 기준 아래로 내려가면 멈춘다."""
+    caps = {}
+    headers = {"User-Agent": HEADERS["User-Agent"], "Referer": "https://m.stock.naver.com/"}
+    for market in ("KOSPI", "KOSDAQ"):
+        for page in range(1, 11):
+            resp = requests.get(
+                NAVER_CAP_URL.format(market=market), params={"page": page, "pageSize": 100},
+                headers=headers, timeout=20,
+            )
+            resp.raise_for_status()
+            rows = resp.json().get("stocks") or []
+            for r in rows:
+                try:
+                    caps[r["itemCode"]] = float(r.get("marketValueRaw") or 0)
+                except (TypeError, ValueError):
+                    pass
+            if not rows or float(rows[-1].get("marketValueRaw") or 0) < min_cap:
+                break
+    return caps
+
+
+def _kind_ir_rows(start, end):
+    """KIND IR 일정 표를 (날짜, 시각, 시장, KIND코드, 회사, 목적) 로 푼다."""
+    headers = {"User-Agent": HEADERS["User-Agent"]}
+    out = []
+    for page in range(1, 11):
+        resp = requests.post(
+            KIND_IR_URL,
+            data={
+                "method": "searchIRScheduleSub", "currentPageSize": "100", "pageIndex": str(page),
+                "orderMode": "1", "orderStat": "D",
+                "fromDate": start.isoformat(), "toDate": end.isoformat(),
+            },
+            headers=headers,
+            timeout=25,
+        )
+        resp.raise_for_status()
+        rows = [r for r in re.findall(r"(?s)<tr[^>]*>.*?</tr>", resp.text) if re.search(r"20\d\d-\d\d-\d\d", r)]
+        if not rows:
+            break
+        for r in rows:
+            co = re.search(r"companysummary_open\('(\w+)'\);[^>]*>([^<]+)<", r)
+            purpose = re.search(r"fnDetailView\('\d+'\); return false;\">([^<]+)<", r)
+            day = re.search(r"(20\d\d-\d\d-\d\d)", r)
+            if not (co and purpose and day):
+                continue
+            clock = re.search(r'txc">\s*(\d{1,2})[:시]\s*(\d{2})', r)
+            mkt = re.search(r"alt='([^']+)'", r)
+            out.append(
+                {
+                    "date": day.group(1),
+                    "time": f"{int(clock.group(1)):02d}:{clock.group(2)}" if clock else "",
+                    "market": mkt.group(1) if mkt else "",
+                    "kind_code": co.group(1),
+                    "name": html.unescape(co.group(2)).strip(),
+                    "purpose": " ".join(html.unescape(purpose.group(1)).split()),
+                }
+            )
+        if len(rows) < 100:
+            break
+    return out
+
+
+def kr_earnings_events(start, end):
+    """국내 대형주 실적발표(컨퍼런스콜) 일정. 회사가 보통 1주일쯤 전에 KIND 에 올리므로
+    먼 달은 비어 있다가 실적 시즌이 다가오면 채워진다.
+    삼성전자 '잠정실적'은 IR 일정 없이 당일 공시로 나와서 여기 잡히지 않는다(확정실적 설명회는 잡힌다)."""
+    try:
+        rows = _kind_ir_rows(start, end)
+        caps = _kr_market_caps(KR_EARNINGS_MIN_CAP)
+    except Exception as e:
+        print(f"[WARN] 국내 실적 일정 조회 실패: {e}")
+        return []
+
+    out, seen = [], {}
+    labels = {"유가증권": "코스피", "코스닥": "코스닥"}
+    for r in sorted(rows, key=lambda x: (x["date"], x["time"])):
+        if r["market"] not in labels:
+            continue  # 코넥스 제외
+        if not _EARNINGS_PURPOSE.search(r["purpose"]) or _NOT_EARNINGS.search(r["purpose"]):
+            continue
+        # KIND 는 6자리 종목코드의 앞 5자리를 쓴다(삼성전자 005930 -> 00593).
+        if caps.get(r["kind_code"] + "0", 0) < KR_EARNINGS_MIN_CAP:
+            continue
+        # 한글·영문 공지가 따로 올라오고, 이틀에 걸쳐 여는 회사도 있다. 한 분기에 한 번(첫날)만 남긴다.
+        d = datetime.date.fromisoformat(r["date"])
+        prev = seen.get(r["name"])
+        if prev and (d - prev).days < 30:
+            continue
+        seen[r["name"]] = d
+        out.append(
+            {
+                "start": r["date"],
+                "end": r["date"],
+                "title": f"{r['name']} 실적",
+                "category": "earnings",
+                "detail": f"{labels[r['market']]} {r['time']}".strip(),
+            }
+        )
+    print(f"[INFO] 국내 실적발표 {len(out)}건 (KIND IR {len(rows)}건 중 시총 2조 이상 실적 설명회)")
+    return out
+
+
 def _get_json(url, date_str):
     """한 번 실패했다고 그 날짜를 통째로 버리면 지표가 소리 없이 빠진다. 두 번까지 더 시도한다."""
     last = None
@@ -438,12 +666,21 @@ def build_calendar(today=None):
             if start.isoformat() <= e["start"] <= end.isoformat():
                 events.append(e)
 
+    # 수급 이벤트(만기일·지수 정기변경)와 국내 실적발표
+    kr_closed = _holiday_dates(KR_HOLIDAYS)
+    us_closed = _holiday_dates([h for yr in {start.year, end.year} for h in us_market_holidays(yr)])
+    extra = expiry_events(months, kr_closed, us_closed) + msci_events(kr_closed) + kr_earnings_events(start, end)
+    events.extend(e for e in extra if start.isoformat() <= e["start"] <= end.isoformat())
+
     # 주말은 어차피 장이 안 열려서 발표되는 게 없다. 여기 걸리는 건 한국시간으로 옮기다가
     # 토요일 새벽으로 밀린 자투리뿐이라 지운다. 연휴처럼 여러 날 걸친 일정은 건드리지 않는다.
+    # 수급 이벤트는 날짜를 직접 계산해 넣은 것이라 예외다(MSCI 가 금요일 밤에 발표하면 한국은 토요일 아침이다).
     events = [
         e
         for e in events
-        if e["start"] != e["end"] or datetime.date.fromisoformat(e["start"]).weekday() < 5
+        if e["start"] != e["end"]
+        or e["category"] == "flow"
+        or datetime.date.fromisoformat(e["start"]).weekday() < 5
     ]
 
     # 같은 날 같은 제목이 중복으로 들어오는 경우가 있어 정리한다.

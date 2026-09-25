@@ -1425,6 +1425,7 @@ main {
 .cal-chip.cat-macro.on, .cal-agenda-item.cat-macro { color: #10b981; }
 .cal-chip.cat-major.on, .cal-agenda-item.cat-major { color: #ec4899; }
 .cal-chip.cat-holiday.on, .cal-agenda-item.cat-holiday { color: #ef4444; }
+.cal-chip.cat-flow.on, .cal-agenda-item.cat-flow { color: #f59e0b; }
 
 .cal-card {
   background: var(--surface);
@@ -1495,6 +1496,7 @@ main {
 .cal-bar.cat-macro { background: #10b981; }
 .cal-bar.cat-major { background: #ec4899; }
 .cal-bar.cat-holiday { background: #ef4444; }
+.cal-bar.cat-flow { background: #f59e0b; }
 /* 주를 넘어 이어지는 쪽은 모서리를 펴서 연결돼 보이게 한다 */
 .cal-bar.cont-l { border-top-left-radius: 0; border-bottom-left-radius: 0; }
 .cal-bar.cont-r { border-top-right-radius: 0; border-bottom-right-radius: 0; }

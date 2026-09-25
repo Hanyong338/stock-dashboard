@@ -148,6 +148,7 @@ function mbriefSection(title, bodyNodes) {
 
 const CAL_CATEGORIES = [
   { key: "major", label: "주요 이벤트" },
+  { key: "flow", label: "만기·지수변경" },
   { key: "macro", label: "경제지표" },
   { key: "earnings", label: "실적" },
   { key: "holiday", label: "휴장" },
@@ -185,7 +186,8 @@ function parseDay(s) {
  *  그래서 줄을 어떤 순서로 채우느냐가 곧 '무엇이 보이느냐'가 된다.
  *  지표가 10건씩 몰리는 날에 FOMC 가 접혀버리면 달력을 볼 이유가 없으므로,
  *  날짜보다 중요도를 먼저 본다. 작을수록 위쪽 줄. */
-const CAL_RANK = { major: 0, holiday: 1, macro: 2, earnings: 3 };
+// 만기·지수변경은 하루 한두 건이라 줄을 많이 먹지 않으면서, 그날 장 흐름을 바꾸는 일정이라 지표보다 위에 둔다.
+const CAL_RANK = { major: 0, holiday: 1, flow: 2, macro: 3, earnings: 4 };
 
 /** 한 주(7칸) 안에서 막대가 서로 겹치지 않도록 줄(lane)을 배정한다. */
 function assignLanes(events, weekStart, weekEnd) {
