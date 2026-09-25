@@ -29,6 +29,10 @@ from screening import WORKERS, _bars_from, _yahoo_chart, stop_price
 
 TRACK_DAYS = 20
 SL_BUFFER_PCT = 2.5
+# 손절·종결 판정 규칙을 바꾸면 올린다. 올리면 종결된 기록까지 새 규칙으로 다시 계산한다(진입가는 그대로).
+# 2: 손절 버퍼 도입. 버퍼 이전 코드가 먼저 돌아 미장 7건이 버퍼 없는 손절가로 손절 판정을 받았는데,
+#    그중 6건은 지지선을 0.1~1.3% 차이로 깬 노이즈였다(버퍼 손절가로는 유지).
+TRACKING_RULES_VERSION = 2
 MORNING_STOP_PCT = 2.0  # 섹션4 '-2.0% 기계적 손절'
 OPEN_STATUSES = ("PENDING", "ACTIVE")
 KST = datetime.timezone(datetime.timedelta(hours=9))
@@ -139,10 +143,23 @@ def _migrate(positions):
             p["status"] = "PENDING"
 
 
+def _reopen_on_rule_change(tracking):
+    """규칙 버전이 바뀌면 종결된 기록을 다시 열어 새 규칙으로 처음부터 계산하게 한다.
+    _evaluate 는 발굴 다음 날부터 매번 전부 다시 계산하므로, 새 규칙에서도 손절이면 그대로 다시 종결된다."""
+    if tracking.get("rules_version") == TRACKING_RULES_VERSION:
+        return
+    for p in tracking.get("positions", []):
+        if p["status"] not in OPEN_STATUSES:
+            p["status"] = "ACTIVE"
+        p.pop("checked_for", None)
+    tracking["rules_version"] = TRACKING_RULES_VERSION
+
+
 def snapshot(tracking, screening_kr, screening_us, morning, now):
     """새로 뽑힌 종목을 박제한다. 반환: 새로 박제한 수."""
     positions = tracking.setdefault("positions", [])
     _migrate(positions)
+    _reopen_on_rule_change(tracking)
     known = {p["id"] for p in positions}
     open_keys = {(p["market"], p["code"], p["section"]) for p in positions if p["status"] in OPEN_STATUSES}
     added = 0
