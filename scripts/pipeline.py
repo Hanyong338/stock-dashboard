@@ -541,7 +541,13 @@ def update_screening(now):
     data["updated_at"] = now.isoformat()
     # 예약 실행은 마감 후에만 돌지만, 손으로 돌리면 장중일 수 있다.
     # 그때는 그날 일봉이 아직 안 끝난 상태로 판정한 것이므로 화면에 표시해준다.
-    data["intraday"] = kst.weekday() < 5 and (9, 0) <= (kst.hour, kst.minute) < (15, 30)
+    # 휴장일(추석 등)엔 시각이 장중이어도 최신 일봉이 이미 확정된 전 거래일 것이다.
+    # 기준일이 오늘일 때만 장중으로 본다.
+    data["intraday"] = (
+        kst.weekday() < 5
+        and (9, 0) <= (kst.hour, kst.minute) < (15, 30)
+        and data.get("as_of_trading_day") == today
+    )
     save_json(SCREENING_FILE, data)
     return True
 

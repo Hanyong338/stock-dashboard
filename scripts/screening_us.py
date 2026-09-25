@@ -233,8 +233,10 @@ def _f(v):
 
 
 def clean_name(name):
-    base = _NAME_TAIL.sub("", (name or "").strip())
-    return base.rstrip(" ,.-") or (name or "").strip()
+    # 나스닥 원문에 공백이 두 칸씩 들어간 이름이 있다(Suncor Energy  Inc.). 한 칸으로 맞춘다.
+    name = " ".join((name or "").split())
+    base = _NAME_TAIL.sub("", name)
+    return base.rstrip(" ,.-") or name
 
 
 def _is_common(row):

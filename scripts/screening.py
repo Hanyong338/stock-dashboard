@@ -444,7 +444,10 @@ def match_swing_pullback(b, s, flow, cfg=KR_CFG):
     held = lambda line: line and all(abs(l[-i] - line) / line <= 0.035 for i in (1, 2, 3))
 
     lead = f"1차 상승 +{rally:.0f}%" if rally >= p["min_rally_pct"] else f"거래대금 {cfg['money'](peak_value)} 장대양봉"
-    tail = f"고점 후 {bars_since_peak}거래일 조정 · 거래량 {drop:.0f}% 감소"
+    # 거래량 마름은 '급등일 대비 절반 이하' 또는 '20일 평균 이하' 중 하나로 통과한다.
+    # 뒤쪽으로 통과하면 급등일보다 오히려 많을 수 있어 '-12% 감소' 같은 문구가 나왔다. 통과한 기준대로 적는다.
+    vol_text = f"거래량 {drop:.0f}% 감소" if drop > 0 else "거래량 20일 평균 이하"
+    tail = f"고점 후 {bars_since_peak}거래일 조정 · {vol_text}"
 
     ma20, ma10, ma60 = ma(c, 20), ma(c, 10), ma(c, 60)
     if near(ma20) and ((close < open_ and lower_tail(open_, high, low, close) >= 0.4) or held(ma20)):
