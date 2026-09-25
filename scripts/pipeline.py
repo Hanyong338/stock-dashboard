@@ -17,7 +17,7 @@ from summarize import summarize_transcript
 from transcript import get_transcript, is_retryable_error
 from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
-from calendar_data import KST, build_calendar
+from calendar_data import KST, build_calendar, refresh_values
 from screening import build_screening, fetch_theme_groups, theme_leaders
 from screening_us import build_us_screening
 from morning_breakout import build_morning_breakout
@@ -55,7 +55,7 @@ MIN_VIDEO_DURATION_SECONDS = 181  # 3분 이하는 쇼츠(Shorts)라 요약하�
 
 # 캘린더 생성 규칙(수집 범위·시간대 변환·범주 등)이 바뀌면 이 숫자를 올린다.
 # 캘린더는 하루 한 번만 만들기 때문에, 이게 없으면 코드를 고쳐도 그날은 옛 데이터가 그대로 남는다.
-CALENDAR_BUILDER_VERSION = 7
+CALENDAR_BUILDER_VERSION = 8
 
 # 당잠사 리포트의 프롬프트/출력 형식을 바꾸면 이 숫자를 올린다.
 # 같은 방송이면 다시 분석하지 않기 때문에, 이게 없으면 새 방송이 올라올 때까지 옛 형식이 남는다.
@@ -631,6 +631,12 @@ def update_calendar(now):
         current.get("built_on") == today
         and current.get("builder_version") == CALENDAR_BUILDER_VERSION
     ):
+        # 오늘 이미 만들었으면 발표된 지표·실적의 실제치만 채운다(3일치, 호출 6번).
+        if refresh_values(current, kst_today):
+            current["values_updated_at"] = now.isoformat()
+            save_json(CALENDAR_FILE, current)
+            print("[INFO] calendar: 발표된 실제치 갱신")
+            return True
         return False
 
     data = build_calendar(kst_today)

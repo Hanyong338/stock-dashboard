@@ -132,13 +132,67 @@ COUNTRY_RULES = {
 # Cleveland CPI 는 연은의 추정치라 실제 CPI 발표와 다른 시각에 뜬다. 빼지 않으면 달력에 CPI 가 두 번 찍힌다.
 EXCLUDE_KEYS = ("GDPNow", "Atlanta Fed", "Redbook", "API Weekly", "Cushing", "Cleveland")
 
-# 국내 증시 휴장일. 추석·설날은 음력이라 계산하지 않고 확인된 것만 적는다.
+# 국내 증시 휴장일은 kr_market_holidays() 가 공휴일 라이브러리로 만든다.
+# 아래는 (1) 라이브러리를 못 불러올 때의 대비책이고 (2) 라이브러리가 늦게 반영하는
+# 임시공휴일을 손으로 더할 자리다. 여기 적은 날짜는 항상 휴장으로 들어간다.
 KR_HOLIDAYS = [
     {"start": "2026-09-24", "end": "2026-09-26", "title": "추석 연휴 (한국 휴장)"},
     {"start": "2026-10-03", "end": "2026-10-03", "title": "개천절 (한국 휴장)"},
     {"start": "2026-10-09", "end": "2026-10-09", "title": "한글날 (한국 휴장)"},
     {"start": "2026-12-25", "end": "2026-12-25", "title": "성탄절 (한국 휴장)"},
 ]
+
+
+def kr_market_holidays(years):
+    """한국 증시 휴장일 = 관공서 공휴일(대체공휴일·선거일 포함) + 연말 휴장 + 손으로 적은 임시공휴일.
+
+    공휴일은 python-holidays 로 계산한다. 설·추석 같은 음력 명절, 대체공휴일, 선거일(공직선거법 규칙)을
+    다 알고 2026년 공휴일법 개정(노동절·제헌절)까지 반영돼 있다(소스로 확인).
+    예전엔 손으로 적은 2026년치뿐이라, 넉 달 앞을 보여주는 달력에 이듬해 설 연휴가 빠질 수 있었다.
+    연말 휴장은 거래소 규정: 12월 31일, 그날이 휴일이면 직전 거래일."""
+    names = {}
+    try:
+        import holidays as pyholidays  # build_calendar 의 지역변수 holidays 와 겹치지 않게 별칭
+
+        for d, name in pyholidays.country_holidays("KR", years=sorted(years)).items():
+            names[d] = name
+    except Exception as e:
+        print(f"[WARN] 공휴일 라이브러리 실패 — 손으로 적은 휴장일만 쓴다: {e}")
+
+    for y in years:
+        d = datetime.date(y, 12, 31)
+        while d.weekday() >= 5 or d in names:
+            d -= datetime.timedelta(days=1)
+        names[d] = "연말 휴장"
+
+    for h in KR_HOLIDAYS:
+        d, last = datetime.date.fromisoformat(h["start"]), datetime.date.fromisoformat(h["end"])
+        while d <= last:
+            names.setdefault(d, h["title"].replace(" (한국 휴장)", ""))
+            d += datetime.timedelta(days=1)
+
+    # 이어진 날은 하나로 묶는다(추석 전날·추석·다음날 -> '추석 연휴' 한 줄).
+    out, group = [], []
+    for d in sorted(names):
+        if group and (d - group[-1]).days != 1:
+            out.append(_kr_holiday_entry(group, names))
+            group = []
+        group.append(d)
+    if group:
+        out.append(_kr_holiday_entry(group, names))
+    return out
+
+
+def _kr_holiday_entry(days, names):
+    labels = [names[d] for d in days]
+    joined = " ".join(labels)
+    if "설날" in joined:
+        title = "설 연휴"
+    elif "추석" in joined:
+        title = "추석 연휴"
+    else:
+        title = "·".join(dict.fromkeys(labels))  # 순서 유지 중복 제거
+    return {"start": days[0].isoformat(), "end": days[-1].isoformat(), "title": f"{title} (한국 휴장)"}
 
 
 def _nth_weekday(year, month, weekday, n):
@@ -510,6 +564,42 @@ def _rows(payload):
     return data if isinstance(data, list) else []
 
 
+VALUE_KEYS = ("consensus", "actual", "previous", "eps_forecast", "eps", "surprise")
+
+
+def _values(**raw):
+    """나스닥이 주는 예상치·실제치를 그대로 옮긴다(가공하지 않는다). 빈 값·'N/A' 는 뺀다."""
+    out = {}
+    for k, v in raw.items():
+        v = html.unescape(str(v or "")).strip()
+        if v and v.upper() not in ("N/A", "NA", "-", "--"):
+            out[k] = v
+    return out
+
+
+def refresh_values(calendar, kst_today):
+    """발표가 끝난 지표·실적의 실제치를 채운다. 캘린더 전체 재생성은 하루 한 번이라,
+    그것만 기다리면 밤 9시 반 CPI 의 실제치가 다음 날에야 보인다.
+    어제·오늘·내일 3일치만 다시 조회한다(호출 6번). 바뀐 게 있으면 True."""
+    fresh = {}
+    for offset in (-1, 0, 1):
+        got, _ = fetch_day(kst_today + datetime.timedelta(days=offset))
+        for e in got:
+            # 한 제목에 여러 줄이 걸리는 지표가 있다(GDP 전기비·연율 등). 전체 생성과 같이 첫 줄을 쓴다.
+            fresh.setdefault((e["start"], e["title"]), e)
+
+    changed = False
+    for e in calendar.get("events", []):
+        new = fresh.get((e["start"], e["title"]))
+        if not new:
+            continue
+        for k in VALUE_KEYS:
+            if new.get(k) and new[k] != e.get(k):
+                e[k] = new[k]
+                changed = True
+    return changed
+
+
 def _match(name, table):
     """지표명에서 화이트리스트 키를 찾아 한글 라벨을 돌려준다."""
     for key, label in table.items():
@@ -575,6 +665,8 @@ def fetch_day(date_obj):
                     "title": f"{WATCHLIST[symbol]} 실적",
                     "category": "earnings",
                     "detail": f"{symbol} {note}".strip(),
+                    # 발표 전엔 예상치만, 발표 후엔 실제치·서프라이즈(%)가 채워진다
+                    **_values(eps_forecast=row.get("epsForecast"), eps=row.get("eps"), surprise=row.get("surprise")),
                 }
             )
     except Exception as e:
@@ -608,6 +700,8 @@ def fetch_day(date_obj):
                     "title": label,
                     "category": category,
                     "detail": kst_time,  # 한국시간
+                    # 주가를 움직이는 건 발표치 자체보다 예상치와의 차이다
+                    **_values(consensus=row.get("consensus"), actual=row.get("actual"), previous=row.get("previous")),
                 }
             )
     except Exception as e:
@@ -656,7 +750,8 @@ def build_calendar(today=None):
     if failures:
         print(f"[WARN] calendar: {failures}건 조회 실패 — 그만큼 일정이 빠졌을 수 있다")
 
-    holidays = list(KR_HOLIDAYS)
+    kr_holidays = kr_market_holidays({start.year, end.year})
+    holidays = list(kr_holidays)
     for yr in {start.year, end.year}:
         holidays.extend(us_market_holidays(yr))
 
@@ -670,7 +765,7 @@ def build_calendar(today=None):
                 events.append(e)
 
     # 수급 이벤트(만기일·지수 정기변경)와 국내 실적발표
-    kr_closed = _holiday_dates(KR_HOLIDAYS)
+    kr_closed = _holiday_dates(kr_holidays)
     us_closed = _holiday_dates([h for yr in {start.year, end.year} for h in us_market_holidays(yr)])
     extra = expiry_events(months, kr_closed, us_closed) + msci_events(kr_closed) + kr_earnings_events(start, end)
     events.extend(e for e in extra if start.isoformat() <= e["start"] <= end.isoformat())

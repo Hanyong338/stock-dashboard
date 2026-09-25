@@ -1511,7 +1511,19 @@ main {
 }
 .cal-agenda-head { font-size: 14px; font-weight: 800; margin-bottom: 10px; }
 .cal-agenda-empty { font-size: 12.5px; color: var(--text-muted); }
-.cal-agenda-item { display: flex; align-items: center; gap: 8px; padding: 7px 0; }
+.cal-agenda-item { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; padding: 7px 0; }
+/* 예상·실제·이전 값은 제목 아래 줄로 내린다. 한 줄에 넣으면 모바일에서 제목이 잘린다. */
+.cal-agenda-vals {
+  flex-basis: 100%;
+  padding-left: 16px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.cal-agenda-vals b { font-weight: 800; color: var(--text); }
+.cal-agenda-vals b.up { color: var(--up); }
+.cal-agenda-vals b.down { color: var(--down); }
 .cal-agenda-item + .cal-agenda-item { border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent); }
 .cal-agenda-item .cal-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: 0 0 auto; }
 .cal-agenda-title { font-size: 13px; font-weight: 700; color: var(--text); }

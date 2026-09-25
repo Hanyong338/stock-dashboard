@@ -357,6 +357,44 @@ function renderCalFilters() {
   }
 }
 
+/** '3.1%', '250K', '$1.18', '-2.5%' 를 숫자로. 단위(K·M·B·T)가 다르면 비교하지 않으려고 단위도 돌려준다. */
+function parseCalNum(s) {
+  const m = String(s || "").replace(/,/g, "").match(/(-?\d+(?:\.\d+)?)\s*([KMBT%]?)/i);
+  return m ? { n: parseFloat(m[1]), unit: m[2].toUpperCase() } : null;
+}
+
+/** 예상치 vs 실제치. 주가를 움직이는 건 발표치 자체보다 예상과의 차이라서 그걸 먼저 보이게 한다.
+ *  색은 방향만 뜻한다(빨강=예상보다 높음, 파랑=낮음). CPI 가 높으면 악재인 것처럼 좋고 나쁨은 지표마다 달라 색으로 판단하지 않는다. */
+function calValues(e) {
+  if (e.category === "earnings" && (e.eps_forecast || e.eps)) {
+    const parts = [];
+    if (e.eps_forecast) parts.push(`EPS 예상 ${escapeHtml(e.eps_forecast)}`);
+    if (e.eps) {
+      const s = parseFloat(e.surprise);
+      const tone = s > 0 ? "up" : s < 0 ? "down" : "";
+      const sp = Number.isFinite(s) ? ` (${s > 0 ? "+" : ""}${s.toFixed(1)}%)` : "";
+      parts.push(`<b class="${tone}">실제 ${escapeHtml(e.eps)}${sp}</b>`);
+    }
+    return `<span class="cal-agenda-vals">${parts.join(" · ")}</span>`;
+  }
+  if (!e.consensus && !e.actual) return "";
+  const parts = [];
+  if (e.consensus) parts.push(`예상 ${escapeHtml(e.consensus)}`);
+  if (e.actual) {
+    const a = parseCalNum(e.actual);
+    const c = parseCalNum(e.consensus);
+    let tone = "";
+    let tag = "";
+    if (a && c && a.unit === c.unit) {
+      tone = a.n > c.n ? "up" : a.n < c.n ? "down" : "";
+      tag = a.n > c.n ? " 상회" : a.n < c.n ? " 하회" : " 부합";
+    }
+    parts.push(`<b class="${tone}">실제 ${escapeHtml(e.actual)}${tag}</b>`);
+  }
+  if (e.previous) parts.push(`이전 ${escapeHtml(e.previous)}`);
+  return `<span class="cal-agenda-vals">${parts.join(" · ")}</span>`;
+}
+
 function renderCalAgenda() {
   const box = document.getElementById("calAgenda");
   box.innerHTML = "";
@@ -381,7 +419,8 @@ function renderCalAgenda() {
     const row = document.createElement("div");
     row.className = `cal-agenda-item cat-${e.category}`;
     row.innerHTML = `<span class="cal-dot"></span><span class="cal-agenda-title">${escapeHtml(e.title)}</span>` +
-      (e.detail ? `<span class="cal-agenda-detail">${escapeHtml(e.detail)}</span>` : "");
+      (e.detail ? `<span class="cal-agenda-detail">${escapeHtml(e.detail)}</span>` : "") +
+      calValues(e);
     box.appendChild(row);
   }
 }
