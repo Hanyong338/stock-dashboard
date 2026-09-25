@@ -62,7 +62,10 @@ COUNTRY_RULES = {
             "FOMC Statement": "FOMC 성명",
             "FOMC Meeting Minutes": "FOMC 의사록",
             "FOMC Economic Projections": "FOMC 점도표",
-            "Fed Chair Powell Speaks": "파월 연설",
+            "FOMC Press Conference": "FOMC 기자회견",
+            # 이름을 넣으면 의장이 바뀔 때 조용히 빠진다. 실제로 'Powell' 로 적어둬서
+            # 2026년 5월 의장 교체(워시) 이후 의장 연설이 달력에서 사라졌었다.
+            "Fed Chair": "연준 의장 연설",
         },
         "macro": {
             "Core CPI": "미국 근원 CPI",
