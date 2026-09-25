@@ -845,16 +845,18 @@
       "entry": 93.0,
       "stop": 92.26,
       "symbol": "CRCL",
-      "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "status": "SL_HIT",
+      "rets": [
+        -4.34
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "1차 상승 +63% · 고점 후 14거래일 조정 · 거래량 52% 감소 · 20일선 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
-      "final_ret": null,
-      "closed_on": ""
+      "hwm": -0.86,
+      "hwm_day": 1,
+      "mdd": -5.82,
+      "final_ret": -4.34,
+      "closed_on": "2026-09-25"
     },
     {
       "id": "us:REGN:SWING_PULLBACK:2026-09-24",
@@ -872,16 +874,18 @@
       "entry": 796.02,
       "stop": 789.39,
       "symbol": "REGN",
-      "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "status": "SL_HIT",
+      "rets": [
+        -1.0
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "거래대금 $639M 장대양봉 · 고점 후 14거래일 조정 · 거래량 10% 감소 · 20일선 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
-      "final_ret": null,
-      "closed_on": ""
+      "hwm": 0.99,
+      "hwm_day": 1,
+      "mdd": -1.49,
+      "final_ret": -1.0,
+      "closed_on": "2026-09-25"
     },
     {
       "id": "us:SU:SWING_PULLBACK:2026-09-24",
@@ -899,16 +903,18 @@
       "entry": 68.65,
       "stop": 68.28,
       "symbol": "SU",
-      "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "status": "SL_HIT",
+      "rets": [
+        -0.61
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "거래대금 $305M 장대양봉 · 고점 후 6거래일 조정 · 거래량 -1% 감소 · 20일선 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
-      "final_ret": null,
-      "closed_on": ""
+      "hwm": -0.38,
+      "hwm_day": 1,
+      "mdd": -1.98,
+      "final_ret": -0.61,
+      "closed_on": "2026-09-25"
     },
     {
       "id": "us:IOT:SWING_PULLBACK:2026-09-24",
@@ -926,16 +932,18 @@
       "entry": 39.32,
       "stop": 38.35,
       "symbol": "IOT",
-      "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "status": "SL_HIT",
+      "rets": [
+        -3.4
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "거래대금 $433M 장대양봉 · 고점 후 7거래일 조정 · 거래량 52% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
-      "final_ret": null,
-      "closed_on": ""
+      "hwm": 1.86,
+      "hwm_day": 1,
+      "mdd": -3.56,
+      "final_ret": -3.4,
+      "closed_on": "2026-09-25"
     },
     {
       "id": "us:CNH:SWING_PULLBACK:2026-09-24",
@@ -953,16 +961,18 @@
       "entry": 13.28,
       "stop": 13.14,
       "symbol": "CNH",
-      "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "status": "SL_HIT",
+      "rets": [
+        -1.47
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "1차 상승 +44% · 고점 후 12거래일 조정 · 거래량 39% 감소 · 20일선 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
-      "final_ret": null,
-      "closed_on": ""
+      "hwm": 0.08,
+      "hwm_day": 1,
+      "mdd": -2.48,
+      "final_ret": -1.47,
+      "closed_on": "2026-09-25"
     },
     {
       "id": "us:ZETA:SWING_PULLBACK:2026-09-24",
@@ -981,13 +991,15 @@
       "stop": 28.83,
       "symbol": "ZETA",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        -0.41
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "1차 상승 +35% · 고점 후 14거래일 조정 · 거래량 47% 감소 · 10일선 도지 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": 2.81,
+      "hwm_day": 1,
+      "mdd": -1.83,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1007,16 +1019,18 @@
       "entry": 11.18,
       "stop": 10.99,
       "symbol": "PTEN",
-      "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "status": "SL_HIT",
+      "rets": [
+        -2.42
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "1차 상승 +38% · 고점 후 14거래일 조정 · 거래량 43% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
-      "final_ret": null,
-      "closed_on": ""
+      "hwm": -0.09,
+      "hwm_day": 1,
+      "mdd": -3.76,
+      "final_ret": -2.42,
+      "closed_on": "2026-09-25"
     },
     {
       "id": "us:VIST:SWING_PULLBACK:2026-09-24",
@@ -1034,16 +1048,18 @@
       "entry": 68.3,
       "stop": 68.28,
       "symbol": "VIST",
-      "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "status": "SL_HIT",
+      "rets": [
+        -1.19
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "거래대금 $181M 장대양봉 · 고점 후 9거래일 조정 · 거래량 53% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
-      "final_ret": null,
-      "closed_on": ""
+      "hwm": 0.16,
+      "hwm_day": 1,
+      "mdd": -2.61,
+      "final_ret": -1.19,
+      "closed_on": "2026-09-25"
     },
     {
       "id": "us:HCC:SWING_PULLBACK:2026-09-24",
@@ -1062,13 +1078,15 @@
       "stop": 88.15,
       "symbol": "HCC",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        0.62
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "1차 상승 +35% · 고점 후 14거래일 조정 · 거래량 -12% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": 0.82,
+      "hwm_day": 1,
+      "mdd": -1.81,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1089,13 +1107,15 @@
       "stop": 99.68,
       "symbol": "SIG",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        1.69
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "1차 상승 +27% · 고점 후 5거래일 조정 · 거래량 27% 감소 · 10일선 도지 지지",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": 2.79,
+      "hwm_day": 1,
+      "mdd": -0.11,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1116,13 +1136,15 @@
       "stop": 616.91,
       "symbol": "META",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        -3.33
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": -1.03,
+      "hwm_day": 1,
+      "mdd": -3.99,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1143,13 +1165,15 @@
       "stop": 507.78,
       "symbol": "AMD",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        0.22
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": 1.54,
+      "hwm_day": 1,
+      "mdd": -0.59,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1170,13 +1194,15 @@
       "stop": 101.75,
       "symbol": "MRNA",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        2.08
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": 4.03,
+      "hwm_day": 1,
+      "mdd": -1.19,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1197,13 +1223,15 @@
       "stop": 209.11,
       "symbol": "CRWD",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        -2.9
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": 0.05,
+      "hwm_day": 1,
+      "mdd": -3.13,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1224,13 +1252,15 @@
       "stop": 27.5,
       "symbol": "WBD",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        0.06
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": 0.1,
+      "hwm_day": 1,
+      "mdd": -0.13,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1251,12 +1281,14 @@
       "stop": 91.84,
       "symbol": "P",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        3.38
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
-      "hwm": null,
-      "hwm_day": null,
+      "hwm": 5.32,
+      "hwm_day": 1,
       "mdd": 0.0,
       "final_ret": null,
       "closed_on": ""
@@ -1278,13 +1310,15 @@
       "stop": 34.73,
       "symbol": "VKTX",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        -3.24
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "480일선 돌파 4회 실패 후 재돌파 · 상단 우상향",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": 6.25,
+      "hwm_day": 1,
+      "mdd": -4.49,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1305,13 +1339,15 @@
       "stop": 58.81,
       "symbol": "TEM",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        3.37
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "480일선 돌파 2회 실패 후 재돌파 · 상단 우상향",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": 3.92,
+      "hwm_day": 1,
+      "mdd": -2.35,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1332,13 +1368,15 @@
       "stop": 261.48,
       "symbol": "CRL",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        -0.43
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "480일선 돌파 4회 실패 후 재돌파 · 상단 우상향",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": 0.27,
+      "hwm_day": 1,
+      "mdd": -2.22,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1359,13 +1397,15 @@
       "stop": 1369.17,
       "symbol": "MTD",
       "status": "ACTIVE",
-      "rets": [],
-      "last_date": "",
+      "rets": [
+        -0.5
+      ],
+      "last_date": "2026-09-25",
       "snapshot_at": "2026-09-25T13:40:24.227582+00:00",
       "reason": "480일선 돌파 4회 실패 후 재돌파 · 상단 우상향",
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": 0.0,
+      "hwm": 0.42,
+      "hwm_day": 1,
+      "mdd": -1.54,
       "final_ret": null,
       "closed_on": ""
     },
@@ -1497,15 +1537,31 @@
   ],
   "updated_for": {
     "kr": "2026-09-25",
-    "us": "2026-09-24"
+    "us": "2026-09-25"
   },
   "summary": {
-    "active": 55,
-    "closed": 0,
-    "sl_hit": 0,
+    "active": 48,
+    "closed": 7,
+    "sl_hit": 7,
     "expired": 0,
-    "overall": null,
-    "by_section": {}
+    "overall": {
+      "count": 7,
+      "win_rate": 0.0,
+      "avg_final": -2.06,
+      "avg_hwm": 0.25,
+      "avg_mdd": -3.1,
+      "sl_rate": 100.0
+    },
+    "by_section": {
+      "us:SWING_PULLBACK": {
+        "count": 7,
+        "win_rate": 0.0,
+        "avg_final": -2.06,
+        "avg_hwm": 0.25,
+        "avg_mdd": -3.1,
+        "sl_rate": 100.0
+      }
+    }
   },
-  "updated_at": "2026-09-25T13:40:24.227582+00:00"
+  "updated_at": "2026-09-25T20:12:57.029680+00:00"
 }
