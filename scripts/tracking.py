@@ -155,11 +155,31 @@ def _reopen_on_rule_change(tracking):
     tracking["rules_version"] = TRACKING_RULES_VERSION
 
 
+def _dedupe_open(positions):
+    """같은 종목·섹션이 동시에 둘 이상 열려 있으면 가장 먼저 발굴된 것만 남긴다.
+    잘못된 손절 판정으로 종결됐던 종목이 그사이 다시 뽑혀 새로 박제됐다가, 재계산으로 옛 기록이
+    다시 열리면 둘이 겹친다(실제로 SU·CNH·VIST 가 그랬다). 규칙상 추적 중엔 새로 박제하지 않는다."""
+    first = {}
+    for p in sorted(positions, key=lambda x: x["found_on"]):
+        if p["status"] in OPEN_STATUSES:
+            first.setdefault((p["market"], p["code"], p["section"]), p["id"])
+    keep = [
+        p for p in positions
+        if p["status"] not in OPEN_STATUSES or first.get((p["market"], p["code"], p["section"])) == p["id"]
+    ]
+    removed = len(positions) - len(keep)
+    positions[:] = keep
+    return removed
+
+
 def snapshot(tracking, screening_kr, screening_us, morning, now):
     """새로 뽑힌 종목을 박제한다. 반환: 새로 박제한 수."""
     positions = tracking.setdefault("positions", [])
     _migrate(positions)
     _reopen_on_rule_change(tracking)
+    dup = _dedupe_open(positions)
+    if dup:
+        print(f"[INFO] 성과 추적: 겹친 박제 {dup}건 정리")
     known = {p["id"] for p in positions}
     open_keys = {(p["market"], p["code"], p["section"]) for p in positions if p["status"] in OPEN_STATUSES}
     added = 0
