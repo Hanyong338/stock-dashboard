@@ -87,6 +87,13 @@ def _candidates(screening_kr, screening_us, morning):
     for data, market in ((screening_kr, "kr"), (screening_us, "us")):
         if not isinstance(data, dict) or data.get("intraday") or not data.get("as_of_trading_day"):
             continue
+        # 예약 실행(마감 뒤) 결과만 박제한다. 손으로 돌린 실행이나 휴장일 재실행은 수급(외인·기관)이
+        # 확정치로 바뀐 뒤라 그날 화면에 떴던 종목과 몇 개씩 다르다(9/23 당일 27종목 vs 9/25 재실행 30종목).
+        slot = data.get("built_slot") or ""
+        if market == "kr" and slot != f"{data['as_of_trading_day']}/close":
+            continue
+        if market == "us" and not slot.endswith("/close"):
+            continue
         for sec in data.get("sections") or []:
             for it in sec.get("items") or []:
                 out.append(
@@ -155,21 +162,87 @@ def _reopen_on_rule_change(tracking):
     tracking["rules_version"] = TRACKING_RULES_VERSION
 
 
-def _dedupe_open(positions):
-    """같은 종목·섹션이 동시에 둘 이상 열려 있으면 가장 먼저 발굴된 것만 남긴다.
-    잘못된 손절 판정으로 종결됐던 종목이 그사이 다시 뽑혀 새로 박제됐다가, 재계산으로 옛 기록이
-    다시 열리면 둘이 겹친다(실제로 SU·CNH·VIST 가 그랬다). 규칙상 추적 중엔 새로 박제하지 않는다."""
-    first = {}
-    for p in sorted(positions, key=lambda x: x["found_on"]):
-        if p["status"] in OPEN_STATUSES:
-            first.setdefault((p["market"], p["code"], p["section"]), p["id"])
-    keep = [
+def dedupe(positions):
+    """같은 종목·섹션을 추적하는 동안 다시 뽑힌 기록을 지운다(규칙: 추적 중엔 새로 박제하지 않는다).
+
+    '추적하는 동안' = 앞선 기록이 아직 안 끝났거나, 나중 기록의 발굴일에 아직 안 끝났던 경우.
+    앞선 기록이 그 전에 손절·만기로 끝났다면 나중 것은 새 발굴이라 남긴다.
+    그래서 반드시 추적 계산(update) 뒤에 돌려야 한다 — 종결일을 알아야 판단할 수 있다.
+    (재계산으로 옛 기록이 다시 열리거나, 과거분을 시드로 한꺼번에 넣을 때 겹침이 생긴다)"""
+    groups = {}
+    for p in sorted(positions, key=lambda x: (x["found_on"], x["id"])):
+        groups.setdefault((p["market"], p["code"], p["section"]), []).append(p)
+    drop = set()
+    for group in groups.values():
+        kept = []
+        for p in group:
+            covered = any(
+                k["found_on"] < p["found_on"] and (not k.get("closed_on") or k["closed_on"] >= p["found_on"])
+                for k in kept
+            )
+            if covered:
+                drop.add(p["id"])
+            else:
+                kept.append(p)
+    positions[:] = [p for p in positions if p["id"] not in drop]
+    return len(drop)
+
+
+def _new_position(c, now):
+    """박제 후보 하나를 추적 기록으로 만든다. 진입가·손절가는 여기서 정하고 이후 고정."""
+    p = {
+        "id": f"{c['market']}:{c['code']}:{c['section']}:{c['found_on']}",
+        **{k: c.get(k) for k in ("market", "code", "name", "board", "tags", "section", "section_name", "type", "found_on", "entry", "stop_line")},
+        "symbol": _symbol(c["market"], c["code"], c.get("board", "")),
+        "status": "PENDING",
+        "rets": [],  # D+1 부터 일별 종가 누적 수익률(%)
+        "last_date": "",
+        "snapshot_at": now.isoformat(),
+        "reason": c.get("reason", ""),
+    }
+    p["tags"] = p["tags"] or []
+    if p["section"] == "MORNING_BREAKOUT":
+        p["stop"] = None  # 진입가(발굴일 종가) 확정 때 함께 정한다
+    else:
+        if p["stop_line"] is None:
+            p["stop_line"] = _backfill_line(p)
+        p["stop"] = _buffered(p["market"], p["stop_line"])
+    return p
+
+
+def apply_seed(tracking, seed, now):
+    """과거 발굴분을 한 번에 넣는다(docs/data/tracking_seed.json). 한 시드는 한 번만 반영한다.
+
+    깃허브 실행 환경은 커밋 기록 없이 최신 파일만 받아오므로, 과거 날짜의 스크리너 결과는
+    커밋 기록에서 미리 꺼내 파일로 넘긴다. replace_dates 날짜의 기존 기록 중 시드에 없는 것은 지운다
+    — 시드가 '그날 실제 화면에 떴던 결과'이고, 기존 기록은 휴장일 재실행분이라 조금 다를 수 있다.
+    겹침은 추적 계산 뒤 dedupe() 가 정리한다."""
+    if not isinstance(seed, dict) or not seed.get("id"):
+        return 0
+    applied = tracking.setdefault("seeds_applied", [])
+    if seed["id"] in applied:
+        return 0
+    positions = tracking.setdefault("positions", [])
+    market = seed.get("market", "kr")
+    dates = set(seed.get("replace_dates") or [])
+    cands = seed.get("candidates") or []
+    seed_ids = {f"{c['market']}:{c['code']}:{c['section']}:{c['found_on']}" for c in cands}
+    positions[:] = [
         p for p in positions
-        if p["status"] not in OPEN_STATUSES or first.get((p["market"], p["code"], p["section"])) == p["id"]
+        if not (p["market"] == market and p["found_on"] in dates and p["id"] not in seed_ids)
     ]
-    removed = len(positions) - len(keep)
-    positions[:] = keep
-    return removed
+    known = {p["id"] for p in positions}
+    added = 0
+    for c in sorted(cands, key=lambda x: x["found_on"]):
+        pid = f"{c['market']}:{c['code']}:{c['section']}:{c['found_on']}"
+        if pid in known:
+            continue
+        positions.append(_new_position(c, now))
+        known.add(pid)
+        added += 1
+    applied.append(seed["id"])
+    print(f"[INFO] 성과 추적: 시드 {seed['id']} 반영 — {added}건 추가")
+    return added
 
 
 def snapshot(tracking, screening_kr, screening_us, morning, now):
@@ -177,34 +250,15 @@ def snapshot(tracking, screening_kr, screening_us, morning, now):
     positions = tracking.setdefault("positions", [])
     _migrate(positions)
     _reopen_on_rule_change(tracking)
-    dup = _dedupe_open(positions)
-    if dup:
-        print(f"[INFO] 성과 추적: 겹친 박제 {dup}건 정리")
     known = {p["id"] for p in positions}
     open_keys = {(p["market"], p["code"], p["section"]) for p in positions if p["status"] in OPEN_STATUSES}
     added = 0
     for c in _candidates(screening_kr, screening_us, morning):
-        pid = f"{c['market']}:{c['code']}:{c['section']}:{c['found_on']}"
         key = (c["market"], c["code"], c["section"])
-        if pid in known or key in open_keys:
-            continue
-        p = {
-            "id": pid,
-            **{k: c[k] for k in ("market", "code", "name", "board", "tags", "section", "section_name", "type", "found_on", "entry", "stop_line")},
-            "symbol": _symbol(c["market"], c["code"], c["board"]),
-            "status": "PENDING",
-            "rets": [],  # D+1 부터 일별 종가 누적 수익률(%)
-            "last_date": "",
-            "snapshot_at": now.isoformat(),
-            "reason": c["reason"],
-        }
-        if p["section"] == "MORNING_BREAKOUT":
-            p["stop"] = None  # 진입가(발굴일 종가) 확정 때 함께 정한다
-        else:
-            if p["stop_line"] is None:
-                p["stop_line"] = _backfill_line(p)
-            p["stop"] = _buffered(p["market"], p["stop_line"])
-        positions.append(p)
+        pid = f"{c['market']}:{c['code']}:{c['section']}:{c['found_on']}"
+        if key in open_keys or pid in known:
+            continue  # _new_position 은 지지선 소급 계산에 야후를 부를 수 있어 먼저 걸러낸다
+        positions.append(_new_position(c, now))
         known.add(pid)
         open_keys.add(key)
         added += 1

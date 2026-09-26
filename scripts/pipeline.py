@@ -35,6 +35,7 @@ KR_CONSENSUS_FILE = DATA_DIR / "kr_consensus.json"
 SCREENING_FILE = DATA_DIR / "screening.json"
 US_SCREENING_FILE = DATA_DIR / "screening_us.json"
 TRACKING_FILE = DATA_DIR / "tracking.json"
+TRACKING_SEED_FILE = DATA_DIR / "tracking_seed.json"
 THEMES_FILE = DATA_DIR / "themes.json"
 MORNING_FILE = DATA_DIR / "morning_breakout.json"
 # 자막 캐시. 요약이 실패해도 자막을 다시 받지 않기 위해 남겨둔다(성공하면 지운다).
@@ -633,9 +634,15 @@ def update_tracking(now):
         load_json(MORNING_FILE, {}),
         now,
     )
+    # 과거 발굴분(커밋 기록에서 꺼낸 당일 결과). 한 번 반영하면 다시 반영하지 않는다.
+    added += trk.apply_seed(data, load_json(TRACKING_SEED_FILE, {}), now)
     if added:
         print(f"[INFO] 성과 추적: {added}종목 새로 박제")
     trk.update(data, now)
+    # 겹침 정리는 추적 계산 뒤에 한다(앞선 기록이 언제 끝났는지 알아야 새 발굴인지 판단된다).
+    dup = trk.dedupe(data.get("positions", []))
+    if dup:
+        print(f"[INFO] 성과 추적: 추적 중 다시 뽑힌 기록 {dup}건 정리")
     data["summary"] = trk.summarize(data)
 
     if json.dumps(data, ensure_ascii=False, sort_keys=True) == before:
