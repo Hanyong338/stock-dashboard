@@ -1598,7 +1598,7 @@ main {
   border-radius: var(--radius-md);
 }
 .trk-table { width: 100%; border-collapse: collapse; font-size: 11.5px; font-variant-numeric: tabular-nums; }
-.trk-table th, .trk-table td { padding: 6px 6px; text-align: right; white-space: nowrap; vertical-align: middle; }
+.trk-table th, .trk-table td { padding: 6px 4px; text-align: right; white-space: nowrap; vertical-align: middle; }
 /* 머리글은 두 줄까지 허용한다('현재 / 수익률'). 한 줄로 두면 머리글 때문에 표가 옆으로 밀린다 */
 .trk-table th {
   font-size: 10.5px; font-weight: 700; color: var(--text-faint); line-height: 1.25;
@@ -1623,23 +1623,29 @@ main {
 }
 /* 종목명·티커를 한 줄에 둔다. 두 줄로 쌓으면 행 높이가 1.5배가 된다 */
 .trk-name {
-  display: inline-block; vertical-align: middle; max-width: 94px;
+  display: inline-block; vertical-align: middle; max-width: 84px;
   overflow: hidden; text-overflow: ellipsis; font-size: 12px; font-weight: 800;
 }
 .trk-code { font-size: 10px; color: var(--text-faint); font-weight: 600; margin-left: 5px; vertical-align: middle; }
-.trk-sector { display: inline-block; vertical-align: middle; max-width: 68px; overflow: hidden; text-overflow: ellipsis; }
+.trk-sector { display: inline-block; vertical-align: middle; max-width: 58px; overflow: hidden; text-overflow: ellipsis; }
 .trk-list td b { font-weight: 800; }
 /* 가로로 밀어도 종목명은 붙어 있게 */
 .trk-sticky { position: sticky; left: 0; z-index: 1; background: var(--surface); text-align: left !important; }
 .trk-list thead .trk-sticky { z-index: 2; }
-.trk-state { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
+.trk-action { font-size: 10px; color: var(--text-faint); font-weight: 600; margin-left: 3px; }
+.trk-tag { font-size: 9.5px; font-weight: 800; padding: 0 4px; border-radius: 4px; margin-left: 2px; }
+.trk-tag.cap { background: var(--chip-bg); color: var(--text-muted); }
+.trk-tag.be { background: rgba(var(--up-rgb, 239, 68, 68), 0.12); color: var(--up); }
+.trk-tip[title] { cursor: help; }
+.trk-scope-on { font-size: 11.5px; font-weight: 700; color: var(--accent-strong); }
 .trk-status { font-size: 10px; font-weight: 800; padding: 1px 6px; border-radius: 5px; background: var(--chip-bg); color: var(--text-muted); }
 .trk-status.act { background: color-mix(in srgb, var(--accent-soft) 70%, transparent); color: var(--accent-strong); }
+.trk-status.tp { background: rgba(var(--up-rgb, 239, 68, 68), 0.14); color: var(--up); }
 .trk-status.sl { background: rgba(var(--down-rgb), 0.12); color: var(--down); }
 .trk-status.exp { background: var(--chip-bg); color: var(--text); }
 .trk-status.pend { background: var(--chip-bg); color: var(--text-faint); }
 .trk-pending { text-align: center !important; }
-.trk-spark { width: 46px; height: 18px; flex: 0 0 auto; }
+.trk-spark { width: 40px; height: 18px; flex: 0 0 auto; }
 .trk-empty { text-align: center !important; color: var(--text-faint); padding: 16px !important; }
 
 @media (max-width: 760px) {

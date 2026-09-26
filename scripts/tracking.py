@@ -1,4 +1,4 @@
-"""시그널 스크리너 성과 추적 (1개월 = 20거래일 포워드, 목표가 없음).
+"""시그널 스크리너 성과 추적 (1개월 = 20거래일 포워드, 방안 B: 반익절 + 잔여 본절 트레일링).
 
 1. 박제 (Immutable Snapshot)
    발굴일(D-0) 종가 = 진입가, 그날 기준 손절가를 영구 고정한다. 이후 덮어쓰지 않는다.
@@ -6,18 +6,23 @@
    · 섹션 4 모닝 브레이크아웃: 규칙대로 발굴일 '종가'가 진입가. 손절은 청산 규칙의 '-2.0% 기계적 손절'
    · 같은 종목·섹션이 대기/추적 중이면(추세주는 며칠씩 연달아 뽑힌다) 새로 박제하지 않는다.
 
-2. 손절 완충 버퍼
-   이평선 가격을 그대로 손절가로 쓰면 0.1~0.5% 흔들림에 손절로 끝난다(첫 박제분 눌림목 중간값 -0.7%).
-   지지선에서 SL_BUFFER_PCT 만큼 아래를 손절가로 쓴다(명세: -2.0% ~ -3.0% 중 가운데).
-   섹션4 는 지지선이 아니라 진입가 기준 기계적 손절이라 버퍼를 따로 얹지 않는다.
+2. 손절가 = MAX(지지선 x 0.975, 진입가 x 0.92)
+   · 버퍼 -2.5%: 이평선 가격을 그대로 쓰면 0.1~0.5% 흔들림에 손절로 끝난다(첫 박제분 눌림목 중간값 -0.7%).
+   · 캡 -8%: 추세주는 60일선이 한참 아래라 버퍼만으론 손절가가 -20~-50% 에 잡혔다.
+   · 섹션4 는 지지선이 아니라 진입가 -2% 기계적 손절(이미 캡 안쪽).
 
-3. 상태
+3. 방안 B: 반익절 + 잔여 트레일링
+   · 장중 고가가 목표(모닝·눌림목 +8%, 추세 +12%, 종가베팅 +5%)에 닿으면 50% 반익절 -> 그 즉시 '성공'.
+   · 잔여 50% 는 손절선을 진입가(본절)로 올려 20거래일까지 추적. 확정 손익 = 반익절분 + 잔여분 합.
+
+4. 상태
    PENDING  발굴 뒤 D+1 시세가 아직 없음 (섹션4 는 발굴일 종가 확정 전도 여기)
-   ACTIVE   D+1 ~ D+20 추적 중
-   SL_HIT   종가가 손절가 아래로 마감 -> 그 종가로 손실 확정, 추적 종료
-   EXPIRED  20거래일 손절 없이 버팀 -> 20일차 종가로 정산
+   ACTIVE   추적 중 (목표·손절 모두 아직)
+   HALF_TP  반익절 완료, 잔여 50% 본절 트레일링 추적 중
+   SL_HIT   종가가 손절선 아래로 마감 -> 종결 (반익절 뒤면 잔여분 본절 청산)
+   EXPIRED  20거래일 완주 -> 20일차 종가로 정산
 
-4. 일별 지표 (발굴 다음 거래일부터 다시 계산 — 같은 입력이면 항상 같은 결과)
+5. 일별 지표 (발굴 다음 거래일부터 다시 계산 — 같은 입력이면 항상 같은 결과)
    · 일별 종가 누적 수익률 / 현재가
    · 최고 도달률(HWM): 장중 고가 기준 + 도달 일차
    · 최대 낙폭(MDD): 장중 저가 기준, 진입가 대비 (아래로 안 갔으면 0)
@@ -29,12 +34,20 @@ from screening import WORKERS, _bars_from, _yahoo_chart, stop_price
 
 TRACK_DAYS = 20
 SL_BUFFER_PCT = 2.5
+# 최대 손절폭. 추세주는 60일선이 한참 아래라 버퍼만 적용하면 손절가가 -20~-50% 에 잡힌다.
+# 최종 손절가 = MAX(지지선 x 0.975, 진입가 x 0.92) — 어떤 경우에도 진입가 대비 -8% 를 넘지 않는다.
+STOP_CAP_PCT = 8.0
+# 방안 B: 장중 고가가 진입가 대비 이만큼 닿으면 50% 반익절 -> 그 즉시 '성공'.
+# 잔여 50% 는 손절가를 진입가(본절)로 올려 20거래일까지 추적한다.
+TP_PCT = {"MORNING_BREAKOUT": 8.0, "SWING_PULLBACK": 8.0, "TREND_RALLY": 12.0, "CLOSING_BET": 5.0}
+TP_SHARE = 0.5
 # 손절·종결 판정 규칙을 바꾸면 올린다. 올리면 종결된 기록까지 새 규칙으로 다시 계산한다(진입가는 그대로).
 # 2: 손절 버퍼 도입. 버퍼 이전 코드가 먼저 돌아 미장 7건이 버퍼 없는 손절가로 손절 판정을 받았는데,
 #    그중 6건은 지지선을 0.1~1.3% 차이로 깬 노이즈였다(버퍼 손절가로는 유지).
-TRACKING_RULES_VERSION = 2
+# 3: 방안 B — 손절가 -8% 캡, 섹션별 반익절 + 잔여 본절 트레일링.
+TRACKING_RULES_VERSION = 3
 MORNING_STOP_PCT = 2.0  # 섹션4 '-2.0% 기계적 손절'
-OPEN_STATUSES = ("PENDING", "ACTIVE")
+OPEN_STATUSES = ("PENDING", "ACTIVE", "HALF_TP")
 KST = datetime.timezone(datetime.timedelta(hours=9))
 KR_CLOSED_AT = datetime.time(15, 40)  # 정규장 15:30 마감 + 여유
 US_CLOSED_AT = datetime.time(16, 10)  # 미 동부 16:00 마감 + 여유
@@ -56,6 +69,20 @@ def _px(market, v):
 
 def _buffered(market, line):
     return _px(market, line * (1 - SL_BUFFER_PCT / 100)) if line else None
+
+
+def initial_stop(p):
+    """기준 손절가(반익절 전). 진입가가 정해져야 계산된다.
+      섹션4       진입가 -2% (청산 규칙의 기계적 손절. 이미 -8% 캡 안쪽)
+      섹션 1~3    MAX(지지선 x 0.975, 진입가 x 0.92)  — 지지선을 못 구했으면 캡 가격"""
+    entry = p.get("entry")
+    if not entry:
+        return None
+    if p["section"] == "MORNING_BREAKOUT":
+        return _px(p["market"], entry * (1 - MORNING_STOP_PCT / 100))
+    cap = entry * (1 - STOP_CAP_PCT / 100)
+    buffered = _buffered(p["market"], p.get("stop_line"))
+    return _px(p["market"], max(buffered, cap) if buffered else cap)
 
 
 # ──────────────────────────────────────────────────────────────────────────
@@ -145,7 +172,7 @@ def _migrate(positions):
             p["stop_line"] = None
         else:
             p["stop_line"] = p.get("stop")
-            p["stop"] = _buffered(p["market"], p["stop_line"])
+            p["stop"] = initial_stop(p)
         if p["status"] == "ACTIVE" and not p.get("rets"):
             p["status"] = "PENDING"
 
@@ -159,6 +186,9 @@ def _reopen_on_rule_change(tracking):
         if p["status"] not in OPEN_STATUSES:
             p["status"] = "ACTIVE"
         p.pop("checked_for", None)
+        # 손절가 산식이 바뀌었을 수 있어 지지선·진입가에서 다시 낸다(진입가·지지선 자체는 그대로).
+        if p.get("entry"):
+            p["stop"] = initial_stop(p)
     tracking["rules_version"] = TRACKING_RULES_VERSION
 
 
@@ -201,12 +231,9 @@ def _new_position(c, now):
         "reason": c.get("reason", ""),
     }
     p["tags"] = p["tags"] or []
-    if p["section"] == "MORNING_BREAKOUT":
-        p["stop"] = None  # 진입가(발굴일 종가) 확정 때 함께 정한다
-    else:
-        if p["stop_line"] is None:
-            p["stop_line"] = _backfill_line(p)
-        p["stop"] = _buffered(p["market"], p["stop_line"])
+    if p["section"] != "MORNING_BREAKOUT" and p["stop_line"] is None:
+        p["stop_line"] = _backfill_line(p)
+    p["stop"] = initial_stop(p)  # 섹션4 는 진입가(발굴일 종가)가 아직 없어 None -> 확정 때 채운다
     return p
 
 
@@ -283,15 +310,17 @@ def _evaluate(p, bars, now):
         if not found:
             return False
         p["entry"] = _px(market, found[0][3])
-        p["stop"] = _px(market, p["entry"] * (1 - MORNING_STOP_PCT / 100))
+        p["stop"] = initial_stop(p)
 
-    entry, stop = p["entry"], p.get("stop")
+    entry, base_stop = p["entry"], p.get("stop")
     if not entry:
         return False
+    tp = TP_PCT.get(p["section"])
 
     after = [r for r in rows if r[0] > p["found_on"]][:TRACK_DAYS]
     rets, hwm, hwm_day, mdd = [], None, None, 0.0
     status, final, closed_on, last_close = ("ACTIVE" if after else "PENDING"), None, "", None
+    tp_day, stop = None, base_stop
     for n, (d, hi, lo, cl) in enumerate(after, start=1):
         r_close = (cl / entry - 1) * 100
         rets.append(round(r_close, 2))
@@ -300,11 +329,20 @@ def _evaluate(p, bars, now):
         if hwm is None or r_high > hwm:
             hwm, hwm_day = r_high, n
         mdd = min(mdd, (lo / entry - 1) * 100)
+        # 방안 B: 장중 고가가 목표에 닿으면 50% 반익절(성공 확정), 잔여 손절선을 진입가(본절)로 올린다.
+        # 올린 손절선은 그날 종가부터 적용한다('도달 즉시 상향').
+        if tp and tp_day is None and r_high >= tp:
+            tp_day = n
+            stop = max(stop or 0, entry)
+        # 청산 손익: 반익절했으면 절반은 목표 수익, 절반은 그날 종가. 아니면 전량 그날 종가.
+        blended = TP_SHARE * tp + (1 - TP_SHARE) * r_close if tp_day else r_close
         if stop and cl < stop:
-            status, final, closed_on = "SL_HIT", r_close, d
+            status, final, closed_on = "SL_HIT", blended, d
             break
         if n == TRACK_DAYS:
-            status, final, closed_on = "EXPIRED", r_close, d
+            status, final, closed_on = "EXPIRED", blended, d
+    if status == "ACTIVE" and tp_day:
+        status = "HALF_TP"
 
     new = {
         "rets": rets,
@@ -313,6 +351,10 @@ def _evaluate(p, bars, now):
         "hwm_day": hwm_day,
         "mdd": round(mdd, 2) if after else None,
         "status": status,
+        "tp_pct": tp,
+        "tp_day": tp_day,
+        "stop_now": _px(market, stop) if stop else None,  # 지금 적용 중인 손절선(반익절 뒤엔 진입가)
+        # 확정 손익(%). 반익절분과 잔여분을 합친 전체 포지션 기준. 종결 전엔 없음.
         "final_ret": round(final, 2) if final is not None else None,
         "closed_on": closed_on,
         "last_date": after[-1][0] if after else "",
@@ -357,20 +399,25 @@ def summarize(tracking):
     """화면 상단 요약용. 화면도 같은 방식으로 직접 계산한다(국장/미장 필터 때문에)."""
     ps = tracking.get("positions", [])
     with_data = [p for p in ps if p.get("rets")]
-    active = [p for p in ps if p["status"] == "ACTIVE" and p.get("rets")]
+    live = [p for p in ps if p["status"] in ("ACTIVE", "HALF_TP") and p.get("rets")]
     closed = [p for p in ps if p["status"] in ("SL_HIT", "EXPIRED") and p.get("final_ret") is not None]
+    # 승률(방안 B): 분모 = 반익절 도달 + 손절 + 만기 / 분자 = 반익절 도달 + 만기 중 플러스 종결.
+    # 반익절한 종목은 이후 잔여분이 본절에 청산돼도 '성공'이다(tp_day 로 판단).
+    decided = [p for p in ps if p.get("tp_day") or p["status"] in ("SL_HIT", "EXPIRED")]
+    wins = [p for p in decided if p.get("tp_day") or (p["status"] == "EXPIRED" and (p.get("final_ret") or 0) > 0)]
     pct = lambda part, whole: round(len(part) / len(whole) * 100, 1) if whole else None
     avg = lambda group, k: round(sum(p.get(k) or 0 for p in group) / len(group), 2) if group else None
     return {
         "total": len(ps),
         "pending": sum(1 for p in ps if p["status"] == "PENDING"),
         "active": sum(1 for p in ps if p["status"] == "ACTIVE"),
+        "half_tp": sum(1 for p in ps if p.get("tp_day")),
         "closed": len(closed),
-        "in_the_money": pct([p for p in active if p["rets"][-1] > 0], active),
+        "win_rate": pct(wins, decided),
+        "in_the_money": pct([p for p in live if p["rets"][-1] > 0], live),
         "hit_5": pct([p for p in with_data if (p.get("hwm") or 0) >= 5], with_data),
         "hit_10": pct([p for p in with_data if (p.get("hwm") or 0) >= 10], with_data),
         "avg_hwm": avg(with_data, "hwm"),
         "avg_mdd": avg(with_data, "mdd"),
-        "closed_win_rate": pct([p for p in closed if p["final_ret"] > 0], closed),
         "closed_avg_final": avg(closed, "final_ret"),
     }

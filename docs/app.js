@@ -1619,15 +1619,16 @@ document.querySelectorAll(".scr-market-tab").forEach((btn) => {
   });
 });
 
-/* ---------- 성과 추적 ---------- */
+/* ---------- 퍼포먼스 트래커 ---------- */
 
-// view: 추적 중(대기 포함) / 종결 보관함. section: 섹션 성적표에서 누른 행('kr|CLOSING_BET'), 없으면 전체.
+// view: 추적 중(대기·반익절 포함) / 종결 보관함. section: 섹션 성적표에서 누른 행('kr|CLOSING_BET'), 없으면 전체.
 const trkState = { market: "all", view: "active", section: "" };
 const TRK_DAYS = 20;
-const TRK_OPEN = new Set(["PENDING", "ACTIVE"]);
+const TRK_OPEN = new Set(["PENDING", "ACTIVE", "HALF_TP"]);
 const TRK_STATUS = {
   PENDING: ["대기", "pend"],
   ACTIVE: ["추적 중", "act"],
+  HALF_TP: ["반익절", "tp"],
   SL_HIT: ["손절", "sl"],
   EXPIRED: ["만기", "exp"],
 };
@@ -1640,12 +1641,17 @@ const TRK_SEC_SHORT = {
 };
 const TRK_SEC_ORDER = ["MORNING_BREAKOUT", "CLOSING_BET", "SWING_PULLBACK", "TREND_RALLY"];
 const TRK_FLAG = { kr: "🇰🇷", us: "🇺🇸" };
+const TRK_MKT = { kr: "KR", us: "US" };
 
-function trkPrice(p, v) {
-  if (v == null) return '<span class="trk-muted">-</span>';
+function trkPlain(p, v) {
+  if (v == null) return "-";
   return p.market === "us"
     ? `$${Number(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
     : Number(v).toLocaleString();
+}
+
+function trkPrice(p, v) {
+  return v == null ? '<span class="trk-muted">-</span>' : trkPlain(p, v);
 }
 
 function trkPct(v, digits = 1) {
@@ -1659,26 +1665,33 @@ function trkRate(v) {
   return v == null ? '<span class="trk-muted">-</span>' : `${v.toFixed(0)}%`;
 }
 
-/** 통계. 종결 건수만으로 승률을 내면 초반엔 손절만 먼저 끝나서 0% 로 왜곡된다.
- *  그래서 '지금 수익권인 비율'과 '최고가 기준 +5·+10% 도달률'을 시세가 있는 모든 종목으로 따로 낸다. */
+/** 통계 (방안 B).
+ *  승률 = (반익절 도달 + 만기 중 플러스) / (반익절 도달 + 손절 + 만기).
+ *  반익절한 종목은 잔여분이 나중에 본절 청산돼도 '성공'이다 — tp_day 로 판단한다.
+ *  수익권·도달률·평균 최고/낙폭은 종결 여부와 상관없이 시세가 있는 종목 전부로 낸다. */
 function trkStats(list) {
   const withData = list.filter((p) => (p.rets || []).length);
-  const active = withData.filter((p) => p.status === "ACTIVE");
+  const live = withData.filter((p) => p.status === "ACTIVE" || p.status === "HALF_TP");
   const closed = list.filter((p) => !TRK_OPEN.has(p.status) && p.final_ret != null);
+  const decided = list.filter((p) => p.tp_day || p.status === "SL_HIT" || p.status === "EXPIRED");
+  const wins = decided.filter((p) => p.tp_day || (p.status === "EXPIRED" && p.final_ret > 0));
   const rate = (part, whole) => (whole.length ? (part.length / whole.length) * 100 : null);
   const avg = (group, k) => (group.length ? group.reduce((s, p) => s + (Number(p[k]) || 0), 0) / group.length : null);
   return {
     total: list.length,
     open: list.filter((p) => TRK_OPEN.has(p.status)).length,
     pending: list.filter((p) => p.status === "PENDING").length,
+    halfTp: list.filter((p) => p.tp_day).length,
+    sl: list.filter((p) => p.status === "SL_HIT").length,
+    exp: list.filter((p) => p.status === "EXPIRED").length,
     closed: closed.length,
-    sl: closed.filter((p) => p.status === "SL_HIT").length,
-    itm: rate(active.filter((p) => p.rets[p.rets.length - 1] > 0), active),
+    decided: decided.length,
+    win: rate(wins, decided),
+    itm: rate(live.filter((p) => p.rets[p.rets.length - 1] > 0), live),
     hit5: rate(withData.filter((p) => (p.hwm || 0) >= 5), withData),
     hit10: rate(withData.filter((p) => (p.hwm || 0) >= 10), withData),
     hwm: avg(withData, "hwm"),
     mdd: avg(withData, "mdd"),
-    win: rate(closed.filter((p) => p.final_ret > 0), closed),
     final: avg(closed, "final_ret"),
     withData: withData.length,
   };
@@ -1686,12 +1699,12 @@ function trkStats(list) {
 
 /** D+0 ~ D+N 누적 수익률 꺾은선 (표 안에 들어가는 크기). */
 function trkSpark(rets) {
-  if (!rets || !rets.length) return "";
+  if (!rets || !rets.length) return '<span class="trk-muted">-</span>';
   const pts = [0, ...rets];
   const lo = Math.min(0, ...pts);
   const hi = Math.max(0, ...pts);
   const span = hi - lo || 1;
-  const W = 56;
+  const W = 46;
   const H = 18;
   const x = (i) => (i / TRK_DAYS) * (W - 2) + 1;
   const y = (v) => H - 2 - ((v - lo) / span) * (H - 4);
@@ -1707,18 +1720,57 @@ function trkMd(date) {
   return date ? `${date.slice(5, 7)}.${date.slice(8, 10)}` : "";
 }
 
+/** 손절가 칸의 마우스 설명. 어떤 산식으로 정해졌는지(버퍼 / -8% 캡 / 본절 상향) 그대로 보인다. */
+function trkStopTip(p) {
+  if (!p.entry) return "진입가(발굴일 종가) 확정 뒤 정해집니다";
+  if (p.section === "MORNING_BREAKOUT") {
+    const base = `진입가 -2.0% 기계적 손절 = ${trkPlain(p, p.stop)}`;
+    return p.tp_day ? `${base}\n반익절(D+${p.tp_day}) 뒤 본절(진입가 ${trkPlain(p, p.entry)})로 상향` : base;
+  }
+  const lines = [];
+  if (p.stop_line) lines.push(`지지선 ${trkPlain(p, p.stop_line)} x 0.975 = ${trkPlain(p, Math.round(p.stop_line * 0.975 * 100) / 100)}`);
+  lines.push(`최대 손절 캡: 진입가 x 0.92 = ${trkPlain(p, Math.round(p.entry * 0.92 * 100) / 100)}`);
+  lines.push(`적용(둘 중 높은 값) = ${trkPlain(p, p.stop)}`);
+  if (p.tp_day) lines.push(`반익절(D+${p.tp_day}) 뒤 본절(진입가 ${trkPlain(p, p.entry)})로 상향`);
+  return lines.join("\n");
+}
+
 function trkRow(p, view) {
   const [label, cls] = TRK_STATUS[p.status] || [p.status, ""];
   const days = (p.rets || []).length;
   const found = `${trkMd(p.found_on)} <span class="trk-muted">${days ? `D+${days}` : "D+0"}</span>`;
   const sec = `${TRK_FLAG[p.market] || ""} ${TRK_SEC_SHORT[p.section] || escapeHtml(p.section_name || p.section)} <b>${escapeHtml(p.type || "")}</b>`;
-  const sector = (p.tags || [])[0] ? escapeHtml(p.tags[0]) : '<span class="trk-muted">-</span>';
-  const stopTitle = p.stop_line
-    ? `지지선 ${trkPrice(p, p.stop_line).replace(/<[^>]+>/g, "")}에서 -2.5% 버퍼`
-    : p.section === "MORNING_BREAKOUT"
-      ? "진입가 -2.0% 기계적 손절"
-      : "";
-  const stop = `<span title="${escapeHtml(stopTitle)}">${trkPrice(p, p.stop)}</span>`;
+  const sectorFull = (p.tags || [])[0] || "";
+  const sector = sectorFull ? escapeHtml(sectorFull) : '<span class="trk-muted">-</span>';
+
+  // 손절가: 지금 적용 중인 선(반익절 뒤엔 진입가). 캡이 걸렸거나 본절로 올라갔으면 표시한다.
+  const stopNow = p.stop_now != null ? p.stop_now : p.stop;
+  const capped = p.section !== "MORNING_BREAKOUT" && p.entry && p.stop != null && Math.abs(p.stop - p.entry * 0.92) < p.entry * 0.0005;
+  const stopMark = p.tp_day ? ' <span class="trk-tag be">본절</span>' : capped ? ' <span class="trk-tag cap">캡</span>' : "";
+  const stop = `<span class="trk-tip" title="${escapeHtml(trkStopTip(p))}">${trkPrice(p, stopNow)}${stopMark}</span>`;
+
+  // 상태 / 액션
+  // 표에는 짧게, 자세한 내용은 마우스 설명으로. 길게 쓰면 표가 옆으로 밀린다.
+  let action = "";
+  let actionTip = "";
+  if (p.status === "HALF_TP") {
+    action = `D+${p.tp_day} 달성`;
+    actionTip = `D+${p.tp_day} 장중 +${p.tp_pct}% 도달 → 50% 반익절(성공 확정). 잔여 50% 는 손절선을 진입가(본절)로 올려 20거래일까지 추적`;
+  } else if (p.status === "ACTIVE") {
+    action = p.tp_pct ? `목표 +${p.tp_pct}%` : "";
+    actionTip = p.tp_pct ? `장중 +${p.tp_pct}% 에 닿으면 50% 반익절` : "";
+  } else if (p.status === "SL_HIT") {
+    action = p.tp_day ? "잔여 본절" : `D+${days}`;
+    actionTip = p.tp_day
+      ? `D+${p.tp_day} 반익절(성공) 뒤 D+${days} 잔여분 본절선 이탈로 청산`
+      : `D+${days} 종가가 손절가 아래로 마감`;
+  } else if (p.status === "EXPIRED") {
+    action = p.tp_day ? `D+${p.tp_day} 반익절` : "완주";
+    actionTip = p.tp_day ? `D+${p.tp_day} 반익절 뒤 20거래일 완주` : "손절 없이 20거래일 완주";
+  }
+  const state = `<span class="trk-tip" title="${escapeHtml(actionTip)}"><span class="trk-status ${cls}">${label}</span>${
+    action ? ` <span class="trk-action">${action}</span>` : ""
+  }</span>`;
 
   // D+1 시세가 아직 없으면 현재가·수익률·최고 칸을 배지 하나로 합친다(하이픈을 늘어놓지 않는다).
   let mid;
@@ -1727,19 +1779,24 @@ function trkRow(p, view) {
     mid = `<td colspan="3" class="trk-pending"><span class="trk-status pend">${why}</span></td>`;
   } else {
     const cur = view === "closed" ? p.final_ret : p.rets[days - 1];
+    const curTip =
+      view === "closed" && p.tp_day
+        ? ` title="확정 손익 = 반익절 50% (+${p.tp_pct}%) + 잔여 50% (${p.rets[days - 1] > 0 ? "+" : ""}${p.rets[days - 1]}%)"`
+        : "";
     mid = `<td>${trkPrice(p, p.last_close)}</td>
-      <td>${trkPct(cur, 2)}</td>
+      <td><span class="trk-tip"${curTip}>${trkPct(cur, 2)}</span></td>
       <td>${trkPct(p.hwm)}${p.hwm_day ? ` <span class="trk-muted">D+${p.hwm_day}</span>` : ""}</td>`;
   }
   return `<tr>
-    <td class="trk-sticky" title="${escapeHtml(p.name)}"><span class="trk-name">${escapeHtml(p.name)}</span><span class="trk-code">${escapeHtml(p.code)}</span></td>
-    <td class="trk-left"><span class="trk-sector" title="${escapeHtml((p.tags || [])[0] || "")}">${sector}</span></td>
+    <td class="trk-sticky" title="${escapeHtml(p.name)} (${escapeHtml(p.code)})"><span class="trk-name">${escapeHtml(p.name)}</span><span class="trk-code">${escapeHtml(p.code)}</span></td>
+    <td class="trk-left"><span class="trk-sector" title="${escapeHtml(sectorFull)}">${sector}</span></td>
     <td>${found}</td>
     <td class="trk-left">${sec}</td>
     <td>${trkPrice(p, p.entry)}</td>
     ${mid}
     <td>${stop}</td>
-    <td class="trk-state"><span class="trk-status ${cls}">${label}</span>${trkSpark(p.rets)}</td>
+    <td class="trk-left trk-state">${state}</td>
+    <td>${trkSpark(p.rets)}</td>
   </tr>`;
 }
 
@@ -1766,10 +1823,10 @@ function renderTracking() {
     }</div>`;
   const kpis = `<div class="trk-kpis">
     ${kpi("추적 종목", `${s.total}`, `추적 중 ${s.open}${s.pending ? ` (대기 ${s.pending})` : ""} · 종결 ${s.closed}`)}
-    ${kpi("현재 수익권", trkRate(s.itm), "추적 중 종목 중 플러스 비율")}
-    ${kpi("+5% / +10% 도달", `${trkRate(s.hit5)} <span class="trk-muted">/</span> ${trkRate(s.hit10)}`, `기간 내 장중 최고가 기준 · ${s.withData}종목`)}
+    ${kpi("승률", trkRate(s.win), s.decided ? `반익절 ${s.halfTp} · 손절 ${s.sl} · 만기 ${s.exp}` : "아직 판정된 종목이 없습니다")}
+    ${kpi("현재 수익권", trkRate(s.itm), "추적 중·반익절 종목 중 플러스")}
+    ${kpi("+5% / +10% 도달", `${trkRate(s.hit5)} <span class="trk-muted">/</span> ${trkRate(s.hit10)}`, `장중 최고가 기준 · ${s.withData}종목`)}
     ${kpi("평균 최고 / 낙폭", `${trkPct(s.hwm)} <span class="trk-muted">/</span> ${trkPct(s.mdd)}`, "장중 고가·저가, 진입가 대비")}
-    ${kpi("종결 성적", s.closed ? `${trkRate(s.win)} <span class="trk-muted">·</span> ${trkPct(s.final)}` : "-", s.closed ? `승률 · 평균 최종 (${s.closed}건, 손절 ${s.sl})` : "아직 종결된 종목이 없습니다")}
   </div>`;
 
   // ── 섹션별 성적 요약 (행을 누르면 아래 표가 그 섹션만 보인다) ──
@@ -1786,20 +1843,20 @@ function renderTracking() {
       const list = groups[key];
       const g = trkStats(list);
       const on = trkState.section === key ? " on" : "";
-      return `<tr class="trk-sec-row${on}" data-trk-section="${key}">
-        <td class="trk-left">${TRK_FLAG[list[0].market] || ""} ${escapeHtml(list[0].section_name || list[0].section)}</td>
-        <td>${g.total}</td><td>${g.open}</td><td>${g.closed}</td>
-        <td>${trkRate(g.itm)}</td><td>${trkRate(g.hit5)}</td>
-        <td>${trkPct(g.hwm)}</td><td>${trkPct(g.mdd)}</td>
-        <td>${g.closed ? trkRate(g.win) : '<span class="trk-muted">-</span>'}</td><td>${trkPct(g.final)}</td>
+      const tp = list[0].tp_pct || { MORNING_BREAKOUT: 8, SWING_PULLBACK: 8, TREND_RALLY: 12, CLOSING_BET: 5 }[list[0].section];
+      return `<tr class="trk-sec-row${on}" data-trk-section="${key}" title="눌러서 이 섹션 종목만 보기">
+        <td class="trk-left">${TRK_FLAG[list[0].market] || ""} ${escapeHtml(list[0].section_name || list[0].section)} <span class="trk-muted">목표 +${tp}%</span></td>
+        <td>${g.total}</td><td>${g.open}</td><td>${g.halfTp}</td><td>${g.sl}</td><td>${g.exp}</td>
+        <td>${trkRate(g.win)}</td><td>${trkRate(g.itm)}</td>
+        <td>${trkPct(g.hwm)}</td><td>${trkPct(g.mdd)}</td><td>${trkPct(g.final)}</td>
       </tr>`;
     })
     .join("");
   const secTable = `<section class="trk-block">
     <div class="trk-block-title">섹션별 성적 <span class="trk-muted">행을 누르면 아래 표가 그 섹션만 보입니다</span></div>
     <div class="trk-table-wrap"><table class="trk-table trk-sec">
-      <thead><tr><th class="trk-left">섹션</th><th>발굴</th><th>추적 중</th><th>종결</th><th>수익권</th><th>+5% 도달</th>
-        <th>평균 최고</th><th>평균 낙폭</th><th>종결 승률</th><th>평균 최종</th></tr></thead>
+      <thead><tr><th class="trk-left">섹션</th><th>발굴</th><th>추적 중</th><th>반익절</th><th>손절</th><th>만기</th>
+        <th>승률</th><th>수익권</th><th>평균 최고</th><th>평균 낙폭</th><th>확정 손익</th></tr></thead>
       <tbody>${secRows}</tbody></table></div></section>`;
 
   // ── 하단 종목 표: 추적 중 / 종결 보관함 ──
@@ -1811,38 +1868,40 @@ function renderTracking() {
     .slice()
     .sort((a, b) => {
       if (view === "closed") return (b.closed_on || "").localeCompare(a.closed_on || "");
-      // 추적 중: 시세가 있는 종목을 수익률 순으로 위에, 대기 종목은 아래
+      // 1순위 시세 진행 중(반익절·추적 중)을 현재 수익률 높은 순으로, 2순위 D+1 대기는 맨 아래
       const ra = (a.rets || []).length ? a.rets[a.rets.length - 1] : -Infinity;
       const rb = (b.rets || []).length ? b.rets[b.rets.length - 1] : -Infinity;
       return rb - ra || (b.found_on || "").localeCompare(a.found_on || "");
     })
     .map((p) => trkRow(p, view))
     .join("");
-  const scopeLabel = trkState.section
-    ? `<button class="trk-scope" type="button" data-trk-clear>${TRK_FLAG[trkState.section.split("|")[0]] || ""} ${escapeHtml(
+  const scopeChip = trkState.section
+    ? `<span class="trk-scope-on">필터 적용 중: ${TRK_MKT[trkState.section.split("|")[0]] || ""} ${escapeHtml(
         groups[trkState.section][0].section_name
-      )} ✕</button>`
+      )}</span><button class="trk-scope" type="button" data-trk-clear>전체보기 ✕</button>`
     : "";
-  const priceHead = view === "closed" ? ["종결가", "최종 수익률"] : ["현재가", "현재 수익률"];
+  const priceHead = view === "closed" ? ["종결가", "확정 손익"] : ["현재가", "현재 수익률"];
   const listTable = `<section class="trk-block">
     <div class="trk-list-head">
       <div class="scr-market-tabs" role="tablist">
         <button class="trk-tab${view === "active" ? " active" : ""}" type="button" data-trk-view="active">현재 추적 중 <span class="trk-muted">${openList.length}</span></button>
-        <button class="trk-tab${view === "closed" ? " active" : ""}" type="button" data-trk-view="closed">종결 · 손절 보관함 <span class="trk-muted">${closedList.length}</span></button>
+        <button class="trk-tab${view === "closed" ? " active" : ""}" type="button" data-trk-view="closed">종결 보관함 <span class="trk-muted">${closedList.length}</span></button>
       </div>
-      ${scopeLabel}
+      ${scopeChip}
     </div>
     <div class="trk-table-wrap"><table class="trk-table trk-list">
       <thead><tr>
-        <th class="trk-sticky trk-left">종목명 / 티커</th><th class="trk-left">대표 섹터</th><th>발굴일 (경과)</th><th class="trk-left">분류/유형</th>
-        <th>진입가</th><th>${priceHead[0]}</th><th>${priceHead[1]}</th><th>최고 도달률</th><th>손절가 (버퍼)</th><th>상태/추세</th>
+        <th class="trk-sticky trk-left">종목명 / 티커</th><th class="trk-left">대표 섹터</th><th>발굴일 (경과)</th><th class="trk-left">분류 / 유형</th>
+        <th>진입가</th><th>${priceHead[0]}</th><th>${priceHead[1]}</th><th>최고 도달률</th><th>손절가 (Cap 적용)</th>
+        <th class="trk-left">상태 / 액션</th><th>추세</th>
       </tr></thead>
-      <tbody>${rows || `<tr><td colspan="10" class="trk-empty">${view === "closed" ? "아직 종결된 종목이 없습니다." : "추적 중인 종목이 없습니다."}</td></tr>`}</tbody>
+      <tbody>${rows || `<tr><td colspan="11" class="trk-empty">${view === "closed" ? "아직 종결된 종목이 없습니다." : "추적 중인 종목이 없습니다."}</td></tr>`}</tbody>
     </table></div></section>`;
 
   body.innerHTML =
-    `<p class="trk-note">발굴일 종가를 진입가로 고정하고 다음 거래일부터 20거래일 추적합니다. 목표가는 없습니다.
-      손절가는 지지선에서 -2.5% 버퍼를 둔 가격이며, 종가가 그 아래로 마감하면 손절로 종결합니다.</p>` +
+    `<p class="trk-note">발굴일 종가를 진입가로 고정하고 다음 거래일부터 20거래일 추적합니다.
+      장중 목표(종가베팅 +5%, 모닝·눌림목 +8%, 추세 +12%)에 닿으면 50% 반익절로 성공 처리하고 남은 절반은 손절선을 진입가로 올려 끝까지 봅니다.
+      손절가는 지지선 -2.5% 버퍼, 단 진입가 대비 -8% 를 넘지 않게 제한합니다.</p>` +
     kpis +
     secTable +
     listTable;
