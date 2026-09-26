@@ -45,7 +45,8 @@ TP_SHARE = 0.5
 # 2: 손절 버퍼 도입. 버퍼 이전 코드가 먼저 돌아 미장 7건이 버퍼 없는 손절가로 손절 판정을 받았는데,
 #    그중 6건은 지지선을 0.1~1.3% 차이로 깬 노이즈였다(버퍼 손절가로는 유지).
 # 3: 방안 B — 손절가 -8% 캡, 섹션별 반익절 + 잔여 본절 트레일링.
-TRACKING_RULES_VERSION = 3
+# 4: 야후 일시 오류로 미장 31종목의 D+1 기록이 지워진 것을 다시 받기 위해 한 번 전체 재계산.
+TRACKING_RULES_VERSION = 4
 MORNING_STOP_PCT = 2.0  # 섹션4 '-2.0% 기계적 손절'
 OPEN_STATUSES = ("PENDING", "ACTIVE", "HALF_TP")
 KST = datetime.timezone(datetime.timedelta(hours=9))
@@ -319,6 +320,10 @@ def _evaluate(p, bars, now):
 
     after = [r for r in rows if r[0] > p["found_on"]][:TRACK_DAYS]
     rets, hwm, hwm_day, mdd = [], None, None, 0.0
+    # 이미 기록한 날보다 적게 받았으면 야후가 불완전한 데이터를 준 것이다(2026-09-26 00:38 UTC 실제 발생:
+    # 미장 31종목의 9/25 봉이 빠져 와서 전날 기록이 통째로 지워졌다). 덮어쓰지 않고 다음 실행에서 다시 받는다.
+    if len(after) < len(p.get("rets") or []):
+        return None
     status, final, closed_on, last_close = ("ACTIVE" if after else "PENDING"), None, "", None
     tp_day, stop = None, base_stop
     for n, (d, hi, lo, cl) in enumerate(after, start=1):
@@ -388,7 +393,10 @@ def update(tracking, now, markets=("kr", "us")):
         for p, mark, bars in pool.map(one, todo):
             if not bars:
                 continue  # 조회 실패. 확인 표시를 안 남겨 다음 실행에서 다시 시도한다
-            if _evaluate(p, bars, now):
+            result = _evaluate(p, bars, now)
+            if result is None:
+                continue  # 불완전한 데이터(기록보다 적은 봉). 역시 다음 실행에서 다시 시도한다
+            if result:
                 changed += 1
             p["checked_for"] = mark
     print(f"[INFO] 성과 추적: {len(todo)}종목 확인, {changed}종목 갱신")
