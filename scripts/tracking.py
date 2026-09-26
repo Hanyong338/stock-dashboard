@@ -46,7 +46,9 @@ TP_SHARE = 0.5
 #    그중 6건은 지지선을 0.1~1.3% 차이로 깬 노이즈였다(버퍼 손절가로는 유지).
 # 3: 방안 B — 손절가 -8% 캡, 섹션별 반익절 + 잔여 본절 트레일링.
 # 4: 야후 일시 오류로 미장 31종목의 D+1 기록이 지워진 것을 다시 받기 위해 한 번 전체 재계산.
-TRACKING_RULES_VERSION = 4
+# 5: 원인은 일시 오류가 아니라 '미장 마지막 날 종가가 마감 뒤 몇 시간 비어 오는' 야후 동작이었다.
+#    screening._bars_from 이 meta 의 공식 종가로 채우게 고친 뒤 다시 전체 재계산.
+TRACKING_RULES_VERSION = 5
 MORNING_STOP_PCT = 2.0  # 섹션4 '-2.0% 기계적 손절'
 OPEN_STATUSES = ("PENDING", "ACTIVE", "HALF_TP")
 KST = datetime.timezone(datetime.timedelta(hours=9))
@@ -321,7 +323,8 @@ def _evaluate(p, bars, now):
     after = [r for r in rows if r[0] > p["found_on"]][:TRACK_DAYS]
     rets, hwm, hwm_day, mdd = [], None, None, 0.0
     # 이미 기록한 날보다 적게 받았으면 야후가 불완전한 데이터를 준 것이다(2026-09-26 00:38 UTC 실제 발생:
-    # 미장 31종목의 9/25 봉이 빠져 와서 전날 기록이 통째로 지워졌다). 덮어쓰지 않고 다음 실행에서 다시 받는다.
+    # 미장 마지막 날 종가가 비어 와 그 봉이 빠졌고, 전날 기록이 통째로 지워졌다 — _bars_from 에서 보완함).
+    # 그래도 다른 이유로 봉이 모자라 오면 덮어쓰지 않고 다음 실행에서 다시 받는다.
     if len(after) < len(p.get("rets") or []):
         return None
     status, final, closed_on, last_close = ("ACTIVE" if after else "PENDING"), None, "", None

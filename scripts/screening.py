@@ -204,9 +204,24 @@ def _bars_from(result, limit=None):
     keys = ("open", "high", "low", "close", "volume")
     series = {k: (q.get(k) or []) for k in keys}
     bars = {"date": [], **{k: [] for k in keys}}
+    meta = result.get("meta") or {}
+    off = meta.get("gmtoffset") or 0
+    local_day = lambda t: datetime.datetime.fromtimestamp(t + off, datetime.timezone.utc).date()
     for i, ts in enumerate(stamps):
         # 야후는 배열 길이가 timestamp 와 어긋나게 오는 경우가 있어 길이를 같이 본다
         row = [series[k][i] if i < len(series[k]) else None for k in keys]
+        # 미장은 장 마감 뒤 몇 시간 동안 '마지막 날' 봉의 종가만 비어서 온다(시가·고가·저가·거래량은 있음).
+        # 그 날의 공식 종가는 meta.regularMarketPrice 에 있다(2026-09-25 CRCL·NVDA 로 확인).
+        # 그대로 버리면 미장 스크리닝(한국 아침 7시)과 성과 추적이 그날 봉을 통째로 놓친다.
+        if (
+            i == len(stamps) - 1
+            and row[3] is None
+            and all(v is not None for j, v in enumerate(row) if j != 3)
+            and meta.get("regularMarketPrice")
+            and meta.get("regularMarketTime")
+            and local_day(meta["regularMarketTime"]) == local_day(ts)
+        ):
+            row[3] = meta["regularMarketPrice"]
         if any(v is None for v in row):
             continue
         bars["date"].append(datetime.datetime.fromtimestamp(ts, datetime.timezone.utc).date().isoformat())
