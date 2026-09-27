@@ -617,6 +617,7 @@
       "title": "ADP 고용",
       "category": "macro",
       "detail": "21:15",
+      "consensus": "70K",
       "previous": "38K"
     },
     {
@@ -625,6 +626,7 @@
       "title": "미국 PCE",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "0.4%",
       "previous": "0.2%"
     },
     {
@@ -633,6 +635,7 @@
       "title": "미국 근원 PCE",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "0.3%",
       "previous": "0.2%"
     },
     {
@@ -665,6 +668,7 @@
       "title": "ISM 제조업",
       "category": "macro",
       "detail": "23:00",
+      "consensus": "55.0",
       "previous": "54.6"
     },
     {
@@ -682,6 +686,7 @@
       "title": "미국 실업수당",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "199K",
       "previous": "197K"
     },
     {
@@ -730,6 +735,7 @@
       "title": "미국 고용지표",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "98K",
       "previous": "162K"
     },
     {
@@ -1425,7 +1431,7 @@
       "detail": ""
     }
   ],
-  "built_on": "2026-09-27",
+  "built_on": "2026-09-28",
   "builder_version": 10,
-  "updated_at": "2026-09-26T15:13:08.637770+00:00"
+  "updated_at": "2026-09-27T15:13:14.946975+00:00"
 }
