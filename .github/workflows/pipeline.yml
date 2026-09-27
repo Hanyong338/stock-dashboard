@@ -31,6 +31,9 @@ jobs:
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # 결제를 연결하지 않은 별도 프로젝트의 키. 선불 잔액이 떨어지면 자동으로 이 키로 넘어간다(무료 사용량).
+          # 등록 안 돼 있으면 빈 값이라 전환 없이 지금처럼 동작한다.
+          GEMINI_API_KEY_FREE: ${{ secrets.GEMINI_API_KEY_FREE }}
           SUPADATA_API_KEY: ${{ secrets.SUPADATA_API_KEY }}
           # GEMINI_MODEL 을 지정하지 않으면 summarize.py 기본값인 gemini-3.5-flash 를 쓴다.
           # 비용을 낮추려면 여기에 GEMINI_MODEL: gemini-3.5-flash-lite 를 추가하면 된다.

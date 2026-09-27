@@ -120,9 +120,31 @@ def _normalize_newlines(result):
     return result
 
 
+# 선불 잔액이 떨어지면 무료 키로 넘어간다.
+# 결제가 연결된 프로젝트는 무료 사용량을 못 쓰고(공식 문서), 잔액이 0 이 되면 402 로 멈출 뿐이다.
+# 그래서 결제를 연결하지 않은 별도 프로젝트의 키(GEMINI_API_KEY_FREE)를 두고, 잔액 소진 응답을 받는 순간 그 키로 바꾼다.
+# 한 번 넘어가면 그 실행이 끝날 때까지 무료 키를 쓴다. 다음 실행은 다시 유료 키부터 시도한다
+# (나중에 선불을 다시 충전하면 저절로 유료로 돌아가게 하려는 것. 잔액이 없으면 첫 호출 한 번만 실패하고 바로 넘어간다).
+_use_free_key = False
+
+
+def _paid_depleted(resp):
+    """선불 잔액 소진 응답인가. 문서상 402, 실제로는 429 + 'prepayment credits are depleted' 로도 온다."""
+    if resp is None:
+        return False
+    if resp.status_code == 402:
+        return True
+    return resp.status_code == 429 and "prepayment" in (resp.text or "").lower()
+
+
+def _api_key():
+    free = (os.environ.get("GEMINI_API_KEY_FREE") or "").strip()
+    return free if (_use_free_key and free) else os.environ["GEMINI_API_KEY"]
+
+
 def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_tokens=8192):
     """구조화된 JSON 응답을 받아온다. 재시도/비용로그/개행 정규화를 공통으로 처리한다."""
-    api_key = os.environ["GEMINI_API_KEY"]
+    global _use_free_key
 
     payload = {
         "system_instruction": {"parts": [{"text": system_prompt}]},
@@ -137,7 +159,11 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
     last_error = None
     for attempt in range(MAX_ATTEMPTS):
         try:
-            resp = requests.post(f"{API_URL}?key={api_key}", json=payload, timeout=90)
+            resp = requests.post(f"{API_URL}?key={_api_key()}", json=payload, timeout=90)
+            if not _use_free_key and _paid_depleted(resp) and (os.environ.get("GEMINI_API_KEY_FREE") or "").strip():
+                _use_free_key = True
+                print("[WARN] Gemini 선불 잔액 소진 — 무료 키(GEMINI_API_KEY_FREE)로 전환해 이어서 요약한다")
+                resp = requests.post(f"{API_URL}?key={_api_key()}", json=payload, timeout=90)
             resp.raise_for_status()
             data = resp.json()
             _log_usage(data.get("usageMetadata"), label)
