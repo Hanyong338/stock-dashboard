@@ -4,6 +4,7 @@ GitHub Actions에서 1시간마다 실행된다 (.github/workflows/pipeline.yml 
 import datetime
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -13,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from youtube_check import fetch_channel_videos
-from summarize import summarize_transcript
+from summarize import check_free_key, summarize_transcript
 from transcript import get_transcript, is_retryable_error
 from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
@@ -35,6 +36,7 @@ KR_CONSENSUS_FILE = DATA_DIR / "kr_consensus.json"
 SCREENING_FILE = DATA_DIR / "screening.json"
 US_SCREENING_FILE = DATA_DIR / "screening_us.json"
 TRACKING_FILE = DATA_DIR / "tracking.json"
+GEMINI_KEY_CHECK_FILE = DATA_DIR / "gemini_key_check.json"
 TRACKING_SEED_FILE = DATA_DIR / "tracking_seed.json"
 THEMES_FILE = DATA_DIR / "themes.json"
 MORNING_FILE = DATA_DIR / "morning_breakout.json"
@@ -168,10 +170,25 @@ def save_json(path, data):
 _warnings = []
 
 
+# 오류 문구에 API 키가 섞여 들어오면 공개 저장소에 그대로 올라간다. 파일에 남기기 전에 가린다.
+# (구글 키 AIza…, 주소의 key=… 파라미터)
+_SECRET_PATTERNS = [
+    re.compile(r"AIza[0-9A-Za-z_\-]{30,}"),
+    re.compile(r"([?&](?:key|api_key|apikey)=)[^&\s'\"]+", re.I),
+]
+
+
+def _redact(text):
+    text = str(text)
+    text = _SECRET_PATTERNS[0].sub("***", text)
+    return _SECRET_PATTERNS[1].sub(r"\1***", text)
+
+
 def warn(message):
     """로그에도 찍고 파일에도 남긴다. 파일은 공개 저장소에 올라가 나중에 읽을 수 있다."""
+    message = _redact(message)
     print(f"[WARN] {message}")
-    _warnings.append({"at": datetime.datetime.now(datetime.timezone.utc).isoformat(), "message": str(message)[:300]})
+    _warnings.append({"at": datetime.datetime.now(datetime.timezone.utc).isoformat(), "message": message[:300]})
 
 
 def save_warnings(now):
@@ -619,6 +636,24 @@ def update_us_screening(now):
     return True
 
 
+def update_gemini_key_check(now):
+    """무료 제미나이 키(선불 잔액이 떨어지면 넘어갈 키)가 작동하는지 하루 한 번 확인해 파일로 남긴다.
+    실패하고 있으면 매 실행 다시 확인한다(키를 고쳐 넣으면 바로 알 수 있게). 키 값은 남기지 않는다."""
+    today = now.astimezone(KST).date().isoformat()
+    current = load_json(GEMINI_KEY_CHECK_FILE, {})
+    if isinstance(current, dict) and current.get("checked_on") == today and current.get("ok"):
+        return False
+    result = check_free_key()
+    result.update({"checked_on": today, "checked_at": now.isoformat()})
+    print(f"[INFO] 무료 제미나이 키 확인: {'정상' if result['ok'] else '실패'} — {result['message']}")
+    if isinstance(current, dict) and {k: current.get(k) for k in ("ok", "status", "message", "checked_on")} == {
+        k: result.get(k) for k in ("ok", "status", "message", "checked_on")
+    }:
+        return False  # 같은 결과면 저장하지 않는다(의미 없는 커밋 방지)
+    save_json(GEMINI_KEY_CHECK_FILE, result)
+    return True
+
+
 def update_tracking(now):
     """스크리너가 뽑은 종목을 박제하고 20거래일 성과를 추적한다(tracking.py 참고).
     매시간 불리지만 야후 조회는 시장마다 하루 한 번(마감 뒤)뿐이다. 바뀐 게 없으면 저장하지 않는다."""
@@ -840,6 +875,12 @@ def main():
             commit_and_push(f"chore: update tracking {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] tracking failed: {e}")
+
+    try:
+        if update_gemini_key_check(now):
+            commit_and_push(f"chore: gemini free key check {now.isoformat()}")
+    except Exception as e:
+        print(f"[WARN] 무료 키 확인 실패: {e}")
 
     try:
         if save_warnings(now):

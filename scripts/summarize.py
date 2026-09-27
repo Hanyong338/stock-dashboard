@@ -23,7 +23,7 @@ PRICES_PER_MTOK = {
 }
 INPUT_PRICE_PER_MTOK, OUTPUT_PRICE_PER_MTOK = PRICES_PER_MTOK.get(MODEL, (1.50, 9.00))
 
-API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
+API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"  # 키는 헤더로 보낸다(_post)
 MAX_TRANSCRIPT_CHARS = 30000
 
 SYSTEM_PROMPT = """[역할 정의]
@@ -142,6 +142,36 @@ def _api_key():
     return free if (_use_free_key and free) else os.environ["GEMINI_API_KEY"]
 
 
+def _post(payload, key, timeout=90):
+    """키는 주소(?key=)가 아니라 헤더로 보낸다. 주소에 넣으면 실패했을 때 오류 문구에 키가 그대로 찍히고,
+    그 문구가 실패 기록(docs/data/pipeline_log.json)에 남아 공개 저장소에 올라갈 수 있다."""
+    return requests.post(API_URL, headers={"x-goog-api-key": key}, json=payload, timeout=timeout)
+
+
+def check_free_key():
+    """무료 키가 실제로 작동하는지 아주 짧은 요청으로 확인한다(무료 사용량, 비용 없음).
+    잔액이 떨어지는 날 처음으로 무료 키를 쓰게 되는데, 그때 키가 틀렸으면 요약이 멈춘다. 미리 알아두기 위한 것.
+    반환: {"configured", "ok", "status", "message"} — 키 값 자체는 절대 담지 않는다."""
+    key = (os.environ.get("GEMINI_API_KEY_FREE") or "").strip()
+    if not key:
+        return {"configured": False, "ok": False, "status": None, "message": "GEMINI_API_KEY_FREE 가 등록되지 않았다"}
+    payload = {
+        "contents": [{"role": "user", "parts": [{"text": "Reply with the single word: OK"}]}],
+        "generationConfig": {"maxOutputTokens": 32},
+    }
+    try:
+        resp = _post(payload, key, timeout=60)
+    except Exception as e:
+        return {"configured": True, "ok": False, "status": None, "message": f"요청 실패: {type(e).__name__}"}
+    if resp.ok:
+        return {"configured": True, "ok": True, "status": resp.status_code, "message": f"{MODEL} 응답 정상"}
+    try:
+        detail = resp.json().get("error", {}).get("message", "")
+    except Exception:
+        detail = resp.text
+    return {"configured": True, "ok": False, "status": resp.status_code, "message": detail[:200]}
+
+
 def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_tokens=8192):
     """구조화된 JSON 응답을 받아온다. 재시도/비용로그/개행 정규화를 공통으로 처리한다."""
     global _use_free_key
@@ -159,11 +189,11 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
     last_error = None
     for attempt in range(MAX_ATTEMPTS):
         try:
-            resp = requests.post(f"{API_URL}?key={_api_key()}", json=payload, timeout=90)
+            resp = _post(payload, _api_key())
             if not _use_free_key and _paid_depleted(resp) and (os.environ.get("GEMINI_API_KEY_FREE") or "").strip():
                 _use_free_key = True
                 print("[WARN] Gemini 선불 잔액 소진 — 무료 키(GEMINI_API_KEY_FREE)로 전환해 이어서 요약한다")
-                resp = requests.post(f"{API_URL}?key={_api_key()}", json=payload, timeout=90)
+                resp = _post(payload, _api_key())
             resp.raise_for_status()
             data = resp.json()
             _log_usage(data.get("usageMetadata"), label)
