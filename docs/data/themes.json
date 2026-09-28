@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "의료AI",
-      "change_percent": 6.44,
+      "change_percent": 6.38,
       "total": 29,
       "rise": 26
     },
     {
       "name": "유전자 치료제/분석",
-      "change_percent": 4.44,
+      "change_percent": 4.56,
       "total": 41,
-      "rise": 33
+      "rise": 35
     },
     {
       "name": "오가노이드",
-      "change_percent": 3.58,
+      "change_percent": 3.86,
       "total": 8,
-      "rise": 7
-    },
-    {
-      "name": "원격진료/비대면진료(U-Healthcare)",
-      "change_percent": 3.5,
-      "total": 22,
-      "rise": 19
+      "rise": 6
     },
     {
       "name": "면역항암제",
-      "change_percent": 3.36,
+      "change_percent": 3.63,
       "total": 36,
-      "rise": 26
+      "rise": 27
     },
     {
-      "name": "딥페이크(deepfake)",
-      "change_percent": 3.36,
-      "total": 14,
-      "rise": 12
+      "name": "원격진료/비대면진료(U-Healthcare)",
+      "change_percent": 3.54,
+      "total": 22,
+      "rise": 18
     },
     {
-      "name": "강관업체(Steel pipe)",
-      "change_percent": 3.33,
-      "total": 11,
-      "rise": 9
-    },
-    {
-      "name": "줄기세포",
-      "change_percent": 3.11,
-      "total": 18,
+      "name": "미용기기",
+      "change_percent": 3.24,
+      "total": 19,
       "rise": 14
+    },
+    {
+      "name": "손해보험",
+      "change_percent": 3.23,
+      "total": 8,
+      "rise": 8
+    },
+    {
+      "name": "NI(네트워크통합)",
+      "change_percent": 3.22,
+      "total": 7,
+      "rise": 7
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-28T03:15:25.705767+00:00"
+  "updated_at": "2026-09-28T04:15:15.686633+00:00"
 }
