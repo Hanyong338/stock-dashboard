@@ -70,11 +70,19 @@ def _api_key():
     return key
 
 
+# 'native' = 유튜브에 이미 있는 자막만 받는다(1건 = 1크레딧 고정).
+# 예전엔 'auto' 였다. auto 는 기존 자막을 못 받으면 AI 로 새로 만드는데 그건 '영상 1분당 2크레딧'이다.
+# 2026-09-28 에 요약 42편인데 대시보드엔 144크레딧이 찍혔다. 42편 모두 한국어 자막이 있었고,
+# 그날 시간초과가 난 20분 넘는 영상들이 AI 생성으로 넘어간 것으로 보인다(22분+30분 ≈ 104크레딧).
+# 자막이 정말 없는 영상은 요약을 건너뛴다(지금까지 요약한 영상은 전부 자막이 있었다).
+TRANSCRIPT_MODE = "native"
+
+
 def _get_transcript_supadata(video_url, max_wait_seconds=120):
     resp = requests.get(
         API_URL,
         headers={"x-api-key": _api_key()},
-        params={"url": video_url, "text": "true", "mode": "auto"},
+        params={"url": video_url, "text": "true", "mode": TRANSCRIPT_MODE},
         timeout=60,
     )
     resp.raise_for_status()
