@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "의료AI",
+      "change_percent": 4.24,
+      "total": 29,
+      "rise": 25
+    },
+    {
+      "name": "유전자 치료제/분석",
+      "change_percent": 4.18,
+      "total": 41,
+      "rise": 36
+    },
+    {
+      "name": "무선충전기술",
+      "change_percent": 3.93,
+      "total": 12,
+      "rise": 10
+    },
+    {
+      "name": "양자암호/양자컴퓨팅",
+      "change_percent": 3.74,
+      "total": 26,
+      "rise": 21
+    },
+    {
+      "name": "면역항암제",
+      "change_percent": 3.64,
+      "total": 36,
+      "rise": 31
+    },
+    {
+      "name": "우주태양광(페로브스카이트 등)",
+      "change_percent": 3.52,
+      "total": 10,
+      "rise": 8
+    },
+    {
+      "name": "유리 기판",
+      "change_percent": 3.35,
+      "total": 21,
+      "rise": 19
+    },
+    {
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 3.22,
+      "total": 14,
+      "rise": 12
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-09-27T23:12:41.916608+00:00"
+  "updated_at": "2026-09-28T00:21:49.972612+00:00"
 }
