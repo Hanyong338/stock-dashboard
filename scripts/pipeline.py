@@ -297,6 +297,16 @@ def process_channel(ch, state, summaries, now):
             state[cid].append(v["video_id"])
             continue
 
+        # 예정됐거나 아직 방송 중인 생방송은 유튜브가 길이를 0초로 준다. 그대로 두면 아래 '쇼츠' 판정에 걸려
+        # '확인함'이 되고, 방송이 끝난 뒤에도 다시 안 본다. 2026-09-28 하나TV 모닝브리프가 이렇게 빠졌다
+        # (07:16 실행 때 07:29 시작 예정이었다). 방송이 끝날 때까지 '확인함' 처리하지 않고 넘긴다.
+        if v.get("live_pending"):
+            if ch.get("exclude_live"):
+                state[cid].append(v["video_id"])  # 어차피 생방송을 빼는 채널이면 바로 확인함
+            else:
+                print(f"[INFO] 생방송 예정/진행 중 — 끝난 뒤 요약: {name} - {v['title'][:40]}")
+            continue
+
         duration = v.get("duration_seconds")
         if duration is not None and duration >= MAX_VIDEO_DURATION_SECONDS:
             print(f"[INFO] skipping long video ({duration // 60}min): {name} - {v['title']}")
@@ -766,9 +776,9 @@ def update_morning_brief(now):
         print(f"[INFO] morning brief: 1시간 초과라 건너뜀 ({duration // 60}min)")
         return False
 
-    # 막 올라온 방송은 유튜브 자동 자막이 아직 없다. 채널 요약과 같은 이유로 일정 시간 기다린다(크레딧 0).
+    # 막 올라온 방송(또는 아직 방송 중·예정)은 유튜브 자동 자막이 아직 없다. 일정 시간 기다린다(크레딧 0).
     pub = parse_published(latest.get("published", ""))
-    if pub is not None and (now - pub).total_seconds() < MIN_VIDEO_AGE_MINUTES * 60:
+    if latest.get("live_pending") or (pub is not None and (now - pub).total_seconds() < MIN_VIDEO_AGE_MINUTES * 60):
         print(f"[INFO] morning brief: 업로드 {int((now - pub).total_seconds() // 60)}분 — 자막 생성 대기")
         return _refresh_market_overlay(current, now) if current.get("video_id") else False
 

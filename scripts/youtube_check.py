@@ -63,9 +63,13 @@ def _fetch_video_meta(video_ids):
             video_id = item.get("id")
             if not video_id:
                 continue
+            live = item.get("liveStreamingDetails") or {}
             meta[video_id] = {
                 "duration_seconds": _parse_duration_seconds(item.get("contentDetails", {}).get("duration")),
-                "was_live": bool(item.get("liveStreamingDetails")),
+                "was_live": bool(live),
+                # 예정됐거나 아직 방송 중인 생방송. 이때 유튜브는 길이를 0초로 준다.
+                # 끝난 방송에만 actualEndTime 이 붙는다.
+                "live_pending": bool(live) and not live.get("actualEndTime"),
             }
     return meta
 
@@ -130,6 +134,7 @@ def fetch_channel_videos(channel_id, max_results=50, playlist_id=None):
             info = meta.get(v["video_id"], {})
             v["duration_seconds"] = info.get("duration_seconds")
             v["was_live"] = info.get("was_live", False)
+            v["live_pending"] = info.get("live_pending", False)
     except Exception as e:
         print(f"[WARN] video meta fetch failed for channel_id={channel_id}: {e}")
 
