@@ -3725,6 +3725,28 @@
       "tp_day": null,
       "stop_now": 200362,
       "checked_for": "2026-09-27"
+    },
+    {
+      "id": "kr:064400:MORNING_BREAKOUT:2026-09-28",
+      "market": "kr",
+      "code": "064400",
+      "name": "LG씨엔에스",
+      "board": "KOSPI",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "C",
+      "found_on": "2026-09-28",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "064400.KS",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-09-28T00:50:43.807476+00:00",
+      "reason": "240일선 69,832 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 87억",
+      "stop": null,
+      "checked_for": "2026-09-27"
     }
   ],
   "updated_for": {
@@ -3732,8 +3754,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 107,
-    "pending": 36,
+    "total": 108,
+    "pending": 37,
     "active": 55,
     "half_tp": 12,
     "closed": 5,
@@ -3745,7 +3767,7 @@
     "avg_mdd": -2.37,
     "closed_avg_final": -3.13
   },
-  "updated_at": "2026-09-27T20:13:17.648331+00:00",
+  "updated_at": "2026-09-28T00:50:43.807476+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
