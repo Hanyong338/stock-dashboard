@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "의료AI",
-      "change_percent": 5.77,
+      "change_percent": 5.58,
       "total": 29,
-      "rise": 23
+      "rise": 25
     },
     {
-      "name": "화학섬유",
-      "change_percent": 5.17,
-      "total": 6,
-      "rise": 5
-    },
-    {
-      "name": "테마파크",
-      "change_percent": 5.08,
-      "total": 6,
-      "rise": 4
+      "name": "미용기기",
+      "change_percent": 4.78,
+      "total": 19,
+      "rise": 13
     },
     {
       "name": "유전자 치료제/분석",
-      "change_percent": 4.56,
+      "change_percent": 4.24,
       "total": 41,
       "rise": 33
     },
     {
-      "name": "비만치료제",
-      "change_percent": 4.41,
-      "total": 37,
-      "rise": 26
-    },
-    {
-      "name": "면역항암제",
-      "change_percent": 4.29,
-      "total": 36,
-      "rise": 28
-    },
-    {
       "name": "오가노이드",
-      "change_percent": 4.19,
+      "change_percent": 3.68,
       "total": 8,
       "rise": 6
     },
     {
       "name": "원격진료/비대면진료(U-Healthcare)",
-      "change_percent": 4.05,
+      "change_percent": 3.63,
       "total": 22,
-      "rise": 17
+      "rise": 19
+    },
+    {
+      "name": "콜드체인(저온 유통)",
+      "change_percent": 3.55,
+      "total": 13,
+      "rise": 9
+    },
+    {
+      "name": "줄기세포",
+      "change_percent": 3.49,
+      "total": 18,
+      "rise": 15
+    },
+    {
+      "name": "우주태양광(페로브스카이트 등)",
+      "change_percent": 3.48,
+      "total": 10,
+      "rise": 8
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-28T07:16:34.234124+00:00"
+  "updated_at": "2026-09-28T08:17:31.562803+00:00"
 }
