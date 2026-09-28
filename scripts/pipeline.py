@@ -58,6 +58,7 @@ TRANSCRIPT_TIMEOUT_SECONDS = 180
 SUMMARIZE_TIMEOUT_SECONDS = 300  # summarize.py의 재시도(최대 85초 대기)까지 포함해서 넉넉히 잡는다
 MAX_VIDEO_DURATION_SECONDS = 3600  # 1시간 넘는 영상은 자막 생성 비용이 커서 아예 요약하지 않는다.
 NO_CAPTION_TRIES = 3  # '자막 없음' 응답을 받은 영상을 몇 번까지 다시 받아볼지(한 번에 1크레딧). 일시적 실패 대비
+MIN_VIDEO_AGE_MINUTES = 60  # 업로드 후 이만큼 지나야 자막을 요청한다(유튜브 자동 자막이 만들어질 시간)
 MIN_VIDEO_DURATION_SECONDS = 181  # 3분 이하는 쇼츠(Shorts)라 요약하지 않는다. 유튜브 쇼츠 최대 길이가 3분.
 
 # 캘린더 생성 규칙(수집 범위·시간대 변환·범주 등)이 바뀌면 이 숫자를 올린다.
@@ -320,6 +321,14 @@ def process_channel(ch, state, summaries, now):
         wanted = ch.get("title_include")
         if wanted and not any(w in v["title"] for w in wanted):
             state[cid].append(v["video_id"])
+            continue
+
+        # 막 올라온 영상은 아직 유튜브 자동 자막이 없다(유튜브가 음성을 인식해 만드는 데 시간이 걸린다).
+        # 2026-09-28 업로드 3~4분 만에 요청한 22·29분 영상 두 개가 자막이 없어 AI 생성으로 넘어가 102크레딧이 나갔다.
+        # 일정 시간이 지날 때까지는 요청하지 않고 '확인함' 처리도 하지 않아 다음 실행에서 다시 본다(크레딧 0).
+        pub = parse_published(v.get("published", ""))
+        if pub is not None and (now - pub).total_seconds() < MIN_VIDEO_AGE_MINUTES * 60:
+            print(f"[INFO] 업로드 {int((now - pub).total_seconds() // 60)}분 — 자막 생성 대기 후 요약: {name} - {v['title'][:40]}")
             continue
 
         # 같은 영상을 몇 번째 시도하는지 센다. 포기시키지는 않는다(그러면 영상이 영영 누락된다).
@@ -756,6 +765,12 @@ def update_morning_brief(now):
     if duration is not None and duration >= MAX_VIDEO_DURATION_SECONDS:
         print(f"[INFO] morning brief: 1시간 초과라 건너뜀 ({duration // 60}min)")
         return False
+
+    # 막 올라온 방송은 유튜브 자동 자막이 아직 없다. 채널 요약과 같은 이유로 일정 시간 기다린다(크레딧 0).
+    pub = parse_published(latest.get("published", ""))
+    if pub is not None and (now - pub).total_seconds() < MIN_VIDEO_AGE_MINUTES * 60:
+        print(f"[INFO] morning brief: 업로드 {int((now - pub).total_seconds() // 60)}분 — 자막 생성 대기")
+        return _refresh_market_overlay(current, now) if current.get("video_id") else False
 
     print(f"[INFO] morning brief: {latest['title']}")
     # 프롬프트를 고쳐 같은 방송을 다시 분석할 때 자막을 또 받지 않도록 캐시를 쓴다
