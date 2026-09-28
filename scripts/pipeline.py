@@ -57,6 +57,7 @@ REQUEST_INTERVAL_SECONDS = 3  # 자막/AI API를 너무 빨리 연달아 호출�
 TRANSCRIPT_TIMEOUT_SECONDS = 180
 SUMMARIZE_TIMEOUT_SECONDS = 300  # summarize.py의 재시도(최대 85초 대기)까지 포함해서 넉넉히 잡는다
 MAX_VIDEO_DURATION_SECONDS = 3600  # 1시간 넘는 영상은 자막 생성 비용이 커서 아예 요약하지 않는다.
+NO_CAPTION_TRIES = 3  # '자막 없음' 응답을 받은 영상을 몇 번까지 다시 받아볼지(한 번에 1크레딧). 일시적 실패 대비
 MIN_VIDEO_DURATION_SECONDS = 181  # 3분 이하는 쇼츠(Shorts)라 요약하지 않는다. 유튜브 쇼츠 최대 길이가 3분.
 
 # 캘린더 생성 규칙(수집 범위·시간대 변환·범주 등)이 바뀌면 이 숫자를 올린다.
@@ -342,9 +343,16 @@ def process_channel(ch, state, summaries, now):
             continue
 
         if not transcript_text:
-            warn(f"자막 비어있음 [{name}] {v['title'][:40]}")
-            state[cid].append(v["video_id"])
+            # 'native' 에서 Supadata 가 기존 자막을 못 받으면 '자막 없음'(206, 1크레딧)이 온다.
+            # 2026-09-28 에 자막이 있는 영상도 이렇게 일시적으로 못 받은 적이 있다(그땐 auto 라 AI 생성으로 넘어가 58크레딧).
+            # 그래서 바로 포기하지 않고 다음 실행에서 다시 받아본다. 다만 매번 1크레딧이라 NO_CAPTION_TRIES 번까지만.
             clear_transcript_cache(v["video_id"])
+            if tries < NO_CAPTION_TRIES:
+                warn(f"자막 없음 응답 [{name}] {v['title'][:40]} — 다음 실행에서 다시 시도 ({tries}/{NO_CAPTION_TRIES})")
+            else:
+                warn(f"자막 없음 {NO_CAPTION_TRIES}회 — 요약 건너뜀 [{name}] {v['title'][:40]}")
+                state[cid].append(v["video_id"])
+                attempts.pop(v["video_id"], None)
             continue
 
         try:
