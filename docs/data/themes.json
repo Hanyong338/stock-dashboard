@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "의료AI",
-      "change_percent": 5.82,
+      "change_percent": 8.57,
       "total": 29,
-      "rise": 25
+      "rise": 26
     },
     {
       "name": "유전자 치료제/분석",
-      "change_percent": 4.73,
+      "change_percent": 5.34,
       "total": 41,
       "rise": 36
     },
     {
+      "name": "오가노이드",
+      "change_percent": 5.21,
+      "total": 8,
+      "rise": 7
+    },
+    {
       "name": "면역항암제",
-      "change_percent": 4.67,
+      "change_percent": 4.91,
       "total": 36,
-      "rise": 34
+      "rise": 32
     },
     {
       "name": "우주태양광(페로브스카이트 등)",
-      "change_percent": 4.65,
+      "change_percent": 4.51,
       "total": 10,
-      "rise": 10
-    },
-    {
-      "name": "오가노이드",
-      "change_percent": 4.56,
-      "total": 8,
-      "rise": 8
-    },
-    {
-      "name": "유리 기판",
-      "change_percent": 4.18,
-      "total": 21,
-      "rise": 19
-    },
-    {
-      "name": "무선충전기술",
-      "change_percent": 4.09,
-      "total": 12,
       "rise": 9
     },
     {
+      "name": "제대혈",
+      "change_percent": 3.75,
+      "total": 5,
+      "rise": 5
+    },
+    {
+      "name": "유리 기판",
+      "change_percent": 3.69,
+      "total": 21,
+      "rise": 20
+    },
+    {
       "name": "줄기세포",
-      "change_percent": 3.43,
+      "change_percent": 3.66,
       "total": 18,
-      "rise": 15
+      "rise": 16
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-28T00:50:43.807476+00:00"
+  "updated_at": "2026-09-28T01:14:00.840528+00:00"
 }
