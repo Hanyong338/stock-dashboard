@@ -75,45 +75,6 @@
       "previous": "53.9"
     },
     {
-      "start": "2026-09-01",
-      "end": "2026-09-01",
-      "title": "한국 무역수지",
-      "category": "macro",
-      "detail": "09:00",
-      "consensus": "30.70B",
-      "actual": "34.75B",
-      "previous": "30.39B"
-    },
-    {
-      "start": "2026-09-01",
-      "end": "2026-09-01",
-      "title": "한국 수입",
-      "category": "macro",
-      "detail": "09:00",
-      "consensus": "24.7%",
-      "actual": "22.5%",
-      "previous": "26.5%"
-    },
-    {
-      "start": "2026-09-01",
-      "end": "2026-09-01",
-      "title": "한국 수출",
-      "category": "macro",
-      "detail": "09:00",
-      "consensus": "62.6%",
-      "actual": "68.7%",
-      "previous": "63.0%"
-    },
-    {
-      "start": "2026-09-01",
-      "end": "2026-09-01",
-      "title": "한국 제조업 PMI",
-      "category": "macro",
-      "detail": "09:30",
-      "actual": "52.3",
-      "previous": "53.1"
-    },
-    {
       "start": "2026-09-02",
       "end": "2026-09-02",
       "title": "브로드컴 실적",
@@ -617,7 +578,7 @@
       "title": "ADP 고용",
       "category": "macro",
       "detail": "21:15",
-      "consensus": "70K",
+      "consensus": "73K",
       "previous": "38K"
     },
     {
@@ -787,10 +748,24 @@
     {
       "start": "2026-10-08",
       "end": "2026-10-08",
+      "title": "미국 실업수당",
+      "category": "macro",
+      "detail": "21:30"
+    },
+    {
+      "start": "2026-10-08",
+      "end": "2026-10-08",
       "title": "한국 경상수지",
       "category": "macro",
       "detail": "08:00",
       "previous": "42.08B"
+    },
+    {
+      "start": "2026-10-08",
+      "end": "2026-10-08",
+      "title": "FOMC 의사록",
+      "category": "major",
+      "detail": "03:00"
     },
     {
       "start": "2026-10-09",
@@ -869,7 +844,7 @@
       "title": "뱅크오브아메리카 실적",
       "category": "earnings",
       "detail": "BAC 장전",
-      "eps_forecast": "$1.16"
+      "eps_forecast": "$1.17"
     },
     {
       "start": "2026-10-14",
@@ -991,6 +966,22 @@
       "eps_forecast": "$0.87"
     },
     {
+      "start": "2026-10-20",
+      "end": "2026-10-20",
+      "title": "미국 건축허가",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "1.403M"
+    },
+    {
+      "start": "2026-10-20",
+      "end": "2026-10-20",
+      "title": "미국 주택착공",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "1.275M"
+    },
+    {
       "start": "2026-10-21",
       "end": "2026-10-21",
       "title": "넷플릭스 실적",
@@ -1026,7 +1017,7 @@
       "end": "2026-10-27",
       "title": "UPS 실적",
       "category": "earnings",
-      "detail": "UPS",
+      "detail": "UPS 장전",
       "eps_forecast": "$1.63"
     },
     {
@@ -1074,7 +1065,7 @@
       "end": "2026-10-29",
       "title": "머크 실적",
       "category": "earnings",
-      "detail": "MRK",
+      "detail": "MRK 장전",
       "eps_forecast": "$2.25"
     },
     {
@@ -1154,7 +1145,7 @@
       "title": "온세미 실적",
       "category": "earnings",
       "detail": "ON",
-      "eps_forecast": "$0.88"
+      "eps_forecast": "$0.87"
     },
     {
       "start": "2026-11-02",
@@ -1178,7 +1169,7 @@
       "title": "슈퍼마이크로 실적",
       "category": "earnings",
       "detail": "SMCI",
-      "eps_forecast": "$0.95"
+      "eps_forecast": "$0.94"
     },
     {
       "start": "2026-11-03",
@@ -1226,7 +1217,7 @@
       "title": "맥도날드 실적",
       "category": "earnings",
       "detail": "MCD",
-      "eps_forecast": "$3.38"
+      "eps_forecast": "$3.37"
     },
     {
       "start": "2026-11-04",
@@ -1431,8 +1422,7 @@
       "detail": ""
     }
   ],
-  "built_on": "2026-09-29",
+  "built_on": "2026-09-30",
   "builder_version": 10,
-  "updated_at": "2026-09-28T15:17:11.180160+00:00",
-  "values_updated_at": "2026-09-29T11:14:11.943484+00:00"
+  "updated_at": "2026-09-29T15:16:57.977403+00:00"
 }
