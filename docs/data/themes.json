@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "2026 하반기 신규상장",
-      "change_percent": 9.03,
-      "total": 18,
-      "rise": 3
-    },
-    {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 3.86,
+      "change_percent": 4.26,
       "total": 14,
       "rise": 12
     },
     {
-      "name": "시스템반도체",
-      "change_percent": 3.14,
-      "total": 59,
-      "rise": 34
-    },
-    {
       "name": "유리 기판",
-      "change_percent": 2.9,
+      "change_percent": 3.74,
       "total": 21,
-      "rise": 15
-    },
-    {
-      "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": 2.46,
-      "total": 46,
-      "rise": 12
-    },
-    {
-      "name": "온디바이스 AI",
-      "change_percent": 2.1,
-      "total": 24,
       "rise": 16
     },
     {
       "name": "LED장비",
-      "change_percent": 2.06,
+      "change_percent": 2.92,
       "total": 11,
       "rise": 8
     },
     {
+      "name": "온디바이스 AI",
+      "change_percent": 2.77,
+      "total": 24,
+      "rise": 17
+    },
+    {
       "name": "반도체 장비",
-      "change_percent": 1.76,
+      "change_percent": 2.5,
       "total": 96,
-      "rise": 61
+      "rise": 68
+    },
+    {
+      "name": "소캠(SOCAMM)",
+      "change_percent": 2.35,
+      "total": 11,
+      "rise": 8
+    },
+    {
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 2.32,
+      "total": 35,
+      "rise": 29
+    },
+    {
+      "name": "시스템반도체",
+      "change_percent": 2.31,
+      "total": 59,
+      "rise": 36
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-29T05:14:02.652297+00:00"
+  "updated_at": "2026-09-29T06:18:37.842322+00:00"
 }
