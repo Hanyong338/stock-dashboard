@@ -4456,6 +4456,28 @@
       "final_ret": null,
       "closed_on": "",
       "checked_for": "2026-09-28"
+    },
+    {
+      "id": "kr:452190:MORNING_BREAKOUT:2026-09-29",
+      "market": "kr",
+      "code": "452190",
+      "name": "한빛레이저",
+      "board": "KOSDAQ",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "A",
+      "found_on": "2026-09-29",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "452190.KQ",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-09-29T00:51:19.206419+00:00",
+      "reason": "전일 고가 5,450 돌파 · 30분 거래대금 340억 · 거래량 전일 하루의 88%",
+      "stop": null,
+      "checked_for": "2026-09-28"
     }
   ],
   "updated_for": {
@@ -4463,8 +4485,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 125,
-    "pending": 18,
+    "total": 126,
+    "pending": 19,
     "active": 77,
     "half_tp": 17,
     "closed": 18,
@@ -4476,7 +4498,7 @@
     "avg_mdd": -3.34,
     "closed_avg_final": -4.14
   },
-  "updated_at": "2026-09-28T22:14:01.406411+00:00",
+  "updated_at": "2026-09-29T00:51:19.206419+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
