@@ -7,33 +7,33 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-09-28 09:30",
-  "universe_count": 398,
+  "as_of": "2026-09-29 09:30",
+  "universe_count": 375,
   "fetch_failures": 0,
   "dropped": 0,
   "items": [
     {
-      "code": "064400",
-      "name": "LG씨엔에스",
-      "market": "KOSPI",
+      "code": "452190",
+      "name": "한빛레이저",
+      "market": "KOSDAQ",
       "tags": [],
-      "market_cap_eok": 69080,
-      "type": "C",
-      "reason": "240일선 69,832 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 87억",
+      "market_cap_eok": 1450,
+      "type": "A",
+      "reason": "전일 고가 5,450 돌파 · 30분 거래대금 340억 · 거래량 전일 하루의 88%",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/064400/total",
-      "open_gap": 1.01,
-      "value_30m_eok": 87,
-      "vol_vs_prev_day": 23,
-      "close": 71000,
-      "volume": 122323,
-      "change_percent": 2.31
+      "url": "https://m.stock.naver.com/domestic/stock/452190/total",
+      "open_gap": 0.37,
+      "value_30m_eok": 340,
+      "vol_vs_prev_day": 88,
+      "close": 6330,
+      "volume": 5725702,
+      "change_percent": 17.44
     }
   ],
-  "built_on": "2026-09-28",
-  "updated_at": "2026-09-28T00:50:43.807476+00:00"
+  "built_on": "2026-09-29",
+  "updated_at": "2026-09-29T00:51:19.206419+00:00"
 }
