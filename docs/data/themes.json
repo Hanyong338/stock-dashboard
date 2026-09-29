@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "2026 하반기 신규상장",
-      "change_percent": 11.57,
+      "change_percent": 9.03,
       "total": 18,
       "rise": 3
     },
     {
-      "name": "시스템반도체",
-      "change_percent": 2.89,
-      "total": 59,
-      "rise": 27
-    },
-    {
-      "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": 2.78,
-      "total": 46,
-      "rise": 9
-    },
-    {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 1.82,
+      "change_percent": 3.86,
       "total": 14,
-      "rise": 10
+      "rise": 12
     },
     {
-      "name": "반도체 장비",
-      "change_percent": 1.07,
-      "total": 96,
-      "rise": 56
-    },
-    {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 1.05,
-      "total": 35,
-      "rise": 25
-    },
-    {
-      "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 1.04,
-      "total": 11,
-      "rise": 6
+      "name": "시스템반도체",
+      "change_percent": 3.14,
+      "total": 59,
+      "rise": 34
     },
     {
       "name": "유리 기판",
-      "change_percent": 1.0,
+      "change_percent": 2.9,
       "total": 21,
-      "rise": 10
+      "rise": 15
+    },
+    {
+      "name": "피지컬 AI/휴머노이드 로봇",
+      "change_percent": 2.46,
+      "total": 46,
+      "rise": 12
+    },
+    {
+      "name": "온디바이스 AI",
+      "change_percent": 2.1,
+      "total": 24,
+      "rise": 16
+    },
+    {
+      "name": "LED장비",
+      "change_percent": 2.06,
+      "total": 11,
+      "rise": 8
+    },
+    {
+      "name": "반도체 장비",
+      "change_percent": 1.76,
+      "total": 96,
+      "rise": 61
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-29T04:15:23.531536+00:00"
+  "updated_at": "2026-09-29T05:14:02.652297+00:00"
 }
