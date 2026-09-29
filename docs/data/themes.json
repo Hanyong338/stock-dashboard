@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 4.52,
+      "change_percent": 4.87,
       "total": 14,
-      "rise": 13
+      "rise": 12
     },
     {
       "name": "유리 기판",
-      "change_percent": 4.08,
+      "change_percent": 4.29,
       "total": 21,
-      "rise": 15
-    },
-    {
-      "name": "LED장비",
-      "change_percent": 3.14,
-      "total": 11,
-      "rise": 8
+      "rise": 17
     },
     {
       "name": "온디바이스 AI",
-      "change_percent": 3.07,
+      "change_percent": 3.44,
       "total": 24,
       "rise": 19
     },
     {
-      "name": "전자파",
-      "change_percent": 2.96,
-      "total": 12,
-      "rise": 10
+      "name": "LED장비",
+      "change_percent": 3.31,
+      "total": 11,
+      "rise": 9
     },
     {
-      "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 2.7,
-      "total": 11,
-      "rise": 8
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 3.15,
+      "total": 35,
+      "rise": 31
     },
     {
       "name": "반도체 장비",
-      "change_percent": 2.64,
+      "change_percent": 2.9,
       "total": 96,
-      "rise": 70
+      "rise": 74
     },
     {
       "name": "소캠(SOCAMM)",
-      "change_percent": 2.54,
+      "change_percent": 2.88,
       "total": 11,
       "rise": 9
+    },
+    {
+      "name": "시스템반도체",
+      "change_percent": 2.76,
+      "total": 59,
+      "rise": 40
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-29T07:16:10.197004+00:00"
+  "updated_at": "2026-09-29T08:17:10.864528+00:00"
 }
