@@ -561,7 +561,8 @@
       "category": "macro",
       "detail": "23:00",
       "consensus": "7.230M",
-      "previous": "7.271M"
+      "previous": "7.335M",
+      "actual": "7.079M"
     },
     {
       "start": "2026-09-29",
@@ -570,7 +571,8 @@
       "category": "macro",
       "detail": "23:00",
       "consensus": "89.2",
-      "previous": "89.4"
+      "previous": "88.6",
+      "actual": "81.9"
     },
     {
       "start": "2026-09-30",
@@ -1424,5 +1426,6 @@
   ],
   "built_on": "2026-09-30",
   "builder_version": 10,
-  "updated_at": "2026-09-29T15:16:57.977403+00:00"
+  "updated_at": "2026-09-29T15:16:57.977403+00:00",
+  "values_updated_at": "2026-09-29T17:13:21.361760+00:00"
 }
