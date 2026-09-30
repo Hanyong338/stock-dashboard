@@ -7,33 +7,75 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-09-29 09:30",
-  "universe_count": 375,
-  "fetch_failures": 0,
+  "as_of": "2026-09-30 09:30",
+  "universe_count": 391,
+  "fetch_failures": 1,
   "dropped": 0,
   "items": [
     {
-      "code": "452190",
-      "name": "한빛레이저",
-      "market": "KOSDAQ",
+      "code": "093370",
+      "name": "후성",
+      "market": "KOSPI",
       "tags": [],
-      "market_cap_eok": 1450,
+      "market_cap_eok": 16110,
       "type": "A",
-      "reason": "전일 고가 5,450 돌파 · 30분 거래대금 340억 · 거래량 전일 하루의 88%",
+      "reason": "전일 고가 14,150 돌파 · 30분 거래대금 242억 · 거래량 전일 하루의 92%",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/452190/total",
-      "open_gap": 0.37,
-      "value_30m_eok": 340,
-      "vol_vs_prev_day": 88,
-      "close": 6330,
-      "volume": 5725702,
-      "change_percent": 17.44
+      "url": "https://m.stock.naver.com/domestic/stock/093370/total",
+      "open_gap": 0.14,
+      "value_30m_eok": 242,
+      "vol_vs_prev_day": 92,
+      "close": 14910,
+      "volume": 1648785,
+      "change_percent": 5.59
+    },
+    {
+      "code": "441270",
+      "name": "파인엠텍",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 3967,
+      "type": "C",
+      "reason": "240일선 9,085 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 95억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/441270/total",
+      "open_gap": 4.64,
+      "value_30m_eok": 95,
+      "vol_vs_prev_day": 244,
+      "close": 9640,
+      "volume": 985087,
+      "change_percent": 9.05
+    },
+    {
+      "code": "104830",
+      "name": "원익머트리얼즈",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 5100,
+      "type": "B",
+      "reason": "시초 +3.6% 갭 · 시초가 39,350 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 28억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/104830/total",
+      "open_gap": 3.55,
+      "value_30m_eok": 28,
+      "vol_vs_prev_day": 41,
+      "close": 41000,
+      "volume": 68971,
+      "change_percent": 7.89
     }
   ],
-  "built_on": "2026-09-29",
-  "updated_at": "2026-09-29T00:51:19.206419+00:00"
+  "built_on": "2026-09-30",
+  "updated_at": "2026-09-30T00:52:41.794182+00:00"
 }
