@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "강관업체(Steel pipe)",
-      "change_percent": 7.22,
+      "change_percent": 7.3,
       "total": 11,
-      "rise": 10
+      "rise": 11
     },
     {
       "name": "남-북-러 가스관사업",
-      "change_percent": 6.82,
+      "change_percent": 6.52,
       "total": 13,
-      "rise": 12
+      "rise": 13
     },
     {
       "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 5.82,
+      "change_percent": 4.92,
       "total": 14,
       "rise": 13
     },
     {
       "name": "철강 중소형",
-      "change_percent": 5.21,
+      "change_percent": 4.91,
       "total": 36,
       "rise": 30
     },
     {
-      "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 4.2,
-      "total": 15,
-      "rise": 13
-    },
-    {
       "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 4.02,
+      "change_percent": 3.53,
       "total": 9,
       "rise": 9
     },
     {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 3.14,
-      "total": 35,
-      "rise": 33
+      "name": "2차전지(나트륨이온)",
+      "change_percent": 3.23,
+      "total": 9,
+      "rise": 9
     },
     {
-      "name": "2차전지(소재/부품)",
-      "change_percent": 2.69,
-      "total": 73,
-      "rise": 66
+      "name": "2차전지(전고체)",
+      "change_percent": 2.97,
+      "total": 30,
+      "rise": 23
+    },
+    {
+      "name": "광통신(광케이블/광섬유 등)",
+      "change_percent": 2.97,
+      "total": 15,
+      "rise": 12
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-30T01:15:16.004988+00:00"
+  "updated_at": "2026-09-30T02:14:09.557615+00:00"
 }
