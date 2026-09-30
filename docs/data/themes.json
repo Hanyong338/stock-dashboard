@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "남-북-러 가스관사업",
-      "change_percent": 7.02,
-      "total": 13,
-      "rise": 13
-    },
-    {
       "name": "강관업체(Steel pipe)",
-      "change_percent": 6.88,
+      "change_percent": 7.22,
       "total": 11,
       "rise": 10
     },
     {
-      "name": "철강 중소형",
-      "change_percent": 5.22,
-      "total": 36,
-      "rise": 31
+      "name": "남-북-러 가스관사업",
+      "change_percent": 6.82,
+      "total": 13,
+      "rise": 12
     },
     {
       "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 4.78,
+      "change_percent": 5.82,
       "total": 14,
       "rise": 13
     },
     {
+      "name": "철강 중소형",
+      "change_percent": 5.21,
+      "total": 36,
+      "rise": 30
+    },
+    {
+      "name": "광통신(광케이블/광섬유 등)",
+      "change_percent": 4.2,
+      "total": 15,
+      "rise": 13
+    },
+    {
       "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 4.38,
+      "change_percent": 4.02,
       "total": 9,
       "rise": 9
     },
     {
-      "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 3.78,
-      "total": 15,
-      "rise": 14
-    },
-    {
       "name": "HBM(고대역폭메모리)",
-      "change_percent": 2.78,
+      "change_percent": 3.14,
       "total": 35,
-      "rise": 30
+      "rise": 33
     },
     {
-      "name": "조선기자재",
-      "change_percent": 2.53,
-      "total": 37,
-      "rise": 34
+      "name": "2차전지(소재/부품)",
+      "change_percent": 2.69,
+      "total": 73,
+      "rise": 66
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-30T00:52:41.794182+00:00"
+  "updated_at": "2026-09-30T01:15:16.004988+00:00"
 }
