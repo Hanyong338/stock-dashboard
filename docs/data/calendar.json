@@ -661,7 +661,8 @@
       "title": "한국 무역수지",
       "category": "macro",
       "detail": "09:00",
-      "previous": "34.79B"
+      "previous": "34.79B",
+      "consensus": "38.20B"
     },
     {
       "start": "2026-10-01",
@@ -669,7 +670,8 @@
       "title": "한국 수입",
       "category": "macro",
       "detail": "09:00",
-      "previous": "22.4%"
+      "previous": "22.4%",
+      "consensus": "21.5%"
     },
     {
       "start": "2026-10-01",
@@ -677,7 +679,8 @@
       "title": "한국 수출",
       "category": "macro",
       "detail": "09:00",
-      "previous": "68.7%"
+      "previous": "68.7%",
+      "consensus": "61.7%"
     },
     {
       "start": "2026-10-01",
@@ -1430,5 +1433,5 @@
   "built_on": "2026-09-30",
   "builder_version": 10,
   "updated_at": "2026-09-29T15:16:57.977403+00:00",
-  "values_updated_at": "2026-09-30T11:14:01.445323+00:00"
+  "values_updated_at": "2026-09-30T12:22:17.334430+00:00"
 }
