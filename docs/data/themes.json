@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "강관업체(Steel pipe)",
-      "change_percent": 7.43,
-      "total": 11,
-      "rise": 10
-    },
-    {
       "name": "남-북-러 가스관사업",
-      "change_percent": 7.33,
+      "change_percent": 6.65,
       "total": 13,
       "rise": 13
     },
     {
+      "name": "강관업체(Steel pipe)",
+      "change_percent": 6.53,
+      "total": 11,
+      "rise": 9
+    },
+    {
       "name": "철강 중소형",
-      "change_percent": 5.15,
+      "change_percent": 4.94,
       "total": 36,
-      "rise": 28
+      "rise": 27
     },
     {
       "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 4.87,
+      "change_percent": 4.11,
       "total": 14,
-      "rise": 12
+      "rise": 11
     },
     {
       "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 3.18,
+      "change_percent": 2.57,
       "total": 9,
       "rise": 7
     },
     {
       "name": "HBM(고대역폭메모리)",
-      "change_percent": 2.86,
+      "change_percent": 2.45,
       "total": 35,
-      "rise": 28
+      "rise": 22
     },
     {
       "name": "2차전지(전고체)",
-      "change_percent": 2.7,
+      "change_percent": 2.43,
       "total": 30,
-      "rise": 24
+      "rise": 21
     },
     {
       "name": "우주태양광(페로브스카이트 등)",
-      "change_percent": 2.49,
+      "change_percent": 2.34,
       "total": 10,
-      "rise": 8
+      "rise": 6
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-09-30T04:15:48.022074+00:00"
+  "updated_at": "2026-09-30T05:15:02.491337+00:00"
 }
