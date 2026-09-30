@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "강관업체(Steel pipe)",
+      "change_percent": 5.88,
+      "total": 11,
+      "rise": 10
+    },
+    {
+      "name": "남-북-러 가스관사업",
+      "change_percent": 5.87,
+      "total": 13,
+      "rise": 12
+    },
+    {
+      "name": "피팅(관이음쇠)/밸브",
+      "change_percent": 4.64,
+      "total": 9,
+      "rise": 9
+    },
+    {
+      "name": "철강 중소형",
+      "change_percent": 4.44,
+      "total": 36,
+      "rise": 29
+    },
+    {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 4.38,
+      "total": 14,
+      "rise": 13
+    },
+    {
+      "name": "광통신(광케이블/광섬유 등)",
+      "change_percent": 4.24,
+      "total": 15,
+      "rise": 14
+    },
+    {
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 2.86,
+      "total": 35,
+      "rise": 32
+    },
+    {
+      "name": "드론(Drone)",
+      "change_percent": 2.78,
+      "total": 30,
+      "rise": 18
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-09-29T23:13:11.358093+00:00"
+  "updated_at": "2026-09-30T00:21:01.593322+00:00"
 }
