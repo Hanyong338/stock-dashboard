@@ -33,15 +33,15 @@
     },
     {
       "name": "달러 인덱스",
-      "value": "101.46",
-      "change": "+0.09%",
-      "close_date": "2026-09-30"
+      "value": "101.37",
+      "change": "+0.17%",
+      "close_date": "2026-09-29"
     },
     {
       "name": "WTI 유가",
-      "value": "$90.11",
-      "change": "+0.82%",
-      "close_date": "2026-09-30"
+      "value": "$89.38",
+      "change": "-3.48%",
+      "close_date": "2026-09-29"
     }
   ],
   "economic_events": [
@@ -210,92 +210,92 @@
   "indices_note": "지수·금리·유가는 시장 데이터 종가 기준",
   "sectors": [
     {
-      "name": "태양광",
-      "change_percent": 1.2433822512844628
-    },
-    {
-      "name": "소프트웨어",
-      "change_percent": 1.197492987656942
-    },
-    {
-      "name": "사이버보안",
-      "change_percent": 1.098357461782697
-    },
-    {
-      "name": "클라우드",
-      "change_percent": 0.7619081371207757
-    },
-    {
-      "name": "게임",
-      "change_percent": 0.751956112543564
-    },
-    {
-      "name": "바이오",
-      "change_percent": 0.5548084501834246
-    },
-    {
-      "name": "원유·가스",
-      "change_percent": 0.39186974702341293
-    },
-    {
-      "name": "인터넷 플랫폼",
-      "change_percent": 0.28509102329322045
+      "name": "금광",
+      "change_percent": 1.342587681613706
     },
     {
       "name": "반도체",
-      "change_percent": 0.21147825353662178
+      "change_percent": 1.1858315366930914
     },
     {
-      "name": "통신장비",
-      "change_percent": 0.11837508910681259
+      "name": "태양광",
+      "change_percent": 1.0000007097111192
     },
     {
-      "name": "AI·로봇",
-      "change_percent": -0.028382905091007698
-    },
-    {
-      "name": "2차전지",
-      "change_percent": -0.17508425004243808
-    },
-    {
-      "name": "전기차",
-      "change_percent": -0.22464329278567063
-    },
-    {
-      "name": "소매",
-      "change_percent": -0.388019510231178
-    },
-    {
-      "name": "원자력",
-      "change_percent": -0.47453156109336614
-    },
-    {
-      "name": "은행",
-      "change_percent": -0.5584983236746782
-    },
-    {
-      "name": "전력망·전력기기",
-      "change_percent": -0.6507004175175037
-    },
-    {
-      "name": "구리",
-      "change_percent": -0.9125016121424112
-    },
-    {
-      "name": "방산·우주항공",
-      "change_percent": -1.0129050860320843
+      "name": "인터넷 플랫폼",
+      "change_percent": 0.6297513889753416
     },
     {
       "name": "운송",
-      "change_percent": -1.1829882358882844
+      "change_percent": 0.4932330734205962
+    },
+    {
+      "name": "전력망·전력기기",
+      "change_percent": 0.4168340552314363
+    },
+    {
+      "name": "2차전지",
+      "change_percent": 0.3807881383695979
+    },
+    {
+      "name": "AI·로봇",
+      "change_percent": 0.3131244150499087
+    },
+    {
+      "name": "사이버보안",
+      "change_percent": 0.2950752996565384
+    },
+    {
+      "name": "구리",
+      "change_percent": 0.2580356734587008
+    },
+    {
+      "name": "클라우드",
+      "change_percent": 0.17850133826693937
+    },
+    {
+      "name": "바이오",
+      "change_percent": 0.12770381678229056
+    },
+    {
+      "name": "방산·우주항공",
+      "change_percent": 0.01911906048557601
+    },
+    {
+      "name": "통신장비",
+      "change_percent": -0.029583136588922906
+    },
+    {
+      "name": "소매",
+      "change_percent": -0.09691317758586558
+    },
+    {
+      "name": "소프트웨어",
+      "change_percent": -0.19918342394460464
+    },
+    {
+      "name": "원자력",
+      "change_percent": -0.22427149312836442
+    },
+    {
+      "name": "게임",
+      "change_percent": -0.22914406396008716
     },
     {
       "name": "의료기기",
-      "change_percent": -1.2357585988312987
+      "change_percent": -0.3271712316024915
     },
     {
-      "name": "금광",
-      "change_percent": -1.42584107715025
+      "name": "원유·가스",
+      "change_percent": -0.8382338802887259
+    },
+    {
+      "name": "은행",
+      "change_percent": -1.0205544855538962
+    },
+    {
+      "name": "전기차",
+      "change_percent": -1.2885835149515676
     }
   ],
   "video_id": "ZPLdZ8uxAVY",
@@ -303,7 +303,7 @@
   "title": "[🔴10/01 #당잠사] 마이크론 실적 발표 | 예상 밑돈 8월 PCE…10월 금리인상 확률 ‘뚝’ | FTC, 오픈AI·앤트로픽 전면 조사 | #엔비디아 #마이크론 #구글",
   "url": "https://www.youtube.com/watch?v=ZPLdZ8uxAVY",
   "published": "2026-09-30T20:22:33Z",
-  "fetched_at": "2026-09-30T23:13:05.781000+00:00",
+  "fetched_at": "2026-10-01T00:22:15.002995+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
