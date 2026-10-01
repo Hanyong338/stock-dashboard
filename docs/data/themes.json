@@ -1,54 +1,5 @@
 {
-  "leaders": [
-    {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 7.07,
-      "total": 35,
-      "rise": 35
-    },
-    {
-      "name": "소캠(SOCAMM)",
-      "change_percent": 6.54,
-      "total": 11,
-      "rise": 10
-    },
-    {
-      "name": "온디바이스 AI",
-      "change_percent": 6.39,
-      "total": 24,
-      "rise": 23
-    },
-    {
-      "name": "반도체 장비",
-      "change_percent": 6.07,
-      "total": 96,
-      "rise": 93
-    },
-    {
-      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 6.07,
-      "total": 14,
-      "rise": 14
-    },
-    {
-      "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 6.01,
-      "total": 13,
-      "rise": 12
-    },
-    {
-      "name": "전력반도체",
-      "change_percent": 5.6,
-      "total": 19,
-      "rise": 17
-    },
-    {
-      "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 5.38,
-      "total": 11,
-      "rise": 11
-    }
-  ],
+  "leaders": [],
   "group_count": 264,
-  "updated_at": "2026-10-01T11:14:51.149546+00:00"
+  "updated_at": "2026-10-01T23:12:17.379561+00:00"
 }
