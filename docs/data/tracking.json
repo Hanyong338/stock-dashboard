@@ -6290,6 +6290,28 @@
       "final_ret": null,
       "closed_on": "",
       "checked_for": "2026-09-30"
+    },
+    {
+      "id": "kr:003160:MORNING_BREAKOUT:2026-10-01",
+      "market": "kr",
+      "code": "003160",
+      "name": "디아이",
+      "board": "KOSPI",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "A",
+      "found_on": "2026-10-01",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "003160.KS",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-10-01T00:52:52.352699+00:00",
+      "reason": "전일 고가 37,450 돌파 · 30분 거래대금 294억 · 거래량 전일 하루의 225%",
+      "stop": null,
+      "checked_for": "2026-09-30"
     }
   ],
   "updated_for": {
@@ -6297,8 +6319,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 172,
-    "pending": 23,
+    "total": 173,
+    "pending": 24,
     "active": 93,
     "half_tp": 28,
     "closed": 34,
@@ -6310,7 +6332,7 @@
     "avg_mdd": -4.03,
     "closed_avg_final": -5.16
   },
-  "updated_at": "2026-09-30T22:15:22.265066+00:00",
+  "updated_at": "2026-10-01T00:52:52.352699+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
