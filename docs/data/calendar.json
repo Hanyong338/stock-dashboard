@@ -117,7 +117,8 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "38.20B",
-      "previous": "34.79B"
+      "previous": "34.79B",
+      "actual": "49.85B"
     },
     {
       "start": "2026-10-01",
@@ -126,7 +127,8 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "21.5%",
-      "previous": "22.4%"
+      "previous": "22.4%",
+      "actual": "26.0%"
     },
     {
       "start": "2026-10-01",
@@ -135,7 +137,8 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "61.7%",
-      "previous": "68.7%"
+      "previous": "68.7%",
+      "actual": "83.5%"
     },
     {
       "start": "2026-10-01",
@@ -143,7 +146,8 @@
       "title": "한국 제조업 PMI",
       "category": "macro",
       "detail": "09:30",
-      "previous": "52.3"
+      "previous": "52.3",
+      "actual": "53.9"
     },
     {
       "start": "2026-10-02",
@@ -948,5 +952,6 @@
   ],
   "built_on": "2026-10-01",
   "builder_version": 10,
-  "updated_at": "2026-09-30T15:18:55.737040+00:00"
+  "updated_at": "2026-09-30T15:18:55.737040+00:00",
+  "values_updated_at": "2026-10-01T02:14:54.032180+00:00"
 }
