@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "HBM(고대역폭메모리)",
-      "change_percent": 4.66,
+      "change_percent": 4.85,
       "total": 35,
-      "rise": 33
+      "rise": 34
     },
     {
-      "name": "2026 하반기 신규상장",
-      "change_percent": 4.4,
-      "total": 20,
-      "rise": 9
-    },
-    {
-      "name": "온디바이스 AI",
-      "change_percent": 4.08,
-      "total": 24,
-      "rise": 21
-    },
-    {
-      "name": "반도체 장비",
-      "change_percent": 3.94,
-      "total": 96,
-      "rise": 89
+      "name": "소캠(SOCAMM)",
+      "change_percent": 4.56,
+      "total": 11,
+      "rise": 10
     },
     {
       "name": "제대혈",
-      "change_percent": 3.9,
+      "change_percent": 4.26,
       "total": 5,
       "rise": 5
     },
     {
-      "name": "전력반도체",
-      "change_percent": 3.82,
-      "total": 19,
+      "name": "반도체 장비",
+      "change_percent": 4.06,
+      "total": 96,
+      "rise": 92
+    },
+    {
+      "name": "MLCC(적층세라믹콘덴서)",
+      "change_percent": 4.06,
+      "total": 11,
+      "rise": 11
+    },
+    {
+      "name": "온디바이스 AI",
+      "change_percent": 4.02,
+      "total": 24,
+      "rise": 23
+    },
+    {
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 3.79,
+      "total": 14,
       "rise": 14
     },
     {
-      "name": "철강 주요종목",
-      "change_percent": 3.69,
-      "total": 11,
-      "rise": 8
-    },
-    {
       "name": "시스템반도체",
-      "change_percent": 3.63,
+      "change_percent": 3.78,
       "total": 59,
-      "rise": 49
+      "rise": 50
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-01T02:14:54.032180+00:00"
+  "updated_at": "2026-10-01T03:15:57.367758+00:00"
 }
