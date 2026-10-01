@@ -7,75 +7,33 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-09-30 09:30",
-  "universe_count": 391,
+  "as_of": "2026-10-01 09:30",
+  "universe_count": 395,
   "fetch_failures": 1,
   "dropped": 0,
   "items": [
     {
-      "code": "093370",
-      "name": "후성",
+      "code": "003160",
+      "name": "디아이",
       "market": "KOSPI",
       "tags": [],
-      "market_cap_eok": 16110,
+      "market_cap_eok": 11546,
       "type": "A",
-      "reason": "전일 고가 14,150 돌파 · 30분 거래대금 242억 · 거래량 전일 하루의 92%",
+      "reason": "전일 고가 37,450 돌파 · 30분 거래대금 294억 · 거래량 전일 하루의 225%",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/093370/total",
-      "open_gap": 0.14,
-      "value_30m_eok": 242,
-      "vol_vs_prev_day": 92,
-      "close": 14910,
-      "volume": 1648785,
-      "change_percent": 5.59
-    },
-    {
-      "code": "441270",
-      "name": "파인엠텍",
-      "market": "KOSDAQ",
-      "tags": [],
-      "market_cap_eok": 3967,
-      "type": "C",
-      "reason": "240일선 9,085 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 95억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/441270/total",
-      "open_gap": 4.64,
-      "value_30m_eok": 95,
-      "vol_vs_prev_day": 244,
-      "close": 9640,
-      "volume": 985087,
-      "change_percent": 9.05
-    },
-    {
-      "code": "104830",
-      "name": "원익머트리얼즈",
-      "market": "KOSDAQ",
-      "tags": [],
-      "market_cap_eok": 5100,
-      "type": "B",
-      "reason": "시초 +3.6% 갭 · 시초가 39,350 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 28억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/104830/total",
-      "open_gap": 3.55,
-      "value_30m_eok": 28,
-      "vol_vs_prev_day": 41,
-      "close": 41000,
-      "volume": 68971,
-      "change_percent": 7.89
+      "url": "https://m.stock.naver.com/domestic/stock/003160/total",
+      "open_gap": 0.27,
+      "value_30m_eok": 294,
+      "vol_vs_prev_day": 225,
+      "close": 40850,
+      "volume": 730386,
+      "change_percent": 11.31
     }
   ],
-  "built_on": "2026-09-30",
-  "updated_at": "2026-09-30T00:52:41.794182+00:00"
+  "built_on": "2026-10-01",
+  "updated_at": "2026-10-01T00:52:52.352699+00:00"
 }
