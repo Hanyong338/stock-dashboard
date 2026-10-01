@@ -81,7 +81,8 @@
       "title": "마이크론 실적",
       "category": "earnings",
       "detail": "MU 장마감 후",
-      "eps_forecast": "$31.41"
+      "eps_forecast": "$31.41",
+      "eps": "$2.86"
     },
     {
       "start": "2026-10-01",
@@ -953,5 +954,5 @@
   "built_on": "2026-10-01",
   "builder_version": 10,
   "updated_at": "2026-09-30T15:18:55.737040+00:00",
-  "values_updated_at": "2026-10-01T02:14:54.032180+00:00"
+  "values_updated_at": "2026-10-01T06:20:37.830377+00:00"
 }
