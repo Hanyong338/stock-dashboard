@@ -29,6 +29,16 @@
     {
       "start": "2026-09-30",
       "end": "2026-09-30",
+      "title": "마이크론 실적",
+      "category": "earnings",
+      "detail": "MU",
+      "eps_forecast": "$31.41",
+      "eps": "$33.19",
+      "surprise": "5.67"
+    },
+    {
+      "start": "2026-09-30",
+      "end": "2026-09-30",
       "title": "ADP 고용",
       "category": "macro",
       "detail": "21:15",
@@ -78,19 +88,11 @@
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
-      "title": "마이크론 실적",
-      "category": "earnings",
-      "detail": "MU 장마감 후",
-      "eps_forecast": "$31.41",
-      "eps": "$2.86"
-    },
-    {
-      "start": "2026-10-01",
-      "end": "2026-10-01",
       "title": "ISM 제조업",
       "category": "macro",
       "detail": "23:00",
       "consensus": "54.8",
+      "actual": "54.5",
       "previous": "54.6"
     },
     {
@@ -100,6 +102,7 @@
       "category": "macro",
       "detail": "22:45",
       "consensus": "57.0",
+      "actual": "55.9",
       "previous": "53.9"
     },
     {
@@ -109,8 +112,8 @@
       "category": "macro",
       "detail": "21:30",
       "consensus": "201K",
-      "previous": "198K",
-      "actual": "197K"
+      "actual": "197K",
+      "previous": "198K"
     },
     {
       "start": "2026-10-01",
@@ -119,8 +122,8 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "38.20B",
-      "previous": "34.79B",
-      "actual": "49.85B"
+      "actual": "49.85B",
+      "previous": "34.79B"
     },
     {
       "start": "2026-10-01",
@@ -129,8 +132,8 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "21.5%",
-      "previous": "22.4%",
-      "actual": "26.0%"
+      "actual": "26.0%",
+      "previous": "22.4%"
     },
     {
       "start": "2026-10-01",
@@ -139,8 +142,8 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "61.7%",
-      "previous": "68.7%",
-      "actual": "83.5%"
+      "actual": "83.5%",
+      "previous": "68.7%"
     },
     {
       "start": "2026-10-01",
@@ -148,8 +151,8 @@
       "title": "한국 제조업 PMI",
       "category": "macro",
       "detail": "09:30",
-      "previous": "52.3",
-      "actual": "53.9"
+      "actual": "53.9",
+      "previous": "52.3"
     },
     {
       "start": "2026-10-02",
@@ -165,7 +168,7 @@
       "title": "미국 고용지표",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "98K",
+      "consensus": "89K",
       "previous": "162K"
     },
     {
@@ -267,7 +270,7 @@
       "title": "골드만삭스 실적",
       "category": "earnings",
       "detail": "GS 장전",
-      "eps_forecast": "$15.18"
+      "eps_forecast": "$14.59"
     },
     {
       "start": "2026-10-13",
@@ -307,7 +310,7 @@
       "title": "모건스탠리 실적",
       "category": "earnings",
       "detail": "MS 장전",
-      "eps_forecast": "$3.06"
+      "eps_forecast": "$3.01"
     },
     {
       "start": "2026-10-14",
@@ -379,7 +382,7 @@
       "title": "한국 무역수지",
       "category": "macro",
       "detail": "09:00",
-      "previous": "34.79B"
+      "previous": "49.85B"
     },
     {
       "start": "2026-10-15",
@@ -387,7 +390,7 @@
       "title": "한국 수입",
       "category": "macro",
       "detail": "09:00",
-      "previous": "22.4%"
+      "previous": "26.0%"
     },
     {
       "start": "2026-10-15",
@@ -395,7 +398,7 @@
       "title": "한국 수출",
       "category": "macro",
       "detail": "09:00",
-      "previous": "68.7%"
+      "previous": "83.5%"
     },
     {
       "start": "2026-10-16",
@@ -411,6 +414,19 @@
       "category": "macro",
       "detail": "08:00",
       "previous": "2.7%"
+    },
+    {
+      "start": "2026-10-19",
+      "end": "2026-10-19",
+      "title": "현대로템 실적",
+      "category": "earnings",
+      "detail": "코스피 14:10",
+      "code": "064350",
+      "quarter": "2026.09",
+      "op_consensus": 2875,
+      "rev_consensus": 18270,
+      "op_prev_year": 2777,
+      "op_prev_q": 2324
     },
     {
       "start": "2026-10-20",
@@ -463,6 +479,19 @@
     {
       "start": "2026-10-22",
       "end": "2026-10-22",
+      "title": "LG디스플레이 실적",
+      "category": "earnings",
+      "detail": "코스피 14:00",
+      "code": "034220",
+      "quarter": "2026.09",
+      "op_consensus": 3703,
+      "rev_consensus": 68084,
+      "op_prev_year": 4310,
+      "op_prev_q": -1077
+    },
+    {
+      "start": "2026-10-22",
+      "end": "2026-10-22",
       "title": "P&G 실적",
       "category": "earnings",
       "detail": "PG 장전",
@@ -481,7 +510,8 @@
       "end": "2026-10-22",
       "title": "한국 금통위",
       "category": "major",
-      "detail": "10:00"
+      "detail": "10:00",
+      "previous": "3.00%"
     },
     {
       "start": "2026-10-27",
@@ -529,7 +559,7 @@
       "title": "테슬라 실적",
       "category": "earnings",
       "detail": "TSLA",
-      "eps_forecast": "$0.25"
+      "eps_forecast": "$0.24"
     },
     {
       "start": "2026-10-29",
@@ -601,7 +631,7 @@
       "title": "셰브론 실적",
       "category": "earnings",
       "detail": "CVX",
-      "eps_forecast": "$4.85"
+      "eps_forecast": "$4.89"
     },
     {
       "start": "2026-10-30",
@@ -609,7 +639,7 @@
       "title": "엑슨모빌 실적",
       "category": "earnings",
       "detail": "XOM",
-      "eps_forecast": "$3.78"
+      "eps_forecast": "$3.93"
     },
     {
       "start": "2026-10-30",
@@ -680,7 +710,7 @@
       "title": "로빈후드 실적",
       "category": "earnings",
       "detail": "HOOD",
-      "eps_forecast": "$0.53"
+      "eps_forecast": "$0.52"
     },
     {
       "start": "2026-11-04",
@@ -688,7 +718,7 @@
       "title": "마이크로소프트 실적",
       "category": "earnings",
       "detail": "MSFT",
-      "eps_forecast": "$4.69"
+      "eps_forecast": "$4.70"
     },
     {
       "start": "2026-11-04",
@@ -952,8 +982,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-01",
+  "built_on": "2026-10-02",
   "builder_version": 10,
-  "updated_at": "2026-09-30T15:18:55.737040+00:00",
-  "values_updated_at": "2026-10-01T13:18:55.286365+00:00"
+  "updated_at": "2026-10-01T15:15:42.165591+00:00"
 }
