@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "2026 하반기 신규상장",
+      "change_percent": 4.77,
+      "total": 20,
+      "rise": 5
+    },
+    {
+      "name": "철강 주요종목",
+      "change_percent": 3.62,
+      "total": 11,
+      "rise": 8
+    },
+    {
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 3.11,
+      "total": 35,
+      "rise": 28
+    },
+    {
+      "name": "반도체 장비",
+      "change_percent": 2.4,
+      "total": 96,
+      "rise": 81
+    },
+    {
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 2.35,
+      "total": 13,
+      "rise": 7
+    },
+    {
+      "name": "원자력발전소 해체",
+      "change_percent": 2.28,
+      "total": 15,
+      "rise": 10
+    },
+    {
+      "name": "시스템반도체",
+      "change_percent": 2.15,
+      "total": 59,
+      "rise": 42
+    },
+    {
+      "name": "로봇(산업용/협동로봇 등)",
+      "change_percent": 2.09,
+      "total": 75,
+      "rise": 33
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-09-30T23:13:05.781000+00:00"
+  "updated_at": "2026-10-01T00:22:15.002995+00:00"
 }
