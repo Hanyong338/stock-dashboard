@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "HBM(고대역폭메모리)",
-      "change_percent": 7.07,
+      "change_percent": 6.88,
       "total": 35,
       "rise": 34
     },
     {
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 6.41,
+      "total": 13,
+      "rise": 12
+    },
+    {
       "name": "소캠(SOCAMM)",
-      "change_percent": 6.6,
+      "change_percent": 6.3,
       "total": 11,
       "rise": 11
     },
     {
       "name": "온디바이스 AI",
-      "change_percent": 6.14,
+      "change_percent": 6.26,
       "total": 24,
       "rise": 23
     },
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 6.07,
+      "change_percent": 5.92,
       "total": 14,
       "rise": 14
     },
     {
       "name": "반도체 장비",
-      "change_percent": 6.05,
+      "change_percent": 5.87,
       "total": 96,
-      "rise": 92
+      "rise": 93
     },
     {
-      "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 5.89,
-      "total": 13,
-      "rise": 11
-    },
-    {
-      "name": "3D 프린터",
-      "change_percent": 5.82,
-      "total": 11,
-      "rise": 11
+      "name": "제대혈",
+      "change_percent": 5.37,
+      "total": 5,
+      "rise": 5
     },
     {
       "name": "전력반도체",
-      "change_percent": 5.81,
+      "change_percent": 5.36,
       "total": 19,
       "rise": 17
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-01T07:03:35.208539+00:00"
+  "updated_at": "2026-10-01T07:17:06.416223+00:00"
 }
