@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 9.17,
+      "change_percent": 9.11,
       "total": 15,
       "rise": 14
     },
     {
       "name": "통신장비",
-      "change_percent": 6.12,
+      "change_percent": 5.94,
       "total": 47,
       "rise": 41
     },
     {
       "name": "스페이스X(SpaceX)",
-      "change_percent": 4.63,
+      "change_percent": 4.43,
       "total": 14,
-      "rise": 12
-    },
-    {
-      "name": "윤활유",
-      "change_percent": 4.57,
-      "total": 7,
-      "rise": 5
-    },
-    {
-      "name": "애플페이",
-      "change_percent": 4.18,
-      "total": 8,
-      "rise": 6
+      "rise": 11
     },
     {
       "name": "우주항공산업(누리호/인공위성 등)",
-      "change_percent": 4.13,
+      "change_percent": 4.09,
       "total": 39,
-      "rise": 31
+      "rise": 32
     },
     {
-      "name": "LPG(액화석유가스)",
-      "change_percent": 4.02,
-      "total": 9,
-      "rise": 8
+      "name": "애플페이",
+      "change_percent": 4.06,
+      "total": 8,
+      "rise": 5
     },
     {
       "name": "5G(5세대 이동통신)",
-      "change_percent": 3.88,
+      "change_percent": 3.91,
       "total": 54,
-      "rise": 44
+      "rise": 45
+    },
+    {
+      "name": "리튬",
+      "change_percent": 3.91,
+      "total": 22,
+      "rise": 18
+    },
+    {
+      "name": "윤활유",
+      "change_percent": 3.87,
+      "total": 7,
+      "rise": 5
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-02T07:03:12.194218+00:00"
+  "updated_at": "2026-10-02T07:16:22.114931+00:00"
 }
