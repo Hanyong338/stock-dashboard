@@ -160,7 +160,8 @@
       "title": "나이키 실적",
       "category": "earnings",
       "detail": "NKE 장마감 후",
-      "eps_forecast": "$0.43"
+      "eps_forecast": "$0.43",
+      "eps": "$0.49"
     },
     {
       "start": "2026-10-02",
@@ -986,5 +987,5 @@
   "built_on": "2026-10-02",
   "builder_version": 10,
   "updated_at": "2026-10-01T15:15:42.165591+00:00",
-  "values_updated_at": "2026-10-02T02:14:25.549349+00:00"
+  "values_updated_at": "2026-10-02T06:18:53.344336+00:00"
 }
