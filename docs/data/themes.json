@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "광통신(광케이블/광섬유 등)",
+      "change_percent": 7.66,
+      "total": 15,
+      "rise": 14
+    },
+    {
+      "name": "유심(USIM)",
+      "change_percent": 5.58,
+      "total": 5,
+      "rise": 4
+    },
+    {
+      "name": "통신장비",
+      "change_percent": 4.24,
+      "total": 47,
+      "rise": 39
+    },
+    {
+      "name": "리튬",
+      "change_percent": 3.02,
+      "total": 22,
+      "rise": 19
+    },
+    {
+      "name": "국내 상장 중국기업",
+      "change_percent": 2.8,
+      "total": 11,
+      "rise": 6
+    },
+    {
+      "name": "우주태양광(페로브스카이트 등)",
+      "change_percent": 2.64,
+      "total": 10,
+      "rise": 7
+    },
+    {
+      "name": "5G(5세대 이동통신)",
+      "change_percent": 2.62,
+      "total": 54,
+      "rise": 40
+    },
+    {
+      "name": "LPG(액화석유가스)",
+      "change_percent": 2.38,
+      "total": 9,
+      "rise": 8
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-10-01T23:12:17.379561+00:00"
+  "updated_at": "2026-10-02T00:20:51.156556+00:00"
 }
