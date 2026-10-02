@@ -7413,6 +7413,28 @@
       "final_ret": null,
       "closed_on": "",
       "checked_for": "2026-10-01"
+    },
+    {
+      "id": "kr:100590:MORNING_BREAKOUT:2026-10-02",
+      "market": "kr",
+      "code": "100590",
+      "name": "머큐리",
+      "board": "KOSDAQ",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "A",
+      "found_on": "2026-10-02",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "100590.KQ",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-10-02T00:51:30.097596+00:00",
+      "reason": "전일 고가 4,855 돌파 · 30분 거래대금 227억 · 거래량 전일 하루의 1710%",
+      "stop": null,
+      "checked_for": "2026-10-01"
     }
   ],
   "updated_for": {
@@ -7420,8 +7442,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 201,
-    "pending": 29,
+    "total": 202,
+    "pending": 30,
     "active": 95,
     "half_tp": 43,
     "closed": 40,
@@ -7433,7 +7455,7 @@
     "avg_mdd": -4.26,
     "closed_avg_final": -5.59
   },
-  "updated_at": "2026-10-01T22:13:30.136968+00:00",
+  "updated_at": "2026-10-02T00:51:30.097596+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
