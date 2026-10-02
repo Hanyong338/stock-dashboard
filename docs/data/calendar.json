@@ -88,6 +88,16 @@
     {
       "start": "2026-10-01",
       "end": "2026-10-01",
+      "title": "나이키 실적",
+      "category": "earnings",
+      "detail": "NKE",
+      "eps_forecast": "$0.43",
+      "eps": "$0.48",
+      "surprise": "11.63"
+    },
+    {
+      "start": "2026-10-01",
+      "end": "2026-10-01",
       "title": "ISM 제조업",
       "category": "macro",
       "detail": "23:00",
@@ -157,21 +167,12 @@
     {
       "start": "2026-10-02",
       "end": "2026-10-02",
-      "title": "나이키 실적",
-      "category": "earnings",
-      "detail": "NKE 장마감 후",
-      "eps_forecast": "$0.43",
-      "eps": "$0.49"
-    },
-    {
-      "start": "2026-10-02",
-      "end": "2026-10-02",
       "title": "미국 고용지표",
       "category": "macro",
       "detail": "21:30",
       "consensus": "89K",
-      "previous": "133K",
-      "actual": "29K"
+      "actual": "29K",
+      "previous": "133K"
     },
     {
       "start": "2026-10-02",
@@ -179,8 +180,8 @@
       "title": "미국 실업률",
       "category": "macro",
       "detail": "21:30",
-      "previous": "7.7%",
-      "actual": "7.6%"
+      "actual": "7.6%",
+      "previous": "7.7%"
     },
     {
       "start": "2026-10-02",
@@ -189,8 +190,8 @@
       "category": "macro",
       "detail": "08:00",
       "consensus": "2.9%",
-      "previous": "3.1%",
-      "actual": "2.9%"
+      "actual": "2.9%",
+      "previous": "3.1%"
     },
     {
       "start": "2026-10-05",
@@ -205,6 +206,7 @@
       "title": "ISM 서비스업",
       "category": "macro",
       "detail": "23:00",
+      "consensus": "55.7",
       "previous": "55.4"
     },
     {
@@ -214,7 +216,7 @@
       "category": "macro",
       "detail": "22:45",
       "consensus": "58.7",
-      "previous": "56.5"
+      "previous": "58.7"
     },
     {
       "start": "2026-10-08",
@@ -228,7 +230,8 @@
       "end": "2026-10-08",
       "title": "미국 실업수당",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "197K"
     },
     {
       "start": "2026-10-08",
@@ -443,14 +446,6 @@
     {
       "start": "2026-10-20",
       "end": "2026-10-20",
-      "title": "TI 실적",
-      "category": "earnings",
-      "detail": "TXN",
-      "eps_forecast": "$2.39"
-    },
-    {
-      "start": "2026-10-20",
-      "end": "2026-10-20",
       "title": "미국 건축허가",
       "category": "macro",
       "detail": "21:30",
@@ -504,10 +499,26 @@
     {
       "start": "2026-10-22",
       "end": "2026-10-22",
+      "title": "TI 실적",
+      "category": "earnings",
+      "detail": "TXN 장마감 후",
+      "eps_forecast": "$2.39"
+    },
+    {
+      "start": "2026-10-22",
+      "end": "2026-10-22",
+      "title": "램리서치 실적",
+      "category": "earnings",
+      "detail": "LRCX 장마감 후",
+      "eps_forecast": "$2.17"
+    },
+    {
+      "start": "2026-10-22",
+      "end": "2026-10-22",
       "title": "인텔 실적",
       "category": "earnings",
       "detail": "INTC",
-      "eps_forecast": "$0.28"
+      "eps_forecast": "$0.27"
     },
     {
       "start": "2026-10-22",
@@ -524,6 +535,14 @@
       "category": "earnings",
       "detail": "UPS 장전",
       "eps_forecast": "$1.63"
+    },
+    {
+      "start": "2026-10-27",
+      "end": "2026-10-27",
+      "title": "보잉 실적",
+      "category": "earnings",
+      "detail": "BA 장전",
+      "eps_forecast": "($0.15)"
     },
     {
       "start": "2026-10-27",
@@ -548,14 +567,6 @@
       "category": "earnings",
       "detail": "KO 장전",
       "eps_forecast": "$0.87"
-    },
-    {
-      "start": "2026-10-28",
-      "end": "2026-10-28",
-      "title": "램리서치 실적",
-      "category": "earnings",
-      "detail": "LRCX",
-      "eps_forecast": "$2.17"
     },
     {
       "start": "2026-10-28",
@@ -587,7 +598,7 @@
       "title": "아마존 실적",
       "category": "earnings",
       "detail": "AMZN",
-      "eps_forecast": "$2.01"
+      "eps_forecast": "$2.02"
     },
     {
       "start": "2026-10-29",
@@ -634,7 +645,7 @@
       "end": "2026-10-30",
       "title": "셰브론 실적",
       "category": "earnings",
-      "detail": "CVX",
+      "detail": "CVX 장전",
       "eps_forecast": "$4.89"
     },
     {
@@ -743,14 +754,6 @@
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
-      "title": "보잉 실적",
-      "category": "earnings",
-      "detail": "BA",
-      "eps_forecast": "($0.15)"
-    },
-    {
-      "start": "2026-11-04",
-      "end": "2026-11-04",
       "title": "서비스나우 실적",
       "category": "earnings",
       "detail": "NOW",
@@ -771,6 +774,18 @@
       "category": "earnings",
       "detail": "GOOGL",
       "eps_forecast": "$2.95"
+    },
+    {
+      "start": "2026-11-04",
+      "end": "2026-11-04",
+      "title": "카카오뱅크 실적",
+      "category": "earnings",
+      "detail": "코스피 10:00",
+      "code": "323410",
+      "quarter": "2026.09",
+      "op_consensus": 1948,
+      "op_prev_year": 1511,
+      "op_prev_q": 1940
     },
     {
       "start": "2026-11-04",
@@ -824,7 +839,7 @@
       "title": "홈디포 실적",
       "category": "earnings",
       "detail": "HD 장전",
-      "eps_forecast": "$3.87"
+      "eps_forecast": "$3.86"
     },
     {
       "start": "2026-11-18",
@@ -986,8 +1001,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-02",
+  "built_on": "2026-10-03",
   "builder_version": 10,
-  "updated_at": "2026-10-01T15:15:42.165591+00:00",
-  "values_updated_at": "2026-10-02T13:16:46.513164+00:00"
+  "updated_at": "2026-10-02T15:16:44.673705+00:00"
 }
