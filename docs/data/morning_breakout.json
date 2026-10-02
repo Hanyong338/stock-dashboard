@@ -7,33 +7,33 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-10-01 09:30",
-  "universe_count": 395,
-  "fetch_failures": 1,
+  "as_of": "2026-10-02 09:30",
+  "universe_count": 428,
+  "fetch_failures": 0,
   "dropped": 0,
   "items": [
     {
-      "code": "003160",
-      "name": "디아이",
-      "market": "KOSPI",
+      "code": "100590",
+      "name": "머큐리",
+      "market": "KOSDAQ",
       "tags": [],
-      "market_cap_eok": 11546,
+      "market_cap_eok": 1071,
       "type": "A",
-      "reason": "전일 고가 37,450 돌파 · 30분 거래대금 294억 · 거래량 전일 하루의 225%",
+      "reason": "전일 고가 4,855 돌파 · 30분 거래대금 227억 · 거래량 전일 하루의 1710%",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/003160/total",
-      "open_gap": 0.27,
-      "value_30m_eok": 294,
-      "vol_vs_prev_day": 225,
-      "close": 40850,
-      "volume": 730386,
-      "change_percent": 11.31
+      "url": "https://m.stock.naver.com/domestic/stock/100590/total",
+      "open_gap": 2.8,
+      "value_30m_eok": 227,
+      "vol_vs_prev_day": 1710,
+      "close": 6250,
+      "volume": 3732422,
+      "change_percent": 29.8
     }
   ],
-  "built_on": "2026-10-01",
-  "updated_at": "2026-10-01T00:52:52.352699+00:00"
+  "built_on": "2026-10-02",
+  "updated_at": "2026-10-02T00:51:30.097596+00:00"
 }
