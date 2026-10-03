@@ -430,8 +430,8 @@
       "detail": "코스피 14:10",
       "code": "064350",
       "quarter": "2026.09",
-      "op_consensus": 2875,
-      "rev_consensus": 18270,
+      "op_consensus": 2841,
+      "rev_consensus": 18258,
       "op_prev_year": 2777,
       "op_prev_q": 2324
     },
@@ -527,6 +527,30 @@
       "category": "major",
       "detail": "10:00",
       "previous": "3.00%"
+    },
+    {
+      "start": "2026-10-23",
+      "end": "2026-10-23",
+      "title": "S&P글로벌 서비스업 PMI",
+      "category": "macro",
+      "detail": "22:45",
+      "previous": "56.5"
+    },
+    {
+      "start": "2026-10-23",
+      "end": "2026-10-23",
+      "title": "S&P글로벌 제조업 PMI",
+      "category": "macro",
+      "detail": "22:45",
+      "previous": "55.9"
+    },
+    {
+      "start": "2026-10-23",
+      "end": "2026-10-23",
+      "title": "미시간 소비심리",
+      "category": "macro",
+      "detail": "23:00",
+      "previous": "48.1"
     },
     {
       "start": "2026-10-27",
@@ -1001,7 +1025,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-03",
+  "built_on": "2026-10-04",
   "builder_version": 10,
-  "updated_at": "2026-10-02T15:16:44.673705+00:00"
+  "updated_at": "2026-10-03T18:30:24.990189+00:00"
 }
