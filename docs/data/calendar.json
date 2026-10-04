@@ -231,6 +231,7 @@
       "title": "미국 실업수당",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "200K",
       "previous": "197K"
     },
     {
@@ -261,6 +262,7 @@
       "title": "미시간 소비심리",
       "category": "macro",
       "detail": "23:00",
+      "consensus": "47.6",
       "previous": "48.1"
     },
     {
@@ -1025,7 +1027,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-04",
+  "built_on": "2026-10-05",
   "builder_version": 10,
-  "updated_at": "2026-10-03T18:30:24.990189+00:00"
+  "updated_at": "2026-10-04T18:14:54.232274+00:00"
 }
