@@ -279,7 +279,7 @@
       "title": "골드만삭스 실적",
       "category": "earnings",
       "detail": "GS 장전",
-      "eps_forecast": "$14.59"
+      "eps_forecast": "$14.05"
     },
     {
       "start": "2026-10-13",
@@ -319,7 +319,7 @@
       "title": "모건스탠리 실적",
       "category": "earnings",
       "detail": "MS 장전",
-      "eps_forecast": "$3.01"
+      "eps_forecast": "$2.97"
     },
     {
       "start": "2026-10-14",
@@ -327,7 +327,7 @@
       "title": "뱅크오브아메리카 실적",
       "category": "earnings",
       "detail": "BAC 장전",
-      "eps_forecast": "$1.16"
+      "eps_forecast": "$1.13"
     },
     {
       "start": "2026-10-14",
@@ -597,6 +597,14 @@
     {
       "start": "2026-10-28",
       "end": "2026-10-28",
+      "title": "로빈후드 실적",
+      "category": "earnings",
+      "detail": "HOOD 장마감 후",
+      "eps_forecast": "$0.52"
+    },
+    {
+      "start": "2026-10-28",
+      "end": "2026-10-28",
       "title": "테슬라 실적",
       "category": "earnings",
       "detail": "TSLA",
@@ -748,14 +756,6 @@
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
-      "title": "로빈후드 실적",
-      "category": "earnings",
-      "detail": "HOOD",
-      "eps_forecast": "$0.52"
-    },
-    {
-      "start": "2026-11-04",
-      "end": "2026-11-04",
       "title": "마이크로소프트 실적",
       "category": "earnings",
       "detail": "MSFT",
@@ -830,11 +830,11 @@
       "eps_forecast": "$1.47"
     },
     {
-      "start": "2026-11-05",
-      "end": "2026-11-05",
+      "start": "2026-11-06",
+      "end": "2026-11-06",
       "title": "에어비앤비 실적",
       "category": "earnings",
-      "detail": "ABNB",
+      "detail": "ABNB 장마감 후",
       "eps_forecast": "$2.89"
     },
     {
@@ -1027,8 +1027,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-05",
+  "built_on": "2026-10-06",
   "builder_version": 10,
-  "updated_at": "2026-10-04T18:14:54.232274+00:00",
-  "values_updated_at": "2026-10-05T07:19:36.846947+00:00"
+  "updated_at": "2026-10-05T15:05:34.622038+00:00"
 }
