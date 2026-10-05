@@ -1,17 +1,18 @@
 """Google Gemini 무료 API로 자막을 분석해 투자 전략 리포트를 생성한다.
 카드 등록 없이 https://aistudio.google.com/apikey 에서 키를 받아 GEMINI_API_KEY로 등록하면 된다.
 """
+import datetime
 import json
 import os
-import time
+from pathlib import Path
 
 import requests
 
-MAX_ATTEMPTS = 3
-# 기본 모델에서 짧게 재시도하고, 그래도 안 되면 대체 모델(FALLBACK_MODELS)로 넘어간다.
-# 예전엔 한 모델에서 85초까지 버텼는데, 무료 사용량에선 혼잡이 길게 가서 다른 모델로 넘어가는 편이 빠르다.
+# 한 실행 안에서는 모델마다 딱 한 번만 요청한다. 거절(503 혼잡 등)되면 그 모델은 이번 실행 동안 다시 부르지 않고
+# 다음 모델로 넘어가며, 다음 실행(20분 뒤)에 다시 시도한다.
+# 2026-10-05~06 밤: 영상마다 모델당 2~3번씩 재시도하다 보니 성공은 4편인데 요청은 수백 번 나갔고,
+# 무료 하루 한도(모델당 100회)가 실패한 요청으로 다 찼다(429). 거절된 요청도 한도를 깎는 것으로 보인다.
 # (자막은 이미 받아 저장해 두므로 요약이 실패해도 자막 크레딧은 다시 나가지 않는다)
-RETRY_BACKOFF_SECONDS = [5, 20]
 RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
 
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash")
@@ -24,7 +25,6 @@ FALLBACK_MODELS = [
     for m in os.environ.get("GEMINI_FALLBACK_MODELS", "gemini-3.6-flash,gemini-3.7-flash,gemini-3.8-flash").split(",")
     if m.strip() and m.strip() != MODEL
 ]
-FALLBACK_ATTEMPTS = 2  # 대체 모델은 짧게 시도하고 다음으로 넘어간다
 
 # 로그에 대략적인 비용을 찍기 위한 단가 (2026-09 기준, 100만 토큰당 USD)
 PRICES_PER_MTOK = {
@@ -135,12 +135,113 @@ def _normalize_newlines(result):
     return result
 
 
-# 선불 잔액이 떨어지면 무료 키로 넘어간다.
-# 결제가 연결된 프로젝트는 무료 사용량을 못 쓰고(공식 문서), 잔액이 0 이 되면 402 로 멈출 뿐이다.
-# 그래서 결제를 연결하지 않은 별도 프로젝트의 키(GEMINI_API_KEY_FREE)를 두고, 잔액 소진 응답을 받는 순간 그 키로 바꾼다.
-# 한 번 넘어가면 그 실행이 끝날 때까지 무료 키를 쓴다. 다음 실행은 다시 유료 키부터 시도한다
-# (나중에 선불을 다시 충전하면 저절로 유료로 돌아가게 하려는 것. 잔액이 없으면 첫 호출 한 번만 실패하고 바로 넘어간다).
-_use_free_key = False
+# 키 순서: 무료 키(GEMINI_API_KEY_FREE, 결제 없는 프로젝트) 먼저, 유료 키(GEMINI_API_KEY, 선불)는 무료가 전부 막혔을 때만.
+# 결제가 연결된 프로젝트는 무료 사용량을 못 쓰므로 키가 두 개다. 선불 잔액이 0 이면 유료 키는 402 로 바로 거절되고
+# (돈 안 나감), 나중에 선불을 충전하면 무료가 막힌 영상만 유료로 처리된다.
+# 2026-10-06 이전엔 유료 먼저였는데, 선불이 0 이 된 뒤로는 매 실행 첫 요청이 402 로 버려졌다.
+_paid_depleted_this_run = False
+# 이번 실행 동안 다시 부르지 않을 (키 종류, 모델). 혼잡(503)·시간초과·분당 한도(429)·없는 모델(404)
+_busy = set()
+# 하루 한도가 찬 무료 모델과 풀리는 시각. 실행이 바뀌어도 기억해야 하므로 파일로 남긴다(GitHub Actions 는 매번 새로 시작).
+QUOTA_FILE = Path(__file__).resolve().parent.parent / "docs" / "data" / "gemini_quota.json"
+
+
+def _load_quota():
+    try:
+        data = json.loads(QUOTA_FILE.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+_quota = _load_quota()
+
+
+def _save_quota():
+    QUOTA_FILE.parent.mkdir(parents=True, exist_ok=True)
+    QUOTA_FILE.write_text(json.dumps(_quota, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _now():
+    return datetime.datetime.now(datetime.timezone.utc)
+
+
+def _next_quota_reset(now):
+    """무료 하루 한도는 미국 태평양 시간 자정에 초기화된다(공식 문서) = 한국시간 16시(서머타임) / 17시."""
+    try:
+        from zoneinfo import ZoneInfo
+
+        pt = now.astimezone(ZoneInfo("America/Los_Angeles"))
+        reset = (pt + datetime.timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+        reset = reset.astimezone(datetime.timezone.utc)
+    except Exception:
+        # 시간대 정보가 없으면 늦은 쪽(겨울, UTC 08시)으로 잡는다. 일찍 풀면 거절만 또 쌓인다.
+        reset = (now + datetime.timedelta(days=1)).replace(hour=8, minute=0, second=0, microsecond=0)
+        if reset - now > datetime.timedelta(days=1):
+            reset -= datetime.timedelta(days=1)
+    return reset + datetime.timedelta(minutes=2)
+
+
+def _quota_exhausted(model):
+    until = (_quota.get("exhausted") or {}).get(model)
+    if not until:
+        return False
+    try:
+        return _now() < datetime.datetime.fromisoformat(until)
+    except ValueError:
+        return False
+
+
+def _mark_exhausted(model):
+    reset = _next_quota_reset(_now())
+    _quota.setdefault("exhausted", {})[model] = reset.isoformat()
+    _save_quota()
+    kst = reset + datetime.timedelta(hours=9)
+    print(f"[WARN] {model} 무료 하루 한도 소진 — 한국시간 {kst:%m/%d %H:%M} 초기화까지 이 모델은 요청하지 않는다")
+
+
+def _is_daily_quota(resp):
+    """429 가 '하루 한도'인지('분당 한도'와 구분). 구글은 오류 상세의 quotaId 에 PerDay / PerMinute 를 적어 보낸다."""
+    return resp is not None and "PerDay" in (resp.text or "")
+
+
+def _keys():
+    free = (os.environ.get("GEMINI_API_KEY_FREE") or "").strip()
+    paid = (os.environ.get("GEMINI_API_KEY") or "").strip()
+    keys = []
+    if free:
+        keys.append(("free", free))
+    if paid and paid != free:
+        keys.append(("paid", paid))
+    return keys
+
+
+def _models():
+    """마지막으로 성공한 모델을 먼저 부른다. 혼잡한 모델부터 두드려 요청(=한도)을 버리지 않게."""
+    order = [MODEL] + FALLBACK_MODELS
+    last = _quota.get("last_ok_model")
+    if last in order:
+        order.remove(last)
+        order.insert(0, last)
+    return order
+
+
+def _usable(kind, model):
+    if (kind, model) in _busy:
+        return False
+    if kind == "free":
+        return not _quota_exhausted(model)
+    return not _paid_depleted_this_run
+
+
+def gemini_ready():
+    """지금 요약을 맡길 수 있는 키·모델이 하나라도 남았는가. 다 막혔으면 파이프라인은 요약을 다음 실행으로 미룬다
+    (요청을 보내 봐야 거절만 쌓이고, 그 거절이 무료 한도를 깎는다)."""
+    return any(_usable(kind, model) for kind, _ in _keys() for model in _models())
+
+
+class GeminiUnavailable(RuntimeError):
+    """쓸 수 있는 키·모델이 모두 막혔다(혼잡·한도·잔액 없음). 영상 문제가 아니라 다음 실행에서 다시 하면 된다."""
 
 
 def _paid_depleted(resp):
@@ -150,11 +251,6 @@ def _paid_depleted(resp):
     if resp.status_code == 402:
         return True
     return resp.status_code == 429 and "prepayment" in (resp.text or "").lower()
-
-
-def _api_key():
-    free = (os.environ.get("GEMINI_API_KEY_FREE") or "").strip()
-    return free if (_use_free_key and free) else os.environ["GEMINI_API_KEY"]
 
 
 def _post(payload, key, timeout=90, model=None):
@@ -184,6 +280,9 @@ def check_free_key():
         detail = resp.json().get("error", {}).get("message", "")
     except Exception:
         detail = resp.text
+    # 한도(429)·혼잡(5xx)은 키가 '받아들여진' 뒤의 거절이라 키 자체는 정상이다. 잘못된 키는 400/403 으로 온다.
+    if resp.status_code == 429 or resp.status_code >= 500:
+        return {"configured": True, "ok": True, "status": resp.status_code, "message": f"키 정상(지금은 한도/혼잡): {detail[:150]}"}
     return {"configured": True, "ok": False, "status": resp.status_code, "message": detail[:200]}
 
 
@@ -200,8 +299,9 @@ def _error_detail(e):
 
 
 def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_tokens=8192):
-    """구조화된 JSON 응답을 받아온다. 재시도/비용로그/개행 정규화를 공통으로 처리한다."""
-    global _use_free_key
+    """구조화된 JSON 응답을 받아온다. 키·모델 선택/비용로그/개행 정규화를 공통으로 처리한다.
+    쓸 수 있는 키·모델이 다 막히면 GeminiUnavailable 을 던진다(다음 실행에서 다시 시도)."""
+    global _paid_depleted_this_run
 
     payload = {
         "system_instruction": {"parts": [{"text": system_prompt}]},
@@ -214,24 +314,23 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
     }
 
     last_error = None
-    for i, model in enumerate([MODEL] + FALLBACK_MODELS):
-        attempts = MAX_ATTEMPTS if i == 0 else FALLBACK_ATTEMPTS
-        if i:
-            print(f"[WARN] {MODEL if i == 1 else 'Gemini'} 가 계속 거절 — 대체 모델 {model} 로 요약한다")
-        for attempt in range(attempts):
+    for kind, key in _keys():
+        for model in _models():
+            if not _usable(kind, model):
+                continue
+            resp = None
             try:
-                resp = _post(payload, _api_key(), model=model)
-                if not _use_free_key and _paid_depleted(resp) and (os.environ.get("GEMINI_API_KEY_FREE") or "").strip():
-                    _use_free_key = True
-                    print("[WARN] Gemini 선불 잔액 소진 — 무료 키(GEMINI_API_KEY_FREE)로 전환해 이어서 요약한다")
-                    resp = _post(payload, _api_key(), model=model)
+                resp = _post(payload, key, model=model)
+                if kind == "paid" and _paid_depleted(resp):
+                    _paid_depleted_this_run = True
+                    print("[INFO] 유료 키는 선불 잔액이 없다 — 이번 실행에선 유료 키를 쓰지 않는다")
+                    last_error = last_error or RuntimeError("유료 키 선불 잔액 없음")
+                    break
                 resp.raise_for_status()
                 data = resp.json()
                 _log_usage(data.get("usageMetadata"), label)
                 raw = data["candidates"][0]["content"]["parts"][0]["text"]
-                if model != MODEL:
-                    print(f"[INFO] 대체 모델 {model} 로 요약 완료: {label[:40]}")
-                return _normalize_newlines(json.loads(raw))
+                result = _normalize_newlines(json.loads(raw))
             except (
                 requests.exceptions.HTTPError,
                 requests.exceptions.Timeout,
@@ -239,23 +338,30 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
                 json.JSONDecodeError,
             ) as e:
                 status = getattr(getattr(e, "response", None), "status_code", None)
-                transient = (
-                    isinstance(e, (requests.exceptions.Timeout, requests.exceptions.ConnectionError, json.JSONDecodeError))
-                    or status in RETRYABLE_STATUS_CODES
-                )
                 # 실패 기록에 '왜' 거절됐는지 남긴다. 상태 코드만으론 원인을 못 가린다(10/5 503 반복 때 그랬다).
                 last_error = RuntimeError(f"{model} {status or type(e).__name__}: {_error_detail(e)}")
-                if status == 404:
-                    break  # 이 프로젝트에서 쓸 수 없는 모델이다(10/5 2.5-flash). 다음 모델로
-                if not transient:
-                    raise last_error  # 요청 자체가 잘못된 경우(400 등)는 다른 모델로도 안 된다
-                if attempt == attempts - 1:
-                    break  # 이 모델은 포기하고 다음 모델로
-                wait = RETRY_BACKOFF_SECONDS[min(attempt, len(RETRY_BACKOFF_SECONDS) - 1)]
-                print(f"[INFO] {model} transient error ({status or type(e).__name__}); retrying in {wait}s ({attempt + 1}/{attempts})")
-                time.sleep(wait)
+                if isinstance(e, json.JSONDecodeError):
+                    continue  # 답이 중간에 잘린 경우. 모델 문제는 아니니 막지 않고, 이 영상만 다음 모델로
+                if status == 429 and kind == "free" and _is_daily_quota(resp):
+                    _mark_exhausted(model)
+                    continue
+                if status == 404 or status is None or status in RETRYABLE_STATUS_CODES:
+                    # 혼잡·시간초과·분당 한도·없는 모델 — 이번 실행 동안은 이 모델을 다시 부르지 않는다
+                    _busy.add((kind, model))
+                    print(f"[INFO] {kind} {model} 거절({status or type(e).__name__}) — 이번 실행에선 건너뛴다")
+                    continue
+                raise last_error  # 요청 자체가 잘못된 경우(400 등)는 다른 모델로도 안 된다
 
-    raise last_error
+            if _quota.get("last_ok_model") != model:
+                _quota["last_ok_model"] = model
+                _save_quota()
+            if kind == "paid":
+                print(f"[INFO] 무료가 막혀 유료 키({model})로 요약: {label[:40]}")
+            elif model != MODEL:
+                print(f"[INFO] 대체 모델 {model} 로 요약 완료: {label[:40]}")
+            return result
+
+    raise GeminiUnavailable(f"쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: {last_error}")
 
 
 def summarize_transcript(channel_name, title, transcript_text):

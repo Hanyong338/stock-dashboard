@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from youtube_check import fetch_channel_videos
-from summarize import check_free_key, summarize_transcript
+from summarize import check_free_key, gemini_ready, summarize_transcript
 from transcript import get_transcript, is_retryable_error
 from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
@@ -173,6 +173,8 @@ def save_json(path, data):
 # 워크플로 로그는 저장소 관리자만 볼 수 있어서, 무엇이 왜 실패했는지 확인할 방법이 없었다.
 # 크레딧이 왜 나갔는지 추측만 하다 틀린 적이 있다. 그래서 실패를 파일로 남긴다.
 _warnings = []
+# 제미나이가 모두 막혀 이번 실행에서 요약을 미룬 영상. 영상마다 남기면 기록이 넘치니 실행 끝에 한 줄로 남긴다.
+_deferred = []
 
 
 # 오류 문구에 API 키가 섞여 들어오면 공개 저장소에 그대로 올라간다. 파일에 남기기 전에 가린다.
@@ -342,6 +344,13 @@ def process_channel(ch, state, summaries, now):
         pub = parse_published(v.get("published", ""))
         if pub is not None and (now - pub).total_seconds() < MIN_VIDEO_AGE_MINUTES * 60:
             print(f"[INFO] 업로드 {int((now - pub).total_seconds() // 60)}분 — 자막 생성 대기 후 요약: {name} - {v['title'][:40]}")
+            continue
+
+        # 제미나이 모델이 이번 실행에서 모두 혼잡이거나 하루 한도가 찼으면 요청하지 않고 다음 실행으로 미룬다.
+        # 보내 봐야 거절만 쌓이고, 거절된 요청도 무료 하루 한도를 깎는다(10/5~6 밤에 그렇게 한도가 다 찼다).
+        # '확인함' 처리하지 않으니 영상이 빠지지는 않는다.
+        if not gemini_ready():
+            _deferred.append(v["video_id"])
             continue
 
         # 같은 영상을 몇 번째 시도하는지 센다. 포기시키지는 않는다(그러면 영상이 영영 누락된다).
@@ -667,11 +676,11 @@ def update_us_screening(now):
 
 
 def update_gemini_key_check(now):
-    """무료 제미나이 키(선불 잔액이 떨어지면 넘어갈 키)가 작동하는지 하루 한 번 확인해 파일로 남긴다.
-    실패하고 있으면 매 실행 다시 확인한다(키를 고쳐 넣으면 바로 알 수 있게). 키 값은 남기지 않는다."""
+    """무료 제미나이 키가 작동하는지 하루 한 번만 확인해 파일로 남긴다. 키 값은 남기지 않는다.
+    예전엔 실패하면 매 실행 다시 확인했는데, 한도가 찬 날엔 20분마다 거절 요청을 하나씩 더 보내 한도만 깎았다(10/6)."""
     today = now.astimezone(KST).date().isoformat()
     current = load_json(GEMINI_KEY_CHECK_FILE, {})
-    if isinstance(current, dict) and current.get("checked_on") == today and current.get("ok"):
+    if isinstance(current, dict) and current.get("checked_on") == today:
         return False
     result = check_free_key()
     result.update({"checked_on": today, "checked_at": now.isoformat()})
@@ -783,6 +792,11 @@ def update_morning_brief(now):
     pub = parse_published(latest.get("published", ""))
     if latest.get("live_pending") or (pub is not None and (now - pub).total_seconds() < MIN_VIDEO_AGE_MINUTES * 60):
         print(f"[INFO] morning brief: 업로드 {int((now - pub).total_seconds() // 60)}분 — 자막 생성 대기")
+        return _refresh_market_overlay(current, now) if current.get("video_id") else False
+
+    if not gemini_ready():
+        print("[INFO] morning brief: 제미나이 모두 혼잡/한도 — 다음 실행에서 분석")
+        _deferred.append(latest["video_id"])
         return _refresh_market_overlay(current, now) if current.get("video_id") else False
 
     print(f"[INFO] morning brief: {latest['title']}")
@@ -917,6 +931,9 @@ def main():
             commit_and_push(f"chore: gemini free key check {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] 무료 키 확인 실패: {e}")
+
+    if _deferred:
+        warn(f"제미나이 모델이 모두 혼잡/한도라 {len(_deferred)}편 요약을 다음 실행으로 미룸")
 
     try:
         if save_warnings(now):
