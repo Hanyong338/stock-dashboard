@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-05T12:51:36.170144+00:00",
+  "updated_at": "2026-10-05T13:20:18.516103+00:00",
   "entries": [
     {
       "at": "2026-09-27T22:16:09.359120+00:00",
@@ -96,6 +96,22 @@
     {
       "at": "2026-10-05T12:56:28.126569+00:00",
       "message": "8번째 시도 [올랜도 킴 미국주식] (관심종목)트펌프의 이란공격 시간과 변동성 이기는 전략"
+    },
+    {
+      "at": "2026-10-05T13:22:32.349091+00:00",
+      "message": "요약 실패 [815머니톡] [#찐시황] 삼성전자·SK하이닉스 자사주 매입 끝나면 누가 사나? 외인  : 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent"
+    },
+    {
+      "at": "2026-10-05T13:22:32.349202+00:00",
+      "message": "6번째 시도 [815머니톡] 중국산 배터리 막히자 판 바뀐다… 46파이 원통형 배터리, 전기차 넘어 "
+    },
+    {
+      "at": "2026-10-05T13:24:06.274236+00:00",
+      "message": "요약 실패 [815머니톡] 중국산 배터리 막히자 판 바뀐다… 46파이 원통형 배터리, 전기차 넘어  : 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent"
+    },
+    {
+      "at": "2026-10-05T13:28:44.153980+00:00",
+      "message": "요약 실패 [소수몽키] 나스닥 엔비디아는 신고가인데 내 주식은 왜? 역대급 기묘한 랠리 이어질까 : HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)"
     }
   ]
 }
