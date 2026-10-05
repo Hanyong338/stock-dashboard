@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from youtube_check import fetch_channel_videos
-from summarize import check_free_key, gemini_ready, summarize_transcript
+from summarize import check_free_key, gemini_quiet_now, gemini_ready, summarize_transcript
 from transcript import get_transcript, is_retryable_error
 from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
@@ -682,6 +682,8 @@ def update_gemini_key_check(now):
     current = load_json(GEMINI_KEY_CHECK_FILE, {})
     if isinstance(current, dict) and current.get("checked_on") == today:
         return False
+    if gemini_quiet_now():
+        return False  # 밤 휴식 시간엔 확인 요청도 보내지 않는다
     result = check_free_key()
     result.update({"checked_on": today, "checked_at": now.isoformat()})
     print(f"[INFO] 무료 제미나이 키 확인: {'정상' if result['ok'] else '실패'} — {result['message']}")
@@ -932,7 +934,10 @@ def main():
     except Exception as e:
         print(f"[WARN] 무료 키 확인 실패: {e}")
 
-    if _deferred:
+    if _deferred and gemini_quiet_now():
+        # 밤 휴식은 정해둔 일이라 실패 기록에 남기지 않는다(20분마다 같은 줄이 쌓이기만 한다)
+        print(f"[INFO] 밤 휴식 시간(한국시간 21~05시) — {len(_deferred)}편은 05시 이후 요약")
+    elif _deferred:
         warn(f"제미나이 모델이 모두 혼잡/한도라 {len(_deferred)}편 요약을 다음 실행으로 미룸")
 
     try:
