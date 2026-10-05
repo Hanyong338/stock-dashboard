@@ -206,7 +206,7 @@
       "title": "ISM 서비스업",
       "category": "macro",
       "detail": "23:00",
-      "consensus": "55.7",
+      "consensus": "55.1",
       "previous": "55.4"
     },
     {
@@ -216,7 +216,7 @@
       "category": "macro",
       "detail": "22:45",
       "consensus": "58.7",
-      "previous": "58.7"
+      "previous": "56.5"
     },
     {
       "start": "2026-10-08",
@@ -1029,5 +1029,6 @@
   ],
   "built_on": "2026-10-05",
   "builder_version": 10,
-  "updated_at": "2026-10-04T18:14:54.232274+00:00"
+  "updated_at": "2026-10-04T18:14:54.232274+00:00",
+  "values_updated_at": "2026-10-05T07:19:36.846947+00:00"
 }
