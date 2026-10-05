@@ -7,13 +7,23 @@ import time
 
 import requests
 
-MAX_ATTEMPTS = 4
-# 429(분당 호출 한도)는 1분이 지나야 풀리므로, 총 85초까지 기다려본다.
-# 짧게 포기하면 이미 유료로 가져온 자막이 그대로 버려지기 때문.
-RETRY_BACKOFF_SECONDS = [5, 20, 60]
+MAX_ATTEMPTS = 3
+# 기본 모델에서 짧게 재시도하고, 그래도 안 되면 대체 모델(FALLBACK_MODELS)로 넘어간다.
+# 예전엔 한 모델에서 85초까지 버텼는데, 무료 사용량에선 혼잡이 길게 가서 다른 모델로 넘어가는 편이 빠르다.
+# (자막은 이미 받아 저장해 두므로 요약이 실패해도 자막 크레딧은 다시 나가지 않는다)
+RETRY_BACKOFF_SECONDS = [5, 20]
 RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
 
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash")
+# 기본 모델이 혼잡(503)·한도(429)·시간초과로 계속 거절하면 차례로 넘어갈 모델. 모두 무료 사용량이 있다(공식 가격표).
+# 2026-10-05 무료로 전환하자 3.5-flash(공식 문서상 'Legacy')가 503 을 반복해 요약이 몇 시간 밀렸다.
+# 무료 하루 한도도 모델마다 따로라 한 모델 한도가 차도 다음 모델로 이어갈 수 있다.
+FALLBACK_MODELS = [
+    m.strip()
+    for m in os.environ.get("GEMINI_FALLBACK_MODELS", "gemini-3.6-flash,gemini-2.5-flash").split(",")
+    if m.strip() and m.strip() != MODEL
+]
+FALLBACK_ATTEMPTS = 2  # 대체 모델은 짧게 시도하고 다음으로 넘어간다
 
 # 로그에 대략적인 비용을 찍기 위한 단가 (2026-09 기준, 100만 토큰당 USD)
 PRICES_PER_MTOK = {
@@ -23,7 +33,11 @@ PRICES_PER_MTOK = {
 }
 INPUT_PRICE_PER_MTOK, OUTPUT_PRICE_PER_MTOK = PRICES_PER_MTOK.get(MODEL, (1.50, 9.00))
 
-API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"  # 키는 헤더로 보낸다(_post)
+def _model_url(model):
+    return f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"  # 키는 헤더로 보낸다(_post)
+
+
+API_URL = _model_url(MODEL)
 MAX_TRANSCRIPT_CHARS = 30000
 
 SYSTEM_PROMPT = """[역할 정의]
@@ -142,10 +156,10 @@ def _api_key():
     return free if (_use_free_key and free) else os.environ["GEMINI_API_KEY"]
 
 
-def _post(payload, key, timeout=90):
+def _post(payload, key, timeout=90, model=None):
     """키는 주소(?key=)가 아니라 헤더로 보낸다. 주소에 넣으면 실패했을 때 오류 문구에 키가 그대로 찍히고,
     그 문구가 실패 기록(docs/data/pipeline_log.json)에 남아 공개 저장소에 올라갈 수 있다."""
-    return requests.post(API_URL, headers={"x-goog-api-key": key}, json=payload, timeout=timeout)
+    return requests.post(_model_url(model or MODEL), headers={"x-goog-api-key": key}, json=payload, timeout=timeout)
 
 
 def check_free_key():
@@ -187,27 +201,43 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
     }
 
     last_error = None
-    for attempt in range(MAX_ATTEMPTS):
-        try:
-            resp = _post(payload, _api_key())
-            if not _use_free_key and _paid_depleted(resp) and (os.environ.get("GEMINI_API_KEY_FREE") or "").strip():
-                _use_free_key = True
-                print("[WARN] Gemini 선불 잔액 소진 — 무료 키(GEMINI_API_KEY_FREE)로 전환해 이어서 요약한다")
-                resp = _post(payload, _api_key())
-            resp.raise_for_status()
-            data = resp.json()
-            _log_usage(data.get("usageMetadata"), label)
-            raw = data["candidates"][0]["content"]["parts"][0]["text"]
-            return _normalize_newlines(json.loads(raw))
-        except (requests.exceptions.HTTPError, requests.exceptions.Timeout, json.JSONDecodeError) as e:
-            status = getattr(getattr(e, "response", None), "status_code", None)
-            transient = isinstance(e, (requests.exceptions.Timeout, json.JSONDecodeError)) or status in RETRYABLE_STATUS_CODES
-            last_error = e
-            if not transient or attempt == MAX_ATTEMPTS - 1:
-                raise
-            wait = RETRY_BACKOFF_SECONDS[min(attempt, len(RETRY_BACKOFF_SECONDS) - 1)]
-            print(f"[INFO] Gemini transient error ({e}); retrying in {wait}s (attempt {attempt + 1}/{MAX_ATTEMPTS})")
-            time.sleep(wait)
+    for i, model in enumerate([MODEL] + FALLBACK_MODELS):
+        attempts = MAX_ATTEMPTS if i == 0 else FALLBACK_ATTEMPTS
+        if i:
+            print(f"[WARN] {MODEL if i == 1 else 'Gemini'} 가 계속 거절 — 대체 모델 {model} 로 요약한다")
+        for attempt in range(attempts):
+            try:
+                resp = _post(payload, _api_key(), model=model)
+                if not _use_free_key and _paid_depleted(resp) and (os.environ.get("GEMINI_API_KEY_FREE") or "").strip():
+                    _use_free_key = True
+                    print("[WARN] Gemini 선불 잔액 소진 — 무료 키(GEMINI_API_KEY_FREE)로 전환해 이어서 요약한다")
+                    resp = _post(payload, _api_key(), model=model)
+                resp.raise_for_status()
+                data = resp.json()
+                _log_usage(data.get("usageMetadata"), label)
+                raw = data["candidates"][0]["content"]["parts"][0]["text"]
+                if model != MODEL:
+                    print(f"[INFO] 대체 모델 {model} 로 요약 완료: {label[:40]}")
+                return _normalize_newlines(json.loads(raw))
+            except (
+                requests.exceptions.HTTPError,
+                requests.exceptions.Timeout,
+                requests.exceptions.ConnectionError,
+                json.JSONDecodeError,
+            ) as e:
+                status = getattr(getattr(e, "response", None), "status_code", None)
+                transient = (
+                    isinstance(e, (requests.exceptions.Timeout, requests.exceptions.ConnectionError, json.JSONDecodeError))
+                    or status in RETRYABLE_STATUS_CODES
+                )
+                last_error = e
+                if not transient:
+                    raise  # 요청 자체가 잘못된 경우(400 등)는 다른 모델로도 안 된다
+                if attempt == attempts - 1:
+                    break  # 이 모델은 포기하고 다음 모델로
+                wait = RETRY_BACKOFF_SECONDS[min(attempt, len(RETRY_BACKOFF_SECONDS) - 1)]
+                print(f"[INFO] {model} transient error ({status or type(e).__name__}); retrying in {wait}s ({attempt + 1}/{attempts})")
+                time.sleep(wait)
 
     raise last_error
 
