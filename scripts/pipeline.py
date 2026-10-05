@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from youtube_check import fetch_channel_videos
-from summarize import check_free_key, gemini_quiet_now, gemini_ready, summarize_transcript
+from summarize import GeminiUnavailable, check_free_key, gemini_quiet_now, gemini_ready, summarize_transcript
 from transcript import get_transcript, is_retryable_error
 from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
@@ -388,6 +388,11 @@ def process_channel(ch, state, summaries, now):
 
         try:
             result = call_with_timeout(summarize_transcript, SUMMARIZE_TIMEOUT_SECONDS, name, v["title"], transcript_text)
+        except GeminiUnavailable as e:
+            # 영상 문제가 아니라 제미나이가 전부 막힌 것. 실패 기록 대신 실행 끝에 '미룸' 한 줄로 남긴다.
+            print(f"[INFO] 요약 미룸 [{name}] {v['title'][:40]} : {e}")
+            _deferred.append(v["video_id"])
+            continue
         except Exception as e:
             # 요약만 실패한 것이므로 자막 캐시는 남겨둔다.
             # 다음 실행에서 자막을 다시 받지 않고(크레딧 0) 요약만 다시 시도한다.

@@ -226,12 +226,35 @@ def _models():
     return order
 
 
+# 유료 키가 잔액 없음으로 거절되면 이 시간만큼은 다시 두드리지 않는다(실행마다 헛요청·실패 기록이 쌓이지 않게).
+# 선불을 충전하면 길어야 이 시간 뒤에 저절로 다시 쓰기 시작한다.
+PAID_RECHECK_HOURS = 6
+
+
+def _mark_paid_unavailable():
+    global _paid_depleted_this_run
+    _paid_depleted_this_run = True
+    _quota["paid_unavailable_until"] = (_now() + datetime.timedelta(hours=PAID_RECHECK_HOURS)).isoformat()
+    _save_quota()
+    print(f"[INFO] 유료 키는 선불 잔액이 없다 — {PAID_RECHECK_HOURS}시간 동안 유료 키를 쓰지 않는다")
+
+
+def _paid_unavailable():
+    if _paid_depleted_this_run:
+        return True
+    until = _quota.get("paid_unavailable_until")
+    try:
+        return bool(until) and _now() < datetime.datetime.fromisoformat(until)
+    except ValueError:
+        return False
+
+
 def _usable(kind, model):
     if (kind, model) in _busy:
         return False
     if kind == "free":
         return not _quota_exhausted(model)
-    return not _paid_depleted_this_run
+    return not _paid_unavailable()
 
 
 # 한국시간 밤 21시~새벽 5시(미국 낮, 구글 피크)에는 제미나이를 아예 부르지 않는다.
@@ -314,8 +337,6 @@ def _error_detail(e):
 def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_tokens=8192):
     """구조화된 JSON 응답을 받아온다. 키·모델 선택/비용로그/개행 정규화를 공통으로 처리한다.
     쓸 수 있는 키·모델이 다 막히면 GeminiUnavailable 을 던진다(다음 실행에서 다시 시도)."""
-    global _paid_depleted_this_run
-
     payload = {
         "system_instruction": {"parts": [{"text": system_prompt}]},
         "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
@@ -337,10 +358,10 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
             resp = None
             try:
                 resp = _post(payload, key, model=model)
-                if kind == "paid" and _paid_depleted(resp):
-                    _paid_depleted_this_run = True
-                    print("[INFO] 유료 키는 선불 잔액이 없다 — 이번 실행에선 유료 키를 쓰지 않는다")
-                    last_error = last_error or RuntimeError("유료 키 선불 잔액 없음")
+                # 잔액 없는 유료 키는 402 나 429(문구는 그때그때 다르다)로 온다. 어느 쪽이든 유료는 당분간 쉰다.
+                if kind == "paid" and (_paid_depleted(resp) or resp.status_code == 429):
+                    _mark_paid_unavailable()
+                    last_error = last_error or RuntimeError("유료 키 선불 잔액 없음/한도")
                     break
                 resp.raise_for_status()
                 data = resp.json()
