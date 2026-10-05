@@ -55,9 +55,10 @@ REQUEST_INTERVAL_SECONDS = 3  # 자막/AI API를 너무 빨리 연달아 호출�
 # Supadata 쪽에는 작업이 이미 생성돼 크레딧은 나가는데 결과는 못 받고,
 # 타임아웃은 '일시적 오류'라 확인함 처리도 안 되어 매시간 같은 영상을 다시 받는 루프가 됐다.
 TRANSCRIPT_TIMEOUT_SECONDS = 180
-# summarize.py 의 재시도 + 대체 모델 2개까지 다 써도 안 잘리게 잡는다.
-# 최악(매 요청 90초 시간초과): 기본 3회 + 대기 25초 + 대체 2회 x 2모델 + 대기 ≈ 665초.
-SUMMARIZE_TIMEOUT_SECONDS = 720
+# summarize.py 의 재시도 + 대체 모델 3개까지 다 써도 안 잘리게 잡는다.
+# 최악(매 요청 90초 시간초과): 기본 3회 + 대기 25초 + 대체 2회 x 3모델 + 대기 ≈ 850초.
+# 실제로 혼잡(503)은 응답이 바로 와서 몇십 초면 다음 모델로 넘어간다.
+SUMMARIZE_TIMEOUT_SECONDS = 900
 MAX_VIDEO_DURATION_SECONDS = 3600  # 1시간 넘는 영상은 자막 생성 비용이 커서 아예 요약하지 않는다.
 NO_CAPTION_TRIES = 3  # '자막 없음' 응답을 받은 영상을 몇 번까지 다시 받아볼지(한 번에 1크레딧). 일시적 실패 대비
 MIN_VIDEO_AGE_MINUTES = 60  # 업로드 후 이만큼 지나야 자막을 요청한다(유튜브 자동 자막이 만들어질 시간)

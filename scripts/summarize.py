@@ -18,9 +18,10 @@ MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash")
 # 기본 모델이 혼잡(503)·한도(429)·시간초과로 계속 거절하면 차례로 넘어갈 모델. 모두 무료 사용량이 있다(공식 가격표).
 # 2026-10-05 무료로 전환하자 3.5-flash(공식 문서상 'Legacy')가 503 을 반복해 요약이 몇 시간 밀렸다.
 # 무료 하루 한도도 모델마다 따로라 한 모델 한도가 차도 다음 모델로 이어갈 수 있다.
+# 요약 품질이 떨어지지 않도록 3.5 보다 새로운 세대만 둔다(2.5 처럼 이전 세대는 넣지 않는다).
 FALLBACK_MODELS = [
     m.strip()
-    for m in os.environ.get("GEMINI_FALLBACK_MODELS", "gemini-3.6-flash,gemini-2.5-flash").split(",")
+    for m in os.environ.get("GEMINI_FALLBACK_MODELS", "gemini-3.6-flash,gemini-3.7-flash,gemini-3.8-flash").split(",")
     if m.strip() and m.strip() != MODEL
 ]
 FALLBACK_ATTEMPTS = 2  # 대체 모델은 짧게 시도하고 다음으로 넘어간다
