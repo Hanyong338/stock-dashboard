@@ -1,8 +1,8 @@
 {
   "configured": true,
-  "ok": true,
-  "status": 200,
-  "message": "gemini-3.5-flash 응답 정상",
-  "checked_on": "2026-10-05",
-  "checked_at": "2026-10-04T18:14:54.232274+00:00"
+  "ok": false,
+  "status": 429,
+  "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usa",
+  "checked_on": "2026-10-06",
+  "checked_at": "2026-10-05T15:05:34.622038+00:00"
 }
