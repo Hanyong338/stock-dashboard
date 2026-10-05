@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-05T07:19:36.846947+00:00",
+  "updated_at": "2026-10-05T08:18:27.623157+00:00",
   "entries": [
     {
       "at": "2026-09-27T22:16:09.359120+00:00",
@@ -27,6 +27,10 @@
     },
     {
       "at": "2026-10-05T07:19:46.591324+00:00",
+      "message": "요약 실패 [올랜도 킴 미국주식] (관심종목)트펌프의 이란공격 시간과 변동성 이기는 전략 : 402 Client Error: Payment Required for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent"
+    },
+    {
+      "at": "2026-10-05T08:18:41.089973+00:00",
       "message": "요약 실패 [올랜도 킴 미국주식] (관심종목)트펌프의 이란공격 시간과 변동성 이기는 전략 : 402 Client Error: Payment Required for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent"
     }
   ]
