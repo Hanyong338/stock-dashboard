@@ -207,7 +207,8 @@
       "category": "macro",
       "detail": "23:00",
       "consensus": "55.1",
-      "previous": "55.4"
+      "previous": "55.4",
+      "actual": "54.9"
     },
     {
       "start": "2026-10-05",
@@ -216,7 +217,8 @@
       "category": "macro",
       "detail": "22:45",
       "consensus": "58.7",
-      "previous": "56.5"
+      "previous": "58.7",
+      "actual": "58.8"
     },
     {
       "start": "2026-10-08",
@@ -1029,5 +1031,6 @@
   ],
   "built_on": "2026-10-06",
   "builder_version": 10,
-  "updated_at": "2026-10-05T15:05:34.622038+00:00"
+  "updated_at": "2026-10-05T15:05:34.622038+00:00",
+  "values_updated_at": "2026-10-05T17:29:44.665985+00:00"
 }
