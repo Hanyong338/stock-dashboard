@@ -187,6 +187,18 @@ def check_free_key():
     return {"configured": True, "ok": False, "status": resp.status_code, "message": detail[:200]}
 
 
+def _error_detail(e):
+    """구글이 오류와 함께 보내는 설명 문구(error.message). 키는 헤더로 보내므로 여기엔 들어 있지 않다."""
+    resp = getattr(e, "response", None)
+    if resp is None:
+        return str(e)[:150]
+    try:
+        err = resp.json().get("error", {})
+        return f"{err.get('status', '')} {err.get('message', '')}".strip()[:220]
+    except Exception:
+        return (resp.text or "")[:220]
+
+
 def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_tokens=8192):
     """구조화된 JSON 응답을 받아온다. 재시도/비용로그/개행 정규화를 공통으로 처리한다."""
     global _use_free_key
@@ -231,9 +243,12 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
                     isinstance(e, (requests.exceptions.Timeout, requests.exceptions.ConnectionError, json.JSONDecodeError))
                     or status in RETRYABLE_STATUS_CODES
                 )
-                last_error = e
+                # 실패 기록에 '왜' 거절됐는지 남긴다. 상태 코드만으론 원인을 못 가린다(10/5 503 반복 때 그랬다).
+                last_error = RuntimeError(f"{model} {status or type(e).__name__}: {_error_detail(e)}")
+                if status == 404:
+                    break  # 이 프로젝트에서 쓸 수 없는 모델이다(10/5 2.5-flash). 다음 모델로
                 if not transient:
-                    raise  # 요청 자체가 잘못된 경우(400 등)는 다른 모델로도 안 된다
+                    raise last_error  # 요청 자체가 잘못된 경우(400 등)는 다른 모델로도 안 된다
                 if attempt == attempts - 1:
                     break  # 이 모델은 포기하고 다음 모델로
                 wait = RETRY_BACKOFF_SECONDS[min(attempt, len(RETRY_BACKOFF_SECONDS) - 1)]
