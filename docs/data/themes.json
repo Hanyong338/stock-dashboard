@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "NI(네트워크통합)",
-      "change_percent": 2.48,
-      "total": 7,
-      "rise": 7
+      "name": "딥페이크(deepfake)",
+      "change_percent": 6.05,
+      "total": 14,
+      "rise": 14
     },
     {
-      "name": "보안주(정보)",
-      "change_percent": 2.2,
-      "total": 52,
-      "rise": 28
-    },
-    {
-      "name": "줄기세포",
-      "change_percent": 1.64,
-      "total": 18,
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 5.31,
+      "total": 14,
       "rise": 13
     },
     {
-      "name": "공기청정기",
-      "change_percent": 1.44,
-      "total": 12,
-      "rise": 9
+      "name": "보안주(정보)",
+      "change_percent": 4.45,
+      "total": 52,
+      "rise": 45
     },
     {
-      "name": "철강 주요종목",
-      "change_percent": 1.4,
+      "name": "스페이스X(SpaceX)",
+      "change_percent": 3.7,
+      "total": 14,
+      "rise": 14
+    },
+    {
+      "name": "양자암호/양자컴퓨팅",
+      "change_percent": 3.44,
+      "total": 26,
+      "rise": 21
+    },
+    {
+      "name": "MLCC(적층세라믹콘덴서)",
+      "change_percent": 3.39,
       "total": 11,
       "rise": 11
     },
     {
-      "name": "스마트홈(홈네트워크)",
-      "change_percent": 1.25,
-      "total": 23,
-      "rise": 16
+      "name": "줄기세포",
+      "change_percent": 3.14,
+      "total": 18,
+      "rise": 13
     },
     {
       "name": "바이오인식(생체인식)",
-      "change_percent": 1.24,
+      "change_percent": 3.08,
       "total": 19,
-      "rise": 11
-    },
-    {
-      "name": "반도체 장비",
-      "change_percent": 1.22,
-      "total": 96,
-      "rise": 72
+      "rise": 17
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-06T00:00:55.327550+00:00"
+  "updated_at": "2026-10-06T00:40:13.268824+00:00"
 }
