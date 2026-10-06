@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T10:02:38.502313+00:00",
+  "updated_at": "2026-10-06T10:31:04.485502+00:00",
   "entries": [
     {
       "at": "2026-09-27T22:16:09.359120+00:00",
@@ -788,6 +788,14 @@
     {
       "at": "2026-10-06T10:04:48.564047+00:00",
       "message": "요약 실패 [한국경제TV] 지금 가장 저평가된 '이 주식' 앞으로 무섭게 오를 겁니다 | 김수현 D : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
+    },
+    {
+      "at": "2026-10-06T10:32:58.764988+00:00",
+      "message": "요약 실패 [삼프로TV] 이제는 소부장 다음을 볼 때…태양광·ESS '에너지주'가 꿈틀대기 시작했 : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
+    },
+    {
+      "at": "2026-10-06T10:33:31.169047+00:00",
+      "message": "제미나이 모델이 모두 혼잡/한도라 1편 요약을 다음 실행으로 미룸"
     }
   ]
 }
