@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "딥페이크(deepfake)",
-      "change_percent": 7.08,
+      "change_percent": 7.31,
       "total": 14,
       "rise": 14
     },
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 6.25,
+      "change_percent": 5.9,
       "total": 14,
       "rise": 13
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 5.3,
+      "change_percent": 5.27,
       "total": 52,
-      "rise": 44
+      "rise": 43
     },
     {
       "name": "양자암호/양자컴퓨팅",
-      "change_percent": 4.16,
+      "change_percent": 4.0,
       "total": 26,
       "rise": 19
     },
     {
+      "name": "2차전지(나트륨이온)",
+      "change_percent": 3.88,
+      "total": 9,
+      "rise": 7
+    },
+    {
       "name": "바이오인식(생체인식)",
-      "change_percent": 3.69,
+      "change_percent": 3.58,
       "total": 19,
-      "rise": 18
+      "rise": 17
     },
     {
       "name": "블록체인",
-      "change_percent": 3.41,
+      "change_percent": 3.46,
       "total": 23,
       "rise": 16
     },
     {
-      "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 3.27,
-      "total": 11,
-      "rise": 11
-    },
-    {
-      "name": "스페이스X(SpaceX)",
-      "change_percent": 3.23,
-      "total": 14,
-      "rise": 14
+      "name": "리비안(RIVIAN)",
+      "change_percent": 3.39,
+      "total": 21,
+      "rise": 17
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-06T01:46:30.598572+00:00"
+  "updated_at": "2026-10-06T02:02:02.049242+00:00"
 }
