@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-05T23:44:43.625473+00:00",
+  "updated_at": "2026-10-06T00:00:55.327550+00:00",
   "entries": [
     {
       "at": "2026-09-27T22:16:09.359120+00:00",
@@ -584,6 +584,14 @@
     {
       "at": "2026-10-05T23:44:48.603618+00:00",
       "message": "요약 실패 [삼프로TV] 엔비디아 신고가, 나스닥 사상 최고치 랠리…금리와 반대로 가는 이유 [월 : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 429: RESOURCE_EXHAUSTED You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-li"
+    },
+    {
+      "at": "2026-10-06T00:01:08.327206+00:00",
+      "message": "요약 실패 [삼프로TV] \"10월은 실적에 집중\"…나스닥 신고가, 다음은 어디로? | 한상희 한화 : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 429: RESOURCE_EXHAUSTED You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-li"
+    },
+    {
+      "at": "2026-10-06T00:01:37.465707+00:00",
+      "message": "제미나이 모델이 모두 혼잡/한도라 1편 요약을 다음 실행으로 미룸"
     }
   ]
 }
