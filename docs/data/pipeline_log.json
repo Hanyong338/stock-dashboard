@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T00:40:13.268824+00:00",
+  "updated_at": "2026-10-06T00:53:54.421034+00:00",
   "entries": [
     {
       "at": "2026-09-27T22:16:09.359120+00:00",
@@ -599,6 +599,14 @@
     },
     {
       "at": "2026-10-06T00:42:07.536257+00:00",
+      "message": "제미나이 모델이 모두 혼잡/한도라 3편 요약을 다음 실행으로 미룸"
+    },
+    {
+      "at": "2026-10-06T00:53:59.739997+00:00",
+      "message": "요약 실패 [삼프로TV] 막 나가는 트럼프 ‘관세 300%’…한국 쥐어짜고 현금 공약 펑펑 | 중 : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 429: RESOURCE_EXHAUSTED You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-li"
+    },
+    {
+      "at": "2026-10-06T00:54:24.822364+00:00",
       "message": "제미나이 모델이 모두 혼잡/한도라 3편 요약을 다음 실행으로 미룸"
     }
   ]
