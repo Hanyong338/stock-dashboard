@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T10:49:58.459833+00:00",
+  "updated_at": "2026-10-06T11:02:41.159755+00:00",
   "entries": [
     {
       "at": "2026-09-27T22:16:09.359120+00:00",
@@ -800,6 +800,14 @@
     {
       "at": "2026-10-06T10:51:27.073032+00:00",
       "message": "요약 실패 [한국경제TV] 지금 가장 저평가된 '이 주식' 앞으로 무섭게 오를 겁니다 | 김수현 D : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
+    },
+    {
+      "at": "2026-10-06T11:03:38.409671+00:00",
+      "message": "요약 실패 [815머니톡] “사과 대신 극 초음속 미사일 쐈다” 합참, 북한 지뢰 직접 제거 시작… : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
+    },
+    {
+      "at": "2026-10-06T11:04:10.917553+00:00",
+      "message": "제미나이 모델이 모두 혼잡/한도라 2편 요약을 다음 실행으로 미룸"
     }
   ]
 }
