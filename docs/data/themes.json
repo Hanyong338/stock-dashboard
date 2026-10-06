@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "딥페이크(deepfake)",
-      "change_percent": 10.08,
+      "change_percent": 9.98,
       "total": 14,
       "rise": 13
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 7.51,
+      "change_percent": 7.35,
       "total": 52,
-      "rise": 47
+      "rise": 48
     },
     {
       "name": "양자암호/양자컴퓨팅",
-      "change_percent": 6.91,
+      "change_percent": 6.86,
       "total": 26,
-      "rise": 19
+      "rise": 20
     },
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 5.78,
+      "change_percent": 5.6,
       "total": 14,
       "rise": 13
     },
     {
-      "name": "마이데이터",
-      "change_percent": 5.11,
-      "total": 12,
-      "rise": 10
-    },
-    {
       "name": "2차전지(나트륨이온)",
-      "change_percent": 5.02,
+      "change_percent": 5.31,
       "total": 9,
       "rise": 8
     },
     {
+      "name": "마이데이터",
+      "change_percent": 4.9,
+      "total": 12,
+      "rise": 9
+    },
+    {
       "name": "블록체인",
-      "change_percent": 4.97,
+      "change_percent": 4.74,
       "total": 23,
       "rise": 16
     },
     {
-      "name": "핀테크(FinTech)",
-      "change_percent": 4.82,
-      "total": 33,
-      "rise": 22
+      "name": "스테이블코인",
+      "change_percent": 4.2,
+      "total": 25,
+      "rise": 16
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-06T07:06:49.627301+00:00"
+  "updated_at": "2026-10-06T07:31:20.163941+00:00"
 }
