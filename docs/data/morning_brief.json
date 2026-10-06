@@ -34,13 +34,13 @@
     {
       "name": "달러 인덱스",
       "value": "102.14",
-      "change": "+0.21%",
+      "change": "+0.20%",
       "close_date": "2026-10-05"
     },
     {
       "name": "WTI 유가",
-      "value": "$89.20",
-      "change": "-2.10%",
+      "value": "$89.23",
+      "change": "-2.06%",
       "close_date": "2026-10-05"
     }
   ],
@@ -264,92 +264,92 @@
   "indices_note": "지수·금리·유가는 시장 데이터 종가 기준",
   "sectors": [
     {
-      "name": "의료기기",
-      "change_percent": 2.259661788718704
-    },
-    {
-      "name": "원유·가스",
-      "change_percent": 1.3572756529686032
-    },
-    {
-      "name": "사이버보안",
-      "change_percent": 1.2511988788651773
-    },
-    {
-      "name": "2차전지",
-      "change_percent": 1.2269031309150384
-    },
-    {
-      "name": "소프트웨어",
-      "change_percent": 1.1897084864858818
-    },
-    {
-      "name": "바이오",
-      "change_percent": 1.139681311337015
-    },
-    {
-      "name": "클라우드",
-      "change_percent": 1.011060398723213
-    },
-    {
-      "name": "원자력",
-      "change_percent": 1.0052719325913575
-    },
-    {
-      "name": "전기차",
-      "change_percent": 0.7771722206182891
-    },
-    {
-      "name": "인터넷 플랫폼",
-      "change_percent": 0.7129345577602828
-    },
-    {
-      "name": "게임",
-      "change_percent": 0.6868253695387654
-    },
-    {
       "name": "구리",
-      "change_percent": 0.4888815633126934
-    },
-    {
-      "name": "AI·로봇",
-      "change_percent": 0.4718345528789266
-    },
-    {
-      "name": "통신장비",
-      "change_percent": 0.36157500262068737
-    },
-    {
-      "name": "소매",
-      "change_percent": 0.3509632399453431
-    },
-    {
-      "name": "반도체",
-      "change_percent": 0.10358045954734281
-    },
-    {
-      "name": "방산·우주항공",
-      "change_percent": -0.38981547945783895
-    },
-    {
-      "name": "금광",
-      "change_percent": -0.4101169006127504
-    },
-    {
-      "name": "운송",
-      "change_percent": -0.4364070915700515
+      "change_percent": 3.009594832503233
     },
     {
       "name": "전력망·전력기기",
-      "change_percent": -0.4373752313928452
-    },
-    {
-      "name": "은행",
-      "change_percent": -0.551002255403418
+      "change_percent": 2.298658020247252
     },
     {
       "name": "태양광",
-      "change_percent": -0.8626585123650319
+      "change_percent": 2.2753646370563962
+    },
+    {
+      "name": "반도체",
+      "change_percent": 2.181043317453864
+    },
+    {
+      "name": "통신장비",
+      "change_percent": 2.068668924944805
+    },
+    {
+      "name": "AI·로봇",
+      "change_percent": 1.693475780279469
+    },
+    {
+      "name": "2차전지",
+      "change_percent": 1.5537929340758592
+    },
+    {
+      "name": "운송",
+      "change_percent": 1.4676062996944672
+    },
+    {
+      "name": "금광",
+      "change_percent": 1.1989865588430482
+    },
+    {
+      "name": "은행",
+      "change_percent": 1.1865644993077373
+    },
+    {
+      "name": "사이버보안",
+      "change_percent": 0.8864888993705052
+    },
+    {
+      "name": "인터넷 플랫폼",
+      "change_percent": 0.8364198458668682
+    },
+    {
+      "name": "전기차",
+      "change_percent": 0.7955884917541607
+    },
+    {
+      "name": "클라우드",
+      "change_percent": 0.706751694017058
+    },
+    {
+      "name": "원자력",
+      "change_percent": 0.5051800004258894
+    },
+    {
+      "name": "게임",
+      "change_percent": 0.39107223420113874
+    },
+    {
+      "name": "원유·가스",
+      "change_percent": 0.3418283307605343
+    },
+    {
+      "name": "소프트웨어",
+      "change_percent": 0.18478882198923538
+    },
+    {
+      "name": "소매",
+      "change_percent": 0.01209695776287174
+    },
+    {
+      "name": "바이오",
+      "change_percent": -0.05177777095264088
+    },
+    {
+      "name": "방산·우주항공",
+      "change_percent": -0.12016920210921007
+    },
+    {
+      "name": "의료기기",
+      "change_percent": -0.39486822687905654
     }
   ],
   "video_id": "8s4kFJ6eXs4",
@@ -357,7 +357,7 @@
   "title": "[🔴10/06 #당잠사] 미 장기채 금리 상승에도 기술주 강세 | 서비스업 PMI 54.9 | 머스크 “TSMC와 테라팹 협력 논의” | #엔비디아 #TSMC #스페이스X",
   "url": "https://www.youtube.com/watch?v=8s4kFJ6eXs4",
   "published": "2026-10-05T19:42:57Z",
-  "fetched_at": "2026-10-05T23:44:43.625473+00:00",
+  "fetched_at": "2026-10-06T00:00:55.327550+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
