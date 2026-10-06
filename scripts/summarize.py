@@ -317,13 +317,26 @@ def _keys():
 
 
 def _models():
-    """마지막으로 성공한 모델을 먼저 부른다. 혼잡한 모델부터 두드려 요청(=한도)을 버리지 않게."""
+    """덜 막히는 모델부터 부른다. 혼잡한 모델부터 두드려 요청(=한도)을 버리지 않게.
+    - 최근 7일 성공률(우리가 센 요청 기준)이 높은 모델 먼저
+    - 같으면 오늘 남은 한도가 많은 모델 먼저(한 모델에 몰려 먼저 바닥나지 않게. 10/6 3.5 가 그랬다)"""
     order = [MODEL] + FALLBACK_MODELS
-    last = _quota.get("last_ok_model")
-    if last in order:
-        order.remove(last)
-        order.insert(0, last)
-    return order
+    sent = _quota.get("sent") or {}
+    today = sent.get(_quota_day(), {})
+
+    def score(model):
+        ok = fail = 0
+        for day in sent.values():
+            for status, n in (day.get(model) or {}).items():
+                if status == "200":
+                    ok += n
+                else:
+                    fail += n
+        rate = (ok + 1) / (ok + fail + 2)  # 기록이 없으면 0.5
+        remaining = FREE_RPD - sum((today.get(model) or {}).values())
+        return (-round(rate, 2), -remaining)
+
+    return sorted(order, key=lambda m: (score(m), order.index(m)))
 
 
 # 유료 키가 잔액 없음으로 거절되면 이 시간만큼은 다시 두드리지 않는다(실행마다 헛요청·실패 기록이 쌓이지 않게).
@@ -579,3 +592,43 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
 def summarize_transcript(channel_name, title, transcript_text):
     user_prompt = f"채널명: {channel_name}\n영상 제목: {title}\n\n자막:\n{transcript_text[:MAX_TRANSCRIPT_CHARS]}"
     return call_gemini(SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, title)
+
+
+# 요청 한 번에 영상 여러 개 요약하기(시험 중). 무료 한도는 '요청 횟수'로 세므로 2개씩 묶으면 같은 한도로 두 배를 처리한다.
+# 결과는 영상마다 따로 돌려받아 지금처럼 영상별 카드로 저장한다. 품질 비교(pair_trial)를 거친 뒤에만 실제로 쓴다.
+PAIR_SYSTEM_ADDENDUM = """
+
+[여러 영상 동시 분석 규칙 - 반드시 준수]
+- 이번 요청에는 영상이 여러 개 들어 있다. 영상마다 위 분석 요구사항 전체를 각각 '완전히 독립된 리포트'로 작성할 것.
+- 한 영상의 내용·종목·수치를 다른 영상의 리포트에 절대 섞지 말 것. 영상끼리 비교하거나 합쳐서 정리하지 말 것.
+- 영상 하나만 받았을 때와 똑같은 깊이와 분량으로 작성할 것(영상이 여러 개라고 줄이지 말 것).
+- reports 배열에 영상 순서대로 하나씩 넣고, video_no 에 그 영상 번호(1부터)를 적을 것."""
+
+PAIR_ITEM_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {"video_no": {"type": "INTEGER"}, **RESPONSE_SCHEMA["properties"]},
+    "required": ["video_no"] + RESPONSE_SCHEMA["required"],
+}
+PAIR_RESPONSE_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {"reports": {"type": "ARRAY", "items": PAIR_ITEM_SCHEMA}},
+    "required": ["reports"],
+}
+
+
+def summarize_many(items):
+    """items: [(채널명, 제목, 자막), ...] → 같은 순서의 리포트 목록. 개수가 안 맞으면 실패로 본다."""
+    parts = []
+    for i, (channel_name, title, transcript_text) in enumerate(items, 1):
+        parts.append(
+            f"=== 영상 {i} ===\n채널명: {channel_name}\n영상 제목: {title}\n\n자막:\n{transcript_text[:MAX_TRANSCRIPT_CHARS]}"
+        )
+    user_prompt = f"아래 영상 {len(items)}개를 각각 따로 분석하라.\n\n" + "\n\n".join(parts)
+    label = " + ".join(t[:16] for _, t, _ in items)
+    result = call_gemini(
+        SYSTEM_PROMPT + PAIR_SYSTEM_ADDENDUM, user_prompt, PAIR_RESPONSE_SCHEMA, label, max_output_tokens=8192 * len(items)
+    )
+    reports = sorted(result.get("reports") or [], key=lambda r: r.get("video_no", 0))
+    if [r.get("video_no") for r in reports] != list(range(1, len(items) + 1)):
+        raise RuntimeError(f"묶음 요약 결과 개수/번호가 맞지 않는다: {[r.get('video_no') for r in reports]}")
+    return [_normalize_newlines(r) for r in reports]

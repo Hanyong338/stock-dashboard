@@ -21,6 +21,7 @@ from summarize import (
     gemini_quiet_now,
     gemini_ready,
     quota_day_start,
+    summarize_many,
     summarize_transcript,
 )
 from transcript import get_transcript, is_retryable_error
@@ -48,6 +49,11 @@ GEMINI_KEY_CHECK_FILE = DATA_DIR / "gemini_key_check.json"
 # 한 번만 도는 키 진단(어떤 한도에 걸리는지, 두 키가 같은 프로젝트인지). 다시 돌리려면 버전을 올린다.
 GEMINI_DIAG_FILE = DATA_DIR / "gemini_diag.json"
 GEMINI_DIAG_VERSION = 1
+# 영상 2개를 요청 한 번에 요약했을 때 품질이 괜찮은지 보는 시험(10/7 사용자 요청).
+# 평소처럼 하나씩 요약한 영상의 자막을 몇 개 남겨뒀다가, 2개씩 묶어 한 번 더 요약해 나란히 저장한다.
+# 대시보드에는 나오지 않고 비교용으로만 쓴다. 자막은 이미 받아둔 것을 쓰므로 자막 크레딧은 안 나간다(제미나이 요청 2번 추가).
+PAIR_TRIAL_FILE = DATA_DIR / "pair_trial.json"
+PAIR_TRIAL_TARGET_PAIRS = 2
 TRACKING_SEED_FILE = DATA_DIR / "tracking_seed.json"
 THEMES_FILE = DATA_DIR / "themes.json"
 MORNING_FILE = DATA_DIR / "morning_breakout.json"
@@ -442,8 +448,9 @@ def process_channel(ch, state, summaries, now):
             }
         )
         state[cid].append(v["video_id"])
-        # 요약까지 끝났으니 캐시와 시도 기록을 정리한다
-        clear_transcript_cache(v["video_id"])
+        # 요약까지 끝났으니 캐시와 시도 기록을 정리한다(묶음 요약 시험에 쓸 영상은 자막을 남겨둔다)
+        if not _pair_trial_keep(v, name, result):
+            clear_transcript_cache(v["video_id"])
         state.get(ATTEMPTS_KEY, {}).pop(v["video_id"], None)
 
     state[cid] = state[cid][-STATE_HISTORY_PER_CHANNEL:]
@@ -705,6 +712,77 @@ def update_us_screening(now):
     return True
 
 
+_SUMMARY_FIELDS = ("key_summary", "report_markdown", "tickers", "keywords", "leading_picks", "watch_picks")
+
+
+def _load_pair_trial():
+    data = load_json(PAIR_TRIAL_FILE, {})
+    if not isinstance(data, dict):
+        data = {}
+    data.setdefault("pool", [])
+    data.setdefault("pairs", [])
+    return data
+
+
+def _pair_trial_keep(v, channel_name, result):
+    """시험에 쓸 영상이 더 필요하면 이 영상의 단독 요약을 적어두고 True(자막 캐시를 지우지 말 것)."""
+    data = _load_pair_trial()
+    if len(data["pairs"]) * 2 + len(data["pool"]) >= PAIR_TRIAL_TARGET_PAIRS * 2:
+        return False
+    data["pool"].append(
+        {
+            "video_id": v["video_id"],
+            "channel": channel_name,
+            "title": v["title"],
+            "url": v["url"],
+            "single": {k: result.get(k) for k in _SUMMARY_FIELDS},
+        }
+    )
+    save_json(PAIR_TRIAL_FILE, data)
+    return True
+
+
+def update_pair_trial(now):
+    """남겨둔 영상 2개를 요청 한 번에 묶어 다시 요약해 단독 요약 옆에 저장한다. 실행마다 한 쌍만.
+    밀린 영상이 있으면(이번 실행에서 미룬 게 있으면) 실제 요약이 먼저라 하지 않는다."""
+    data = _load_pair_trial()
+    if len(data["pairs"]) >= PAIR_TRIAL_TARGET_PAIRS or len(data["pool"]) < 2 or _deferred:
+        return False
+    if not gemini_ready(reserve=_brief_reserve()):
+        return False
+    picked = data["pool"][:2]
+    texts = [read_transcript_cache(p["video_id"]) for p in picked]
+    if not all(texts):
+        # 자막 캐시가 없어졌으면 그 영상은 시험에서 뺀다(다시 받으면 크레딧이 나가므로)
+        data["pool"] = [p for p, t in zip(picked, texts) if t] + data["pool"][2:]
+        save_json(PAIR_TRIAL_FILE, data)
+        return True
+    try:
+        reports = call_with_timeout(
+            summarize_many, SUMMARIZE_TIMEOUT_SECONDS, [(p["channel"], p["title"], t) for p, t in zip(picked, texts)]
+        )
+    except GeminiUnavailable as e:
+        print(f"[INFO] 묶음 요약 시험 미룸: {e}")
+        return False
+    except Exception as e:
+        warn(f"묶음 요약 시험 실패(다음 실행에서 다시): {e}")
+        return False
+    data["pairs"].append(
+        {
+            "at": now.isoformat(),
+            "videos": [
+                {**p, "paired": {k: r.get(k) for k in _SUMMARY_FIELDS}} for p, r in zip(picked, reports)
+            ],
+        }
+    )
+    data["pool"] = data["pool"][2:]
+    save_json(PAIR_TRIAL_FILE, data)
+    for p in picked:
+        clear_transcript_cache(p["video_id"])
+    print(f"[INFO] 묶음 요약 시험 {len(data['pairs'])}/{PAIR_TRIAL_TARGET_PAIRS} 완료")
+    return True
+
+
 def update_gemini_diag(now):
     """10/6 밤 3.5-flash 가 요청 30여 번 만에 '하루 한도'로 거절됐다. 원인을 확정하려고 한 번만 진단한다.
     밤 휴식 시간과 상관없이 돈다(요청 8번뿐)."""
@@ -941,6 +1019,12 @@ def main():
         process_channel(ch, state, summaries, now)
         summaries = _save_data_files(state, summaries, channels, now)
         commit_and_push(f"chore: update data ({ch['name']}) {now.isoformat()}")
+
+    try:
+        if update_pair_trial(now):
+            commit_and_push(f"chore: pair summary trial {now.isoformat()}")
+    except Exception as e:
+        print(f"[WARN] 묶음 요약 시험 실패: {e}")
 
     try:
         if update_calendar(now):
