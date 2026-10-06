@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 6.19,
+      "name": "딥페이크(deepfake)",
+      "change_percent": 6.04,
       "total": 14,
       "rise": 13
     },
     {
-      "name": "딥페이크(deepfake)",
-      "change_percent": 5.57,
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 5.76,
       "total": 14,
       "rise": 13
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 4.04,
+      "change_percent": 4.47,
       "total": 52,
-      "rise": 43
+      "rise": 45
+    },
+    {
+      "name": "양자암호/양자컴퓨팅",
+      "change_percent": 3.57,
+      "total": 26,
+      "rise": 20
+    },
+    {
+      "name": "바이오인식(생체인식)",
+      "change_percent": 3.4,
+      "total": 19,
+      "rise": 18
+    },
+    {
+      "name": "리비안(RIVIAN)",
+      "change_percent": 3.38,
+      "total": 21,
+      "rise": 15
     },
     {
       "name": "스페이스X(SpaceX)",
-      "change_percent": 3.77,
+      "change_percent": 3.31,
       "total": 14,
       "rise": 14
     },
     {
       "name": "남-북-러 가스관사업",
-      "change_percent": 3.73,
+      "change_percent": 3.27,
       "total": 13,
-      "rise": 12
-    },
-    {
-      "name": "리비안(RIVIAN)",
-      "change_percent": 3.59,
-      "total": 21,
-      "rise": 15
-    },
-    {
-      "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 3.55,
-      "total": 11,
-      "rise": 11
-    },
-    {
-      "name": "양자암호/양자컴퓨팅",
-      "change_percent": 3.22,
-      "total": 26,
-      "rise": 20
+      "rise": 10
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-06T00:53:54.421034+00:00"
+  "updated_at": "2026-10-06T01:04:57.995974+00:00"
 }
