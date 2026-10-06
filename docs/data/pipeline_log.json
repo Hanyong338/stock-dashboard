@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T07:31:20.163941+00:00",
+  "updated_at": "2026-10-06T09:31:55.958841+00:00",
   "entries": [
     {
       "at": "2026-09-27T22:16:09.359120+00:00",
@@ -776,6 +776,14 @@
     {
       "at": "2026-10-06T07:36:31.572660+00:00",
       "message": "요약 실패 [삼프로TV] 덜 오른 종목엔 이유가 있다…연말까지 가져갈 종목은 '신고가'에서ㅣ권다영 : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
+    },
+    {
+      "at": "2026-10-06T09:34:21.090067+00:00",
+      "message": "요약 실패 [한국경제TV] 삼전닉스, 실적 발표 앞두고 짙어진 관망세에 '숨고르기'…반면 코스닥 반 : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
+    },
+    {
+      "at": "2026-10-06T09:34:47.518479+00:00",
+      "message": "제미나이 모델이 모두 혼잡/한도라 1편 요약을 다음 실행으로 미룸"
     }
   ]
 }
