@@ -355,15 +355,16 @@ def _usable(kind, model):
     return not _paid_unavailable()
 
 
-# 한국시간 밤 21시~새벽 5시(미국 낮, 구글 피크)에는 제미나이를 아예 부르지 않는다.
-# 2026-10-05 밤 무료 사용량이 이 시간대 내내 혼잡(503)으로 거절됐다. 이 시간에 올라온 영상은 5시 이후에 요약된다.
-QUIET_START_HOUR_KST = 21
-QUIET_END_HOUR_KST = 5
+# 제미나이는 한국시간 06:00~21:30 에만 부른다(사용자 지정, 2026-10-06). 나머지 시간(미국 낮, 구글 피크)은 아예 부르지 않는다.
+# 10/5 밤 무료 사용량이 이 시간대 내내 혼잡(503)으로 거절됐고, 거절도 하루 한도(모델당 20회)를 깎는 것으로 보인다.
+# 이 시간에 올라온 영상은 '확인함' 처리하지 않으니 06시 이후에 차례로 요약된다.
+ACTIVE_START_KST = (6, 0)
+ACTIVE_END_KST = (21, 30)
 
 
 def gemini_quiet_now():
-    hour = (_now() + datetime.timedelta(hours=9)).hour
-    return hour >= QUIET_START_HOUR_KST or hour < QUIET_END_HOUR_KST
+    kst = _now() + datetime.timedelta(hours=9)
+    return not (ACTIVE_START_KST <= (kst.hour, kst.minute) < ACTIVE_END_KST)
 
 
 def gemini_ready():
@@ -446,7 +447,7 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
     }
 
     if gemini_quiet_now():
-        raise GeminiUnavailable("밤 휴식 시간(한국시간 21~05시)이라 제미나이를 부르지 않는다")
+        raise GeminiUnavailable("밤 휴식 시간(한국시간 21:30~06:00)이라 제미나이를 부르지 않는다")
 
     last_error = None
     for kind, key in _keys():
