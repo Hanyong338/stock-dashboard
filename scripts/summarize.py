@@ -192,9 +192,82 @@ def _quota_exhausted(model):
         return False
 
 
-def _mark_exhausted(model):
+def _quota_details(resp):
+    """429 오류 상세에서 어떤 한도에 걸렸는지(quotaId)와 그 한도 값(quotaValue)만 뽑는다.
+    오류 문구(message)만으론 '하루 요청 수'인지 '토큰 양'인지, 한도가 몇인지 알 수 없다(10/6)."""
+    try:
+        details = resp.json().get("error", {}).get("details", []) or []
+    except Exception:
+        return []
+    out = []
+    for d in details:
+        for v in d.get("violations", []) or []:
+            item = {k: v.get(k) for k in ("quotaId", "quotaValue", "quotaMetric") if v.get(k)}
+            if item:
+                out.append(item)
+    return out
+
+
+def _consumer(resp):
+    """오류 상세에 적힌 프로젝트 번호(projects/NNN). 두 키가 같은 프로젝트인지 비교하는 데만 쓴다."""
+    try:
+        details = resp.json().get("error", {}).get("details", []) or []
+    except Exception:
+        return None
+    for d in details:
+        consumer = (d.get("metadata") or {}).get("consumer")
+        if consumer:
+            return consumer
+    return None
+
+
+def diagnose_keys():
+    """키 두 개 × 모델 네 개에 아주 짧은 요청을 한 번씩 보내 상태를 기록한다(요청 8번, 비용 없음).
+    - 거절되면 어떤 한도(quotaId)에 몇(quotaValue)으로 걸렸는지
+    - 두 키가 같은 프로젝트인지(같으면 무료 한도를 나눠 쓴다)
+    키 값과 프로젝트 번호 전체는 남기지 않는다(공개 저장소)."""
+    payload = {
+        "contents": [{"role": "user", "parts": [{"text": "Reply with the single word: OK"}]}],
+        "generationConfig": {"maxOutputTokens": 16},
+    }
+    results, consumers = [], {}
+    for kind, key in _keys():
+        for model in [MODEL] + FALLBACK_MODELS:
+            entry = {"key": kind, "model": model}
+            try:
+                resp = _post(payload, key, timeout=60, model=model)
+            except Exception as e:
+                entry["status"] = type(e).__name__
+                results.append(entry)
+                continue
+            entry["status"] = resp.status_code
+            if not resp.ok:
+                try:
+                    err = resp.json().get("error", {})
+                except Exception:
+                    err = {}
+                entry["error"] = f"{err.get('status', '')} {err.get('message', '')}".strip()[:160]
+                entry["quota"] = _quota_details(resp)
+                consumer = _consumer(resp)
+                if consumer:
+                    consumers.setdefault(kind, set()).add(consumer)
+                    entry["project"] = "…" + consumer[-4:]
+            results.append(entry)
+    free_p, paid_p = consumers.get("free", set()), consumers.get("paid", set())
+    same = bool(free_p & paid_p) if free_p and paid_p else None
+    # 유료 키가 무료 한도(FreeTier)에 걸린다면, 그 키의 프로젝트는 이미 결제가 꺼진 무료 프로젝트다
+    paid_free_tier = any(
+        "FreeTier" in (q.get("quotaId") or "") for r in results if r["key"] == "paid" for q in r.get("quota", [])
+    )
+    return {"results": results, "same_project": same, "paid_key_on_free_tier": paid_free_tier}
+
+
+def _mark_exhausted(model, resp=None):
     reset = _next_quota_reset(_now())
     _quota.setdefault("exhausted", {})[model] = reset.isoformat()
+    if resp is not None:
+        # 나중에 '왜 한도가 찼는지' 바로 알 수 있게 걸린 한도 이름과 값을 같이 남긴다
+        _quota.setdefault("exhausted_detail", {})[model] = _quota_details(resp)
     _save_quota()
     kst = reset + datetime.timedelta(hours=9)
     print(f"[WARN] {model} 무료 하루 한도 소진 — 한국시간 {kst:%m/%d %H:%M} 초기화까지 이 모델은 요청하지 않는다")
@@ -380,7 +453,7 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
                 if isinstance(e, json.JSONDecodeError):
                     continue  # 답이 중간에 잘린 경우. 모델 문제는 아니니 막지 않고, 이 영상만 다음 모델로
                 if status == 429 and kind == "free" and _is_daily_quota(resp):
-                    _mark_exhausted(model)
+                    _mark_exhausted(model, resp)
                     continue
                 if status == 404 or status is None or status in RETRYABLE_STATUS_CODES:
                     # 혼잡·시간초과·분당 한도·없는 모델 — 이번 실행 동안은 이 모델을 다시 부르지 않는다

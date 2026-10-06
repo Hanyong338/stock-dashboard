@@ -14,7 +14,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from youtube_check import fetch_channel_videos
-from summarize import GeminiUnavailable, check_free_key, gemini_quiet_now, gemini_ready, summarize_transcript
+from summarize import (
+    GeminiUnavailable,
+    check_free_key,
+    diagnose_keys,
+    gemini_quiet_now,
+    gemini_ready,
+    summarize_transcript,
+)
 from transcript import get_transcript, is_retryable_error
 from market_data import BRIEF_INDICES, fetch_session_closes, fetch_session_sectors
 import morning_brief as mb
@@ -37,6 +44,9 @@ SCREENING_FILE = DATA_DIR / "screening.json"
 US_SCREENING_FILE = DATA_DIR / "screening_us.json"
 TRACKING_FILE = DATA_DIR / "tracking.json"
 GEMINI_KEY_CHECK_FILE = DATA_DIR / "gemini_key_check.json"
+# 한 번만 도는 키 진단(어떤 한도에 걸리는지, 두 키가 같은 프로젝트인지). 다시 돌리려면 버전을 올린다.
+GEMINI_DIAG_FILE = DATA_DIR / "gemini_diag.json"
+GEMINI_DIAG_VERSION = 1
 TRACKING_SEED_FILE = DATA_DIR / "tracking_seed.json"
 THEMES_FILE = DATA_DIR / "themes.json"
 MORNING_FILE = DATA_DIR / "morning_breakout.json"
@@ -680,6 +690,19 @@ def update_us_screening(now):
     return True
 
 
+def update_gemini_diag(now):
+    """10/6 밤 3.5-flash 가 요청 30여 번 만에 '하루 한도'로 거절됐다. 원인을 확정하려고 한 번만 진단한다.
+    밤 휴식 시간과 상관없이 돈다(요청 8번뿐)."""
+    current = load_json(GEMINI_DIAG_FILE, {})
+    if isinstance(current, dict) and current.get("version") == GEMINI_DIAG_VERSION:
+        return False
+    result = diagnose_keys()
+    result.update({"version": GEMINI_DIAG_VERSION, "checked_at": now.isoformat()})
+    save_json(GEMINI_DIAG_FILE, result)
+    print(f"[INFO] 제미나이 키 진단: 같은 프로젝트={result['same_project']}, 유료 키가 무료 한도={result['paid_key_on_free_tier']}")
+    return True
+
+
 def update_gemini_key_check(now):
     """무료 제미나이 키가 작동하는지 하루 한 번만 확인해 파일로 남긴다. 키 값은 남기지 않는다.
     예전엔 실패하면 매 실행 다시 확인했는데, 한도가 찬 날엔 20분마다 거절 요청을 하나씩 더 보내 한도만 깎았다(10/6)."""
@@ -884,6 +907,12 @@ def main():
     state = load_json(STATE_FILE, {})
     summaries = load_json(SUMMARIES_FILE, [], required=True)
     now = datetime.datetime.now(datetime.timezone.utc)
+
+    try:
+        if update_gemini_diag(now):
+            commit_and_push(f"chore: gemini key diagnostic {now.isoformat()}")
+    except Exception as e:
+        print(f"[WARN] 제미나이 키 진단 실패: {e}")
 
     for ch in channels:
         process_channel(ch, state, summaries, now)
