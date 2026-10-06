@@ -182,6 +182,33 @@ def _next_quota_reset(now):
     return reset + datetime.timedelta(minutes=2)
 
 
+def quota_day_start(now=None):
+    """지금 한도 날짜(태평양 시간 자정 = 한국시간 16시/17시)가 시작된 시각(UTC)."""
+    now = now or _now()
+    return _next_quota_reset(now) - datetime.timedelta(minutes=2) - datetime.timedelta(days=1)
+
+
+def _quota_day():
+    """한도 날짜(태평양 시간 기준 날짜). 한국시간으로는 16시(겨울 17시)에 날짜가 바뀐다."""
+    return (quota_day_start() + datetime.timedelta(hours=12)).date().isoformat()
+
+
+# 모델당 무료 하루 요청 수(10/6 진단에서 구글이 보낸 quotaValue). 바뀌면 GEMINI_FREE_RPD 로 덮어쓴다.
+FREE_RPD = int(os.environ.get("GEMINI_FREE_RPD", "20"))
+
+
+def remaining_free_requests():
+    """이번 한도 날짜에 무료 키로 더 보낼 수 있는 요청 수(모델 4개 합계, 우리가 센 요청 기준)."""
+    sent = (_quota.get("sent") or {}).get(_quota_day(), {})
+    total = 0
+    for model in [MODEL] + FALLBACK_MODELS:
+        if _quota_exhausted(model):
+            continue
+        used = sum(sent.get(model, {}).values())
+        total += max(0, FREE_RPD - used)
+    return total
+
+
 def _quota_exhausted(model):
     until = (_quota.get("exhausted") or {}).get(model)
     if not until:
@@ -322,12 +349,7 @@ def _mark_paid_unavailable(resp=None):
 def _count(model, status):
     """무료 키로 보낸 요청을 태평양 시간 날짜(=한도 날짜)별·모델별·결과별로 센다.
     구글 화면의 사용량과 맞춰 보면 거절(503)된 요청도 한도에서 빠지는지 확인할 수 있다."""
-    try:
-        from zoneinfo import ZoneInfo
-
-        day = _now().astimezone(ZoneInfo("America/Los_Angeles")).date().isoformat()
-    except Exception:
-        day = (_now() - datetime.timedelta(hours=8)).date().isoformat()
+    day = _quota_day()
     sent = _quota.setdefault("sent", {})
     for old in sorted(sent)[:-6]:
         sent.pop(old, None)  # 최근 7일치만 둔다
@@ -367,10 +389,13 @@ def gemini_quiet_now():
     return not (ACTIVE_START_KST <= (kst.hour, kst.minute) < ACTIVE_END_KST)
 
 
-def gemini_ready():
+def gemini_ready(reserve=0):
     """지금 요약을 맡길 수 있는 키·모델이 하나라도 남았는가. 다 막혔으면 파이프라인은 요약을 다음 실행으로 미룬다
-    (요청을 보내 봐야 거절만 쌓이고, 그 거절이 무료 한도를 깎는다). 밤 휴식 시간에도 False."""
+    (요청을 보내 봐야 거절만 쌓이고, 그 거절이 무료 한도를 깎는다). 밤 휴식 시간에도 False.
+    reserve: 무료 요청을 이만큼은 남겨둔다(아침 당잠사 몫). 유료 키를 쓸 수 있으면 남겨둘 필요가 없다."""
     if gemini_quiet_now():
+        return False
+    if reserve and _paid_unavailable() and remaining_free_requests() <= reserve:
         return False
     return any(_usable(kind, model) for kind, _ in _keys() for model in _models())
 

@@ -20,6 +20,7 @@ from summarize import (
     diagnose_keys,
     gemini_quiet_now,
     gemini_ready,
+    quota_day_start,
     summarize_transcript,
 )
 from transcript import get_transcript, is_retryable_error
@@ -185,6 +186,20 @@ def save_json(path, data):
 _warnings = []
 # 제미나이가 모두 막혀 이번 실행에서 요약을 미룬 영상. 영상마다 남기면 기록이 넘치니 실행 끝에 한 줄로 남긴다.
 _deferred = []
+
+# 무료 한도 날짜는 한국시간 16시(겨울 17시)에 바뀐다. 그래서 전날 16~21:30 요약이 한도를 다 쓰면
+# 다음 날 아침 당잠사를 분석할 요청이 하나도 안 남는다(10/7 아침 실제로 그랬다).
+# 이번 한도 날짜의 당잠사가 아직 안 끝났으면 채널 요약은 이만큼의 요청을 남겨두고 멈춘다.
+# 1번이면 되지만 혼잡(503)으로 한두 번 거절될 수 있어 넉넉히 잡는다.
+MORNING_BRIEF_RESERVE = 4
+
+
+def _brief_reserve():
+    current = load_json(MORNING_BRIEF_FILE, {})
+    pub = parse_published(current.get("published", "")) if isinstance(current, dict) else None
+    if pub is not None and pub >= quota_day_start():
+        return 0  # 이번 한도 날짜의 당잠사는 이미 분석했다
+    return MORNING_BRIEF_RESERVE
 
 
 # 오류 문구에 API 키가 섞여 들어오면 공개 저장소에 그대로 올라간다. 파일에 남기기 전에 가린다.
@@ -359,7 +374,7 @@ def process_channel(ch, state, summaries, now):
         # 제미나이 모델이 이번 실행에서 모두 혼잡이거나 하루 한도가 찼으면 요청하지 않고 다음 실행으로 미룬다.
         # 보내 봐야 거절만 쌓이고, 거절된 요청도 무료 하루 한도를 깎는다(10/5~6 밤에 그렇게 한도가 다 찼다).
         # '확인함' 처리하지 않으니 영상이 빠지지는 않는다.
-        if not gemini_ready():
+        if not gemini_ready(reserve=_brief_reserve()):
             _deferred.append(v["video_id"])
             continue
 
@@ -914,16 +929,18 @@ def main():
     except Exception as e:
         print(f"[WARN] 제미나이 키 진단 실패: {e}")
 
-    for ch in channels:
-        process_channel(ch, state, summaries, now)
-        summaries = _save_data_files(state, summaries, channels, now)
-        commit_and_push(f"chore: update data ({ch['name']}) {now.isoformat()}")
-
+    # 당잠사(아침 브리핑)를 채널 요약보다 먼저 돌린다. 무료 한도가 빠듯해서 채널 요약이 먼저 다 쓰면
+    # 아침 브리핑이 오후 4시 한도 초기화 뒤로 밀린다(10/7).
     try:
         if update_morning_brief(now):
             commit_and_push(f"chore: update morning brief {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] morning brief failed: {e}")
+
+    for ch in channels:
+        process_channel(ch, state, summaries, now)
+        summaries = _save_data_files(state, summaries, channels, now)
+        commit_and_push(f"chore: update data ({ch['name']}) {now.isoformat()}")
 
     try:
         if update_calendar(now):
