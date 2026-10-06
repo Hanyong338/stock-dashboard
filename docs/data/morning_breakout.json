@@ -7,33 +7,96 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-10-02 09:30",
-  "universe_count": 428,
+  "as_of": "2026-10-06 09:30",
+  "universe_count": 434,
   "fetch_failures": 0,
   "dropped": 0,
   "items": [
     {
-      "code": "100590",
-      "name": "머큐리",
-      "market": "KOSDAQ",
+      "code": "007660",
+      "name": "이수페타시스",
+      "market": "KOSPI",
       "tags": [],
-      "market_cap_eok": 1071,
+      "market_cap_eok": 96974,
       "type": "A",
-      "reason": "전일 고가 4,855 돌파 · 30분 거래대금 227억 · 거래량 전일 하루의 1710%",
+      "reason": "전일 고가 123,700 돌파 · 30분 거래대금 619억 · 거래량 전일 하루의 99%",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/100590/total",
-      "open_gap": 2.8,
-      "value_30m_eok": 227,
-      "vol_vs_prev_day": 1710,
-      "close": 6250,
-      "volume": 3732422,
-      "change_percent": 29.8
+      "url": "https://m.stock.naver.com/domestic/stock/007660/total",
+      "open_gap": 5.2,
+      "value_30m_eok": 619,
+      "vol_vs_prev_day": 99,
+      "close": 133100,
+      "volume": 469739,
+      "change_percent": 9.82
+    },
+    {
+      "code": "354320",
+      "name": "알멕",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 3186,
+      "type": "C",
+      "reason": "240일선 43,702 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 61억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/354320/total",
+      "open_gap": 4.35,
+      "value_30m_eok": 61,
+      "vol_vs_prev_day": 69,
+      "close": 48650,
+      "volume": 125218,
+      "change_percent": 11.33
+    },
+    {
+      "code": "064290",
+      "name": "인텍플러스",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 8046,
+      "type": "B",
+      "reason": "시초 +2.4% 갭 · 시초가 60,500 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 20억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/064290/total",
+      "open_gap": 2.37,
+      "value_30m_eok": 20,
+      "vol_vs_prev_day": 7,
+      "close": 62000,
+      "volume": 32238,
+      "change_percent": 4.91
+    },
+    {
+      "code": "018670",
+      "name": "SK가스",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 23405,
+      "type": "C",
+      "reason": "240일선 238,158 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 12억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/018670/total",
+      "open_gap": 1.26,
+      "value_30m_eok": 12,
+      "vol_vs_prev_day": 67,
+      "close": 252000,
+      "volume": 4873,
+      "change_percent": 5.88
     }
   ],
-  "built_on": "2026-10-02",
-  "updated_at": "2026-10-02T00:51:30.097596+00:00"
+  "built_on": "2026-10-06",
+  "updated_at": "2026-10-06T00:40:13.268824+00:00"
 }
