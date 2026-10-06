@@ -207,8 +207,8 @@
       "category": "macro",
       "detail": "23:00",
       "consensus": "55.1",
-      "previous": "55.4",
-      "actual": "54.9"
+      "actual": "54.9",
+      "previous": "55.4"
     },
     {
       "start": "2026-10-05",
@@ -217,8 +217,8 @@
       "category": "macro",
       "detail": "22:45",
       "consensus": "58.7",
-      "previous": "58.7",
-      "actual": "58.8"
+      "actual": "58.8",
+      "previous": "58.7"
     },
     {
       "start": "2026-10-08",
@@ -273,7 +273,7 @@
       "title": "JP모건 실적",
       "category": "earnings",
       "detail": "JPM 장전",
-      "eps_forecast": "$5.88"
+      "eps_forecast": "$5.94"
     },
     {
       "start": "2026-10-13",
@@ -281,7 +281,7 @@
       "title": "골드만삭스 실적",
       "category": "earnings",
       "detail": "GS 장전",
-      "eps_forecast": "$14.05"
+      "eps_forecast": "$13.89"
     },
     {
       "start": "2026-10-13",
@@ -305,7 +305,7 @@
       "title": "미국 기존주택판매",
       "category": "macro",
       "detail": "23:00",
-      "previous": "3.98M"
+      "previous": "-2.0%"
     },
     {
       "start": "2026-10-14",
@@ -313,7 +313,7 @@
       "title": "ASML 실적",
       "category": "earnings",
       "detail": "ASML 장전",
-      "eps_forecast": "$12.54"
+      "eps_forecast": "$12.47"
     },
     {
       "start": "2026-10-14",
@@ -321,7 +321,7 @@
       "title": "모건스탠리 실적",
       "category": "earnings",
       "detail": "MS 장전",
-      "eps_forecast": "$2.97"
+      "eps_forecast": "$2.88"
     },
     {
       "start": "2026-10-14",
@@ -329,7 +329,7 @@
       "title": "뱅크오브아메리카 실적",
       "category": "earnings",
       "detail": "BAC 장전",
-      "eps_forecast": "$1.13"
+      "eps_forecast": "$1.12"
     },
     {
       "start": "2026-10-14",
@@ -378,6 +378,13 @@
       "category": "macro",
       "detail": "21:30",
       "previous": "1.4%"
+    },
+    {
+      "start": "2026-10-15",
+      "end": "2026-10-15",
+      "title": "미국 실업수당",
+      "category": "macro",
+      "detail": "21:30"
     },
     {
       "start": "2026-10-15",
@@ -538,7 +545,7 @@
       "title": "S&P글로벌 서비스업 PMI",
       "category": "macro",
       "detail": "22:45",
-      "previous": "56.5"
+      "previous": "58.8"
     },
     {
       "start": "2026-10-23",
@@ -597,12 +604,60 @@
       "eps_forecast": "$0.87"
     },
     {
+      "start": "2026-10-27",
+      "end": "2026-10-27",
+      "title": "리치먼드 연은지수",
+      "category": "macro",
+      "detail": "23:00",
+      "previous": "-2"
+    },
+    {
+      "start": "2026-10-27",
+      "end": "2026-10-27",
+      "title": "미국 내구재",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "0.2%"
+    },
+    {
+      "start": "2026-10-27",
+      "end": "2026-10-27",
+      "title": "미국 소비자신뢰",
+      "category": "macro",
+      "detail": "23:00",
+      "previous": "81.9"
+    },
+    {
+      "start": "2026-10-27",
+      "end": "2026-10-27",
+      "title": "미국 신규주택판매",
+      "category": "macro",
+      "detail": "23:00",
+      "previous": "684K"
+    },
+    {
+      "start": "2026-10-27",
+      "end": "2026-10-27",
+      "title": "한국 GDP",
+      "category": "macro",
+      "detail": "08:00",
+      "previous": "0.6%"
+    },
+    {
+      "start": "2026-10-27",
+      "end": "2026-10-27",
+      "title": "한국 소비자심리",
+      "category": "macro",
+      "detail": "06:00",
+      "previous": "106.6"
+    },
+    {
       "start": "2026-10-28",
       "end": "2026-10-28",
       "title": "로빈후드 실적",
       "category": "earnings",
       "detail": "HOOD 장마감 후",
-      "eps_forecast": "$0.52"
+      "eps_forecast": "$0.55"
     },
     {
       "start": "2026-10-28",
@@ -627,6 +682,19 @@
       "category": "earnings",
       "detail": "MRK 장전",
       "eps_forecast": "$2.25"
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "title": "삼성에스디에스 실적",
+      "category": "earnings",
+      "detail": "코스피 14:00",
+      "code": "018260",
+      "quarter": "2026.09",
+      "op_consensus": 2490,
+      "rev_consensus": 36064,
+      "op_prev_year": 2323,
+      "op_prev_q": 2318
     },
     {
       "start": "2026-10-29",
@@ -742,14 +810,6 @@
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
-      "title": "ARM 실적",
-      "category": "earnings",
-      "detail": "ARM",
-      "eps_forecast": "$0.22"
-    },
-    {
-      "start": "2026-11-04",
-      "end": "2026-11-04",
       "title": "KLA 실적",
       "category": "earnings",
       "detail": "KLAC",
@@ -830,6 +890,14 @@
       "category": "earnings",
       "detail": "QCOM",
       "eps_forecast": "$1.47"
+    },
+    {
+      "start": "2026-11-05",
+      "end": "2026-11-05",
+      "title": "ARM 실적",
+      "category": "earnings",
+      "detail": "ARM 장마감 후",
+      "eps_forecast": "$0.22"
     },
     {
       "start": "2026-11-06",
@@ -1029,8 +1097,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-06",
+  "built_on": "2026-10-07",
   "builder_version": 10,
-  "updated_at": "2026-10-05T15:05:34.622038+00:00",
-  "values_updated_at": "2026-10-05T17:29:44.665985+00:00"
+  "updated_at": "2026-10-06T15:05:10.925421+00:00"
 }
