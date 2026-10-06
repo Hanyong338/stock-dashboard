@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "딥페이크(deepfake)",
-      "change_percent": 9.3,
+      "change_percent": 9.49,
       "total": 14,
       "rise": 13
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 6.58,
+      "change_percent": 6.9,
       "total": 52,
-      "rise": 44
+      "rise": 43
+    },
+    {
+      "name": "양자암호/양자컴퓨팅",
+      "change_percent": 5.79,
+      "total": 26,
+      "rise": 20
     },
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 5.75,
+      "change_percent": 5.69,
       "total": 14,
       "rise": 13
     },
     {
-      "name": "양자암호/양자컴퓨팅",
-      "change_percent": 5.56,
-      "total": 26,
-      "rise": 19
-    },
-    {
       "name": "마이데이터",
-      "change_percent": 4.4,
+      "change_percent": 4.54,
       "total": 12,
-      "rise": 10
+      "rise": 9
     },
     {
       "name": "바이오인식(생체인식)",
-      "change_percent": 4.25,
+      "change_percent": 4.36,
       "total": 19,
-      "rise": 16
-    },
-    {
-      "name": "블록체인",
-      "change_percent": 4.23,
-      "total": 23,
-      "rise": 13
+      "rise": 17
     },
     {
       "name": "2차전지(나트륨이온)",
-      "change_percent": 3.84,
+      "change_percent": 4.35,
       "total": 9,
       "rise": 8
+    },
+    {
+      "name": "블록체인",
+      "change_percent": 4.21,
+      "total": 23,
+      "rise": 13
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-06T04:02:54.760898+00:00"
+  "updated_at": "2026-10-06T04:30:55.124883+00:00"
 }
