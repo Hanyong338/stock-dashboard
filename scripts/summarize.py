@@ -302,14 +302,39 @@ def _models():
 # 유료 키가 잔액 없음으로 거절되면 이 시간만큼은 다시 두드리지 않는다(실행마다 헛요청·실패 기록이 쌓이지 않게).
 # 선불을 충전하면 길어야 이 시간 뒤에 저절로 다시 쓰기 시작한다.
 PAID_RECHECK_HOURS = 6
+# 유료 키가 '무료 등급 한도(FreeTier)'로 거절되면 그 키의 프로젝트는 결제가 꺼진 무료 프로젝트다.
+# 10/6 진단: 무료 키와 같은 하루 한도(모델당 20회)를 나눠 쓰고 있어서, 유료 키로 다시 시도할수록 무료 한도만 깎였다.
+# 이 경우는 일주일 동안 아예 쓰지 않는다(결제를 다시 켜면 그 뒤에 저절로 다시 쓴다).
+PAID_FREE_TIER_RECHECK_DAYS = 7
 
 
-def _mark_paid_unavailable():
+def _mark_paid_unavailable(resp=None):
     global _paid_depleted_this_run
     _paid_depleted_this_run = True
-    _quota["paid_unavailable_until"] = (_now() + datetime.timedelta(hours=PAID_RECHECK_HOURS)).isoformat()
+    free_tier = resp is not None and "FreeTier" in (resp.text or "")
+    rest = datetime.timedelta(days=PAID_FREE_TIER_RECHECK_DAYS) if free_tier else datetime.timedelta(hours=PAID_RECHECK_HOURS)
+    _quota["paid_unavailable_until"] = (_now() + rest).isoformat()
     _save_quota()
-    print(f"[INFO] 유료 키는 선불 잔액이 없다 — {PAID_RECHECK_HOURS}시간 동안 유료 키를 쓰지 않는다")
+    why = "결제가 꺼져 무료 한도를 같이 쓴다" if free_tier else "선불 잔액이 없다"
+    print(f"[INFO] 유료 키는 {why} — {rest} 동안 유료 키를 쓰지 않는다")
+
+
+def _count(model, status):
+    """무료 키로 보낸 요청을 태평양 시간 날짜(=한도 날짜)별·모델별·결과별로 센다.
+    구글 화면의 사용량과 맞춰 보면 거절(503)된 요청도 한도에서 빠지는지 확인할 수 있다."""
+    try:
+        from zoneinfo import ZoneInfo
+
+        day = _now().astimezone(ZoneInfo("America/Los_Angeles")).date().isoformat()
+    except Exception:
+        day = (_now() - datetime.timedelta(hours=8)).date().isoformat()
+    sent = _quota.setdefault("sent", {})
+    for old in sorted(sent)[:-6]:
+        sent.pop(old, None)  # 최근 7일치만 둔다
+    bucket = sent.setdefault(day, {}).setdefault(model, {})
+    key = str(status)
+    bucket[key] = bucket.get(key, 0) + 1
+    _save_quota()
 
 
 def _paid_unavailable():
@@ -431,9 +456,11 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
             resp = None
             try:
                 resp = _post(payload, key, model=model)
+                if kind != "paid" or resp.ok:
+                    _count(model, resp.status_code)
                 # 잔액 없는 유료 키는 402 나 429(문구는 그때그때 다르다)로 온다. 어느 쪽이든 유료는 당분간 쉰다.
                 if kind == "paid" and (_paid_depleted(resp) or resp.status_code == 429):
-                    _mark_paid_unavailable()
+                    _mark_paid_unavailable(resp)
                     last_error = last_error or RuntimeError("유료 키 선불 잔액 없음/한도")
                     break
                 resp.raise_for_status()
@@ -448,6 +475,8 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
                 json.JSONDecodeError,
             ) as e:
                 status = getattr(getattr(e, "response", None), "status_code", None)
+                if resp is None and kind == "free":
+                    _count(model, type(e).__name__)  # 시간초과·연결 끊김도 구글 쪽에선 요청으로 셀 수 있다
                 # 실패 기록에 '왜' 거절됐는지 남긴다. 상태 코드만으론 원인을 못 가린다(10/5 503 반복 때 그랬다).
                 last_error = RuntimeError(f"{model} {status or type(e).__name__}: {_error_detail(e)}")
                 if isinstance(e, json.JSONDecodeError):
