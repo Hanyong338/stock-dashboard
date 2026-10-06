@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T02:02:02.049242+00:00",
+  "updated_at": "2026-10-06T02:29:41.770604+00:00",
   "entries": [
     {
       "at": "2026-09-27T22:16:09.359120+00:00",
@@ -639,6 +639,14 @@
     },
     {
       "at": "2026-10-06T02:05:00.597260+00:00",
+      "message": "제미나이 모델이 모두 혼잡/한도라 2편 요약을 다음 실행으로 미룸"
+    },
+    {
+      "at": "2026-10-06T02:30:57.071781+00:00",
+      "message": "요약 실패 [한국경제TV] 증시가 조정된다고? yield gap 우려는 기우! | 디베이스먼트, 증 : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.7-flash 429: RESOURCE_EXHAUSTED You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l"
+    },
+    {
+      "at": "2026-10-06T02:31:19.775241+00:00",
       "message": "제미나이 모델이 모두 혼잡/한도라 2편 요약을 다음 실행으로 미룸"
     }
   ]
