@@ -369,7 +369,51 @@ def _paid_unavailable():
         return False
 
 
+# 혼잡(503)으로 거절된 요청도 무료 하루 한도(모델당 20회)를 깎는다(10/7 아침 3.6-flash: 503 직후 바로 한도 초과).
+# 10/6 저녁엔 막힌 실행마다 모델 4개씩 두드려 하루치 80회 중 약 60회를 거절로 날렸다.
+# 그래서 한 실행에서 거절이 이만큼 나면 그 실행은 제미나이를 그만 부르고,
+# 다음 시도까지 40분 → 80분 → 160분으로 간격을 늘린다. 한 번 성공하면 간격은 처음으로 돌아간다.
+MAX_FAILS_PER_RUN = 2
+BACKOFF_START_MINUTES = 40
+BACKOFF_MAX_MINUTES = 160
+_fails_this_run = 0
+_halted_this_run = False
+
+
+def _note_failure():
+    global _fails_this_run, _halted_this_run
+    _fails_this_run += 1
+    if _fails_this_run < MAX_FAILS_PER_RUN or _halted_this_run:
+        return
+    _halted_this_run = True
+    prev = _quota.get("backoff_minutes") or 0
+    minutes = min(BACKOFF_MAX_MINUTES, prev * 2) if prev else BACKOFF_START_MINUTES
+    _quota["backoff_minutes"] = minutes
+    _quota["backoff_until"] = (_now() + datetime.timedelta(minutes=minutes)).isoformat()
+    _save_quota()
+    print(f"[INFO] 제미나이 혼잡 거절 {_fails_this_run}회 — {minutes}분 뒤에 다시 시도한다(한도 아끼기)")
+
+
+def _note_success():
+    if "backoff_minutes" in _quota or "backoff_until" in _quota:
+        _quota.pop("backoff_minutes", None)
+        _quota.pop("backoff_until", None)
+        _save_quota()
+
+
+def _backing_off():
+    if _halted_this_run:
+        return True
+    until = _quota.get("backoff_until")
+    try:
+        return bool(until) and _now() < datetime.datetime.fromisoformat(until)
+    except ValueError:
+        return False
+
+
 def _usable(kind, model):
+    if _backing_off():
+        return False
     if (kind, model) in _busy:
         return False
     if kind == "free":
@@ -514,9 +558,12 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
                     # 혼잡·시간초과·분당 한도·없는 모델 — 이번 실행 동안은 이 모델을 다시 부르지 않는다
                     _busy.add((kind, model))
                     print(f"[INFO] {kind} {model} 거절({status or type(e).__name__}) — 이번 실행에선 건너뛴다")
+                    if status != 404:
+                        _note_failure()
                     continue
                 raise last_error  # 요청 자체가 잘못된 경우(400 등)는 다른 모델로도 안 된다
 
+            _note_success()
             if _quota.get("last_ok_model") != model:
                 _quota["last_ok_model"] = model
                 _save_quota()
