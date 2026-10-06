@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T04:02:54.760898+00:00",
+  "updated_at": "2026-10-06T04:30:55.124883+00:00",
   "entries": [
     {
       "at": "2026-09-27T22:16:09.359120+00:00",
@@ -692,6 +692,14 @@
     {
       "at": "2026-10-06T04:03:28.670987+00:00",
       "message": "제미나이 모델이 모두 혼잡/한도라 2편 요약을 다음 실행으로 미룸"
+    },
+    {
+      "at": "2026-10-06T04:31:03.130206+00:00",
+      "message": "요약 실패 [삼프로TV] 기관 금융으로 들어오는 디지털자산…BitGo가 말하는 새로운 인프라 |  : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.7-flash 429: RESOURCE_EXHAUSTED You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-li"
+    },
+    {
+      "at": "2026-10-06T04:31:32.305652+00:00",
+      "message": "제미나이 모델이 모두 혼잡/한도라 3편 요약을 다음 실행으로 미룸"
     }
   ]
 }
