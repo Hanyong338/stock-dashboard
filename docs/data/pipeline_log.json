@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T11:48:53.909665+00:00",
+  "updated_at": "2026-10-06T12:02:34.192123+00:00",
   "entries": [
     {
       "at": "2026-09-27T22:16:09.359120+00:00",
@@ -824,6 +824,14 @@
     {
       "at": "2026-10-06T11:51:15.472106+00:00",
       "message": "제미나이 모델이 모두 혼잡/한도라 1편 요약을 다음 실행으로 미룸"
+    },
+    {
+      "at": "2026-10-06T12:03:27.782648+00:00",
+      "message": "요약 실패 [815머니톡] [#찐시황] “지수 찍어 누르더니 3시부터 돌변했다!” 외국인이 장 막판 : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 429: RESOURCE_EXHAUSTED You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l"
+    },
+    {
+      "at": "2026-10-06T12:03:53.583550+00:00",
+      "message": "제미나이 모델이 모두 혼잡/한도라 3편 요약을 다음 실행으로 미룸"
     }
   ]
 }
