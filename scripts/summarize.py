@@ -135,7 +135,8 @@ def _normalize_newlines(result):
     return result
 
 
-# 키 순서: 무료 키(GEMINI_API_KEY_FREE, 결제 없는 프로젝트) 먼저, 유료 키(GEMINI_API_KEY, 선불)는 무료가 전부 막혔을 때만.
+# 키 순서: 무료 키(GEMINI_API_KEY_FREE, 결제 없는 프로젝트) 먼저, 유료 키(GEMINI_API_KEY, 결제 켠 별도 프로젝트)는
+# 무료 모델 4개의 하루 한도가 모두 찼을 때만(혼잡으로 막혔을 땐 쓰지 않는다, _usable 참고).
 # 결제가 연결된 프로젝트는 무료 사용량을 못 쓰므로 키가 두 개다. 선불 잔액이 0 이면 유료 키는 402 로 바로 거절되고
 # (돈 안 나감), 나중에 선불을 충전하면 무료가 막힌 영상만 유료로 처리된다.
 # 2026-10-06 이전엔 유료 먼저였는데, 선불이 0 이 된 뒤로는 매 실행 첫 요청이 402 로 버려졌다.
@@ -447,7 +448,15 @@ def _usable(kind, model):
     if kind == "free":
         # 혼잡 쉬기(backoff)는 무료 한도를 아끼려는 것이라 무료 키에만 건다. 유료 키는 쉬지 않고 바로 이어받는다.
         return not _backing_off() and not _quota_exhausted(model)
-    return not _paid_unavailable()
+    # 유료 키는 무료 모델 4개의 하루 한도가 '모두' 찼을 때만 쓴다(사용자 지정, 10/7).
+    # 무료가 혼잡(503)으로 막혔을 뿐이면 유료로 넘기지 않고 다음 실행에서 무료로 다시 시도한다.
+    return _free_all_exhausted() and not _paid_unavailable()
+
+
+def _free_all_exhausted():
+    if not (os.environ.get("GEMINI_API_KEY_FREE") or "").strip():
+        return True  # 무료 키가 없으면 유료 키만 쓴다
+    return all(_quota_exhausted(m) for m in [MODEL] + FALLBACK_MODELS)
 
 
 # 제미나이는 한국시간 07:00~17:00 에만 부른다(사용자 지정, 2026-10-07. 그 전엔 06:00~21:30).

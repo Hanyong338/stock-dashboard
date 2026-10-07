@@ -40,8 +40,8 @@ jobs:
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          # 결제를 연결하지 않은 별도 프로젝트의 키(무료 사용량). 이 키를 먼저 쓰고, 무료 모델이 모두
-          # 혼잡/한도일 때만 위 유료 키(선불)를 쓴다. 선불 잔액이 0 이면 유료 키는 거절될 뿐 돈은 안 나간다.
+          # 결제를 연결하지 않은 프로젝트의 키(무료 사용량). 이 키를 먼저 쓰고, 무료 모델 4개의 하루 한도가
+          # 모두 찼을 때만 위 유료 키(결제 켠 별도 프로젝트, 선불)를 쓴다. 혼잡(503)일 땐 유료로 넘기지 않는다.
           GEMINI_API_KEY_FREE: ${{ secrets.GEMINI_API_KEY_FREE }}
           SUPADATA_API_KEY: ${{ secrets.SUPADATA_API_KEY }}
           # GEMINI_MODEL 을 지정하지 않으면 summarize.py 기본값인 gemini-3.5-flash 를 쓴다.
