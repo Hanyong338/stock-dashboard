@@ -230,15 +230,6 @@
     {
       "start": "2026-10-08",
       "end": "2026-10-08",
-      "title": "미국 실업수당",
-      "category": "macro",
-      "detail": "21:30",
-      "consensus": "200K",
-      "previous": "197K"
-    },
-    {
-      "start": "2026-10-08",
-      "end": "2026-10-08",
       "title": "한국 경상수지",
       "category": "macro",
       "detail": "08:00",
@@ -281,7 +272,7 @@
       "title": "골드만삭스 실적",
       "category": "earnings",
       "detail": "GS 장전",
-      "eps_forecast": "$13.89"
+      "eps_forecast": "$13.35"
     },
     {
       "start": "2026-10-13",
@@ -361,7 +352,7 @@
       "title": "미국 PPI",
       "category": "macro",
       "detail": "21:30",
-      "previous": "0.4%"
+      "previous": "5.4%"
     },
     {
       "start": "2026-10-15",
@@ -441,8 +432,8 @@
       "detail": "코스피 14:10",
       "code": "064350",
       "quarter": "2026.09",
-      "op_consensus": 2841,
-      "rev_consensus": 18258,
+      "op_consensus": 2817,
+      "rev_consensus": 18179,
       "op_prev_year": 2777,
       "op_prev_q": 2324
     },
@@ -494,8 +485,8 @@
       "detail": "코스피 14:00",
       "code": "034220",
       "quarter": "2026.09",
-      "op_consensus": 3703,
-      "rev_consensus": 68084,
+      "op_consensus": 3510,
+      "rev_consensus": 67396,
       "op_prev_year": 4310,
       "op_prev_q": -1077
     },
@@ -530,6 +521,14 @@
       "category": "earnings",
       "detail": "INTC",
       "eps_forecast": "$0.27"
+    },
+    {
+      "start": "2026-10-22",
+      "end": "2026-10-22",
+      "title": "테슬라 실적",
+      "category": "earnings",
+      "detail": "TSLA 장마감 후",
+      "eps_forecast": "$0.24"
     },
     {
       "start": "2026-10-22",
@@ -654,18 +653,23 @@
     {
       "start": "2026-10-28",
       "end": "2026-10-28",
-      "title": "로빈후드 실적",
+      "title": "LG전자 실적",
       "category": "earnings",
-      "detail": "HOOD 장마감 후",
-      "eps_forecast": "$0.55"
+      "detail": "코스피 16:00",
+      "code": "066570",
+      "quarter": "2026.09",
+      "op_consensus": 10301,
+      "rev_consensus": 242150,
+      "op_prev_year": 6889,
+      "op_prev_q": 15791
     },
     {
       "start": "2026-10-28",
       "end": "2026-10-28",
-      "title": "테슬라 실적",
+      "title": "로빈후드 실적",
       "category": "earnings",
-      "detail": "TSLA",
-      "eps_forecast": "$0.24"
+      "detail": "HOOD 장마감 후",
+      "eps_forecast": "$0.55"
     },
     {
       "start": "2026-10-29",
@@ -734,7 +738,7 @@
       "title": "코인베이스 실적",
       "category": "earnings",
       "detail": "COIN",
-      "eps_forecast": "($0.22)"
+      "eps_forecast": "($0.23)"
     },
     {
       "start": "2026-10-29",
@@ -800,14 +804,6 @@
       "eps_forecast": "$0.94"
     },
     {
-      "start": "2026-11-03",
-      "end": "2026-11-03",
-      "title": "우버 실적",
-      "category": "earnings",
-      "detail": "UBER",
-      "eps_forecast": "$1.03"
-    },
-    {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "KLA 실적",
@@ -821,7 +817,7 @@
       "title": "마이크로소프트 실적",
       "category": "earnings",
       "detail": "MSFT",
-      "eps_forecast": "$4.70"
+      "eps_forecast": "$4.71"
     },
     {
       "start": "2026-11-04",
@@ -866,12 +862,20 @@
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
+      "title": "우버 실적",
+      "category": "earnings",
+      "detail": "UBER 장전",
+      "eps_forecast": "$1.03"
+    },
+    {
+      "start": "2026-11-04",
+      "end": "2026-11-04",
       "title": "카카오뱅크 실적",
       "category": "earnings",
       "detail": "코스피 10:00",
       "code": "323410",
       "quarter": "2026.09",
-      "op_consensus": 1948,
+      "op_consensus": 1916,
       "op_prev_year": 1511,
       "op_prev_q": 1940
     },
@@ -1006,6 +1010,22 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     },
     {
+      "start": "2026-12-01",
+      "end": "2026-12-01",
+      "title": "마벨 실적",
+      "category": "earnings",
+      "detail": "MRVL",
+      "eps_forecast": "$0.79"
+    },
+    {
+      "start": "2026-12-01",
+      "end": "2026-12-01",
+      "title": "크라우드스트라이크 실적",
+      "category": "earnings",
+      "detail": "CRWD",
+      "eps_forecast": "$0"
+    },
+    {
       "start": "2026-12-10",
       "end": "2026-12-10",
       "title": "국내 선물·옵션 동시만기",
@@ -1097,7 +1117,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-07",
+  "built_on": "2026-10-08",
   "builder_version": 10,
-  "updated_at": "2026-10-06T15:05:10.925421+00:00"
+  "updated_at": "2026-10-07T15:40:45.308246+00:00"
 }
