@@ -248,7 +248,7 @@ def _consumer(resp):
     return None
 
 
-def diagnose_keys():
+def diagnose_keys(only_kind=None):
     """키 두 개 × 모델 네 개에 아주 짧은 요청을 한 번씩 보내 상태를 기록한다(요청 8번, 비용 없음).
     - 거절되면 어떤 한도(quotaId)에 몇(quotaValue)으로 걸렸는지
     - 두 키가 같은 프로젝트인지(같으면 무료 한도를 나눠 쓴다)
@@ -259,6 +259,8 @@ def diagnose_keys():
     }
     results, consumers = [], {}
     for kind, key in _keys():
+        if only_kind and kind != only_kind:
+            continue
         for model in [MODEL] + FALLBACK_MODELS:
             entry = {"key": kind, "model": model}
             try:

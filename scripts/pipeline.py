@@ -50,7 +50,9 @@ TRACKING_FILE = DATA_DIR / "tracking.json"
 GEMINI_KEY_CHECK_FILE = DATA_DIR / "gemini_key_check.json"
 # 한 번만 도는 키 진단(어떤 한도에 걸리는지, 두 키가 같은 프로젝트인지). 다시 돌리려면 버전을 올린다.
 GEMINI_DIAG_FILE = DATA_DIR / "gemini_diag.json"
-GEMINI_DIAG_VERSION = 1
+GEMINI_DIAG_VERSION = 2
+# 2: 10/7 결제를 켠 새 프로젝트의 유료 키를 넣었다. 그 키만 확인한다(무료 한도는 건드리지 않게).
+GEMINI_DIAG_ONLY_KIND = "paid"
 # 영상 2개를 요청 한 번에 요약했을 때 품질이 괜찮은지 보는 시험(10/7 사용자 요청).
 # 평소처럼 하나씩 요약한 영상의 자막을 몇 개 남겨뒀다가, 2개씩 묶어 한 번 더 요약해 나란히 저장한다.
 # 대시보드에는 나오지 않고 비교용으로만 쓴다. 자막은 이미 받아둔 것을 쓰므로 자막 크레딧은 안 나간다(제미나이 요청 2번 추가).
@@ -791,7 +793,7 @@ def update_gemini_diag(now):
     current = load_json(GEMINI_DIAG_FILE, {})
     if isinstance(current, dict) and current.get("version") == GEMINI_DIAG_VERSION:
         return False
-    result = diagnose_keys()
+    result = diagnose_keys(only_kind=GEMINI_DIAG_ONLY_KIND)
     result.update({"version": GEMINI_DIAG_VERSION, "checked_at": now.isoformat()})
     save_json(GEMINI_DIAG_FILE, result)
     print(f"[INFO] 제미나이 키 진단: 같은 프로젝트={result['same_project']}, 유료 키가 무료 한도={result['paid_key_on_free_tier']}")
