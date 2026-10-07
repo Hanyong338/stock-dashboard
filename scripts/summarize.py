@@ -449,13 +449,17 @@ def _usable(kind, model, allow_paid=True, reserve=0):
         return False
     if kind == "free":
         # 혼잡 쉬기(backoff)는 무료 한도를 아끼려는 것이라 무료 키에만 건다. 유료 키는 쉬지 않고 바로 이어받는다.
-        if _backing_off() or _quota_exhausted(model):
+        if gemini_mode() != "free" or _backing_off() or _quota_exhausted(model):
             return False
         return not reserve or remaining_free_requests() > reserve
-    # 유료 키는 무료 모델 4개의 하루 한도가 '모두' 찼을 때만 쓴다(사용자 지정, 10/7).
+    if not allow_paid or _paid_unavailable():
+        return False
+    if gemini_mode() == "paid":
+        return True  # 저녁 유료 시간대: 무료는 쓰지 않고 유료로 바로 처리
+    # 낮(무료 시간대)엔 무료 모델 4개의 하루 한도가 '모두' 찼을 때만 유료를 쓴다(사용자 지정, 10/7).
     # 무료가 혼잡(503)으로 막혔을 뿐이면 유료로 넘기지 않고 다음 실행에서 무료로 다시 시도한다.
     # 당잠사 몫으로 남겨둔 무료 요청은 다른 영상 입장에선 '찬 것'으로 본다(그 영상들은 유료로 넘어간다).
-    return allow_paid and _free_all_exhausted(reserve) and not _paid_unavailable()
+    return _free_all_exhausted(reserve)
 
 
 def _free_all_exhausted(reserve=0):
@@ -466,12 +470,15 @@ def _free_all_exhausted(reserve=0):
     return bool(reserve) and remaining_free_requests() <= reserve
 
 
-# 제미나이는 한국시간 07:00~19:00 에만 부른다(사용자 지정, 2026-10-07. 06:00~21:30 → 07:00~17:00 → 07:00~19:00).
-# 나머지 시간은 무료·유료 모두 부르지 않는다. 혼잡(503)이 심한 시간대이고, 거절도 하루 한도(모델당 20회)를 깎는다.
-# 이 시간에 올라온 영상은 '확인함' 처리하지 않으니 다음 날 07시 첫 실행에서 한꺼번에 요약된다.
-ACTIVE_START_KST = (7, 0)
-ACTIVE_END_KST = (19, 0)
-QUIET_LABEL = f"한국시간 {ACTIVE_END_KST[0]:02d}:{ACTIVE_END_KST[1]:02d}~{ACTIVE_START_KST[0]:02d}:{ACTIVE_START_KST[1]:02d}"
+# 시간대별 운영(사용자 지정, 2026-10-07):
+# - 07:00~18:00 무료: 당잠사부터 무료로. 무료 4개 한도가 모두 차면 그때만 유료(당잠사는 무료로만).
+# - 18:00~21:00 유료: 이 시간대부터 무료는 혼잡으로 거절될 확률이 높아 유료로만 처리한다.
+# - 21:00~07:00 휴식: 구글이 가장 바쁜 시간. 요약은 하지 않고 자막만 받아둔다(파이프라인 쪽).
+#   07시가 되면 밀린 영상을 받아둔 자막으로 바로 무료 요약한다.
+FREE_WINDOW_KST = ((7, 0), (18, 0))
+PAID_WINDOW_KST = ((18, 0), (21, 0))
+ACTIVE_START_KST = FREE_WINDOW_KST[0]
+QUIET_LABEL = "한국시간 21:00~07:00"
 
 
 # 이 시각(한국시간)까지는 운영 시간이어도 제미나이를 부르지 않는다. 일회성 정지용.
@@ -479,11 +486,21 @@ QUIET_LABEL = f"한국시간 {ACTIVE_END_KST[0]:02d}:{ACTIVE_END_KST[1]:02d}~{AC
 PAUSE_UNTIL_KST = datetime.datetime(2026, 10, 8, 7, 0)
 
 
-def gemini_quiet_now():
+def gemini_mode():
+    """지금 시간대: 'free'(무료 시간), 'paid'(저녁 유료 시간), 'off'(휴식 또는 일회성 정지)."""
     kst = _now() + datetime.timedelta(hours=9)
     if kst.replace(tzinfo=None) < PAUSE_UNTIL_KST:
-        return True
-    return not (ACTIVE_START_KST <= (kst.hour, kst.minute) < ACTIVE_END_KST)
+        return "off"
+    hm = (kst.hour, kst.minute)
+    if FREE_WINDOW_KST[0] <= hm < FREE_WINDOW_KST[1]:
+        return "free"
+    if PAID_WINDOW_KST[0] <= hm < PAID_WINDOW_KST[1]:
+        return "paid"
+    return "off"
+
+
+def gemini_quiet_now():
+    return gemini_mode() == "off"
 
 
 def gemini_ready(reserve=0, allow_paid=True):

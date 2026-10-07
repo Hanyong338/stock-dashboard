@@ -384,10 +384,13 @@ def process_channel(ch, state, summaries, now):
             print(f"[INFO] 업로드 {int((now - pub).total_seconds() // 60)}분 — 자막 생성 대기 후 요약: {name} - {v['title'][:40]}")
             continue
 
-        # 제미나이 모델이 이번 실행에서 모두 혼잡이거나 하루 한도가 찼으면 요청하지 않고 다음 실행으로 미룬다.
+        # 제미나이를 지금 못 부르면(휴식 시간·혼잡·한도) 요약은 다음 실행으로 미룬다.
         # 보내 봐야 거절만 쌓이고, 거절된 요청도 무료 하루 한도를 깎는다(10/5~6 밤에 그렇게 한도가 다 찼다).
+        # 다만 자막은 지금 받아둔다(언제 받든 1크레딧으로 같다). 그러면 아침 07시엔 받아둔 자막으로 바로 요약한다
+        # (사용자 지정, 10/7: 21~07시엔 자막만 받기). 이미 받아둔 영상은 아무것도 하지 않는다.
         # '확인함' 처리하지 않으니 영상이 빠지지는 않는다.
-        if not gemini_ready(reserve=_brief_reserve()):
+        summarize_now = gemini_ready(reserve=_brief_reserve())
+        if not summarize_now and read_transcript_cache(v["video_id"]):
             _deferred.append(v["video_id"])
             continue
 
@@ -422,6 +425,11 @@ def process_channel(ch, state, summaries, now):
                 warn(f"자막 없음 {NO_CAPTION_TRIES}회 — 요약 건너뜀 [{name}] {v['title'][:40]}")
                 state[cid].append(v["video_id"])
                 attempts.pop(v["video_id"], None)
+            continue
+
+        if not summarize_now:
+            print(f"[INFO] 자막만 받아둠(요약은 다음에): {name} - {v['title'][:40]}")
+            _deferred.append(v["video_id"])
             continue
 
         try:

@@ -212,16 +212,41 @@ def main():
             {"calls": calls, "outcome": out},
         )
 
-        # 11. 운영 시간 끝(한국시간 19:00 이후) → 요청 안 보냄, 18:59 → 보냄
-        at_1900 = datetime.datetime(2026, 10, 8, 10, 0, tzinfo=datetime.timezone.utc)
-        at_1859 = datetime.datetime(2026, 10, 8, 9, 59, tzinfo=datetime.timezone.utc)
-        calls_a, out_a = _run(tmp, lambda k, m: FakeResp(200, OK_BODY), now=at_1900)
-        calls_b, out_b = _run(tmp, lambda k, m: FakeResp(200, OK_BODY), now=at_1859)
-        check(
-            "운영 시간 07:00~19:00 경계",
-            out_a == "deferred" and not calls_a and out_b == "success",
-            {"19:00": out_a, "18:59": out_b},
+        # 11. 시간대 경계: 06:59 휴식 / 07:00·17:59 무료 / 18:00·20:59 유료만 / 21:00 휴식
+        def kst(h, mi):
+            return datetime.datetime(2026, 10, 8, h, mi, tzinfo=datetime.timezone.utc) - datetime.timedelta(hours=9)
+
+        everything_ok = lambda k, m: FakeResp(200, OK_BODY)  # noqa: E731
+        seen = {}
+        for label, t in [("06:59", kst(6, 59)), ("07:00", kst(7, 0)), ("17:59", kst(17, 59)),
+                         ("18:00", kst(18, 0)), ("20:59", kst(20, 59)), ("21:00", kst(21, 0))]:
+            calls, out = _run(tmp, everything_ok, now=t)
+            seen[label] = {"outcome": out, "calls": calls}
+        expect = {
+            "06:59": ("deferred", None),
+            "07:00": ("success", "free"),
+            "17:59": ("success", "free"),
+            "18:00": ("success", "paid"),
+            "20:59": ("success", "paid"),
+            "21:00": ("deferred", None),
+        }
+        ok = all(
+            seen[k]["outcome"] == out and (not kind and not seen[k]["calls"] or kind and seen[k]["calls"] and all(c.startswith(kind) for c in seen[k]["calls"]))
+            for k, (out, kind) in expect.items()
         )
+        check("시간대: 07~18 무료 / 18~21 유료만 / 21~07 휴식", ok, seen)
+
+        # 12. 저녁 유료 시간대의 당잠사 → 유료 안 쓰고 미룸
+        calls, out = _run(tmp, everything_ok, now=kst(19, 0), allow_paid=False)
+        check(
+            "당잠사: 저녁 유료 시간대엔 분석 안 함(무료로만)",
+            out == "deferred" and not calls,
+            {"calls": calls, "outcome": out},
+        )
+
+        # 13. 일회성 정지(PAUSE_UNTIL_KST) 중엔 낮이어도 요청 안 보냄
+        calls, out = _run(tmp, everything_ok, now=kst(10, 0) - datetime.timedelta(days=1))
+        check("일회성 정지(10/7 저녁~10/8 07시) 중 요청 안 보냄", out == "deferred" and not calls, {"calls": calls})
 
     summary = {"all_pass": all(r["pass"] for r in results), "results": results}
     OUT_FILE.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
