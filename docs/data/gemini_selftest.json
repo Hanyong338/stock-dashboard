@@ -113,11 +113,56 @@
       }
     },
     {
-      "case": "운영 시간 07:00~19:00 경계",
+      "case": "시간대: 07~18 무료 / 18~21 유료만 / 21~07 휴식",
       "pass": true,
       "detail": {
-        "19:00": "deferred",
-        "18:59": "success"
+        "06:59": {
+          "outcome": "deferred",
+          "calls": []
+        },
+        "07:00": {
+          "outcome": "success",
+          "calls": [
+            "free:gemini-3.5-flash"
+          ]
+        },
+        "17:59": {
+          "outcome": "success",
+          "calls": [
+            "free:gemini-3.5-flash"
+          ]
+        },
+        "18:00": {
+          "outcome": "success",
+          "calls": [
+            "paid:gemini-3.5-flash"
+          ]
+        },
+        "20:59": {
+          "outcome": "success",
+          "calls": [
+            "paid:gemini-3.5-flash"
+          ]
+        },
+        "21:00": {
+          "outcome": "deferred",
+          "calls": []
+        }
+      }
+    },
+    {
+      "case": "당잠사: 저녁 유료 시간대엔 분석 안 함(무료로만)",
+      "pass": true,
+      "detail": {
+        "calls": [],
+        "outcome": "deferred"
+      }
+    },
+    {
+      "case": "일회성 정지(10/7 저녁~10/8 07시) 중 요청 안 보냄",
+      "pass": true,
+      "detail": {
+        "calls": []
       }
     }
   ]
