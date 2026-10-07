@@ -15,6 +15,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from youtube_check import fetch_channel_videos
 from summarize import (
+    ACTIVE_START_KST,
+    QUIET_LABEL,
     GeminiUnavailable,
     check_free_key,
     diagnose_keys,
@@ -1071,7 +1073,7 @@ def main():
 
     if _deferred and gemini_quiet_now():
         # 밤 휴식은 정해둔 일이라 실패 기록에 남기지 않는다(20분마다 같은 줄이 쌓이기만 한다)
-        print(f"[INFO] 밤 휴식 시간(한국시간 21:30~06:00) — {len(_deferred)}편은 06시 이후 요약")
+        print(f"[INFO] 휴식 시간({QUIET_LABEL}) — {len(_deferred)}편은 다음 날 {ACTIVE_START_KST[0]:02d}시 첫 실행에서 요약")
     elif _deferred:
         warn(f"제미나이 모델이 모두 혼잡/한도라 {len(_deferred)}편 요약을 다음 실행으로 미룸")
 
