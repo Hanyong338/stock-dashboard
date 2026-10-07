@@ -5,62 +5,13 @@
     "naver_theme": "OK / 5건",
     "yahoo_daily": "OK / 20건"
   },
-  "chart_count": 15,
+  "chart_count": 16,
   "as_of_trading_day": "2026-10-07",
   "universe_count": 2649,
-  "base_passed": 266,
-  "dropped": 102,
+  "base_passed": 140,
+  "dropped": 63,
   "fetch_failures": 0,
-  "theme_leaders": [
-    {
-      "name": "서울고속버스터미널 재개발 수혜",
-      "change_percent": 15.18,
-      "total": 5,
-      "rise": 3
-    },
-    {
-      "name": "마이코플라스마 폐렴",
-      "change_percent": 6.53,
-      "total": 11,
-      "rise": 10
-    },
-    {
-      "name": "부동산 보유 자산주",
-      "change_percent": 4.85,
-      "total": 22,
-      "rise": 12
-    },
-    {
-      "name": "LPG(액화석유가스)",
-      "change_percent": 3.78,
-      "total": 9,
-      "rise": 8
-    },
-    {
-      "name": "코로나19(치료제/백신 개발 등)",
-      "change_percent": 2.83,
-      "total": 27,
-      "rise": 19
-    },
-    {
-      "name": "코로나19(진단키트)",
-      "change_percent": 2.62,
-      "total": 39,
-      "rise": 24
-    },
-    {
-      "name": "캐릭터상품",
-      "change_percent": 2.6,
-      "total": 9,
-      "rise": 5
-    },
-    {
-      "name": "코로나19(진단/치료제/백신 개발 등)",
-      "change_percent": 2.29,
-      "total": 70,
-      "rise": 44
-    }
-  ],
+  "theme_leaders": [],
   "sections": [
     {
       "id": "CLOSING_BET",
@@ -73,29 +24,60 @@
       ],
       "items": [
         {
+          "code": "128820",
+          "name": "대성산업",
+          "market": "KOSPI",
+          "tags": [
+            "서울고속버스터미널 재개발 수혜",
+            "부동산 보유 자산주"
+          ],
+          "trading_value_eok": 349,
+          "market_cap_eok": 2289,
+          "close": 5000,
+          "change_percent": 18.48,
+          "volume": 6992816,
+          "url": "https://m.stock.naver.com/domestic/stock/128820/total",
+          "flow": {
+            "date": "20261007",
+            "foreign": -492149,
+            "organ": -699,
+            "individual": 516786
+          },
+          "section": "CLOSING_BET",
+          "section_name": "종가베팅 유력주",
+          "type": "C",
+          "reason": "480일선 장대양봉 종가 돌파 · 거래대금 349억 · 거래량 전일 4894%",
+          "exits": [
+            "15:20 동시호가 종가 매수",
+            "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
+            "돌파선·지지선 이탈 시 손절"
+          ],
+          "stop": 4678
+        },
+        {
           "code": "033780",
           "name": "KT&G",
           "market": "KOSPI",
           "tags": [
             "건강기능식품",
-            "코리아 밸류업 지수(Korea Value-up Index)"
+            "밸류업(24년 기업가치 제고계획 발표)"
           ],
-          "trading_value_eok": 319,
-          "market_cap_eok": 186444,
+          "trading_value_eok": 322,
+          "market_cap_eok": 185509,
           "close": 179600,
           "change_percent": 1.81,
-          "volume": 193601,
+          "volume": 180210,
           "url": "https://m.stock.naver.com/domestic/stock/033780/total",
           "flow": {
-            "date": "20261006",
-            "foreign": -48642,
-            "organ": 14175,
-            "individual": -5402
+            "date": "20261007",
+            "foreign": 37490,
+            "organ": 8199,
+            "individual": -47847
           },
           "section": "CLOSING_BET",
           "section_name": "종가베팅 유력주",
           "type": "A",
-          "reason": "기관 순매수 25억 집중 + 윗꼬리 없는 양봉 고가 마감",
+          "reason": "외국인 순매수 67억 집중 + 윗꼬리 없는 양봉 고가 마감",
           "exits": [
             "15:20 동시호가 종가 매수",
             "익일 시초가 갭상승 시 분할 매도, 09:30 이전 고점 형성 시 전량 매도",
@@ -119,22 +101,22 @@
             "토스(toss)",
             "은행"
           ],
-          "trading_value_eok": 563,
-          "market_cap_eok": 349280,
+          "trading_value_eok": 568,
+          "market_cap_eok": 347383,
           "close": 128900,
           "change_percent": 0.16,
-          "volume": 491363,
+          "volume": 440431,
           "url": "https://m.stock.naver.com/domestic/stock/086790/total",
           "flow": {
-            "date": "20261006",
-            "foreign": 39502,
-            "organ": -44491,
-            "individual": 4693
+            "date": "20261007",
+            "foreign": 33671,
+            "organ": -22811,
+            "individual": -11078
           },
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
           "type": "10일선",
-          "reason": "거래대금 1006억 장대양봉 · 고점 후 14거래일 조정 · 거래량 36% 감소 · 10일선 도지 지지",
+          "reason": "거래대금 1006억 장대양봉 · 고점 후 14거래일 조정 · 거래량 38% 감소 · 10일선 도지 지지",
           "exits": [
             "1회 매수 금지 — 3회 분할 매수",
             "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
@@ -149,22 +131,22 @@
           "tags": [
             "은행"
           ],
-          "trading_value_eok": 480,
-          "market_cap_eok": 245718,
+          "trading_value_eok": 484,
+          "market_cap_eok": 246087,
           "close": 33350,
           "change_percent": -0.15,
-          "volume": 1581050,
+          "volume": 1448165,
           "url": "https://m.stock.naver.com/domestic/stock/316140/total",
           "flow": {
-            "date": "20261006",
-            "foreign": -478176,
-            "organ": 257044,
-            "individual": 188934
+            "date": "20261007",
+            "foreign": 24572,
+            "organ": 78773,
+            "individual": -103993
           },
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
           "type": "60일선",
-          "reason": "거래대금 1737억 장대양봉 · 고점 후 14거래일 조정 · 거래량 52% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
+          "reason": "거래대금 1737억 장대양봉 · 고점 후 14거래일 조정 · 거래량 53% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
           "exits": [
             "1회 매수 금지 — 3회 분할 매수",
             "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
@@ -178,24 +160,24 @@
           "market": "KOSPI",
           "tags": [
             "수자원(양적/질적 개선)",
-            "전후 재건(우크라/중동 전쟁 등)"
+            "모듈러주택"
           ],
-          "trading_value_eok": 220,
-          "market_cap_eok": 28114,
+          "trading_value_eok": 231,
+          "market_cap_eok": 28071,
           "close": 32850,
           "change_percent": -0.61,
-          "volume": 671581,
+          "volume": 699214,
           "url": "https://m.stock.naver.com/domestic/stock/006360/total",
           "flow": {
-            "date": "20261006",
-            "foreign": 159526,
-            "organ": -216545,
-            "individual": 70074
+            "date": "20261007",
+            "foreign": -5418,
+            "organ": 24258,
+            "individual": -8969
           },
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
           "type": "60일선",
-          "reason": "거래대금 1309억 장대양봉 · 고점 후 15거래일 조정 · 거래량 74% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
+          "reason": "거래대금 1309억 장대양봉 · 고점 후 15거래일 조정 · 거래량 73% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
           "exits": [
             "1회 매수 금지 — 3회 분할 매수",
             "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
@@ -211,17 +193,17 @@
             "GTX(수도권 광역급행철도)",
             "건설 대표주"
           ],
-          "trading_value_eok": 132,
-          "market_cap_eok": 27898,
+          "trading_value_eok": 139,
+          "market_cap_eok": 27859,
           "close": 72100,
           "change_percent": -2.57,
-          "volume": 184916,
+          "volume": 191337,
           "url": "https://m.stock.naver.com/domestic/stock/375500/total",
           "flow": {
-            "date": "20261006",
-            "foreign": 3841,
-            "organ": -26517,
-            "individual": 22454
+            "date": "20261007",
+            "foreign": -5557,
+            "organ": -16005,
+            "individual": 20667
           },
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
@@ -254,22 +236,22 @@
             "유리 기판",
             "S7(삼성전자/SK하이닉스 등)"
           ],
-          "trading_value_eok": 8741,
-          "market_cap_eok": 1198087,
+          "trading_value_eok": 9054,
+          "market_cap_eok": 1200328,
           "close": 1604000,
           "change_percent": -4.24,
-          "volume": 553722,
+          "volume": 597877,
           "url": "https://m.stock.naver.com/domestic/stock/009150/total",
           "flow": {
-            "date": "20261006",
-            "foreign": 97370,
-            "organ": 44760,
-            "individual": -146658
+            "date": "20261007",
+            "foreign": -52757,
+            "organ": -48337,
+            "individual": 99774
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
           "type": "C",
-          "reason": "기관 5일 중 4일 순매수(2502억) + 240일선 위 10·20일선 지지",
+          "reason": "기관 5일 중 3일 순매수(1017억) + 240일선 위 10·20일선 지지",
           "exits": [
             "일봉 5·10일선 추종",
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
@@ -278,90 +260,29 @@
           "stop": 1370433
         },
         {
-          "code": "036930",
-          "name": "주성엔지니어링",
-          "market": "KOSDAQ",
-          "tags": [
-            "LED장비"
-          ],
-          "trading_value_eok": 5731,
-          "market_cap_eok": 115041,
-          "close": 247500,
-          "change_percent": -11.13,
-          "volume": 2170537,
-          "url": "https://m.stock.naver.com/domestic/stock/036930/total",
-          "flow": {
-            "date": "20261006",
-            "foreign": 544386,
-            "organ": 99058,
-            "individual": -621842
-          },
-          "section": "TREND_RALLY",
-          "section_name": "대시세 추세 랠리주",
-          "type": "C",
-          "reason": "기관 5일 중 5일 순매수(1016억) + 240일선 위 10·20일선 지지",
-          "exits": [
-            "일봉 5·10일선 추종",
-            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
-            "일봉 60일선 이탈 시 전량 손절"
-          ],
-          "stop": 180435
-        },
-        {
-          "code": "042510",
-          "name": "라온시큐어",
-          "market": "KOSDAQ",
-          "tags": [
-            "인터넷은행",
-            "딥페이크(deepfake)"
-          ],
-          "trading_value_eok": 2958,
-          "market_cap_eok": 1856,
-          "close": 16710,
-          "change_percent": 12.37,
-          "volume": 17931958,
-          "url": "https://m.stock.naver.com/domestic/stock/042510/total",
-          "flow": {
-            "date": "20261006",
-            "foreign": 104617,
-            "organ": 13392,
-            "individual": -208264
-          },
-          "section": "TREND_RALLY",
-          "section_name": "대시세 추세 랠리주",
-          "type": "B",
-          "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
-          "exits": [
-            "일봉 5·10일선 추종",
-            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
-            "일봉 60일선 이탈 시 전량 손절"
-          ],
-          "stop": 9056
-        },
-        {
           "code": "011070",
           "name": "LG이노텍",
           "market": "KOSPI",
           "tags": [
-            "스마트카(SMART CAR)",
-            "아이폰"
+            "무선충전기술",
+            "스마트카(SMART CAR)"
           ],
-          "trading_value_eok": 1929,
+          "trading_value_eok": 1994,
           "market_cap_eok": 139873,
           "close": 591000,
           "change_percent": -8.23,
-          "volume": 323701,
+          "volume": 325129,
           "url": "https://m.stock.naver.com/domestic/stock/011070/total",
           "flow": {
-            "date": "20261006",
-            "foreign": 71367,
-            "organ": 78636,
-            "individual": -151577
+            "date": "20261007",
+            "foreign": -54000,
+            "organ": 18113,
+            "individual": 45815
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
           "type": "C",
-          "reason": "기관 5일 중 3일 순매수(644억) + 240일선 위 10·20일선 지지",
+          "reason": "기관 5일 중 3일 순매수(463억) + 240일선 위 10·20일선 지지",
           "exits": [
             "일봉 5·10일선 추종",
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
@@ -370,24 +291,55 @@
           "stop": 581600
         },
         {
+          "code": "042700",
+          "name": "한미반도체",
+          "market": "KOSPI",
+          "tags": [
+            "전자파",
+            "스페이스X(SpaceX)"
+          ],
+          "trading_value_eok": 1609,
+          "market_cap_eok": 251624,
+          "close": 264500,
+          "change_percent": -4.86,
+          "volume": 605179,
+          "url": "https://m.stock.naver.com/domestic/stock/042700/total",
+          "flow": {
+            "date": "20261007",
+            "foreign": 41192,
+            "organ": -82319,
+            "individual": 50795
+          },
+          "section": "TREND_RALLY",
+          "section_name": "대시세 추세 랠리주",
+          "type": "C",
+          "reason": "기관 5일 중 4일 순매수(549억) + 240일선 위 10·20일선 지지",
+          "exits": [
+            "일봉 5·10일선 추종",
+            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
+            "일봉 60일선 이탈 시 전량 손절"
+          ],
+          "stop": 223967
+        },
+        {
           "code": "281820",
           "name": "케이씨텍",
           "market": "KOSPI",
           "tags": [
-            "HBM(고대역폭메모리)",
-            "반도체 재료/부품"
+            "반도체 재료/부품",
+            "HBM(고대역폭메모리)"
           ],
-          "trading_value_eok": 1344,
-          "market_cap_eok": 24352,
+          "trading_value_eok": 1388,
+          "market_cap_eok": 23778,
           "close": 123000,
           "change_percent": 14.53,
-          "volume": 1094078,
+          "volume": 1122531,
           "url": "https://m.stock.naver.com/domestic/stock/281820/total",
           "flow": {
-            "date": "20261006",
-            "foreign": 4515,
-            "organ": 32145,
-            "individual": -30859
+            "date": "20261007",
+            "foreign": 60652,
+            "organ": 153298,
+            "individual": -214571
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -401,35 +353,35 @@
           "stop": 76110
         },
         {
-          "code": "204270",
-          "name": "제이앤티씨",
-          "market": "KOSDAQ",
+          "code": "353200",
+          "name": "대덕전자",
+          "market": "KOSPI",
           "tags": [
-            "유리 기판",
-            "스마트폰"
+            "소캠(SOCAMM)",
+            "반도체 기판(FC-BGA/PCB/MLB 등)"
           ],
-          "trading_value_eok": 1064,
-          "market_cap_eok": 14925,
-          "close": 25800,
-          "change_percent": 12.42,
-          "volume": 4029736,
-          "url": "https://m.stock.naver.com/domestic/stock/204270/total",
+          "trading_value_eok": 1313,
+          "market_cap_eok": 74027,
+          "close": 151300,
+          "change_percent": -4.18,
+          "volume": 865457,
+          "url": "https://m.stock.naver.com/domestic/stock/353200/total",
           "flow": {
-            "date": "20261006",
-            "foreign": 226441,
-            "organ": 5099,
-            "individual": -237903
+            "date": "20261007",
+            "foreign": -38509,
+            "organ": 12341,
+            "individual": 25431
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
-          "type": "B",
-          "reason": "480일선 돌파 6회 실패 후 재돌파 · 상단 우상향",
+          "type": "C",
+          "reason": "기관 5일 중 4일 순매수(975억) + 240일선 위 10·20일선 지지",
           "exits": [
             "일봉 5·10일선 추종",
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ],
-          "stop": 18633
+          "stop": 111820
         },
         {
           "code": "003350",
@@ -438,17 +390,17 @@
           "tags": [
             "화장품"
           ],
-          "trading_value_eok": 962,
-          "market_cap_eok": 3814,
+          "trading_value_eok": 992,
+          "market_cap_eok": 3755,
           "close": 16830,
           "change_percent": 11.9,
-          "volume": 5676257,
+          "volume": 5829553,
           "url": "https://m.stock.naver.com/domestic/stock/003350/total",
           "flow": {
-            "date": "20261006",
-            "foreign": -61629,
-            "organ": -113615,
-            "individual": 175825
+            "date": "20261007",
+            "foreign": 298290,
+            "organ": 57149,
+            "individual": -198191
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -462,55 +414,24 @@
           "stop": 11649
         },
         {
-          "code": "131290",
-          "name": "티에스이",
-          "market": "KOSDAQ",
-          "tags": [
-            "OLED(유기 발광 다이오드)",
-            "반도체 장비"
-          ],
-          "trading_value_eok": 804,
-          "market_cap_eok": 34954,
-          "close": 316000,
-          "change_percent": 0.8,
-          "volume": 416947,
-          "url": "https://m.stock.naver.com/domestic/stock/131290/total",
-          "flow": {
-            "date": "20261006",
-            "foreign": 5878,
-            "organ": 3195,
-            "individual": -12060
-          },
-          "section": "TREND_RALLY",
-          "section_name": "대시세 추세 랠리주",
-          "type": "A",
-          "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
-          "exits": [
-            "일봉 5·10일선 추종",
-            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
-            "일봉 60일선 이탈 시 전량 손절"
-          ],
-          "stop": 246395
-        },
-        {
           "code": "192820",
           "name": "코스맥스",
           "market": "KOSPI",
           "tags": [
-            "밸류업(25년 기업가치 제고계획 발표)",
-            "코리아 밸류업 지수(Korea Value-up Index)"
+            "화장품",
+            "밸류업(25년 기업가치 제고계획 발표)"
           ],
-          "trading_value_eok": 616,
-          "market_cap_eok": 35013,
+          "trading_value_eok": 623,
+          "market_cap_eok": 35240,
           "close": 308500,
           "change_percent": 3.52,
-          "volume": 203133,
+          "volume": 203211,
           "url": "https://m.stock.naver.com/domestic/stock/192820/total",
           "flow": {
-            "date": "20261006",
-            "foreign": -27750,
-            "organ": 40617,
-            "individual": -13856
+            "date": "20261007",
+            "foreign": -59438,
+            "organ": 52099,
+            "individual": 4368
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -524,41 +445,102 @@
           "stop": 240178
         },
         {
-          "code": "031980",
-          "name": "피에스케이홀딩스",
-          "market": "KOSDAQ",
+          "code": "036570",
+          "name": "NC",
+          "market": "KOSPI",
           "tags": [
-            "밸류업(25년 기업가치 제고계획 발표)",
-            "코리아 밸류업 지수(Korea Value-up Index)"
+            "모바일게임(스마트폰)",
+            "게임"
           ],
-          "trading_value_eok": 481,
-          "market_cap_eok": 43987,
-          "close": 204000,
-          "change_percent": 3.55,
-          "volume": 239559,
-          "url": "https://m.stock.naver.com/domestic/stock/031980/total",
+          "trading_value_eok": 497,
+          "market_cap_eok": 50844,
+          "close": 237500,
+          "change_percent": 6.03,
+          "volume": 209191,
+          "url": "https://m.stock.naver.com/domestic/stock/036570/total",
           "flow": {
-            "date": "20261006",
-            "foreign": 531,
-            "organ": -9288,
-            "individual": 16330
+            "date": "20261007",
+            "foreign": 11960,
+            "organ": 49491,
+            "individual": -59702
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
-          "type": "A",
-          "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
+          "type": "B",
+          "reason": "480일선 돌파 2회 실패 후 재돌파 · 상단 우상향",
           "exits": [
             "일봉 5·10일선 추종",
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ],
-          "stop": 133710
+          "stop": 225125
+        },
+        {
+          "code": "008930",
+          "name": "한미사이언스",
+          "market": "KOSPI",
+          "tags": [
+            "mRNA(메신저 리보핵산)",
+            "지주사"
+          ],
+          "trading_value_eok": 447,
+          "market_cap_eok": 45275,
+          "close": 58100,
+          "change_percent": 0.87,
+          "volume": 702637,
+          "url": "https://m.stock.naver.com/domestic/stock/008930/total",
+          "flow": {
+            "date": "20261007",
+            "foreign": 14441,
+            "organ": 4697,
+            "individual": -12351
+          },
+          "section": "TREND_RALLY",
+          "section_name": "대시세 추세 랠리주",
+          "type": "B",
+          "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
+          "exits": [
+            "일봉 5·10일선 추종",
+            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
+            "일봉 60일선 이탈 시 전량 손절"
+          ],
+          "stop": 44682
+        },
+        {
+          "code": "248070",
+          "name": "솔루엠",
+          "market": "KOSPI",
+          "tags": [
+            "전기차(충전소/충전기)"
+          ],
+          "trading_value_eok": 164,
+          "market_cap_eok": 8397,
+          "close": 17580,
+          "change_percent": 4.64,
+          "volume": 918495,
+          "url": "https://m.stock.naver.com/domestic/stock/248070/total",
+          "flow": {
+            "date": "20261007",
+            "foreign": 14267,
+            "organ": 130834,
+            "individual": -144326
+          },
+          "section": "TREND_RALLY",
+          "section_name": "대시세 추세 랠리주",
+          "type": "B",
+          "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
+          "exits": [
+            "일봉 5·10일선 추종",
+            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
+            "일봉 60일선 이탈 시 전량 손절"
+          ],
+          "stop": 13877
         }
       ]
     }
   ],
-  "built_slot": "2026-10-07/close",
+  "built_slot": "2026-10-08/manual",
   "rules_version": 8,
-  "updated_at": "2026-10-07T06:55:04.120151+00:00",
+  "updated_at": "2026-10-07T22:58:55.897975+00:00",
   "intraday": false
 }
