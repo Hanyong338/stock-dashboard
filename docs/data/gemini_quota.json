@@ -15,13 +15,14 @@
     },
     "2026-10-07": {
       "gemini-3.5-flash": {
-        "503": 2
+        "503": 2,
+        "ReadTimeout": 1
       },
       "gemini-3.6-flash": {
         "503": 2
       },
       "gemini-3.7-flash": {
-        "503": 2
+        "503": 3
       },
       "gemini-3.8-flash": {
         "ReadTimeout": 1,
@@ -38,5 +39,7 @@
       }
     ]
   },
-  "paid_unavailable_until": "2026-10-13T21:28:55.417171+00:00"
+  "paid_unavailable_until": "2026-10-13T21:28:55.417171+00:00",
+  "backoff_minutes": 40,
+  "backoff_until": "2026-10-07T08:31:47.878476+00:00"
 }
