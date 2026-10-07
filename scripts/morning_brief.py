@@ -227,4 +227,7 @@ def build_morning_brief(title, transcript_text, broadcast_date):
     )
     # 뉴스를 전수(최대 15건) 3단으로 쓰고 체크리스트까지 채우면 출력이 길어진다.
     # 한도에 걸려 뒷부분이 잘리면 JSON 자체가 깨지므로 넉넉히 잡는다(한도일 뿐 그만큼 과금되지 않는다).
-    return call_gemini(SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, f"당잠사 {title[:24]}", max_output_tokens=32768)
+    # 당잠사는 무료로만 분석한다(사용자 지정, 10/7). 무료가 막히면 다음 실행에서 다시 시도한다.
+    return call_gemini(
+        SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, f"당잠사 {title[:24]}", max_output_tokens=32768, allow_paid=False
+    )

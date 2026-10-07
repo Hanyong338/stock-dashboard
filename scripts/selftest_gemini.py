@@ -78,7 +78,7 @@ def _reset(tmpdir, now):
     os.environ["GEMINI_API_KEY"] = "PAID-KEY"
 
 
-def _run(tmpdir, responder, now=ACTIVE_NOW, before=None):
+def _run(tmpdir, responder, now=ACTIVE_NOW, before=None, **call_kwargs):
     """responder(kind, model) -> FakeResp. 보낸 요청 목록과 결과(성공/미룸/오류)를 돌려준다."""
     _reset(tmpdir, now)
     if before:
@@ -92,7 +92,7 @@ def _run(tmpdir, responder, now=ACTIVE_NOW, before=None):
 
     s._post = fake_post
     try:
-        s.call_gemini("sys", "user", {}, "selftest")
+        s.call_gemini("sys", "user", {}, "selftest", **call_kwargs)
         outcome = "success"
     except s.GeminiUnavailable:
         outcome = "deferred"
@@ -181,6 +181,47 @@ def main():
         until = (ACTIVE_NOW + datetime.timedelta(hours=5)).isoformat()
         s._quota["exhausted"] = {m: until for m in [s.MODEL] + s.FALLBACK_MODELS}
         check("무료 소진 상태에서 요약 대기열이 유료로 진행됨(gemini_ready)", s.gemini_ready(reserve=4), {})
+
+        # 8. 당잠사(유료 금지): 무료 4개 한도 소진 → 유료 안 쓰고 미룸
+        calls, out = _run(
+            tmp, lambda k, m: FakeResp(200, OK_BODY) if k == "paid" else FakeResp(429, DAILY_429), allow_paid=False
+        )
+        check(
+            "당잠사: 무료 한도 소진이어도 유료로 안 넘어감",
+            out == "deferred" and not any(c.startswith("paid") for c in calls),
+            {"calls": calls, "outcome": out},
+        )
+
+        # 9. 무료가 당잠사 몫(4번)만 남았을 때 일반 영상 → 그 몫은 안 쓰고 유료로
+        def leave_four():
+            day = s._quota_day()
+            s._quota["sent"] = {day: {m: {"503": s.FREE_RPD - 1} for m in [s.MODEL] + s.FALLBACK_MODELS}}
+
+        calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY), before=leave_four, reserve=4)
+        check(
+            "일반 영상: 당잠사 몫으로 남긴 무료 4번은 안 쓰고 유료로",
+            out == "success" and calls and all(c.startswith("paid") for c in calls),
+            {"calls": calls, "outcome": out},
+        )
+
+        # 10. 같은 상황에서 당잠사 → 남겨둔 무료로 처리
+        calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY), before=leave_four, allow_paid=False)
+        check(
+            "당잠사: 남겨둔 무료 몫으로 처리",
+            out == "success" and calls and all(c.startswith("free") for c in calls),
+            {"calls": calls, "outcome": out},
+        )
+
+        # 11. 운영 시간 끝(한국시간 19:00 이후) → 요청 안 보냄, 18:59 → 보냄
+        at_1900 = datetime.datetime(2026, 10, 8, 10, 0, tzinfo=datetime.timezone.utc)
+        at_1859 = datetime.datetime(2026, 10, 8, 9, 59, tzinfo=datetime.timezone.utc)
+        calls_a, out_a = _run(tmp, lambda k, m: FakeResp(200, OK_BODY), now=at_1900)
+        calls_b, out_b = _run(tmp, lambda k, m: FakeResp(200, OK_BODY), now=at_1859)
+        check(
+            "운영 시간 07:00~19:00 경계",
+            out_a == "deferred" and not calls_a and out_b == "success",
+            {"19:00": out_a, "18:59": out_b},
+        )
 
     summary = {"all_pass": all(r["pass"] for r in results), "results": results}
     OUT_FILE.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")

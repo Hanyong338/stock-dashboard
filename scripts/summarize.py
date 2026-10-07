@@ -442,28 +442,35 @@ def _backing_off():
         return False
 
 
-def _usable(kind, model):
+def _usable(kind, model, allow_paid=True, reserve=0):
+    """reserve: 이 요청은 무료 요청을 이만큼 남겨두고 써야 한다(아침 당잠사 몫).
+    allow_paid=False: 무료로만 처리한다(당잠사, 사용자 지정 10/7)."""
     if (kind, model) in _busy:
         return False
     if kind == "free":
         # 혼잡 쉬기(backoff)는 무료 한도를 아끼려는 것이라 무료 키에만 건다. 유료 키는 쉬지 않고 바로 이어받는다.
-        return not _backing_off() and not _quota_exhausted(model)
+        if _backing_off() or _quota_exhausted(model):
+            return False
+        return not reserve or remaining_free_requests() > reserve
     # 유료 키는 무료 모델 4개의 하루 한도가 '모두' 찼을 때만 쓴다(사용자 지정, 10/7).
     # 무료가 혼잡(503)으로 막혔을 뿐이면 유료로 넘기지 않고 다음 실행에서 무료로 다시 시도한다.
-    return _free_all_exhausted() and not _paid_unavailable()
+    # 당잠사 몫으로 남겨둔 무료 요청은 다른 영상 입장에선 '찬 것'으로 본다(그 영상들은 유료로 넘어간다).
+    return allow_paid and _free_all_exhausted(reserve) and not _paid_unavailable()
 
 
-def _free_all_exhausted():
+def _free_all_exhausted(reserve=0):
     if not (os.environ.get("GEMINI_API_KEY_FREE") or "").strip():
         return True  # 무료 키가 없으면 유료 키만 쓴다
-    return all(_quota_exhausted(m) for m in [MODEL] + FALLBACK_MODELS)
+    if all(_quota_exhausted(m) for m in [MODEL] + FALLBACK_MODELS):
+        return True
+    return bool(reserve) and remaining_free_requests() <= reserve
 
 
-# 제미나이는 한국시간 07:00~17:00 에만 부른다(사용자 지정, 2026-10-07. 그 전엔 06:00~21:30).
-# 나머지 시간은 아예 부르지 않는다. 혼잡(503)이 심한 시간대이고, 거절도 하루 한도(모델당 20회)를 깎는다.
+# 제미나이는 한국시간 07:00~19:00 에만 부른다(사용자 지정, 2026-10-07. 06:00~21:30 → 07:00~17:00 → 07:00~19:00).
+# 나머지 시간은 무료·유료 모두 부르지 않는다. 혼잡(503)이 심한 시간대이고, 거절도 하루 한도(모델당 20회)를 깎는다.
 # 이 시간에 올라온 영상은 '확인함' 처리하지 않으니 다음 날 07시 첫 실행에서 한꺼번에 요약된다.
 ACTIVE_START_KST = (7, 0)
-ACTIVE_END_KST = (17, 0)
+ACTIVE_END_KST = (19, 0)
 QUIET_LABEL = f"한국시간 {ACTIVE_END_KST[0]:02d}:{ACTIVE_END_KST[1]:02d}~{ACTIVE_START_KST[0]:02d}:{ACTIVE_START_KST[1]:02d}"
 
 
@@ -472,15 +479,13 @@ def gemini_quiet_now():
     return not (ACTIVE_START_KST <= (kst.hour, kst.minute) < ACTIVE_END_KST)
 
 
-def gemini_ready(reserve=0):
+def gemini_ready(reserve=0, allow_paid=True):
     """지금 요약을 맡길 수 있는 키·모델이 하나라도 남았는가. 다 막혔으면 파이프라인은 요약을 다음 실행으로 미룬다
     (요청을 보내 봐야 거절만 쌓이고, 그 거절이 무료 한도를 깎는다). 밤 휴식 시간에도 False.
-    reserve: 무료 요청을 이만큼은 남겨둔다(아침 당잠사 몫). 유료 키를 쓸 수 있으면 남겨둘 필요가 없다."""
+    reserve / allow_paid 는 _usable 참고."""
     if gemini_quiet_now():
         return False
-    if reserve and _paid_unavailable() and remaining_free_requests() <= reserve:
-        return False
-    return any(_usable(kind, model) for kind, _ in _keys() for model in _models())
+    return any(_usable(kind, model, allow_paid, reserve) for kind, _ in _keys() for model in _models())
 
 
 class GeminiUnavailable(RuntimeError):
@@ -541,9 +546,10 @@ def _error_detail(e):
         return (resp.text or "")[:220]
 
 
-def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_tokens=8192):
+def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_tokens=8192, allow_paid=True, reserve=0):
     """구조화된 JSON 응답을 받아온다. 키·모델 선택/비용로그/개행 정규화를 공통으로 처리한다.
-    쓸 수 있는 키·모델이 다 막히면 GeminiUnavailable 을 던진다(다음 실행에서 다시 시도)."""
+    쓸 수 있는 키·모델이 다 막히면 GeminiUnavailable 을 던진다(다음 실행에서 다시 시도).
+    allow_paid / reserve 는 _usable 참고."""
     payload = {
         "system_instruction": {"parts": [{"text": system_prompt}]},
         "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
@@ -560,7 +566,7 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
     last_error = None
     for kind, key in _keys():
         for model in _models():
-            if not _usable(kind, model):
+            if not _usable(kind, model, allow_paid, reserve):
                 continue
             resp = None
             try:
@@ -616,9 +622,9 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
     raise GeminiUnavailable(f"쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: {last_error}")
 
 
-def summarize_transcript(channel_name, title, transcript_text):
+def summarize_transcript(channel_name, title, transcript_text, reserve=0):
     user_prompt = f"채널명: {channel_name}\n영상 제목: {title}\n\n자막:\n{transcript_text[:MAX_TRANSCRIPT_CHARS]}"
-    return call_gemini(SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, title)
+    return call_gemini(SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, title, reserve=reserve)
 
 
 # 요청 한 번에 영상 여러 개 요약하기(시험 중). 무료 한도는 '요청 횟수'로 세므로 2개씩 묶으면 같은 한도로 두 배를 처리한다.
@@ -643,8 +649,9 @@ PAIR_RESPONSE_SCHEMA = {
 }
 
 
-def summarize_many(items):
-    """items: [(채널명, 제목, 자막), ...] → 같은 순서의 리포트 목록. 개수가 안 맞으면 실패로 본다."""
+def summarize_many(items, reserve=0, allow_paid=False):
+    """items: [(채널명, 제목, 자막), ...] → 같은 순서의 리포트 목록. 개수가 안 맞으면 실패로 본다.
+    지금은 품질 비교 시험에만 쓰므로 기본은 무료로만 처리한다(시험에 돈을 쓰지 않게)."""
     parts = []
     for i, (channel_name, title, transcript_text) in enumerate(items, 1):
         parts.append(
@@ -653,7 +660,13 @@ def summarize_many(items):
     user_prompt = f"아래 영상 {len(items)}개를 각각 따로 분석하라.\n\n" + "\n\n".join(parts)
     label = " + ".join(t[:16] for _, t, _ in items)
     result = call_gemini(
-        SYSTEM_PROMPT + PAIR_SYSTEM_ADDENDUM, user_prompt, PAIR_RESPONSE_SCHEMA, label, max_output_tokens=8192 * len(items)
+        SYSTEM_PROMPT + PAIR_SYSTEM_ADDENDUM,
+        user_prompt,
+        PAIR_RESPONSE_SCHEMA,
+        label,
+        max_output_tokens=8192 * len(items),
+        allow_paid=allow_paid,
+        reserve=reserve,
     )
     reports = sorted(result.get("reports") or [], key=lambda r: r.get("video_no", 0))
     if [r.get("video_no") for r in reports] != list(range(1, len(items) + 1)):

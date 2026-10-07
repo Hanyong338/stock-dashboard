@@ -207,8 +207,11 @@ MORNING_BRIEF_RESERVE = 4
 def _brief_reserve():
     current = load_json(MORNING_BRIEF_FILE, {})
     pub = parse_published(current.get("published", "")) if isinstance(current, dict) else None
-    if pub is not None and pub >= quota_day_start():
+    start = quota_day_start()
+    if pub is not None and pub >= start:
         return 0  # 이번 한도 날짜의 당잠사는 이미 분석했다
+    if datetime.datetime.now(datetime.timezone.utc) >= start + datetime.timedelta(hours=20):
+        return 0  # 한국시간 정오가 지나도록 안 올라왔으면 오늘은 방송이 없는 날로 보고 남겨둔 몫을 푼다
     return MORNING_BRIEF_RESERVE
 
 
@@ -422,7 +425,9 @@ def process_channel(ch, state, summaries, now):
             continue
 
         try:
-            result = call_with_timeout(summarize_transcript, SUMMARIZE_TIMEOUT_SECONDS, name, v["title"], transcript_text)
+            result = call_with_timeout(
+                summarize_transcript, SUMMARIZE_TIMEOUT_SECONDS, name, v["title"], transcript_text, reserve=_brief_reserve()
+            )
         except GeminiUnavailable as e:
             # 영상 문제가 아니라 제미나이가 전부 막힌 것. 실패 기록 대신 실행 끝에 '미룸' 한 줄로 남긴다.
             print(f"[INFO] 요약 미룸 [{name}] {v['title'][:40]} : {e}")
@@ -752,7 +757,7 @@ def update_pair_trial(now):
     data = _load_pair_trial()
     if len(data["pairs"]) >= PAIR_TRIAL_TARGET_PAIRS or len(data["pool"]) < 2 or _deferred:
         return False
-    if not gemini_ready(reserve=_brief_reserve()):
+    if not gemini_ready(reserve=_brief_reserve(), allow_paid=False):
         return False
     picked = data["pool"][:2]
     texts = [read_transcript_cache(p["video_id"]) for p in picked]
@@ -763,7 +768,10 @@ def update_pair_trial(now):
         return True
     try:
         reports = call_with_timeout(
-            summarize_many, SUMMARIZE_TIMEOUT_SECONDS, [(p["channel"], p["title"], t) for p, t in zip(picked, texts)]
+            summarize_many,
+            SUMMARIZE_TIMEOUT_SECONDS,
+            [(p["channel"], p["title"], t) for p, t in zip(picked, texts)],
+            reserve=_brief_reserve(),
         )
     except GeminiUnavailable as e:
         print(f"[INFO] 묶음 요약 시험 미룸: {e}")
@@ -921,8 +929,8 @@ def update_morning_brief(now):
         print(f"[INFO] morning brief: 업로드 {int((now - pub).total_seconds() // 60)}분 — 자막 생성 대기")
         return _refresh_market_overlay(current, now) if current.get("video_id") else False
 
-    if not gemini_ready():
-        print("[INFO] morning brief: 제미나이 모두 혼잡/한도 — 다음 실행에서 분석")
+    if not gemini_ready(allow_paid=False):  # 당잠사는 무료로만(사용자 지정, 10/7)
+        print("[INFO] morning brief: 무료 제미나이가 혼잡/한도 — 다음 실행에서 분석")
         _deferred.append(latest["video_id"])
         return _refresh_market_overlay(current, now) if current.get("video_id") else False
 
