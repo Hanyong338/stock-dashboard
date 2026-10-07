@@ -80,7 +80,7 @@
       "detail": {}
     },
     {
-      "case": "당잠사: 무료 한도 소진이어도 유료로 안 넘어감",
+      "case": "무료 전용 요청: 무료 한도 소진이어도 유료로 안 넘어감",
       "pass": true,
       "detail": {
         "calls": [
@@ -103,11 +103,11 @@
       }
     },
     {
-      "case": "당잠사: 남겨둔 무료 몫으로 처리",
+      "case": "당잠사: 무료가 남아 있어도 유료로 바로 처리",
       "pass": true,
       "detail": {
         "calls": [
-          "free:gemini-3.5-flash"
+          "paid:gemini-3.5-flash"
         ],
         "outcome": "success"
       }
@@ -151,11 +151,20 @@
       }
     },
     {
-      "case": "당잠사: 저녁 유료 시간대엔 분석 안 함(무료로만)",
+      "case": "당잠사: 휴식 시간(06:30)에도 유료로 바로 처리",
       "pass": true,
       "detail": {
-        "calls": [],
-        "outcome": "deferred"
+        "calls": [
+          "paid:gemini-3.5-flash"
+        ],
+        "outcome": "success"
+      }
+    },
+    {
+      "case": "무료 전용 요청: 저녁 유료 시간대엔 안 돌림",
+      "pass": true,
+      "detail": {
+        "calls": []
       }
     },
     {
