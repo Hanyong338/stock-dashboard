@@ -203,7 +203,8 @@ SKIP_BACKLOG_BEFORE_KST = datetime.date(2026, 10, 8)
 # 다음 날 아침 당잠사를 분석할 요청이 하나도 안 남는다(10/7 아침 실제로 그랬다).
 # 이번 한도 날짜의 당잠사가 아직 안 끝났으면 채널 요약은 이만큼의 요청을 남겨두고 멈춘다.
 # 1번이면 되지만 혼잡(503)으로 한두 번 거절될 수 있어 넉넉히 잡는다.
-MORNING_BRIEF_RESERVE = 4
+# 10/8부터 당잠사는 유료로 처리하므로 무료를 남겨둘 필요가 없다(0). 다시 무료로 돌리면 4로.
+MORNING_BRIEF_RESERVE = 0
 
 
 def _brief_reserve():
@@ -949,8 +950,8 @@ def update_morning_brief(now):
         print(f"[INFO] morning brief: 업로드 {int((now - pub).total_seconds() // 60)}분 — 자막 생성 대기")
         return _refresh_market_overlay(current, now) if current.get("video_id") else False
 
-    if not gemini_ready(allow_paid=False):  # 당잠사는 무료로만(사용자 지정, 10/7)
-        print("[INFO] morning brief: 무료 제미나이가 혼잡/한도 — 다음 실행에서 분석")
+    if not gemini_ready(paid_only=True):  # 당잠사는 올라오자마자 유료로(사용자 지정, 10/8)
+        print("[INFO] morning brief: 유료 제미나이를 쓸 수 없음(잔액/거절) — 다음 실행에서 분석")
         _deferred.append(latest["video_id"])
         return _refresh_market_overlay(current, now) if current.get("video_id") else False
 

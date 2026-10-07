@@ -182,12 +182,12 @@ def main():
         s._quota["exhausted"] = {m: until for m in [s.MODEL] + s.FALLBACK_MODELS}
         check("무료 소진 상태에서 요약 대기열이 유료로 진행됨(gemini_ready)", s.gemini_ready(reserve=4), {})
 
-        # 8. 당잠사(유료 금지): 무료 4개 한도 소진 → 유료 안 쓰고 미룸
+        # 8. 무료 전용 요청(묶음 시험): 무료 4개 한도 소진 → 유료 안 쓰고 미룸
         calls, out = _run(
             tmp, lambda k, m: FakeResp(200, OK_BODY) if k == "paid" else FakeResp(429, DAILY_429), allow_paid=False
         )
         check(
-            "당잠사: 무료 한도 소진이어도 유료로 안 넘어감",
+            "무료 전용 요청: 무료 한도 소진이어도 유료로 안 넘어감",
             out == "deferred" and not any(c.startswith("paid") for c in calls),
             {"calls": calls, "outcome": out},
         )
@@ -204,11 +204,11 @@ def main():
             {"calls": calls, "outcome": out},
         )
 
-        # 10. 같은 상황에서 당잠사 → 남겨둔 무료로 처리
-        calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY), before=leave_four, allow_paid=False)
+        # 10. 당잠사(유료 전용): 무료가 남아 있어도 유료로만 바로 처리
+        calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY), paid_only=True)
         check(
-            "당잠사: 남겨둔 무료 몫으로 처리",
-            out == "success" and calls and all(c.startswith("free") for c in calls),
+            "당잠사: 무료가 남아 있어도 유료로 바로 처리",
+            out == "success" and calls and all(c.startswith("paid") for c in calls),
             {"calls": calls, "outcome": out},
         )
 
@@ -236,13 +236,17 @@ def main():
         )
         check("시간대: 07~18 무료 / 18~21 유료만 / 21~07 휴식", ok, seen)
 
-        # 12. 저녁 유료 시간대의 당잠사 → 유료 안 쓰고 미룸
-        calls, out = _run(tmp, everything_ok, now=kst(19, 0), allow_paid=False)
+        # 12. 당잠사(유료 전용): 휴식 시간(새벽 06:30)에도 올라오자마자 유료로 처리
+        calls, out = _run(tmp, everything_ok, now=kst(6, 30), paid_only=True)
         check(
-            "당잠사: 저녁 유료 시간대엔 분석 안 함(무료로만)",
-            out == "deferred" and not calls,
+            "당잠사: 휴식 시간(06:30)에도 유료로 바로 처리",
+            out == "success" and calls and all(c.startswith("paid") for c in calls),
             {"calls": calls, "outcome": out},
         )
+
+        # 14. 무료 전용 요청은 저녁 유료 시간대엔 안 돌림
+        calls, out = _run(tmp, everything_ok, now=kst(19, 0), allow_paid=False)
+        check("무료 전용 요청: 저녁 유료 시간대엔 안 돌림", out == "deferred" and not calls, {"calls": calls})
 
         # 13. 일회성 정지(PAUSE_UNTIL_KST) 중엔 낮이어도 요청 안 보냄
         calls, out = _run(tmp, everything_ok, now=kst(10, 0) - datetime.timedelta(days=1))

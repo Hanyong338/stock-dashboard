@@ -442,11 +442,14 @@ def _backing_off():
         return False
 
 
-def _usable(kind, model, allow_paid=True, reserve=0):
-    """reserve: 이 요청은 무료 요청을 이만큼 남겨두고 써야 한다(아침 당잠사 몫).
-    allow_paid=False: 무료로만 처리한다(당잠사, 사용자 지정 10/7)."""
+def _usable(kind, model, allow_paid=True, reserve=0, paid_only=False):
+    """reserve: 이 요청은 무료 요청을 이만큼 남겨두고 써야 한다.
+    allow_paid=False: 무료로만 처리한다(묶음 요약 시험).
+    paid_only=True: 유료로만, 시간대 규칙과 상관없이 바로 처리한다(당잠사, 사용자 지정 10/8)."""
     if (kind, model) in _busy:
         return False
+    if paid_only:
+        return kind == "paid" and not _paid_unavailable()
     if kind == "free":
         # 혼잡 쉬기(backoff)는 무료 한도를 아끼려는 것이라 무료 키에만 건다. 유료 키는 쉬지 않고 바로 이어받는다.
         if gemini_mode() != "free" or _backing_off() or _quota_exhausted(model):
@@ -503,13 +506,13 @@ def gemini_quiet_now():
     return gemini_mode() == "off"
 
 
-def gemini_ready(reserve=0, allow_paid=True):
+def gemini_ready(reserve=0, allow_paid=True, paid_only=False):
     """지금 요약을 맡길 수 있는 키·모델이 하나라도 남았는가. 다 막혔으면 파이프라인은 요약을 다음 실행으로 미룬다
-    (요청을 보내 봐야 거절만 쌓이고, 그 거절이 무료 한도를 깎는다). 밤 휴식 시간에도 False.
-    reserve / allow_paid 는 _usable 참고."""
-    if gemini_quiet_now():
+    (요청을 보내 봐야 거절만 쌓이고, 그 거절이 무료 한도를 깎는다). 밤 휴식 시간에도 False(paid_only 는 예외).
+    reserve / allow_paid / paid_only 는 _usable 참고."""
+    if gemini_quiet_now() and not paid_only:
         return False
-    return any(_usable(kind, model, allow_paid, reserve) for kind, _ in _keys() for model in _models())
+    return any(_usable(kind, model, allow_paid, reserve, paid_only) for kind, _ in _keys() for model in _models())
 
 
 class GeminiUnavailable(RuntimeError):
@@ -570,10 +573,12 @@ def _error_detail(e):
         return (resp.text or "")[:220]
 
 
-def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_tokens=8192, allow_paid=True, reserve=0):
+def call_gemini(
+    system_prompt, user_prompt, response_schema, label, max_output_tokens=8192, allow_paid=True, reserve=0, paid_only=False
+):
     """구조화된 JSON 응답을 받아온다. 키·모델 선택/비용로그/개행 정규화를 공통으로 처리한다.
     쓸 수 있는 키·모델이 다 막히면 GeminiUnavailable 을 던진다(다음 실행에서 다시 시도).
-    allow_paid / reserve 는 _usable 참고."""
+    allow_paid / reserve / paid_only 는 _usable 참고."""
     payload = {
         "system_instruction": {"parts": [{"text": system_prompt}]},
         "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
@@ -584,13 +589,13 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
         },
     }
 
-    if gemini_quiet_now():
+    if gemini_quiet_now() and not paid_only:
         raise GeminiUnavailable(f"휴식 시간({QUIET_LABEL})이라 제미나이를 부르지 않는다")
 
     last_error = None
     for kind, key in _keys():
         for model in _models():
-            if not _usable(kind, model, allow_paid, reserve):
+            if not _usable(kind, model, allow_paid, reserve, paid_only):
                 continue
             resp = None
             try:
