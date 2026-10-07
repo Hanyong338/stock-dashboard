@@ -196,6 +196,8 @@ def save_json(path, data):
 _warnings = []
 # 제미나이가 모두 막혀 이번 실행에서 요약을 미룬 영상. 영상마다 남기면 기록이 넘치니 실행 끝에 한 줄로 남긴다.
 _deferred = []
+SKIP_BACKLOG_CHANNELS = {"삼프로TV", "815머니톡", "한국경제TV"}
+SKIP_BACKLOG_BEFORE_KST = datetime.date(2026, 10, 8)
 
 # 무료 한도 날짜는 한국시간 16시(겨울 17시)에 바뀐다. 그래서 전날 16~21:30 요약이 한도를 다 쓰면
 # 다음 날 아침 당잠사를 분석할 요청이 하나도 안 남는다(10/7 아침 실제로 그랬다).
@@ -339,6 +341,16 @@ def process_channel(ch, state, summaries, now):
             # 보관 기간(RETENTION_DAYS)보다 오래된 영상은 요약하지 않고 확인만 하고 넘어간다.
             state[cid].append(v["video_id"])
             continue
+
+        # 사용자 지정(10/8): 혼잡으로 밀린 이 채널들의 10/7 이전 영상은 요약하지 않고 넘긴다(받아둔 자막도 버린다).
+        # 날짜를 박아둔 일회성 정리라 10/8 이후 영상에는 영향이 없다.
+        if name in SKIP_BACKLOG_CHANNELS:
+            pub = parse_published(v.get("published", ""))
+            if pub is not None and (pub + datetime.timedelta(hours=9)).date() < SKIP_BACKLOG_BEFORE_KST:
+                state[cid].append(v["video_id"])
+                clear_transcript_cache(v["video_id"])
+                state.get(ATTEMPTS_KEY, {}).pop(v["video_id"], None)
+                continue
 
         # 예정됐거나 아직 방송 중인 생방송은 유튜브가 길이를 0초로 준다. 그대로 두면 아래 '쇼츠' 판정에 걸려
         # '확인함'이 되고, 방송이 끝난 뒤에도 다시 안 본다. 2026-09-28 하나TV 모닝브리프가 이렇게 빠졌다
