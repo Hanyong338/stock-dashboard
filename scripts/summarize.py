@@ -474,8 +474,15 @@ ACTIVE_END_KST = (19, 0)
 QUIET_LABEL = f"한국시간 {ACTIVE_END_KST[0]:02d}:{ACTIVE_END_KST[1]:02d}~{ACTIVE_START_KST[0]:02d}:{ACTIVE_START_KST[1]:02d}"
 
 
+# 이 시각(한국시간)까지는 운영 시간이어도 제미나이를 부르지 않는다. 일회성 정지용.
+# 10/7 저녁 무료가 계속 혼잡해 사용자가 "오늘은 그만, 내일 07시부터 다시"로 정했다.
+PAUSE_UNTIL_KST = datetime.datetime(2026, 10, 8, 7, 0)
+
+
 def gemini_quiet_now():
     kst = _now() + datetime.timedelta(hours=9)
+    if kst.replace(tzinfo=None) < PAUSE_UNTIL_KST:
+        return True
     return not (ACTIVE_START_KST <= (kst.hour, kst.minute) < ACTIVE_END_KST)
 
 
