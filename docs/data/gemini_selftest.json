@@ -1,0 +1,83 @@
+{
+  "all_pass": true,
+  "results": [
+    {
+      "case": "무료 4개 한도 소진 → 유료로 넘어감",
+      "pass": true,
+      "detail": {
+        "calls": [
+          "free:gemini-3.5-flash",
+          "free:gemini-3.6-flash",
+          "free:gemini-3.7-flash",
+          "free:gemini-3.8-flash",
+          "paid:gemini-3.5-flash"
+        ],
+        "outcome": "success"
+      }
+    },
+    {
+      "case": "무료 혼잡(503) → 유료로 안 넘어감",
+      "pass": true,
+      "detail": {
+        "calls": [
+          "free:gemini-3.5-flash",
+          "free:gemini-3.6-flash"
+        ],
+        "outcome": "deferred"
+      }
+    },
+    {
+      "case": "무료 모델 하나만 한도 → 남은 무료로 처리",
+      "pass": true,
+      "detail": {
+        "calls": [
+          "free:gemini-3.5-flash",
+          "free:gemini-3.6-flash"
+        ],
+        "outcome": "success"
+      }
+    },
+    {
+      "case": "새 유료 키 → 예전 쉬는 기간 무시",
+      "pass": true,
+      "detail": {
+        "calls": [
+          "free:gemini-3.5-flash",
+          "free:gemini-3.6-flash",
+          "free:gemini-3.7-flash",
+          "free:gemini-3.8-flash",
+          "paid:gemini-3.5-flash"
+        ],
+        "outcome": "success"
+      }
+    },
+    {
+      "case": "휴식 시간 → 요청 안 보냄",
+      "pass": true,
+      "detail": {
+        "calls": [],
+        "outcome": "deferred"
+      }
+    },
+    {
+      "case": "유료 분당 제한 → 다른 모델로 이어서 처리, 길게 쉬지 않음",
+      "pass": true,
+      "detail": {
+        "calls": [
+          "free:gemini-3.5-flash",
+          "free:gemini-3.6-flash",
+          "free:gemini-3.7-flash",
+          "free:gemini-3.8-flash",
+          "paid:gemini-3.5-flash",
+          "paid:gemini-3.6-flash"
+        ],
+        "outcome": "success"
+      }
+    },
+    {
+      "case": "무료 소진 상태에서 요약 대기열이 유료로 진행됨(gemini_ready)",
+      "pass": true,
+      "detail": {}
+    }
+  ]
+}
