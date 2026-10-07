@@ -565,12 +565,13 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
             resp = None
             try:
                 resp = _post(payload, key, model=model)
-                if kind != "paid" or resp.ok:
-                    _count(model, resp.status_code)
-                # 잔액 없는 유료 키는 402 나 429(문구는 그때그때 다르다)로 온다. 어느 쪽이든 유료는 당분간 쉰다.
-                if kind == "paid" and (_paid_depleted(resp) or resp.status_code == 429):
+                if kind == "free":
+                    _count(model, resp.status_code)  # 유료 키는 별도 프로젝트라 무료 한도 계산에 넣지 않는다
+                # 유료 키를 당분간 쉬게 하는 건 '잔액 없음(402/prepayment)'이나 '결제 꺼진 무료 등급(FreeTier)'일 때뿐.
+                # 그 밖의 429(분당 요청 제한 등)는 잠깐 막힌 것이라 아래에서 이번 실행만 건너뛴다.
+                if kind == "paid" and (_paid_depleted(resp) or (resp.status_code == 429 and "FreeTier" in (resp.text or ""))):
                     _mark_paid_unavailable(resp)
-                    last_error = last_error or RuntimeError("유료 키 선불 잔액 없음/한도")
+                    last_error = last_error or RuntimeError("유료 키 선불 잔액 없음/무료 등급")
                     break
                 resp.raise_for_status()
                 data = resp.json()

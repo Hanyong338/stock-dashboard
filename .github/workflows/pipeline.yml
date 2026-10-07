@@ -36,6 +36,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
+      # 제미나이 키·모델 선택 규칙(무료 한도 소진 시에만 유료 등)을 가짜 응답으로 확인한다. 진짜 요청 0번.
+      # 결과는 docs/data/gemini_selftest.json. 실패해도 본 작업은 계속 돈다.
+      - name: Self-test Gemini routing
+        continue-on-error: true
+        run: python scripts/selftest_gemini.py
+
       - name: Run pipeline
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
