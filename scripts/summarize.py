@@ -372,9 +372,24 @@ def _count(model, status):
     _save_quota()
 
 
+def _paid_fingerprint():
+    """유료 키가 바뀌었는지만 알아보는 지문(해시 앞 8자리). 키 자체는 남기지 않고, 이것으로 키를 되살릴 수도 없다."""
+    import hashlib
+
+    paid = (os.environ.get("GEMINI_API_KEY") or "").strip()
+    return hashlib.sha256(paid.encode()).hexdigest()[:8] if paid else None
+
+
 def _paid_unavailable():
     if _paid_depleted_this_run:
         return True
+    # 유료 키를 새로 넣었으면(예: 결제를 켠 새 프로젝트의 키) 예전 키 때문에 걸어둔 쉬는 기간은 무시한다
+    fp = _paid_fingerprint()
+    if _quota.get("paid_key_fp") != fp:
+        _quota["paid_key_fp"] = fp
+        _quota.pop("paid_unavailable_until", None)
+        _save_quota()
+        return False
     until = _quota.get("paid_unavailable_until")
     try:
         return bool(until) and _now() < datetime.datetime.fromisoformat(until)
@@ -425,12 +440,11 @@ def _backing_off():
 
 
 def _usable(kind, model):
-    if _backing_off():
-        return False
     if (kind, model) in _busy:
         return False
     if kind == "free":
-        return not _quota_exhausted(model)
+        # 혼잡 쉬기(backoff)는 무료 한도를 아끼려는 것이라 무료 키에만 건다. 유료 키는 쉬지 않고 바로 이어받는다.
+        return not _backing_off() and not _quota_exhausted(model)
     return not _paid_unavailable()
 
 
@@ -572,7 +586,7 @@ def call_gemini(system_prompt, user_prompt, response_schema, label, max_output_t
                     # 혼잡·시간초과·분당 한도·없는 모델 — 이번 실행 동안은 이 모델을 다시 부르지 않는다
                     _busy.add((kind, model))
                     print(f"[INFO] {kind} {model} 거절({status or type(e).__name__}) — 이번 실행에선 건너뛴다")
-                    if status != 404:
+                    if status != 404 and kind == "free":
                         _note_failure()
                     continue
                 raise last_error  # 요청 자체가 잘못된 경우(400 등)는 다른 모델로도 안 된다
