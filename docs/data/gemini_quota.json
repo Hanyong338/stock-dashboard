@@ -17,7 +17,7 @@
       "gemini-3.5-flash": {
         "503": 3,
         "ReadTimeout": 1,
-        "200": 1
+        "200": 7
       },
       "gemini-3.6-flash": {
         "503": 2
@@ -40,7 +40,5 @@
       }
     ]
   },
-  "backoff_minutes": 40,
-  "backoff_until": "2026-10-07T22:43:02.191654+00:00",
   "paid_key_fp": "c85e16c9"
 }
