@@ -8,6 +8,8 @@ import re
 import subprocess
 import sys
 import time
+
+import requests
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 from pathlib import Path
 
@@ -919,6 +921,28 @@ def update_calendar(now):
     return True
 
 
+def _youtube_has_captions(video_id):
+    """유튜브 영상 페이지에 자막 목록(captionTracks)이 있는지. True/False, 확인 실패면 None.
+    자동 자막(asr)도 여기 잡힌다. 비용 없음."""
+    try:
+        resp = requests.get(
+            f"https://www.youtube.com/watch?v={video_id}&hl=ko",
+            headers={"Accept-Language": "ko-KR,ko;q=0.9", "User-Agent": "Mozilla/5.0"},
+            timeout=20,
+        )
+        if resp.status_code != 200 or "ytInitialPlayerResponse" not in resp.text:
+            return None  # 차단·동의 페이지 등으로 제대로 못 읽었다
+        if '"captionTracks"' in resp.text:
+            return True
+        # 봇 확인('로그인해서 봇이 아님을 확인') 페이지는 자막 목록이 원래 빠져 있다. 그땐 '없다'고 단정하지 않는다
+        # (단정하면 당잠사가 영영 처리되지 않는다). 재생 가능 상태(OK)로 정상적으로 읽었을 때만 False.
+        if re.search(r'"playabilityStatus":\{"status":"OK"', resp.text):
+            return False
+        return None
+    except Exception:
+        return None
+
+
 def update_morning_brief(now):
     """당잠사(한국경제TV) 최신 방송 1건만 분석해 아침 리포트를 만든다.
     이미 같은 영상으로 만들어둔 리포트가 있으면 AI 요약은 건너뛰고 시세 블록만 갱신한다.
@@ -956,6 +980,12 @@ def update_morning_brief(now):
         return _refresh_market_overlay(current, now) if current.get("video_id") else False
 
     print(f"[INFO] morning brief: {latest['title']}")
+    # 생방송 다시보기라 유튜브 자동 자막이 몇 시간 뒤에야 생긴다(10/8: 06:16 업로드, 08시에도 자막 없음).
+    # 자막이 없을 때 자막 업체에 물으면 '자막 없음'에 1크레딧씩 나가고 20분마다 반복됐다.
+    # 유튜브 페이지에서 자막이 생겼는지 먼저 공짜로 확인한다. 확인 자체가 실패하면 예전처럼 그냥 받아본다.
+    if not read_transcript_cache(latest["video_id"]) and _youtube_has_captions(latest["video_id"]) is False:
+        print("[INFO] morning brief: 유튜브 자동 자막이 아직 없음 — 다음 실행에서 다시 확인(크레딧 0)")
+        return _refresh_market_overlay(current, now) if current.get("video_id") else False
     # 프롬프트를 고쳐 같은 방송을 다시 분석할 때 자막을 또 받지 않도록 캐시를 쓴다
     transcript_text = fetch_transcript_cached(latest["video_id"], latest["url"], latest["title"])
     if not transcript_text:
