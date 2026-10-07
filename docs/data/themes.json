@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "황사/미세먼지",
+      "change_percent": 1.02,
+      "total": 25,
+      "rise": 12
+    },
+    {
+      "name": "캐릭터상품",
+      "change_percent": 0.65,
+      "total": 9,
+      "rise": 7
+    },
+    {
+      "name": "자동차부품",
+      "change_percent": 0.34,
+      "total": 148,
+      "rise": 60
+    },
+    {
+      "name": "CCTV＆DVR",
+      "change_percent": 0.33,
+      "total": 7,
+      "rise": 1
+    },
+    {
+      "name": "패션/의류",
+      "change_percent": 0.32,
+      "total": 61,
+      "rise": 26
+    },
+    {
+      "name": "해운",
+      "change_percent": 0.25,
+      "total": 6,
+      "rise": 3
+    },
+    {
+      "name": "LED",
+      "change_percent": 0.19,
+      "total": 37,
+      "rise": 19
+    },
+    {
+      "name": "카메라모듈/부품",
+      "change_percent": 0.14,
+      "total": 27,
+      "rise": 14
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-10-06T23:01:07.823683+00:00"
+  "updated_at": "2026-10-07T00:01:08.006355+00:00"
 }
