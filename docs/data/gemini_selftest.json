@@ -78,6 +78,47 @@
       "case": "무료 소진 상태에서 요약 대기열이 유료로 진행됨(gemini_ready)",
       "pass": true,
       "detail": {}
+    },
+    {
+      "case": "당잠사: 무료 한도 소진이어도 유료로 안 넘어감",
+      "pass": true,
+      "detail": {
+        "calls": [
+          "free:gemini-3.5-flash",
+          "free:gemini-3.6-flash",
+          "free:gemini-3.7-flash",
+          "free:gemini-3.8-flash"
+        ],
+        "outcome": "deferred"
+      }
+    },
+    {
+      "case": "일반 영상: 당잠사 몫으로 남긴 무료 4번은 안 쓰고 유료로",
+      "pass": true,
+      "detail": {
+        "calls": [
+          "paid:gemini-3.5-flash"
+        ],
+        "outcome": "success"
+      }
+    },
+    {
+      "case": "당잠사: 남겨둔 무료 몫으로 처리",
+      "pass": true,
+      "detail": {
+        "calls": [
+          "free:gemini-3.5-flash"
+        ],
+        "outcome": "success"
+      }
+    },
+    {
+      "case": "운영 시간 07:00~19:00 경계",
+      "pass": true,
+      "detail": {
+        "19:00": "deferred",
+        "18:59": "success"
+      }
     }
   ]
 }
