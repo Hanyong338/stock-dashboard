@@ -8,9 +8,9 @@
     },
     {
       "name": "마이코플라스마 폐렴",
-      "change_percent": 6.4,
+      "change_percent": 6.89,
       "total": 11,
-      "rise": 8
+      "rise": 10
     },
     {
       "name": "부동산 보유 자산주",
@@ -20,35 +20,35 @@
     },
     {
       "name": "LPG(액화석유가스)",
-      "change_percent": 3.41,
+      "change_percent": 3.45,
       "total": 9,
-      "rise": 7
-    },
-    {
-      "name": "캐릭터상품",
-      "change_percent": 3.19,
-      "total": 9,
-      "rise": 7
+      "rise": 8
     },
     {
       "name": "코로나19(진단키트)",
-      "change_percent": 2.76,
+      "change_percent": 2.85,
       "total": 39,
       "rise": 25
     },
     {
-      "name": "출산장려정책",
-      "change_percent": 2.4,
-      "total": 23,
+      "name": "마스크",
+      "change_percent": 2.45,
+      "total": 22,
       "rise": 14
     },
     {
-      "name": "마스크",
-      "change_percent": 2.19,
-      "total": 22,
-      "rise": 14
+      "name": "캐릭터상품",
+      "change_percent": 2.43,
+      "total": 9,
+      "rise": 5
+    },
+    {
+      "name": "백신/진단시약/방역(신종플루, AI 등)",
+      "change_percent": 2.18,
+      "total": 42,
+      "rise": 31
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-07T08:33:19.990234+00:00"
+  "updated_at": "2026-10-07T08:50:55.067187+00:00"
 }
