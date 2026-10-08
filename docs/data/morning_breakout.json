@@ -7,11 +7,75 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-10-07 09:30",
-  "universe_count": 397,
+  "as_of": "2026-10-08 09:30",
+  "universe_count": 380,
   "fetch_failures": 0,
   "dropped": 0,
-  "items": [],
-  "built_on": "2026-10-07",
-  "updated_at": "2026-10-07T00:41:07.950017+00:00"
+  "items": [
+    {
+      "code": "452190",
+      "name": "한빛레이저",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 1682,
+      "type": "A",
+      "reason": "전일 고가 6,470 돌파 · 30분 거래대금 277억 · 거래량 전일 하루의 301%",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/452190/total",
+      "open_gap": 0.83,
+      "value_30m_eok": 277,
+      "vol_vs_prev_day": 301,
+      "close": 6880,
+      "volume": 4140586,
+      "change_percent": 14.86
+    },
+    {
+      "code": "000650",
+      "name": "천일고속",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 3237,
+      "type": "C",
+      "reason": "240일선 201,855 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 185억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/000650/total",
+      "open_gap": 28.12,
+      "value_30m_eok": 185,
+      "vol_vs_prev_day": 324,
+      "close": 226000,
+      "volume": 81621,
+      "change_percent": 25.35
+    },
+    {
+      "code": "126600",
+      "name": "BGF에코머티리얼즈",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 2313,
+      "type": "C",
+      "reason": "240일선 3,432 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 22억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/126600/total",
+      "open_gap": 11.28,
+      "value_30m_eok": 22,
+      "vol_vs_prev_day": 19,
+      "close": 3705,
+      "volume": 596120,
+      "change_percent": 12.96
+    }
+  ],
+  "built_on": "2026-10-08",
+  "updated_at": "2026-10-08T00:40:11.279259+00:00"
 }
