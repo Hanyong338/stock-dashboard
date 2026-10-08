@@ -322,10 +322,18 @@ def _keys():
 def _models():
     """덜 막히는 모델부터 부른다. 혼잡한 모델부터 두드려 요청(=한도)을 버리지 않게.
     - 최근 7일 성공률(우리가 센 요청 기준)이 높은 모델 먼저
-    - 같으면 오늘 남은 한도가 많은 모델 먼저(한 모델에 몰려 먼저 바닥나지 않게. 10/6 3.5 가 그랬다)"""
+    - 같으면 오늘 남은 한도가 많은 모델 먼저(한 모델에 몰려 먼저 바닥나지 않게. 10/6 3.5 가 그랬다)
+    - 단, 오늘 성공이 없고 이 규칙으로 아직 한 번도 안 불러본 모델은 맨 앞에 한 번 세운다.
+      성공률 순서만 쓰면 꼴찌 모델은 앞 모델들이 혼잡으로 막히는 순간 '쉬기'로 끝나 영영 차례가 안 온다
+      (10/8 3.6-flash: 한도 18회가 남았는데 21시간 동안 한 번도 안 불렸다)."""
     order = [MODEL] + FALLBACK_MODELS
     sent = _quota.get("sent") or {}
-    today = sent.get(_quota_day(), {})
+    day = _quota_day()
+    today = sent.get(day, {})
+    probed = set((_quota.get("probed") or {}).get(day, []))
+
+    def needs_probe(model):
+        return model not in probed and not (today.get(model) or {}).get("200") and not _quota_exhausted(model)
 
     def score(model):
         ok = fail = 0
@@ -339,7 +347,7 @@ def _models():
         remaining = FREE_RPD - sum((today.get(model) or {}).values())
         return (-round(rate, 2), -remaining)
 
-    return sorted(order, key=lambda m: (score(m), order.index(m)))
+    return sorted(order, key=lambda m: (not needs_probe(m), score(m), order.index(m)))
 
 
 # 유료 키가 잔액 없음으로 거절되면 이 시간만큼은 다시 두드리지 않는다(실행마다 헛요청·실패 기록이 쌓이지 않게).
@@ -372,6 +380,8 @@ def _count(model, status):
     bucket = sent.setdefault(day, {}).setdefault(model, {})
     key = str(status)
     bucket[key] = bucket.get(key, 0) + 1
+    probed = _quota.get("probed") or {}
+    _quota["probed"] = {day: sorted(set(probed.get(day, [])) | {model})}  # 오늘치만 둔다(_models 참고)
     _save_quota()
 
 
