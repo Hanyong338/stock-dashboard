@@ -41,7 +41,7 @@
       "gemini-3.5-flash": {
         "503": 1,
         "200": 8,
-        "ReadTimeout": 1
+        "ReadTimeout": 2
       },
       "gemini-3.7-flash": {
         "503": 2
@@ -93,5 +93,5 @@
       "gemini-3.8-flash"
     ]
   },
-  "backoff_until": "2026-10-08T08:27:49.879733+00:00"
+  "backoff_until": "2026-10-08T08:55:45.746144+00:00"
 }
