@@ -21,7 +21,9 @@
       "detail": {
         "calls": [
           "free:gemini-3.5-flash",
-          "free:gemini-3.6-flash"
+          "free:gemini-3.6-flash",
+          "free:gemini-3.7-flash",
+          "free:gemini-3.8-flash"
         ],
         "outcome": "deferred"
       }
@@ -172,6 +174,44 @@
       "pass": true,
       "detail": {
         "calls": []
+      }
+    },
+    {
+      "case": "07시 혼잡: 실행당 거절 2번에서 멈춤(아침에 한도를 다 쓰지 않음), 다음 실행은 바로",
+      "pass": true,
+      "detail": {
+        "calls": [
+          "free:gemini-3.5-flash",
+          "free:gemini-3.6-flash"
+        ],
+        "pace_minutes": 6.95
+      }
+    },
+    {
+      "case": "16:30 혼잡: 실행당 거절 1번에서 멈춤",
+      "pass": true,
+      "detail": {
+        "calls": [
+          "free:gemini-3.5-flash"
+        ]
+      }
+    },
+    {
+      "case": "초기화 직전: 간격이 좁아 다음 영상에서 바로 다시 시도, 유료로는 안 넘어감",
+      "pass": true,
+      "detail": {
+        "calls": [
+          "free:gemini-3.5-flash",
+          "free:gemini-3.6-flash",
+          "free:gemini-3.7-flash",
+          "free:gemini-3.8-flash"
+        ],
+        "calls_next_video": [
+          "gemini-3.5-flash",
+          "gemini-3.6-flash",
+          "gemini-3.7-flash",
+          "gemini-3.8-flash"
+        ]
       }
     }
   ]
