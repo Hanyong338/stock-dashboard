@@ -411,49 +411,52 @@ def _paid_unavailable():
 
 
 # 혼잡(503)으로 거절된 요청도 무료 하루 한도(모델당 20회)를 깎는다(10/7 아침 3.6-flash: 503 직후 바로 한도 초과).
-# 10/6 저녁엔 막힌 실행마다 모델 4개씩 두드려 하루치 80회 중 약 60회를 거절로 날렸다.
-# 그래서 한 실행에서 거절이 이만큼 나면 그 실행은 제미나이를 그만 부르고,
-# 다음 시도까지 40분 → 80분 → 160분으로 간격을 늘린다. 한 번 성공하면 간격은 처음으로 돌아간다.
-MAX_FAILS_PER_RUN = 2
-BACKOFF_START_MINUTES = 40
-BACKOFF_MAX_MINUTES = 160
-RUN_INTERVAL_MINUTES = 15  # 실제 실행 간격(15~20분)보다 짧게 잡는다 — 실행 횟수를 많게 셀수록 '넉넉하다' 판정이 깐깐해진다
+# 그렇다고 오래 쉬면 남은 한도가 초기화(한국시간 16시/17시) 때 이월되지 않고 사라진다(10/8 오후 34회를 160분씩 쉬며 버릴 뻔했다).
+# 그래서 거절 간격을 '초기화까지 남은 시간 ÷ 남은 무료 한도'로 맞춘다(사용자 지정 10/8).
+#   - 한도가 시간에 비해 넉넉하면 간격이 좁아져 한 실행에서 여러 번 다시 시도한다(예: 15시, 28회 남음 → 약 2분 간격 → 실행당 약 9번).
+#   - 빠듯하면 간격이 넓어져 실행당 1번만 시도하고, 간격이 실행 주기보다 길면 그만큼 다음 실행들을 건너뛴다.
+#   - 쉬지 않고 두드리지는 않는다 — 아침 혼잡에 하루치를 다 날리지 않게(사용자 지적: "7~8시에 다 쓸 수도 있잖아").
+RUN_INTERVAL_MINUTES = 20  # 워크플로 예약 주기(*/20)
+FAIL_PAUSE_SECONDS = 15  # 한 실행 안에서 거절 뒤 다음 시도까지 잠깐 쉰다
 _fails_this_run = 0
 _halted_this_run = False
 
 
-SPEND_DOWN_PAUSE_SECONDS = 15
-
-
-def _spend_down():
-    """남은 무료 한도를 아낄 필요가 없는 때인가.
-    남은 한도는 초기화(한국시간 16시/17시) 때 이월되지 않고 사라진다. 초기화 전까지 매 실행 거절이 최대로 나도
-    다 못 쓸 만큼 남았으면, 쉬거나 실행을 멈추지 않고 남은 영상이 있는 한 한도가 바닥날 때까지 계속 시도한다
-    (사용자 지정 10/8: 오후 무료 34회가 남았는데 160분씩 쉬어 대부분 버릴 뻔했다 → "남은 거 다 쓰게").
-    초기화 직후처럼 시간이 많이 남았을 땐 False — 그땐 하루치를 아침 혼잡에 다 날리지 않게 아낀다."""
+def _pace_minutes():
+    """거절 한 번당 다음 시도까지의 간격(분) = 초기화까지 남은 시간 ÷ 남은 무료 한도."""
     minutes_left = (_next_quota_reset(_now()) - _now()).total_seconds() / 60
-    runs_left = int(minutes_left // RUN_INTERVAL_MINUTES) + 1
-    return remaining_free_requests() >= MAX_FAILS_PER_RUN * runs_left
+    return minutes_left / max(1, remaining_free_requests())
+
+
+def _fails_allowed_this_run():
+    """이번 실행에서 허용할 거절 횟수. 실행 주기(20분) 동안 간격대로 시도할 수 있는 만큼, 최소 1번."""
+    return max(1, int(RUN_INTERVAL_MINUTES // _pace_minutes()))
 
 
 def _note_failure():
     global _fails_this_run, _halted_this_run
     _fails_this_run += 1
-    if _spend_down():
-        if _quota.pop("backoff_until", None):
-            _save_quota()
-        print(f"[INFO] 초기화 전 남은 무료 한도를 다 쓰는 중 — 쉬지 않고 {SPEND_DOWN_PAUSE_SECONDS}초 뒤 계속 시도한다")
-        time.sleep(SPEND_DOWN_PAUSE_SECONDS)
+    if _halted_this_run:
         return
-    if _fails_this_run < MAX_FAILS_PER_RUN or _halted_this_run:
+    pace = _pace_minutes()
+    allowed = _fails_allowed_this_run()
+    if _fails_this_run < allowed:
+        # 아직 이번 실행 몫이 남았다. 막힌 무료 모델들을 다시 풀어 다음 영상에서 또 불러본다.
+        for entry in [b for b in _busy if b[0] == "free"]:
+            _busy.discard(entry)
+        print(f"[INFO] 제미나이 거절 {_fails_this_run}/{allowed}회(간격 약 {pace:.1f}분) — {FAIL_PAUSE_SECONDS}초 뒤 다시 시도")
+        time.sleep(FAIL_PAUSE_SECONDS)
         return
     _halted_this_run = True
-    prev = _quota.get("backoff_minutes") or 0
-    minutes = min(BACKOFF_MAX_MINUTES, prev * 2) if prev else BACKOFF_START_MINUTES
-    _quota["backoff_minutes"] = minutes
-    _quota["backoff_until"] = (_now() + datetime.timedelta(minutes=minutes)).isoformat()
+    # 간격이 실행 주기보다 길면 그만큼 쉰다. 짧으면 다음 실행에서 바로 다시 시도한다.
+    wait = pace if pace > RUN_INTERVAL_MINUTES else 0
+    if wait:
+        _quota["backoff_until"] = (_now() + datetime.timedelta(minutes=wait)).isoformat()
+    else:
+        _quota.pop("backoff_until", None)
+    _quota.pop("backoff_minutes", None)
     _save_quota()
-    print(f"[INFO] 제미나이 혼잡 거절 {_fails_this_run}회 — {minutes}분 뒤에 다시 시도한다(한도 아끼기)")
+    print(f"[INFO] 제미나이 거절 {_fails_this_run}회 — 이번 실행은 멈춤, {wait:.0f}분 뒤부터 다시 시도(간격 약 {pace:.1f}분)")
 
 
 def _note_success():
@@ -662,12 +665,9 @@ def call_gemini(
                     continue
                 if status == 404 or status is None or status in RETRYABLE_STATUS_CODES:
                     # 혼잡·시간초과·분당 한도·없는 모델 — 이번 실행 동안은 이 모델을 다시 부르지 않는다.
-                    # 단, 남은 무료 한도를 다 쓰는 중(_spend_down)이면 혼잡·시간초과는 다음 영상에서 또 불러본다.
-                    if not (kind == "free" and status not in (404, 429) and _spend_down()):
-                        _busy.add((kind, model))
-                        print(f"[INFO] {kind} {model} 거절({status or type(e).__name__}) — 이번 실행에선 건너뛴다")
-                    else:
-                        print(f"[INFO] {kind} {model} 거절({status or type(e).__name__}) — 다음 영상에서 다시 불러본다")
+                    # (무료 거절은 _note_failure 가 이번 실행 몫이 남았으면 다시 풀어준다)
+                    _busy.add((kind, model))
+                    print(f"[INFO] {kind} {model} 거절({status or type(e).__name__}) — 이번 실행에선 건너뛴다")
                     if status != 404 and kind == "free":
                         _note_failure()
                     continue

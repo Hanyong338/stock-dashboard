@@ -73,7 +73,7 @@ def _reset(tmpdir, now):
     s._paid_depleted_this_run = False
     s._fails_this_run = 0
     s._halted_this_run = False
-    s.SPEND_DOWN_PAUSE_SECONDS = 0
+    s.FAIL_PAUSE_SECONDS = 0
     s._now = lambda: now
     os.environ["GEMINI_API_KEY_FREE"] = "FREE-KEY"
     os.environ["GEMINI_API_KEY"] = "PAID-KEY"
@@ -253,7 +253,20 @@ def main():
         calls, out = _run(tmp, everything_ok, now=kst(10, 0) - datetime.timedelta(days=1))
         check("일회성 정지(10/7 저녁~10/8 07시) 중 요청 안 보냄", out == "deferred" and not calls, {"calls": calls})
 
-        # 15. 초기화(16시) 직전 무료가 많이 남음 + 혼잡 → 쉬지도 멈추지도 않고 다음 영상에서 같은 모델을 또 부름
+        # 15. 혼잡 거절 간격 = 초기화까지 남은 시간 ÷ 남은 무료 한도
+        #  - 07:00, 80회 남음 → 약 6.75분 간격 → 20분 실행당 거절 2번에서 멈춤, 다음 실행에선 바로 다시(긴 쉬기 없음)
+        calls, out = _run(tmp, lambda k, m: FakeResp(503, BUSY_503), now=kst(7, 0))
+        check(
+            "07시 혼잡: 실행당 거절 2번에서 멈춤(아침에 한도를 다 쓰지 않음), 다음 실행은 바로",
+            out == "deferred" and len(calls) == 2 and s._halted_this_run and "backoff_until" not in s._quota,
+            {"calls": calls, "pace_minutes": round(s._pace_minutes(), 2)},
+        )
+
+        #  - 16:30(막 초기화), 80회 남음 → 약 18분 간격 → 실행당 1번
+        calls, out = _run(tmp, lambda k, m: FakeResp(503, BUSY_503), now=kst(16, 30))
+        check("16:30 혼잡: 실행당 거절 1번에서 멈춤", out == "deferred" and len(calls) == 1 and s._halted_this_run, {"calls": calls})
+
+        #  - 15:30(초기화 30분 전), 80회 남음 → 간격이 아주 좁음 → 멈추지 않고 다음 영상에서 같은 모델을 또 부름
         calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY) if k == "paid" else FakeResp(503, BUSY_503), now=kst(15, 30))
         busy_after = set(s._busy)
         calls2 = []
@@ -263,7 +276,7 @@ def main():
         except s.GeminiUnavailable:
             pass
         check(
-            "초기화 직전 남은 무료 한도 다 쓰기: 혼잡이어도 쉬지 않고 다음 영상에서 다시 시도, 유료로는 안 넘어감",
+            "초기화 직전: 간격이 좁아 다음 영상에서 바로 다시 시도, 유료로는 안 넘어감",
             out == "deferred" and not any(c.startswith("paid") for c in calls) and not busy_after
             and not s._halted_this_run and "backoff_until" not in s._quota and len(calls2) == 4,
             {"calls": calls, "calls_next_video": calls2},
