@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "주류업(주정, 에탄올 등)",
+      "change_percent": 0.73,
+      "total": 13,
+      "rise": 6
+    },
+    {
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": 0.68,
+      "total": 9,
+      "rise": 6
+    },
+    {
+      "name": "반도체 장비",
+      "change_percent": 0.65,
+      "total": 96,
+      "rise": 64
+    },
+    {
+      "name": "골판지 제조",
+      "change_percent": 0.53,
+      "total": 10,
+      "rise": 3
+    },
+    {
+      "name": "2차전지",
+      "change_percent": 0.5,
+      "total": 143,
+      "rise": 77
+    },
+    {
+      "name": "철강 중소형",
+      "change_percent": 0.45,
+      "total": 36,
+      "rise": 16
+    },
+    {
+      "name": "화장품",
+      "change_percent": 0.4,
+      "total": 94,
+      "rise": 42
+    },
+    {
+      "name": "반도체 재료/부품",
+      "change_percent": 0.32,
+      "total": 71,
+      "rise": 37
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-10-07T23:01:34.113979+00:00"
+  "updated_at": "2026-10-08T00:00:59.272205+00:00"
 }
