@@ -5,7 +5,7 @@
     "gemini-3.8-flash": "2026-10-07T07:02:00+00:00",
     "gemini-3.7-flash": "2026-10-07T07:02:00+00:00"
   },
-  "last_ok_model": "gemini-3.8-flash",
+  "last_ok_model": "gemini-3.7-flash",
   "sent": {
     "2026-10-06": {
       "gemini-3.6-flash": {
@@ -25,7 +25,7 @@
       },
       "gemini-3.7-flash": {
         "503": 7,
-        "200": 4
+        "200": 5
       },
       "gemini-3.8-flash": {
         "ReadTimeout": 1,
@@ -50,7 +50,5 @@
       }
     ]
   },
-  "paid_key_fp": "c85e16c9",
-  "backoff_minutes": 160,
-  "backoff_until": "2026-10-08T04:43:49.812810+00:00"
+  "paid_key_fp": "c85e16c9"
 }
