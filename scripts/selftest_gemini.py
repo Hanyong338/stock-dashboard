@@ -1,7 +1,7 @@
 """제미나이 키·모델 선택 규칙 자가 시험. 구글에 진짜 요청을 보내지 않고 가짜 응답으로만 확인한다(비용·한도 0).
 
 확인하는 규칙(사용자 지정, 2026-10-07):
-- 무료 모델 4개의 하루 한도가 모두 차면 유료 키로 넘어간다
+- 낮(07~18시)엔 무료 모델 4개의 하루 한도가 모두 차도 유료로 넘기지 않는다(10/8 변경, 당잠사만 예외)
 - 무료가 혼잡(503)으로 막혔을 뿐이면 유료로 넘기지 않는다
 - 무료 모델이 하나라도 남아 있으면 무료로 처리한다
 - 유료 키를 새로 넣으면 예전 키 때문에 걸어둔 쉬는 기간이 풀린다
@@ -26,6 +26,7 @@ import summarize as s  # noqa: E402
 OUT_FILE = Path(__file__).resolve().parent.parent / "docs" / "data" / "gemini_selftest.json"
 ACTIVE_NOW = datetime.datetime(2026, 10, 8, 1, 0, tzinfo=datetime.timezone.utc)  # 한국시간 10:00
 QUIET_NOW = datetime.datetime(2026, 10, 8, 12, 0, tzinfo=datetime.timezone.utc)  # 한국시간 21:00
+PAID_NOW = datetime.datetime(2026, 10, 8, 10, 0, tzinfo=datetime.timezone.utc)  # 한국시간 19:00(저녁 유료 시간대)
 
 OK_BODY = {
     "candidates": [{"content": {"parts": [{"text": json.dumps({"key_summary": "ok", "report_markdown": "## ok"})}]}}],
@@ -109,11 +110,11 @@ def main():
         results.append({"case": name, "pass": bool(ok), "detail": detail})
 
     with tempfile.TemporaryDirectory() as tmp:
-        # 1. 무료 4개 모두 하루 한도 → 유료로 성공
+        # 1. 낮(무료 시간대)에 무료 4개 모두 하루 한도 → 유료로 안 넘어가고 18시까지 미룸(10/8 변경)
         calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY) if k == "paid" else FakeResp(429, DAILY_429))
         check(
-            "무료 4개 한도 소진 → 유료로 넘어감",
-            out == "success" and sum(c.startswith("free") for c in calls) == 4 and any(c.startswith("paid") for c in calls),
+            "낮에 무료 4개 한도 소진 → 유료로 안 넘어감(18시까지 미룸)",
+            out == "deferred" and sum(c.startswith("free") for c in calls) == 4 and not any(c.startswith("paid") for c in calls),
             {"calls": calls, "outcome": out},
         )
 
@@ -148,7 +149,8 @@ def main():
             s._quota["paid_unavailable_until"] = (ACTIVE_NOW + datetime.timedelta(days=6)).isoformat()
 
         calls, out = _run(
-            tmp, lambda k, m: FakeResp(200, OK_BODY) if k == "paid" else FakeResp(429, DAILY_429), before=old_bench
+            tmp, lambda k, m: FakeResp(200, OK_BODY) if k == "paid" else FakeResp(429, DAILY_429), before=old_bench,
+            now=PAID_NOW,
         )
         check(
             "새 유료 키 → 예전 쉬는 기간 무시",
@@ -170,18 +172,20 @@ def main():
                 first_paid.append(m)  # 처음 부른 유료 모델만 분당 제한
             return FakeResp(429, MINUTE_429) if m == first_paid[0] else FakeResp(200, OK_BODY)
 
-        calls, out = _run(tmp, paid_minute_limit)
+        calls, out = _run(tmp, paid_minute_limit, now=PAID_NOW)
         check(
             "유료 분당 제한 → 다른 모델로 이어서 처리, 길게 쉬지 않음",
             out == "success" and "paid_unavailable_until" not in s._quota,
             {"calls": calls, "outcome": out},
         )
 
-        # 7. gemini_ready: 무료 4개 한도 소진 표시 + 유료 사용 가능 → 준비됨
+        # 7. gemini_ready: 무료 4개 한도 소진 표시 → 낮엔 준비 안 됨(유료 안 씀), 저녁 유료 시간대엔 준비됨
         _reset(tmp, ACTIVE_NOW)
         until = (ACTIVE_NOW + datetime.timedelta(hours=5)).isoformat()
         s._quota["exhausted"] = {m: until for m in [s.MODEL] + s.FALLBACK_MODELS}
-        check("무료 소진 상태에서 요약 대기열이 유료로 진행됨(gemini_ready)", s.gemini_ready(reserve=4), {})
+        day_ready = s.gemini_ready()
+        s._now = lambda: PAID_NOW
+        check("무료 소진: 낮엔 대기, 18시 유료 시간대엔 진행(gemini_ready)", not day_ready and s.gemini_ready(), {})
 
         # 8. 무료 전용 요청(묶음 시험): 무료 4개 한도 소진 → 유료 안 쓰고 미룸
         calls, out = _run(
@@ -200,8 +204,8 @@ def main():
 
         calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY), before=leave_four, reserve=4)
         check(
-            "일반 영상: 당잠사 몫으로 남긴 무료 4번은 안 쓰고 유료로",
-            out == "success" and calls and all(c.startswith("paid") for c in calls),
+            "일반 영상: 당잠사 몫으로 남긴 무료 4번은 안 쓰고, 낮이라 유료로도 안 넘어감",
+            out == "deferred" and not calls,
             {"calls": calls, "outcome": out},
         )
 

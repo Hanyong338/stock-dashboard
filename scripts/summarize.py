@@ -494,22 +494,15 @@ def _usable(kind, model, allow_paid=True, reserve=0, paid_only=False):
         return False
     if gemini_mode() == "paid":
         return True  # 저녁 유료 시간대: 무료는 쓰지 않고 유료로 바로 처리
-    # 낮(무료 시간대)엔 무료 모델 4개의 하루 한도가 '모두' 찼을 때만 유료를 쓴다(사용자 지정, 10/7).
-    # 무료가 혼잡(503)으로 막혔을 뿐이면 유료로 넘기지 않고 다음 실행에서 무료로 다시 시도한다.
-    # 당잠사 몫으로 남겨둔 무료 요청은 다른 영상 입장에선 '찬 것'으로 본다(그 영상들은 유료로 넘어간다).
-    return _free_all_exhausted(reserve)
-
-
-def _free_all_exhausted(reserve=0):
-    if not (os.environ.get("GEMINI_API_KEY_FREE") or "").strip():
-        return True  # 무료 키가 없으면 유료 키만 쓴다
-    if all(_quota_exhausted(m) for m in [MODEL] + FALLBACK_MODELS):
-        return True
-    return bool(reserve) and remaining_free_requests() <= reserve
+    # 낮(무료 시간대)엔 유료를 쓰지 않는다. 무료가 혼잡이든 하루 한도 소진이든 18시 유료 시간대까지 기다린다
+    # (사용자 지정 10/8: 15:57 무료 4개 한도가 모두 차자 11편이 유료로 넘어갔다 → "07~18시엔 유료 쓰지 말고 기다리기").
+    # 당잠사(paid_only)만 예외로 위에서 바로 유료로 처리한다. 무료 키가 아예 없으면 유료로 처리한다.
+    return not (os.environ.get("GEMINI_API_KEY_FREE") or "").strip()
 
 
 # 시간대별 운영(사용자 지정, 2026-10-07):
-# - 07:00~18:00 무료: 당잠사부터 무료로. 무료 4개 한도가 모두 차면 그때만 유료(당잠사는 무료로만).
+# - 07:00~18:00 무료: 무료로만. 무료 4개 한도가 모두 차도 유료로 넘기지 않고 18시까지 기다린다(10/8 변경).
+#   당잠사만 예외로 올라오자마자 유료로 처리한다(10/8).
 # - 18:00~21:00 유료: 이 시간대부터 무료는 혼잡으로 거절될 확률이 높아 유료로만 처리한다.
 # - 21:00~07:00 휴식: 구글이 가장 바쁜 시간. 요약은 하지 않고 자막만 받아둔다(파이프라인 쪽).
 #   07시가 되면 밀린 영상을 받아둔 자막으로 바로 무료 요약한다.
