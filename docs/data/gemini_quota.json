@@ -43,6 +43,9 @@
       },
       "gemini-3.7-flash": {
         "503": 1
+      },
+      "gemini-3.8-flash": {
+        "503": 1
       }
     }
   },
@@ -80,7 +83,8 @@
   "probed": {
     "2026-10-08": [
       "gemini-3.5-flash",
-      "gemini-3.7-flash"
+      "gemini-3.7-flash",
+      "gemini-3.8-flash"
     ]
   }
 }
