@@ -73,6 +73,7 @@ def _reset(tmpdir, now):
     s._paid_depleted_this_run = False
     s._fails_this_run = 0
     s._halted_this_run = False
+    s.SPEND_DOWN_PAUSE_SECONDS = 0
     s._now = lambda: now
     os.environ["GEMINI_API_KEY_FREE"] = "FREE-KEY"
     os.environ["GEMINI_API_KEY"] = "PAID-KEY"
@@ -251,6 +252,22 @@ def main():
         # 13. 일회성 정지(PAUSE_UNTIL_KST) 중엔 낮이어도 요청 안 보냄
         calls, out = _run(tmp, everything_ok, now=kst(10, 0) - datetime.timedelta(days=1))
         check("일회성 정지(10/7 저녁~10/8 07시) 중 요청 안 보냄", out == "deferred" and not calls, {"calls": calls})
+
+        # 15. 초기화(16시) 직전 무료가 많이 남음 + 혼잡 → 쉬지도 멈추지도 않고 다음 영상에서 같은 모델을 또 부름
+        calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY) if k == "paid" else FakeResp(503, BUSY_503), now=kst(15, 30))
+        busy_after = set(s._busy)
+        calls2 = []
+        s._post = lambda payload, key, timeout=90, model=None: calls2.append(model) or FakeResp(503, BUSY_503)
+        try:
+            s.call_gemini("sys", "user", {}, "selftest-2")
+        except s.GeminiUnavailable:
+            pass
+        check(
+            "초기화 직전 남은 무료 한도 다 쓰기: 혼잡이어도 쉬지 않고 다음 영상에서 다시 시도, 유료로는 안 넘어감",
+            out == "deferred" and not any(c.startswith("paid") for c in calls) and not busy_after
+            and not s._halted_this_run and "backoff_until" not in s._quota and len(calls2) == 4,
+            {"calls": calls, "calls_next_video": calls2},
+        )
 
     summary = {"all_pass": all(r["pass"] for r in results), "results": results}
     OUT_FILE.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")

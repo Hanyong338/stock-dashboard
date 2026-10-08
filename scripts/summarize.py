@@ -422,22 +422,32 @@ _fails_this_run = 0
 _halted_this_run = False
 
 
+SPEND_DOWN_PAUSE_SECONDS = 15
+
+
+def _spend_down():
+    """남은 무료 한도를 아낄 필요가 없는 때인가.
+    남은 한도는 초기화(한국시간 16시/17시) 때 이월되지 않고 사라진다. 초기화 전까지 매 실행 거절이 최대로 나도
+    다 못 쓸 만큼 남았으면, 쉬거나 실행을 멈추지 않고 남은 영상이 있는 한 한도가 바닥날 때까지 계속 시도한다
+    (사용자 지정 10/8: 오후 무료 34회가 남았는데 160분씩 쉬어 대부분 버릴 뻔했다 → "남은 거 다 쓰게").
+    초기화 직후처럼 시간이 많이 남았을 땐 False — 그땐 하루치를 아침 혼잡에 다 날리지 않게 아낀다."""
+    minutes_left = (_next_quota_reset(_now()) - _now()).total_seconds() / 60
+    runs_left = int(minutes_left // RUN_INTERVAL_MINUTES) + 1
+    return remaining_free_requests() >= MAX_FAILS_PER_RUN * runs_left
+
+
 def _note_failure():
     global _fails_this_run, _halted_this_run
     _fails_this_run += 1
+    if _spend_down():
+        if _quota.pop("backoff_until", None):
+            _save_quota()
+        print(f"[INFO] 초기화 전 남은 무료 한도를 다 쓰는 중 — 쉬지 않고 {SPEND_DOWN_PAUSE_SECONDS}초 뒤 계속 시도한다")
+        time.sleep(SPEND_DOWN_PAUSE_SECONDS)
+        return
     if _fails_this_run < MAX_FAILS_PER_RUN or _halted_this_run:
         return
     _halted_this_run = True
-    # 남은 무료 한도는 초기화(한국시간 16시/17시) 때 이월되지 않고 사라진다.
-    # 초기화 전까지 매 실행 거절이 최대로 나도 다 못 쓸 만큼 남았으면 아낄 이유가 없으니 쉬지 않고 다음 실행에서 바로 다시 시도한다
-    # (10/8 오후 무료 34회가 남았는데 160분씩 쉬어 대부분 버릴 뻔했다, 사용자 지적).
-    minutes_left = (_next_quota_reset(_now()) - _now()).total_seconds() / 60
-    runs_left = int(minutes_left // RUN_INTERVAL_MINUTES) + 1
-    if remaining_free_requests() >= MAX_FAILS_PER_RUN * runs_left:
-        _quota.pop("backoff_until", None)
-        _save_quota()
-        print(f"[INFO] 제미나이 혼잡 거절 {_fails_this_run}회 — 초기화 전 남은 무료 한도가 넉넉해 쉬지 않고 다음 실행에서 다시 시도한다")
-        return
     prev = _quota.get("backoff_minutes") or 0
     minutes = min(BACKOFF_MAX_MINUTES, prev * 2) if prev else BACKOFF_START_MINUTES
     _quota["backoff_minutes"] = minutes
@@ -651,9 +661,13 @@ def call_gemini(
                     _mark_exhausted(model, resp)
                     continue
                 if status == 404 or status is None or status in RETRYABLE_STATUS_CODES:
-                    # 혼잡·시간초과·분당 한도·없는 모델 — 이번 실행 동안은 이 모델을 다시 부르지 않는다
-                    _busy.add((kind, model))
-                    print(f"[INFO] {kind} {model} 거절({status or type(e).__name__}) — 이번 실행에선 건너뛴다")
+                    # 혼잡·시간초과·분당 한도·없는 모델 — 이번 실행 동안은 이 모델을 다시 부르지 않는다.
+                    # 단, 남은 무료 한도를 다 쓰는 중(_spend_down)이면 혼잡·시간초과는 다음 영상에서 또 불러본다.
+                    if not (kind == "free" and status not in (404, 429) and _spend_down()):
+                        _busy.add((kind, model))
+                        print(f"[INFO] {kind} {model} 거절({status or type(e).__name__}) — 이번 실행에선 건너뛴다")
+                    else:
+                        print(f"[INFO] {kind} {model} 거절({status or type(e).__name__}) — 다음 영상에서 다시 불러본다")
                     if status != 404 and kind == "free":
                         _note_failure()
                     continue
