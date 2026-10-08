@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "서울고속버스터미널 재개발 수혜",
-      "change_percent": 8.64,
+      "change_percent": 5.44,
       "total": 5,
       "rise": 2
     },
     {
       "name": "2차전지(나트륨이온)",
-      "change_percent": 4.86,
+      "change_percent": 4.98,
       "total": 9,
       "rise": 9
     },
     {
+      "name": "유리 기판",
+      "change_percent": 3.04,
+      "total": 21,
+      "rise": 15
+    },
+    {
       "name": "태풍 및 장마",
-      "change_percent": 3.35,
+      "change_percent": 2.94,
       "total": 10,
-      "rise": 8
+      "rise": 6
     },
     {
       "name": "리비안(RIVIAN)",
-      "change_percent": 3.02,
+      "change_percent": 2.93,
       "total": 21,
-      "rise": 13
-    },
-    {
-      "name": "LED장비",
-      "change_percent": 3.02,
-      "total": 11,
-      "rise": 10
-    },
-    {
-      "name": "유리 기판",
-      "change_percent": 3.0,
-      "total": 21,
-      "rise": 16
+      "rise": 14
     },
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 2.87,
+      "change_percent": 2.63,
       "total": 14,
-      "rise": 11
+      "rise": 9
+    },
+    {
+      "name": "2차전지(소재/부품)",
+      "change_percent": 2.51,
+      "total": 73,
+      "rise": 56
     },
     {
       "name": "PCB(FPCB 등)",
-      "change_percent": 2.8,
+      "change_percent": 2.48,
       "total": 31,
-      "rise": 26
+      "rise": 25
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-08T00:56:15.660730+00:00"
+  "updated_at": "2026-10-08T01:00:04.712499+00:00"
 }
