@@ -2,7 +2,7 @@
   "exhausted": {
     "gemini-3.5-flash": "2026-10-08T07:02:00+00:00",
     "gemini-3.6-flash": "2026-10-07T07:02:00+00:00",
-    "gemini-3.8-flash": "2026-10-07T07:02:00+00:00",
+    "gemini-3.8-flash": "2026-10-08T07:02:00+00:00",
     "gemini-3.7-flash": "2026-10-08T07:02:00+00:00"
   },
   "last_ok_model": "gemini-3.8-flash",
@@ -21,7 +21,7 @@
         "429": 1
       },
       "gemini-3.6-flash": {
-        "503": 3
+        "503": 5
       },
       "gemini-3.7-flash": {
         "503": 13,
@@ -31,8 +31,9 @@
       },
       "gemini-3.8-flash": {
         "ReadTimeout": 2,
-        "503": 11,
-        "200": 4
+        "503": 13,
+        "200": 5,
+        "429": 1
       }
     }
   },
@@ -52,6 +53,13 @@
       }
     ],
     "gemini-3.7-flash": [
+      {
+        "quotaId": "GenerateRequestsPerDayPerProjectPerModel-FreeTier",
+        "quotaValue": "20",
+        "quotaMetric": "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+      }
+    ],
+    "gemini-3.8-flash": [
       {
         "quotaId": "GenerateRequestsPerDayPerProjectPerModel-FreeTier",
         "quotaValue": "20",
