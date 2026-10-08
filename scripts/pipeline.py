@@ -776,9 +776,9 @@ def _pair_trial_keep(v, channel_name, result):
 
 def update_pair_trial(now):
     """남겨둔 영상 2개를 요청 한 번에 묶어 다시 요약해 단독 요약 옆에 저장한다. 실행마다 한 쌍만.
-    밀린 영상이 있으면(이번 실행에서 미룬 게 있으면) 실제 요약이 먼저라 하지 않는다."""
+    채널 요약보다 먼저 돈다(밀린 영상이 있어도). 무료로만, 휴식 시간·혼잡이면 다음 실행으로 미룬다."""
     data = _load_pair_trial()
-    if len(data["pairs"]) >= PAIR_TRIAL_TARGET_PAIRS or len(data["pool"]) < 2 or _deferred:
+    if len(data["pairs"]) >= PAIR_TRIAL_TARGET_PAIRS or len(data["pool"]) < 2:
         return False
     if not gemini_ready(reserve=_brief_reserve(), allow_paid=False):
         return False
@@ -1078,16 +1078,18 @@ def main():
     except Exception as e:
         print(f"[WARN] morning brief failed: {e}")
 
-    for ch in channels:
-        process_channel(ch, state, summaries, now)
-        summaries = _save_data_files(state, summaries, channels, now)
-        commit_and_push(f"chore: update data ({ch['name']}) {now.isoformat()}")
-
+    # 묶음 요약 시험을 채널 요약보다 먼저 돌린다(사용자 지정 10/8). 밀린 영상 뒤로 두면 매일 밀린 게 있어 한 번도 안 돌았다.
+    # 실행마다 한 쌍(무료 요청 1번)만, 목표(2쌍)를 채우면 더는 돌지 않는다.
     try:
         if update_pair_trial(now):
             commit_and_push(f"chore: pair summary trial {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] 묶음 요약 시험 실패: {e}")
+
+    for ch in channels:
+        process_channel(ch, state, summaries, now)
+        summaries = _save_data_files(state, summaries, channels, now)
+        commit_and_push(f"chore: update data ({ch['name']}) {now.isoformat()}")
 
     try:
         if update_calendar(now):
