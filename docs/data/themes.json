@@ -8,15 +8,21 @@
     },
     {
       "name": "리비안(RIVIAN)",
-      "change_percent": 3.82,
+      "change_percent": 3.59,
       "total": 21,
-      "rise": 16
+      "rise": 15
     },
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 3.23,
+      "change_percent": 3.1,
       "total": 14,
-      "rise": 11
+      "rise": 10
+    },
+    {
+      "name": "화학섬유",
+      "change_percent": 3.02,
+      "total": 6,
+      "rise": 3
     },
     {
       "name": "2차전지(나트륨이온)",
@@ -26,29 +32,23 @@
     },
     {
       "name": "캐릭터상품",
-      "change_percent": 2.33,
+      "change_percent": 2.19,
       "total": 9,
       "rise": 5
     },
     {
       "name": "PCB(FPCB 등)",
-      "change_percent": 2.17,
+      "change_percent": 2.06,
       "total": 31,
-      "rise": 20
+      "rise": 18
     },
     {
       "name": "2차전지(소재/부품)",
       "change_percent": 2.03,
       "total": 73,
-      "rise": 41
-    },
-    {
-      "name": "골프",
-      "change_percent": 1.92,
-      "total": 15,
-      "rise": 8
+      "rise": 39
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-08T09:32:29.842836+00:00"
+  "updated_at": "2026-10-08T09:51:01.131657+00:00"
 }
