@@ -417,6 +417,7 @@ def _paid_unavailable():
 MAX_FAILS_PER_RUN = 2
 BACKOFF_START_MINUTES = 40
 BACKOFF_MAX_MINUTES = 160
+RUN_INTERVAL_MINUTES = 15  # 실제 실행 간격(15~20분)보다 짧게 잡는다 — 실행 횟수를 많게 셀수록 '넉넉하다' 판정이 깐깐해진다
 _fails_this_run = 0
 _halted_this_run = False
 
@@ -427,6 +428,16 @@ def _note_failure():
     if _fails_this_run < MAX_FAILS_PER_RUN or _halted_this_run:
         return
     _halted_this_run = True
+    # 남은 무료 한도는 초기화(한국시간 16시/17시) 때 이월되지 않고 사라진다.
+    # 초기화 전까지 매 실행 거절이 최대로 나도 다 못 쓸 만큼 남았으면 아낄 이유가 없으니 쉬지 않고 다음 실행에서 바로 다시 시도한다
+    # (10/8 오후 무료 34회가 남았는데 160분씩 쉬어 대부분 버릴 뻔했다, 사용자 지적).
+    minutes_left = (_next_quota_reset(_now()) - _now()).total_seconds() / 60
+    runs_left = int(minutes_left // RUN_INTERVAL_MINUTES) + 1
+    if remaining_free_requests() >= MAX_FAILS_PER_RUN * runs_left:
+        _quota.pop("backoff_until", None)
+        _save_quota()
+        print(f"[INFO] 제미나이 혼잡 거절 {_fails_this_run}회 — 초기화 전 남은 무료 한도가 넉넉해 쉬지 않고 다음 실행에서 다시 시도한다")
+        return
     prev = _quota.get("backoff_minutes") or 0
     minutes = min(BACKOFF_MAX_MINUTES, prev * 2) if prev else BACKOFF_START_MINUTES
     _quota["backoff_minutes"] = minutes
