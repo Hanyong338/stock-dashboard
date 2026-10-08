@@ -24,12 +24,12 @@
         "503": 2
       },
       "gemini-3.7-flash": {
-        "503": 6,
+        "503": 7,
         "200": 4
       },
       "gemini-3.8-flash": {
         "ReadTimeout": 1,
-        "503": 5,
+        "503": 6,
         "200": 3
       }
     }
@@ -51,6 +51,6 @@
     ]
   },
   "paid_key_fp": "c85e16c9",
-  "backoff_minutes": 80,
-  "backoff_until": "2026-10-08T02:00:59.652660+00:00"
+  "backoff_minutes": 160,
+  "backoff_until": "2026-10-08T04:43:49.812810+00:00"
 }
