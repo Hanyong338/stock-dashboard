@@ -40,6 +40,9 @@
     "2026-10-08": {
       "gemini-3.5-flash": {
         "503": 1
+      },
+      "gemini-3.7-flash": {
+        "503": 1
       }
     }
   },
@@ -76,7 +79,8 @@
   "paid_key_fp": "c85e16c9",
   "probed": {
     "2026-10-08": [
-      "gemini-3.5-flash"
+      "gemini-3.5-flash",
+      "gemini-3.7-flash"
     ]
   }
 }
