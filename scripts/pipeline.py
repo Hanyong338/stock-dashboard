@@ -779,11 +779,12 @@ def _pair_trial_keep(v, channel_name, result):
 
 def update_pair_trial(now):
     """남겨둔 영상 2개를 요청 한 번에 묶어 다시 요약해 단독 요약 옆에 저장한다. 실행마다 한 쌍만.
-    채널 요약보다 먼저 돈다(밀린 영상이 있어도). 무료로만, 휴식 시간·혼잡이면 다음 실행으로 미룬다."""
+    채널 요약보다 먼저 돈다(밀린 영상이 있어도). 일반 요약과 같은 시간대 규칙: 낮엔 무료, 18~21시엔 유료
+    (사용자 지정 10/9: 유료 시간대에도 돌려서 빨리 모으기). 휴식 시간·혼잡이면 다음 실행으로 미룬다."""
     data = _load_pair_trial()
     if len(data["pairs"]) >= PAIR_TRIAL_TARGET_PAIRS or len(data["pool"]) < 2:
         return False
-    if not gemini_ready(reserve=_brief_reserve(), allow_paid=False):
+    if not gemini_ready(reserve=_brief_reserve()):
         return False
     picked = data["pool"][:2]
     texts = [read_transcript_cache(p["video_id"]) for p in picked]
@@ -798,6 +799,7 @@ def update_pair_trial(now):
             SUMMARIZE_TIMEOUT_SECONDS,
             [(p["channel"], p["title"], t) for p, t in zip(picked, texts)],
             reserve=_brief_reserve(),
+            allow_paid=True,
         )
     except GeminiUnavailable as e:
         print(f"[INFO] 묶음 요약 시험 미룸: {e}")
@@ -816,7 +818,6 @@ def update_pair_trial(now):
             picked[0]["title"],
             texts[0],
             reserve=_brief_reserve(),
-            allow_paid=False,
         )
         single_again = {k: again.get(k) for k in _SUMMARY_FIELDS}
     except Exception as e:
