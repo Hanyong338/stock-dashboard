@@ -1,8 +1,8 @@
 {
   "configured": true,
   "ok": true,
-  "status": 429,
-  "message": "키 정상(지금은 한도/혼잡): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini",
-  "checked_on": "2026-10-09",
-  "checked_at": "2026-10-08T22:03:18.532289+00:00"
+  "status": 200,
+  "message": "gemini-3.5-flash 응답 정상",
+  "checked_on": "2026-10-10",
+  "checked_at": "2026-10-09T22:02:34.321229+00:00"
 }
