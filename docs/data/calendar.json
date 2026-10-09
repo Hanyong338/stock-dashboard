@@ -299,7 +299,7 @@
       "title": "존슨앤존슨 실적",
       "category": "earnings",
       "detail": "JNJ 장전",
-      "eps_forecast": "$2.82"
+      "eps_forecast": "$2.53"
     },
     {
       "start": "2026-10-13",
@@ -323,7 +323,7 @@
       "title": "모건스탠리 실적",
       "category": "earnings",
       "detail": "MS 장전",
-      "eps_forecast": "$2.88"
+      "eps_forecast": "$2.83"
     },
     {
       "start": "2026-10-14",
@@ -331,7 +331,7 @@
       "title": "뱅크오브아메리카 실적",
       "category": "earnings",
       "detail": "BAC 장전",
-      "eps_forecast": "$1.12"
+      "eps_forecast": "$1.11"
     },
     {
       "start": "2026-10-14",
@@ -386,7 +386,8 @@
       "end": "2026-10-15",
       "title": "미국 실업수당",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "197K"
     },
     {
       "start": "2026-10-15",
@@ -437,6 +438,13 @@
       "category": "macro",
       "detail": "08:00",
       "previous": "2.7%"
+    },
+    {
+      "start": "2026-10-16",
+      "end": "2026-10-16",
+      "title": "연준 의장 연설",
+      "category": "major",
+      "detail": "12:30"
     },
     {
       "start": "2026-10-19",
@@ -499,8 +507,8 @@
       "detail": "코스피 14:00",
       "code": "034220",
       "quarter": "2026.09",
-      "op_consensus": 3510,
-      "rev_consensus": 67396,
+      "op_consensus": 3229,
+      "rev_consensus": 67052,
       "op_prev_year": 4310,
       "op_prev_q": -1077
     },
@@ -534,7 +542,7 @@
       "title": "테슬라 실적",
       "category": "earnings",
       "detail": "TSLA 장마감 후",
-      "eps_forecast": "$0.24"
+      "eps_forecast": "$0.23"
     },
     {
       "start": "2026-10-22",
@@ -543,6 +551,14 @@
       "category": "major",
       "detail": "10:00",
       "previous": "3.00%"
+    },
+    {
+      "start": "2026-10-23",
+      "end": "2026-10-23",
+      "title": "웨스턴디지털 실적",
+      "category": "earnings",
+      "detail": "WDC 장마감 후",
+      "eps_forecast": "$3.97"
     },
     {
       "start": "2026-10-23",
@@ -567,6 +583,22 @@
       "category": "macro",
       "detail": "23:00",
       "previous": "48.1"
+    },
+    {
+      "start": "2026-10-26",
+      "end": "2026-10-26",
+      "title": "한국 GDP",
+      "category": "macro",
+      "detail": "08:00",
+      "previous": "0.6%"
+    },
+    {
+      "start": "2026-10-26",
+      "end": "2026-10-26",
+      "title": "한국 소비자심리",
+      "category": "macro",
+      "detail": "06:00",
+      "previous": "106.6"
     },
     {
       "start": "2026-10-27",
@@ -701,6 +733,14 @@
     {
       "start": "2026-10-29",
       "end": "2026-10-29",
+      "title": "마이크로소프트 실적",
+      "category": "earnings",
+      "detail": "MSFT 장마감 후",
+      "eps_forecast": "$4.71"
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
       "title": "머크 실적",
       "category": "earnings",
       "detail": "MRK 장전",
@@ -714,8 +754,8 @@
       "detail": "코스피 14:00",
       "code": "018260",
       "quarter": "2026.09",
-      "op_consensus": 2485,
-      "rev_consensus": 36067,
+      "op_consensus": 2478,
+      "rev_consensus": 36153,
       "op_prev_year": 2323,
       "op_prev_q": 2318
     },
@@ -727,8 +767,8 @@
       "detail": "코스피 10:00",
       "code": "005930",
       "quarter": "2026.09",
-      "op_consensus": 1060029,
-      "rev_consensus": 2002847,
+      "op_consensus": 1069435,
+      "rev_consensus": 2007657,
       "op_prev_year": 121661,
       "op_prev_q": 894924
     },
@@ -738,7 +778,7 @@
       "title": "서비스나우 실적",
       "category": "earnings",
       "detail": "NOW 장마감 후",
-      "eps_forecast": "$0.57"
+      "eps_forecast": "$0.56"
     },
     {
       "start": "2026-10-29",
@@ -755,22 +795,6 @@
       "category": "earnings",
       "detail": "GOOGL 장마감 후",
       "eps_forecast": "$2.95"
-    },
-    {
-      "start": "2026-10-29",
-      "end": "2026-10-29",
-      "title": "애플 실적",
-      "category": "earnings",
-      "detail": "AAPL",
-      "eps_forecast": "$1.98"
-    },
-    {
-      "start": "2026-10-29",
-      "end": "2026-10-29",
-      "title": "웨스턴디지털 실적",
-      "category": "earnings",
-      "detail": "WDC",
-      "eps_forecast": "$3.97"
     },
     {
       "start": "2026-10-29",
@@ -796,8 +820,8 @@
       "detail": "코스피 15:30",
       "code": "012450",
       "quarter": "2026.09",
-      "op_consensus": 12390,
-      "rev_consensus": 77009,
+      "op_consensus": 12291,
+      "rev_consensus": 76882,
       "op_prev_year": 8564,
       "op_prev_q": 13655
     },
@@ -807,7 +831,7 @@
       "title": "미국 PCE",
       "category": "macro",
       "detail": "21:30",
-      "previous": "3.4%"
+      "previous": "0.3%"
     },
     {
       "start": "2026-10-29",
@@ -815,7 +839,7 @@
       "title": "미국 근원 PCE",
       "category": "macro",
       "detail": "21:30",
-      "previous": "0.2%"
+      "previous": "3.0%"
     },
     {
       "start": "2026-10-29",
@@ -852,6 +876,22 @@
     {
       "start": "2026-10-30",
       "end": "2026-10-30",
+      "title": "한국 산업생산",
+      "category": "macro",
+      "detail": "08:00",
+      "previous": "-2.2%"
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "title": "한국 소매판매",
+      "category": "macro",
+      "detail": "08:00",
+      "previous": "-1.8%"
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
       "title": "BOJ 금리결정",
       "category": "major",
       "detail": "12:00"
@@ -880,8 +920,8 @@
       "detail": "코스피 10:00",
       "code": "373220",
       "quarter": "2026.09",
-      "op_consensus": 3264,
-      "rev_consensus": 87989,
+      "op_consensus": 3217,
+      "rev_consensus": 88257,
       "op_prev_year": 6013,
       "op_prev_q": 1133
     },
@@ -894,12 +934,20 @@
       "eps_forecast": "$0.94"
     },
     {
+      "start": "2026-11-03",
+      "end": "2026-11-03",
+      "title": "애플 실적",
+      "category": "earnings",
+      "detail": "AAPL 장마감 후",
+      "eps_forecast": "$1.98"
+    },
+    {
       "start": "2026-11-04",
       "end": "2026-11-04",
       "title": "AMD 실적",
       "category": "earnings",
       "detail": "AMD 장마감 후",
-      "eps_forecast": "$1.64"
+      "eps_forecast": "$1.66"
     },
     {
       "start": "2026-11-04",
@@ -908,14 +956,6 @@
       "category": "earnings",
       "detail": "KLAC",
       "eps_forecast": "$1.18"
-    },
-    {
-      "start": "2026-11-04",
-      "end": "2026-11-04",
-      "title": "마이크로소프트 실적",
-      "category": "earnings",
-      "detail": "MSFT",
-      "eps_forecast": "$4.71"
     },
     {
       "start": "2026-11-04",
@@ -1228,7 +1268,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-09",
+  "built_on": "2026-10-10",
   "builder_version": 10,
-  "updated_at": "2026-10-08T15:04:22.050832+00:00"
+  "updated_at": "2026-10-09T15:04:47.049132+00:00"
 }
