@@ -5,7 +5,7 @@
     "gemini-3.8-flash": "2026-10-08T07:02:00+00:00",
     "gemini-3.7-flash": "2026-10-08T07:02:00+00:00"
   },
-  "last_ok_model": "gemini-3.8-flash",
+  "last_ok_model": "gemini-3.5-flash",
   "sent": {
     "2026-10-06": {
       "gemini-3.6-flash": {
@@ -60,7 +60,7 @@
     },
     "2026-10-09": {
       "gemini-3.5-flash": {
-        "200": 2,
+        "200": 3,
         "503": 2
       },
       "gemini-3.8-flash": {
