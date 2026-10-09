@@ -60,9 +60,10 @@ GEMINI_DIAG_ONLY_KIND = "paid"
 # 대시보드에는 나오지 않고 비교용으로만 쓴다. 자막은 이미 받아둔 것을 쓰므로 자막 크레딧은 안 나간다(제미나이 요청 2번 추가).
 PAIR_TRIAL_FILE = DATA_DIR / "pair_trial.json"
 # 10/9: 처음 2쌍은 번역 자막(영어·인도네시아어)으로 돌았고 품질 차이가 뚜렷하지 않았다(사용자: 계속 시험).
-# 한국어 자막 + 정확성 규칙(prompt_v 2)으로 4쌍을 더 모은다.
-PAIR_TRIAL_TARGET_PAIRS = 6
-PAIR_TRIAL_PROMPT_V = 2
+# 한국어 자막 + 정확성 규칙(prompt_v 2)으로 2쌍을 모았다(한 편씩 3 : 묶음 1).
+# 10/9 저녁: 규칙 3개(투자 무관 영상 제외, tickers 는 본문 종목만, 수치·철자 정확히) 추가 후 4쌍 더(prompt_v 3).
+PAIR_TRIAL_TARGET_PAIRS = 8
+PAIR_TRIAL_PROMPT_V = 3
 TRACKING_SEED_FILE = DATA_DIR / "tracking_seed.json"
 THEMES_FILE = DATA_DIR / "themes.json"
 MORNING_FILE = DATA_DIR / "morning_breakout.json"
@@ -465,6 +466,15 @@ def process_channel(ch, state, summaries, now):
             warn(f"요약 실패 [{name}] {v['title'][:40]} : {e}")
             continue
 
+        if result.get("investment_related") is False:
+            # 사용자 지정(10/9): 투자와 무관한 영상(역사·교양·홍보 등)은 대시보드에 올리지 않는다.
+            # 확인함으로 처리해 다시 요약하지 않는다. 묶음 시험에도 넣지 않는다.
+            warn(f"투자와 무관한 영상이라 요약을 저장하지 않음 [{name}] {v['title'][:40]}")
+            state[cid].append(v["video_id"])
+            clear_transcript_cache(v["video_id"])
+            state.get(ATTEMPTS_KEY, {}).pop(v["video_id"], None)
+            continue
+
         summaries.append(
             {
                 "channel": name,
@@ -821,7 +831,8 @@ def update_pair_trial(now):
         )
         single_again = {k: again.get(k) for k in _SUMMARY_FIELDS}
     except Exception as e:
-        print(f"[INFO] 묶음 시험 기준선(단독 재요약) 건너뜀: {e}")
+        # 10/9 두 쌍 모두 기준선이 빠졌는데 이유가 안 남았다. 로그에 남겨 원인을 보이게 한다.
+        warn(f"묶음 시험 기준선(단독 재요약) 건너뜀: {e}")
     videos = [{**p, "paired": {k: r.get(k) for k in _SUMMARY_FIELDS}} for p, r in zip(picked, reports)]
     if single_again:
         videos[0]["single_again"] = single_again

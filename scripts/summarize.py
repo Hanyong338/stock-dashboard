@@ -47,6 +47,10 @@ SYSTEM_PROMPT = """[역할 정의]
 제공된 영상의 트랜스크립트/내용을 바탕으로, 노이즈는 제거하고 투자 판단에 필요한 핵심 정수만 추출하여 정밀 리포트를 작성해 주세요.
 
 [분석 요구사항]
+※ 먼저 investment_related 를 판단할 것. 주식·채권·환율·원자재·코인·경제 지표 등 투자 판단에 쓸 내용이 없는 영상
+  (역사·교양·예능·홍보·이벤트 등)이면 investment_related=false 로 두고, 나머지 필드는 모두 빈 문자열/빈 배열로 둘 것.
+  억지로 투자 리포트처럼 꾸미지 말 것(10/9 삼국지 강의를 주식처럼 분석해 종목 칸에 '유비, 조조'가 들어간 사례).
+
 0. key_summary (한줄 미리보기)
    - 이 영상의 핵심을 1~2문장으로 압축한 미리보기 문장. 카드 목록에서 리포트 본문을 펼치기 전에 가장 먼저 보이는 문장이므로,
      가장 중요한 종목명/수치/결론을 반드시 포함해 임팩트 있게 작성할 것 (예: "**삼성전자** 파운드리 가격 주도권 강화로 4분기
@@ -81,6 +85,9 @@ SYSTEM_PROMPT = """[역할 정의]
 - 자막에 없는 해석·원인·연도·섹터 전망을 덧붙이지 말 것. 연도는 자막에 나온 그대로만 쓰고, '내년'을 특정 연도로 바꾸지 말 것.
 - 자막에서 지나가듯 한 번 언급된 종목·섹터를 추천/관망 종목으로 올리지 말 것.
 - leading_picks / watch_picks 는 본문과 key_summary 의 결론과 어긋나지 않게 채울 것(본문에서 매수라고 한 종목을 관망에 넣지 말 것).
+- tickers 에는 report_markdown 본문에 실제로 쓴 종목만 넣을 것. 본문에 없는 종목을 자막에 나왔다는 이유로 추가하지 말 것.
+- 수치는 자막에서 그 수치가 붙어 있던 대상에만 쓸 것(예: '인텔 -5.3%'를 '국채 금리 5.3%'로 옮기지 말 것).
+- 자막은 음성 인식이라 철자가 틀린 곳이 많다. 종목명·인명·용어는 맞는 이름으로 고쳐 쓸 것(예: 네우스→네비우스, 체포 B2C→챗봇 B2C).
 
 [출력 문법 규칙 - 반드시 준수]
 - key_summary 필드는 report_markdown과 별개의 짧은 문자열로, 1~2문장을 넘지 않을 것.
@@ -107,6 +114,9 @@ PICK_ITEM_SCHEMA = {
 RESPONSE_SCHEMA = {
     "type": "OBJECT",
     "properties": {
+        # 제미나이는 속성을 이름순으로 출력하므로 이 필드가 맨 먼저 나온다(투자 관련 여부부터 정함).
+        # false 면 파이프라인이 저장하지 않는다.
+        "investment_related": {"type": "BOOLEAN"},
         "key_summary": {"type": "STRING"},
         "report_markdown": {"type": "STRING"},
         "tickers": {"type": "ARRAY", "items": {"type": "STRING"}},
@@ -114,7 +124,7 @@ RESPONSE_SCHEMA = {
         "leading_picks": {"type": "ARRAY", "items": PICK_ITEM_SCHEMA},
         "watch_picks": {"type": "ARRAY", "items": PICK_ITEM_SCHEMA},
     },
-    "required": ["key_summary", "report_markdown", "tickers", "keywords", "leading_picks", "watch_picks"],
+    "required": ["investment_related", "key_summary", "report_markdown", "tickers", "keywords", "leading_picks", "watch_picks"],
 }
 
 
