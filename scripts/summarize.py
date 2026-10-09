@@ -76,6 +76,12 @@ SYSTEM_PROMPT = """[역할 정의]
 - 핵심 키워드, 종목명, 핵심 수치는 **굵은 글씨**로 강조.
 - 불필요한 서론/결론 문구는 제외하고 곧바로 리포트 형식으로 작성.
 
+[정확성 규칙 - 반드시 준수]
+- '오늘/내일/다음 주/장 마감 전' 같은 시점 표현과 '10%씩 3번 분할', '현금 10~30%' 같은 실행 수치는 줄이거나 빼지 말고 그대로 살릴 것.
+- 자막에 없는 해석·원인·연도·섹터 전망을 덧붙이지 말 것. 연도는 자막에 나온 그대로만 쓰고, '내년'을 특정 연도로 바꾸지 말 것.
+- 자막에서 지나가듯 한 번 언급된 종목·섹터를 추천/관망 종목으로 올리지 말 것.
+- leading_picks / watch_picks 는 본문과 key_summary 의 결론과 어긋나지 않게 채울 것(본문에서 매수라고 한 종목을 관망에 넣지 말 것).
+
 [출력 문법 규칙 - 반드시 준수]
 - key_summary 필드는 report_markdown과 별개의 짧은 문자열로, 1~2문장을 넘지 않을 것.
 - report_markdown 필드에는 1~4번 리포트만 마크다운으로 작성할 것 (key_summary는 포함하지 말 것).
@@ -680,9 +686,9 @@ def call_gemini(
     raise GeminiUnavailable(f"쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: {last_error}")
 
 
-def summarize_transcript(channel_name, title, transcript_text, reserve=0):
+def summarize_transcript(channel_name, title, transcript_text, reserve=0, allow_paid=True):
     user_prompt = f"채널명: {channel_name}\n영상 제목: {title}\n\n자막:\n{transcript_text[:MAX_TRANSCRIPT_CHARS]}"
-    return call_gemini(SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, title, reserve=reserve)
+    return call_gemini(SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, title, reserve=reserve, allow_paid=allow_paid)
 
 
 # 요청 한 번에 영상 여러 개 요약하기(시험 중). 무료 한도는 '요청 횟수'로 세므로 2개씩 묶으면 같은 한도로 두 배를 처리한다.
