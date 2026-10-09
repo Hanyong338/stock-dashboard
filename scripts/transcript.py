@@ -77,12 +77,17 @@ def _api_key():
 # 자막이 정말 없는 영상은 요약을 건너뛴다(지금까지 요약한 영상은 전부 자막이 있었다).
 TRANSCRIPT_MODE = "native"
 
+# 언어를 안 주면 Supadata 는 '첫 번째로 있는 언어'를 준다. 10/6 무렵부터 유튜브 자동 번역 자막이 앞에 잡혀
+# 한국어 영상인데 영어·인도네시아어 자막이 왔다(10/9 확인: 캐시 17편 중 13편이 영어, 1편 인도네시아어).
+# 한국어가 없으면 Supadata 가 알아서 첫 번째 언어로 넘어간다.
+TRANSCRIPT_LANG = "ko"
+
 
 def _get_transcript_supadata(video_url, max_wait_seconds=120):
     resp = requests.get(
         API_URL,
         headers={"x-api-key": _api_key()},
-        params={"url": video_url, "text": "true", "mode": TRANSCRIPT_MODE},
+        params={"url": video_url, "text": "true", "mode": TRANSCRIPT_MODE, "lang": TRANSCRIPT_LANG},
         timeout=60,
     )
     resp.raise_for_status()
@@ -91,6 +96,9 @@ def _get_transcript_supadata(video_url, max_wait_seconds=120):
     if "jobId" in data:
         return _poll_job(data["jobId"], max_wait_seconds)
 
+    lang = data.get("lang")
+    if lang and lang != TRANSCRIPT_LANG:
+        print(f"[WARN] 한국어 자막이 아니라 '{lang}' 자막을 받음 (있는 언어: {data.get('availableLangs')}): {video_url}")
     return data.get("content", "")
 
 
