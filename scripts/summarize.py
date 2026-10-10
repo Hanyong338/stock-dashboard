@@ -522,14 +522,14 @@ def _usable(kind, model, allow_paid=True, reserve=0, paid_only=False):
 # - 18:00~21:00 유료: 이 시간대부터 무료는 혼잡으로 거절될 확률이 높아 유료로만 처리한다.
 # - 21:00~07:00 휴식: 구글이 가장 바쁜 시간. 요약은 하지 않고 자막만 받아둔다(파이프라인 쪽).
 #   07시가 되면 밀린 영상을 받아둔 자막으로 바로 무료 요약한다.
-# - 주말(토·일, 한국시간)엔 18~21시 유료도 쉰다(사용자 지정 10/10). 무료 시간대는 그대로.
+# - 주말(토·일)과 한국 공휴일엔 18~21시 유료도 쉰다(사용자 지정 10/10). 무료 시간대는 그대로.
 #   주말엔 영상이 적고 무료가 덜 붐비는 것으로 보여서, 저녁에 들어온 영상은 다음 날 07시 무료로 처리한다.
 #   당잠사(paid_only)는 주말 방송이 없어 영향 없다.
 FREE_WINDOW_KST = ((7, 0), (18, 0))
 PAID_WINDOW_KST = ((18, 0), (21, 0))
 PAID_WEEKDAYS_ONLY = True
 ACTIVE_START_KST = FREE_WINDOW_KST[0]
-QUIET_LABEL = "한국시간 21:00~07:00, 주말은 18:00~07:00"
+QUIET_LABEL = "한국시간 21:00~07:00, 주말·공휴일은 18:00~07:00"
 
 
 # 이 시각(한국시간)까지는 운영 시간이어도 제미나이를 부르지 않는다. 일회성 정지용.
@@ -538,7 +538,7 @@ PAUSE_UNTIL_KST = datetime.datetime(2026, 10, 8, 7, 0)
 
 
 def gemini_mode():
-    """지금 시간대: 'free'(무료 시간), 'paid'(평일 저녁 유료 시간), 'off'(휴식·주말 저녁·일회성 정지)."""
+    """지금 시간대: 'free'(무료 시간), 'paid'(평일 저녁 유료 시간), 'off'(휴식·주말/공휴일 저녁·일회성 정지)."""
     kst = _now() + datetime.timedelta(hours=9)
     if kst.replace(tzinfo=None) < PAUSE_UNTIL_KST:
         return "off"
@@ -546,10 +546,37 @@ def gemini_mode():
     if FREE_WINDOW_KST[0] <= hm < FREE_WINDOW_KST[1]:
         return "free"
     if PAID_WINDOW_KST[0] <= hm < PAID_WINDOW_KST[1]:
-        if PAID_WEEKDAYS_ONLY and kst.weekday() >= 5:
-            return "off"  # 주말 저녁은 쉰다
+        if PAID_WEEKDAYS_ONLY and (kst.weekday() >= 5 or _is_kr_holiday(kst.date())):
+            return "off"  # 주말·공휴일 저녁은 쉰다
         return "paid"
     return "off"
+
+
+_kr_holiday_cache = {}
+
+
+def _is_kr_holiday(day):
+    """한국 공휴일(대체공휴일·선거일 포함, python-holidays) 또는 calendar_data 에 손으로 적은 임시공휴일인가.
+    라이브러리가 실패하면 공휴일이 아닌 것으로 본다(평일처럼 유료를 쓴다)."""
+    if day in _kr_holiday_cache:
+        return _kr_holiday_cache[day]
+    result = False
+    try:
+        import holidays as pyholidays
+
+        result = day in pyholidays.country_holidays("KR", years=[day.year])
+    except Exception as e:
+        print(f"[WARN] 공휴일 확인 실패 — 평일로 본다: {e}")
+    if not result:
+        try:
+            from calendar_data import KR_HOLIDAYS
+
+            iso = day.isoformat()
+            result = any(h["start"] <= iso <= h["end"] for h in KR_HOLIDAYS if "연말" not in h.get("title", ""))
+        except Exception:
+            pass
+    _kr_holiday_cache[day] = result
+    return result
 
 
 def gemini_quiet_now():
