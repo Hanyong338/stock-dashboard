@@ -1,14 +1,12 @@
 {
-  "all_pass": true,
+  "all_pass": false,
   "results": [
     {
-      "case": "낮에 무료 4개 한도 소진 → 유료로 안 넘어감(18시까지 미룸)",
+      "case": "낮에 무료 모델 전부 한도 소진 → 유료로 안 넘어감(18시까지 미룸)",
       "pass": true,
       "detail": {
         "calls": [
-          "free:gemini-3.5-flash",
           "free:gemini-3.6-flash",
-          "free:gemini-3.7-flash",
           "free:gemini-3.8-flash"
         ],
         "outcome": "deferred"
@@ -19,9 +17,7 @@
       "pass": true,
       "detail": {
         "calls": [
-          "free:gemini-3.5-flash",
           "free:gemini-3.6-flash",
-          "free:gemini-3.7-flash",
           "free:gemini-3.8-flash"
         ],
         "outcome": "deferred"
@@ -32,8 +28,8 @@
       "pass": true,
       "detail": {
         "calls": [
-          "free:gemini-3.5-flash",
-          "free:gemini-3.6-flash"
+          "free:gemini-3.6-flash",
+          "free:gemini-3.8-flash"
         ],
         "outcome": "success"
       }
@@ -43,7 +39,7 @@
       "pass": true,
       "detail": {
         "calls": [
-          "paid:gemini-3.5-flash"
+          "paid:gemini-3.6-flash"
         ],
         "outcome": "success"
       }
@@ -61,8 +57,8 @@
       "pass": true,
       "detail": {
         "calls": [
-          "paid:gemini-3.5-flash",
-          "paid:gemini-3.6-flash"
+          "paid:gemini-3.6-flash",
+          "paid:gemini-3.8-flash"
         ],
         "outcome": "success"
       }
@@ -77,9 +73,7 @@
       "pass": true,
       "detail": {
         "calls": [
-          "free:gemini-3.5-flash",
           "free:gemini-3.6-flash",
-          "free:gemini-3.7-flash",
           "free:gemini-3.8-flash"
         ],
         "outcome": "deferred"
@@ -98,7 +92,7 @@
       "pass": true,
       "detail": {
         "calls": [
-          "paid:gemini-3.5-flash"
+          "paid:gemini-3.6-flash"
         ],
         "outcome": "success"
       }
@@ -114,25 +108,25 @@
         "07:00": {
           "outcome": "success",
           "calls": [
-            "free:gemini-3.5-flash"
+            "free:gemini-3.6-flash"
           ]
         },
         "17:59": {
           "outcome": "success",
           "calls": [
-            "free:gemini-3.5-flash"
+            "free:gemini-3.6-flash"
           ]
         },
         "18:00": {
           "outcome": "success",
           "calls": [
-            "paid:gemini-3.5-flash"
+            "paid:gemini-3.6-flash"
           ]
         },
         "20:59": {
           "outcome": "success",
           "calls": [
-            "paid:gemini-3.5-flash"
+            "paid:gemini-3.6-flash"
           ]
         },
         "21:00": {
@@ -146,7 +140,7 @@
       "pass": true,
       "detail": {
         "calls": [
-          "paid:gemini-3.5-flash"
+          "paid:gemini-3.6-flash"
         ],
         "outcome": "success"
       }
@@ -167,13 +161,12 @@
     },
     {
       "case": "07시 혼잡: 실행당 거절 2번에서 멈춤(아침에 한도를 다 쓰지 않음), 다음 실행은 바로",
-      "pass": true,
+      "pass": false,
       "detail": {
         "calls": [
-          "free:gemini-3.5-flash",
           "free:gemini-3.6-flash"
         ],
-        "pace_minutes": 6.95
+        "pace_minutes": 13.9
       }
     },
     {
@@ -181,7 +174,7 @@
       "pass": true,
       "detail": {
         "calls": [
-          "free:gemini-3.5-flash"
+          "free:gemini-3.6-flash"
         ]
       }
     },
@@ -190,15 +183,59 @@
       "pass": true,
       "detail": {
         "calls": [
-          "free:gemini-3.5-flash",
           "free:gemini-3.6-flash",
-          "free:gemini-3.7-flash",
           "free:gemini-3.8-flash"
         ],
         "calls_next_video": [
-          "gemini-3.5-flash",
           "gemini-3.6-flash",
-          "gemini-3.7-flash",
+          "gemini-3.8-flash"
+        ]
+      }
+    },
+    {
+      "case": "새 Flash 모델 자동 추가(lite·preview 제외)",
+      "pass": true,
+      "detail": {
+        "models": [
+          "gemini-3.6-flash",
+          "gemini-3.8-flash",
+          "gemini-3.9-flash"
+        ],
+        "changes": [
+          "새 제미나이 모델 gemini-3.9-flash 발견 — 요약 모델 목록에 자동 추가"
+        ]
+      }
+    },
+    {
+      "case": "구글 목록에서 사라진 모델 자동 제외",
+      "pass": true,
+      "detail": {
+        "models": [
+          "gemini-3.8-flash",
+          "gemini-3.9-flash"
+        ],
+        "changes": [
+          "제미나이 모델 gemini-3.6-flash 이 구글 목록에서 사라짐(통합·종료) — 요약 모델 목록에서 자동 제외"
+        ]
+      }
+    },
+    {
+      "case": "목록을 제대로 못 읽으면 아무것도 빼지 않음",
+      "pass": true,
+      "detail": {
+        "models": [
+          "gemini-3.6-flash",
+          "gemini-3.8-flash"
+        ],
+        "changes": []
+      }
+    },
+    {
+      "case": "목록 조회 실패 → 그대로 두고 내일 다시",
+      "pass": true,
+      "detail": {
+        "models": [
+          "gemini-3.6-flash",
           "gemini-3.8-flash"
         ]
       }
