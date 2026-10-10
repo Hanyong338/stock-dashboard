@@ -267,8 +267,8 @@
       "category": "macro",
       "detail": "23:00",
       "consensus": "47.5",
-      "previous": "48.1",
-      "actual": "46.3"
+      "actual": "46.3",
+      "previous": "48.1"
     },
     {
       "start": "2026-10-13",
@@ -405,7 +405,7 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "49.85B",
-      "previous": "34.79B"
+      "previous": "49.85B"
     },
     {
       "start": "2026-10-15",
@@ -414,7 +414,7 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "26.0%",
-      "previous": "22.4%"
+      "previous": "26.0%"
     },
     {
       "start": "2026-10-15",
@@ -423,7 +423,7 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "83.5%",
-      "previous": "68.7%"
+      "previous": "83.5%"
     },
     {
       "start": "2026-10-16",
@@ -583,23 +583,7 @@
       "title": "미시간 소비심리",
       "category": "macro",
       "detail": "23:00",
-      "previous": "48.1"
-    },
-    {
-      "start": "2026-10-26",
-      "end": "2026-10-26",
-      "title": "한국 GDP",
-      "category": "macro",
-      "detail": "08:00",
-      "previous": "0.6%"
-    },
-    {
-      "start": "2026-10-26",
-      "end": "2026-10-26",
-      "title": "한국 소비자심리",
-      "category": "macro",
-      "detail": "06:00",
-      "previous": "106.6"
+      "previous": "46.3"
     },
     {
       "start": "2026-10-27",
@@ -1269,8 +1253,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-10",
+  "built_on": "2026-10-11",
   "builder_version": 10,
-  "updated_at": "2026-10-09T15:04:47.049132+00:00",
-  "values_updated_at": "2026-10-09T15:31:18.026717+00:00"
+  "updated_at": "2026-10-10T15:01:15.770387+00:00"
 }
