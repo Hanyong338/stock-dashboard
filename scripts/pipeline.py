@@ -205,6 +205,11 @@ _warnings = []
 _deferred = []
 # 자막까지 준비돼 요약을 기다리는 영상. 채널을 다 돈 뒤 summarize_pending 이 2편씩 묶어 처리한다.
 _pending = []
+# 사후 검증용: 요약이 끝난 자막을 며칠 남겨 Claude 예약 작업이 요약과 대조할 수 있게 한다(10/10).
+VERIFY_TRANSCRIPT_DIR = DATA_DIR / "transcripts_review"
+VERIFY_KEPT_KEY = "_review_kept"  # state.json: 검수용 자막을 남긴 시각(영상 id → ISO)
+VERIFY_KEEP_DAYS = 3
+TYPO_FIXES_FILE = DATA_DIR / "typo_fixes.json"  # 음성 인식 오타 사전(검수 작업이 자주 나온 오타를 추가한다)
 PAIR_WAIT_KEY = "_pair_wait"  # state.json: 짝을 기다리기 시작한 시각(영상 id → ISO)
 PAIR_WAIT_MINUTES = 60  # 혼자 남은 영상이 짝을 기다리는 최대 시간
 PAIR_FAIL_KEY = "_pair_fail"  # state.json: 묶음 요청이 (제미나이 혼잡이 아닌 이유로) 실패한 횟수
@@ -295,6 +300,31 @@ def write_transcript_cache(video_id, text):
         _transcript_cache_path(video_id).write_text(text, encoding="utf-8")
     except Exception as e:
         print(f"[WARN] 자막 캐시 저장 실패 {video_id}: {e}")
+
+
+def keep_transcript_for_review(video_id, state, now):
+    """요약이 끝난 자막을 검수용 폴더로 옮겨 VERIFY_KEEP_DAYS 동안 둔다(사용자 지정 10/10: 사후 검증).
+    검수(Claude 예약 작업)가 요약을 자막과 대조해 숫자·인물·오타를 고친다. 기간이 지나면 지운다."""
+    src = _transcript_cache_path(video_id)
+    try:
+        if src.exists():
+            VERIFY_TRANSCRIPT_DIR.mkdir(parents=True, exist_ok=True)
+            src.replace(VERIFY_TRANSCRIPT_DIR / f"{video_id}.txt")
+            state.setdefault(VERIFY_KEPT_KEY, {})[video_id] = now.isoformat()
+    except Exception as e:
+        print(f"[WARN] 검수용 자막 보관 실패 {video_id}: {e}")
+
+
+def prune_review_transcripts(state, now):
+    """검수용 자막 중 보관 기간이 지난 것을 지운다. 기록이 없는 파일도(예전 것) 지운다."""
+    kept = state.setdefault(VERIFY_KEPT_KEY, {})
+    for vid, at in list(kept.items()):
+        if (now - datetime.datetime.fromisoformat(at)).days >= VERIFY_KEEP_DAYS:
+            kept.pop(vid, None)
+    if VERIFY_TRANSCRIPT_DIR.exists():
+        for f in VERIFY_TRANSCRIPT_DIR.glob("*.txt"):
+            if f.stem not in kept:
+                f.unlink(missing_ok=True)
 
 
 def clear_transcript_cache(video_id):
@@ -464,6 +494,59 @@ def process_channel(ch, state, summaries, now):
     state[cid] = state[cid][-STATE_HISTORY_PER_CHANNEL:]
 
 
+_typo_fixes = None
+
+
+def _load_typo_fixes():
+    global _typo_fixes
+    if _typo_fixes is None:
+        data = load_json(TYPO_FIXES_FILE, {})
+        _typo_fixes = {k: v for k, v in (data.get("fixes") or {}).items() if k and v and k != v}
+    return _typo_fixes
+
+
+def _norm(s):
+    return re.sub(r"[\s*·]", "", s or "")
+
+
+def clean_summary(result, label):
+    """요약 직후 기계적 검사(무료, 사용자 지정 10/10 사후 검증 1단계).
+    - 오타 사전(typo_fixes.json)으로 음성 인식 오타를 바로잡는다
+    - 본문(key_summary·report_markdown)에 없는 종목은 tickers / picks 에서 뺀다
+    - 같은 종목이 주도와 관망에 동시에 있으면 로그로 알린다(어느 쪽이 맞는지는 검수 작업이 판단)"""
+    fixes = _load_typo_fixes()
+
+    def fix(s):
+        for wrong, right in fixes.items():
+            s = s.replace(wrong, right)
+        return s
+
+    for key in ("key_summary", "report_markdown"):
+        result[key] = fix(result.get(key) or "")
+    for key in ("tickers", "keywords"):
+        result[key] = [fix(t) for t in (result.get(key) or [])]
+    for key in ("leading_picks", "watch_picks"):
+        for p in result.get(key) or []:
+            p["sector"] = fix(p.get("sector") or "")
+            p["tickers"] = [fix(t) for t in (p.get("tickers") or [])]
+
+    body = _norm(result["key_summary"] + result["report_markdown"])
+    dropped = [t for t in result["tickers"] if _norm(t) not in body]
+    result["tickers"] = [t for t in result["tickers"] if _norm(t) in body]
+    for key in ("leading_picks", "watch_picks"):
+        for p in result.get(key) or []:
+            dropped += [t for t in p["tickers"] if _norm(t) not in body]
+            p["tickers"] = [t for t in p["tickers"] if _norm(t) in body]
+    if dropped:
+        print(f"[INFO] 본문에 없는 종목 뺌 {sorted(set(dropped))}: {label[:40]}")
+
+    lead = {_norm(t) for p in result.get("leading_picks") or [] for t in p["tickers"]}
+    both = [t for p in result.get("watch_picks") or [] for t in p["tickers"] if _norm(t) in lead]
+    if both:
+        warn(f"주도와 관망에 같은 종목 {both}: {label[:40]}")
+    return result
+
+
 def _store_summary(ch, v, result, state, summaries, now_iso):
     """요약 결과 한 편을 저장하고 '확인함' 처리한다."""
     cid, name = ch["channel_id"], ch["name"]
@@ -471,7 +554,10 @@ def _store_summary(ch, v, result, state, summaries, now_iso):
         # 사용자 지정(10/9): 투자와 무관한 영상(역사·교양·홍보 등)은 대시보드에 올리지 않는다.
         # 확인함으로 처리해 다시 요약하지 않는다.
         warn(f"투자와 무관한 영상이라 요약을 저장하지 않음 [{name}] {v['title'][:40]}")
+        clear_transcript_cache(v["video_id"])
     else:
+        result = clean_summary(result, v["title"])
+        keep_transcript_for_review(v["video_id"], state, datetime.datetime.fromisoformat(now_iso))
         summaries.append(
             {
                 "channel": name,
@@ -490,7 +576,6 @@ def _store_summary(ch, v, result, state, summaries, now_iso):
             }
         )
     state.setdefault(cid, []).append(v["video_id"])
-    clear_transcript_cache(v["video_id"])
     state.get(ATTEMPTS_KEY, {}).pop(v["video_id"], None)
     state.get(PAIR_WAIT_KEY, {}).pop(v["video_id"], None)
     state.get(PAIR_FAIL_KEY, {}).pop(v["video_id"], None)
@@ -1189,6 +1274,10 @@ def main():
         summarize_pending(state, summaries, now)
     except Exception as e:
         warn(f"묶음 요약 처리 중 오류: {e}")
+    try:
+        prune_review_transcripts(state, now)
+    except Exception as e:
+        print(f"[WARN] 검수용 자막 정리 실패: {e}")
     # 저장한 요약이 없어도 짝 기다림 기록(state)은 남긴다. 바뀐 게 없으면 커밋하지 않는다.
     summaries = _save_data_files(state, summaries, channels, now)
     commit_and_push(f"chore: update data (요약) {now.isoformat()}")
