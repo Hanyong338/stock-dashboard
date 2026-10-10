@@ -22,6 +22,7 @@ from summarize import (
     GeminiUnavailable,
     check_free_key,
     diagnose_keys,
+    gemini_mode,
     gemini_quiet_now,
     gemini_ready,
     quota_day_start,
@@ -202,6 +203,12 @@ def save_json(path, data):
 _warnings = []
 # 제미나이가 모두 막혀 이번 실행에서 요약을 미룬 영상. 영상마다 남기면 기록이 넘치니 실행 끝에 한 줄로 남긴다.
 _deferred = []
+# 자막까지 준비돼 요약을 기다리는 영상. 채널을 다 돈 뒤 summarize_pending 이 2편씩 묶어 처리한다.
+_pending = []
+PAIR_WAIT_KEY = "_pair_wait"  # state.json: 짝을 기다리기 시작한 시각(영상 id → ISO)
+PAIR_WAIT_MINUTES = 60  # 혼자 남은 영상이 짝을 기다리는 최대 시간
+PAIR_FAIL_KEY = "_pair_fail"  # state.json: 묶음 요청이 (제미나이 혼잡이 아닌 이유로) 실패한 횟수
+PAIR_FALLBACK_FAILS = 2  # 묶음이 이만큼 실패한 영상은 하나씩 요약
 SKIP_BACKLOG_CHANNELS = {"삼프로TV", "815머니톡", "한국경제TV"}
 SKIP_BACKLOG_BEFORE_KST = datetime.date(2026, 10, 8)
 
@@ -451,30 +458,20 @@ def process_channel(ch, state, summaries, now):
             _deferred.append(v["video_id"])
             continue
 
-        try:
-            result = call_with_timeout(
-                summarize_transcript, SUMMARIZE_TIMEOUT_SECONDS, name, v["title"], transcript_text, reserve=_brief_reserve()
-            )
-        except GeminiUnavailable as e:
-            # 영상 문제가 아니라 제미나이가 전부 막힌 것. 실패 기록 대신 실행 끝에 '미룸' 한 줄로 남긴다.
-            print(f"[INFO] 요약 미룸 [{name}] {v['title'][:40]} : {e}")
-            _deferred.append(v["video_id"])
-            continue
-        except Exception as e:
-            # 요약만 실패한 것이므로 자막 캐시는 남겨둔다.
-            # 다음 실행에서 자막을 다시 받지 않고(크레딧 0) 요약만 다시 시도한다.
-            warn(f"요약 실패 [{name}] {v['title'][:40]} : {e}")
-            continue
+        # 요약은 여기서 바로 하지 않고 모아뒀다가 채널을 다 돈 뒤 2편씩 묶어 요청 한 번에 처리한다(summarize_pending).
+        _pending.append({"ch": ch, "v": v, "text": transcript_text})
 
-        if result.get("investment_related") is False:
-            # 사용자 지정(10/9): 투자와 무관한 영상(역사·교양·홍보 등)은 대시보드에 올리지 않는다.
-            # 확인함으로 처리해 다시 요약하지 않는다. 묶음 시험에도 넣지 않는다.
-            warn(f"투자와 무관한 영상이라 요약을 저장하지 않음 [{name}] {v['title'][:40]}")
-            state[cid].append(v["video_id"])
-            clear_transcript_cache(v["video_id"])
-            state.get(ATTEMPTS_KEY, {}).pop(v["video_id"], None)
-            continue
+    state[cid] = state[cid][-STATE_HISTORY_PER_CHANNEL:]
 
+
+def _store_summary(ch, v, result, state, summaries, now_iso):
+    """요약 결과 한 편을 저장하고 '확인함' 처리한다."""
+    cid, name = ch["channel_id"], ch["name"]
+    if result.get("investment_related") is False:
+        # 사용자 지정(10/9): 투자와 무관한 영상(역사·교양·홍보 등)은 대시보드에 올리지 않는다.
+        # 확인함으로 처리해 다시 요약하지 않는다.
+        warn(f"투자와 무관한 영상이라 요약을 저장하지 않음 [{name}] {v['title'][:40]}")
+    else:
         summaries.append(
             {
                 "channel": name,
@@ -492,13 +489,88 @@ def process_channel(ch, state, summaries, now):
                 "watch_picks": result.get("watch_picks", []),
             }
         )
-        state[cid].append(v["video_id"])
-        # 요약까지 끝났으니 캐시와 시도 기록을 정리한다(묶음 요약 시험에 쓸 영상은 자막을 남겨둔다)
-        if not _pair_trial_keep(v, name, result):
-            clear_transcript_cache(v["video_id"])
-        state.get(ATTEMPTS_KEY, {}).pop(v["video_id"], None)
+    state.setdefault(cid, []).append(v["video_id"])
+    clear_transcript_cache(v["video_id"])
+    state.get(ATTEMPTS_KEY, {}).pop(v["video_id"], None)
+    state.get(PAIR_WAIT_KEY, {}).pop(v["video_id"], None)
+    state.get(PAIR_FAIL_KEY, {}).pop(v["video_id"], None)
 
-    state[cid] = state[cid][-STATE_HISTORY_PER_CHANNEL:]
+
+def summarize_pending(state, summaries, now):
+    """모아둔 영상을 2편씩 묶어 요약한다(사용자 지정 10/10: 묶음 시험 7쌍 결과 품질 차이 없음 → 묶음으로 전환).
+    무료 한도는 요청 횟수로 세므로 같은 한도로 두 배를 처리한다.
+    - 혼자 남은 영상은 짝이 올 때까지 PAIR_WAIT_MINUTES 동안 기다린다(실행마다 새 영상은 0~1편이라
+      기다리지 않으면 거의 묶이지 않는다). 그 뒤엔 혼자 요약한다.
+      저녁 유료 시간대엔 기다리지 않는다(유료는 요청 수가 아니라 토큰으로 내서 묶어도 아낄 게 없다).
+    - 묶음 요청이 제미나이 혼잡이 아닌 이유로 실패하면 다음 실행에서 다시 묶는다.
+      그렇게 PAIR_FALLBACK_FAILS 번 실패한 영상은 하나씩 요약한다.
+    반환: 저장한 편수"""
+    now_iso = now.isoformat()
+    waits = state.setdefault(PAIR_WAIT_KEY, {})
+    fails = state.setdefault(PAIR_FAIL_KEY, {})
+    # 다른 경로로 정리된 영상(건너뜀 등)의 기다림 기록이 쌓이지 않게 하루 지난 건 지운다
+    for vid, at in list(waits.items()):
+        if (now - datetime.datetime.fromisoformat(at)).total_seconds() > 86400:
+            waits.pop(vid, None)
+            fails.pop(vid, None)
+    # 오래 기다린 영상부터 묶는다(혼자 남는 건 가장 최근 영상이 되게)
+    items = sorted(_pending, key=lambda it: waits.get(it["v"]["video_id"], now_iso))
+    _pending.clear()
+    stored = 0
+
+    # 혼자 남은 영상: 짝을 기다릴지 정한다
+    if len(items) % 2 == 1 and gemini_mode() == "free":
+        last = items[-1]
+        vid = last["v"]["video_id"]
+        first = waits.setdefault(vid, now_iso)
+        waited = (now - datetime.datetime.fromisoformat(first)).total_seconds() / 60
+        if waited < PAIR_WAIT_MINUTES:
+            print(f"[INFO] 묶을 짝을 기다림({int(waited)}/{PAIR_WAIT_MINUTES}분): {last['ch']['name']} - {last['v']['title'][:40]}")
+            items = items[:-1]
+
+    groups = []
+    for i in range(0, len(items), 2):
+        group = items[i : i + 2]
+        if len(group) == 2 and any(fails.get(it["v"]["video_id"], 0) >= PAIR_FALLBACK_FAILS for it in group):
+            groups.extend([[it] for it in group])  # 묶음이 거듭 실패한 영상은 하나씩
+        else:
+            groups.append(group)
+
+    for group in groups:
+        label = " + ".join(f"[{it['ch']['name']}] {it['v']['title'][:30]}" for it in group)
+        try:
+            if len(group) == 1:
+                it = group[0]
+                results = [
+                    call_with_timeout(
+                        summarize_transcript, SUMMARIZE_TIMEOUT_SECONDS,
+                        it["ch"]["name"], it["v"]["title"], it["text"], reserve=_brief_reserve(),
+                    )
+                ]
+            else:
+                results = call_with_timeout(
+                    summarize_many, SUMMARIZE_TIMEOUT_SECONDS,
+                    [(it["ch"]["name"], it["v"]["title"], it["text"]) for it in group],
+                    reserve=_brief_reserve(), allow_paid=True,
+                )
+        except GeminiUnavailable as e:
+            # 영상 문제가 아니라 제미나이가 전부 막힌 것. 실패 기록 대신 실행 끝에 '미룸' 한 줄로 남긴다.
+            print(f"[INFO] 요약 미룸 {label} : {e}")
+            _deferred.extend(it["v"]["video_id"] for it in group)
+            continue
+        except Exception as e:
+            # 요약만 실패한 것이므로 자막 캐시는 남겨둔다. 다음 실행에서 자막을 다시 받지 않고(크레딧 0) 다시 시도한다.
+            warn(f"요약 실패 {label} : {e}")
+            if len(group) == 2:
+                for it in group:
+                    fails[it["v"]["video_id"]] = fails.get(it["v"]["video_id"], 0) + 1
+            continue
+        for it, result in zip(group, results):
+            _store_summary(it["ch"], it["v"], result, state, summaries, now_iso)
+            stored += 1
+        if len(group) == 2:
+            print(f"[INFO] 2편 묶음 요약 완료(요청 1번): {label}")
+    return stored
 
 
 
@@ -1105,18 +1177,21 @@ def main():
     except Exception as e:
         print(f"[WARN] morning brief failed: {e}")
 
-    # 묶음 요약 시험을 채널 요약보다 먼저 돌린다(사용자 지정 10/8). 밀린 영상 뒤로 두면 매일 밀린 게 있어 한 번도 안 돌았다.
-    # 실행마다 한 쌍(무료 요청 1번)만, 목표(2쌍)를 채우면 더는 돌지 않는다.
-    try:
-        if update_pair_trial(now):
-            commit_and_push(f"chore: pair summary trial {now.isoformat()}")
-    except Exception as e:
-        print(f"[WARN] 묶음 요약 시험 실패: {e}")
+    # 묶음 요약 시험(update_pair_trial)은 10/10 끝냈다(7쌍, 품질 차이 없음 → 실제 요약을 묶음으로 전환).
 
+    # 채널마다 새 영상을 확인하고 자막까지 받아둔다. 요약은 다 모은 뒤 2편씩 묶어서 한다.
     for ch in channels:
         process_channel(ch, state, summaries, now)
         summaries = _save_data_files(state, summaries, channels, now)
         commit_and_push(f"chore: update data ({ch['name']}) {now.isoformat()}")
+
+    try:
+        summarize_pending(state, summaries, now)
+    except Exception as e:
+        warn(f"묶음 요약 처리 중 오류: {e}")
+    # 저장한 요약이 없어도 짝 기다림 기록(state)은 남긴다. 바뀐 게 없으면 커밋하지 않는다.
+    summaries = _save_data_files(state, summaries, channels, now)
+    commit_and_push(f"chore: update data (요약) {now.isoformat()}")
 
     try:
         if update_calendar(now):
