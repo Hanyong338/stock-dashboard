@@ -560,11 +560,12 @@ def _is_kr_holiday(day):
     라이브러리가 실패하면 공휴일이 아닌 것으로 본다(평일처럼 유료를 쓴다)."""
     if day in _kr_holiday_cache:
         return _kr_holiday_cache[day]
-    result = False
+    # 12/31(증시 연말 휴장)도 공휴일처럼 쉰다(사용자 지정 10/10)
+    result = (day.month, day.day) == (12, 31)
     try:
         import holidays as pyholidays
 
-        result = day in pyholidays.country_holidays("KR", years=[day.year])
+        result = result or day in pyholidays.country_holidays("KR", years=[day.year])
     except Exception as e:
         print(f"[WARN] 공휴일 확인 실패 — 평일로 본다: {e}")
     if not result:
@@ -572,7 +573,7 @@ def _is_kr_holiday(day):
             from calendar_data import KR_HOLIDAYS
 
             iso = day.isoformat()
-            result = any(h["start"] <= iso <= h["end"] for h in KR_HOLIDAYS if "연말" not in h.get("title", ""))
+            result = any(h["start"] <= iso <= h["end"] for h in KR_HOLIDAYS)
         except Exception:
             pass
     _kr_holiday_cache[day] = result
