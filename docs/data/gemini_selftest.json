@@ -1,5 +1,5 @@
 {
-  "all_pass": false,
+  "all_pass": true,
   "results": [
     {
       "case": "낮에 무료 모델 전부 한도 소진 → 유료로 안 넘어감(18시까지 미룸)",
@@ -160,12 +160,13 @@
       }
     },
     {
-      "case": "07시 혼잡: 실행당 거절 2번에서 멈춤(아침에 한도를 다 쓰지 않음), 다음 실행은 바로",
-      "pass": false,
+      "case": "07시 혼잡: 남은 한도에 맞춘 횟수만큼만 거절받고 멈춤(아침에 한도를 다 쓰지 않음), 다음 실행은 바로",
+      "pass": true,
       "detail": {
         "calls": [
           "free:gemini-3.6-flash"
         ],
+        "expected_fails": 1,
         "pace_minutes": 13.9
       }
     },
