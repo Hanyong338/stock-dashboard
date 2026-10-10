@@ -612,6 +612,10 @@ def summarize_pending(state, summaries, now):
         if waited < PAIR_WAIT_MINUTES:
             print(f"[INFO] 묶을 짝을 기다림({int(waited)}/{PAIR_WAIT_MINUTES}분): {last['ch']['name']} - {last['v']['title'][:40]}")
             items = items[:-1]
+            # 짝 기다림은 실패가 아니므로 시도 횟수에서 뺀다(10/10: 기다리는 동안 '5번째 시도' 경고가 떴다)
+            attempts = state.get(ATTEMPTS_KEY, {})
+            if attempts.get(vid, 0) > 0:
+                attempts[vid] -= 1
 
     groups = []
     for i in range(0, len(items), 2):
