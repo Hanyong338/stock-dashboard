@@ -258,19 +258,24 @@ def main():
         check("일회성 정지(10/7 저녁~10/8 07시) 중 요청 안 보냄", out == "deferred" and not calls, {"calls": calls})
 
         # 15. 혼잡 거절 간격 = 초기화까지 남은 시간 ÷ 남은 무료 한도
-        #  - 07:00, 80회 남음 → 약 6.75분 간격 → 20분 실행당 거절 2번에서 멈춤, 다음 실행에선 바로 다시(긴 쉬기 없음)
+        #  - 07:00, 한도 가득(모델 수 × 20회) → 간격 = 9시간 ÷ 남은 한도 → 20분 실행당 허용 거절 수에서 멈춤,
+        #    간격이 20분보다 짧으니 다음 실행에선 바로 다시(긴 쉬기 없음).
+        #    모델 4개(80회)일 땐 약 6.75분 간격 → 2번, 10/10 모델 2개(40회)부터는 약 13.5분 간격 → 1번.
+        full = s.FREE_RPD * len(s.all_models())
+        minutes_to_reset = (s._next_quota_reset(kst(7, 0)) - kst(7, 0)).total_seconds() / 60
+        expected_fails = max(1, int(s.RUN_INTERVAL_MINUTES // (minutes_to_reset / full)))
         calls, out = _run(tmp, lambda k, m: FakeResp(503, BUSY_503), now=kst(7, 0))
         check(
-            "07시 혼잡: 실행당 거절 2번에서 멈춤(아침에 한도를 다 쓰지 않음), 다음 실행은 바로",
-            out == "deferred" and len(calls) == 2 and s._halted_this_run and "backoff_until" not in s._quota,
-            {"calls": calls, "pace_minutes": round(s._pace_minutes(), 2)},
+            "07시 혼잡: 남은 한도에 맞춘 횟수만큼만 거절받고 멈춤(아침에 한도를 다 쓰지 않음), 다음 실행은 바로",
+            out == "deferred" and len(calls) == expected_fails and s._halted_this_run and "backoff_until" not in s._quota,
+            {"calls": calls, "expected_fails": expected_fails, "pace_minutes": round(s._pace_minutes(), 2)},
         )
 
-        #  - 16:30(막 초기화), 80회 남음 → 약 18분 간격 → 실행당 1번
+        #  - 16:30(막 초기화), 한도 가득 → 간격이 20분 안팎 이상 → 실행당 1번
         calls, out = _run(tmp, lambda k, m: FakeResp(503, BUSY_503), now=kst(16, 30))
         check("16:30 혼잡: 실행당 거절 1번에서 멈춤", out == "deferred" and len(calls) == 1 and s._halted_this_run, {"calls": calls})
 
-        #  - 15:30(초기화 30분 전), 80회 남음 → 간격이 아주 좁음 → 멈추지 않고 다음 영상에서 같은 모델을 또 부름
+        #  - 15:30(초기화 30분 전), 한도 가득 → 간격이 아주 좁음 → 멈추지 않고 다음 영상에서 같은 모델을 또 부름
         calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY) if k == "paid" else FakeResp(503, BUSY_503), now=kst(15, 30))
         busy_after = set(s._busy)
         calls2 = []
