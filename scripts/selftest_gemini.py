@@ -1,7 +1,7 @@
 """제미나이 키·모델 선택 규칙 자가 시험. 구글에 진짜 요청을 보내지 않고 가짜 응답으로만 확인한다(비용·한도 0).
 
 확인하는 규칙(사용자 지정, 2026-10-07):
-- 낮(07~18시)엔 무료 모델 4개의 하루 한도가 모두 차도 유료로 넘기지 않는다(10/8 변경, 당잠사만 예외)
+- 낮(07~18시)엔 무료 모델 전부의 하루 한도가 모두 차도 유료로 넘기지 않는다(10/8 변경, 당잠사만 예외)
 - 무료가 혼잡(503)으로 막혔을 뿐이면 유료로 넘기지 않는다
 - 무료 모델이 하나라도 남아 있으면 무료로 처리한다
 - 유료 키를 새로 넣으면 예전 키 때문에 걸어둔 쉬는 기간이 풀린다
@@ -110,11 +110,11 @@ def main():
         results.append({"case": name, "pass": bool(ok), "detail": detail})
 
     with tempfile.TemporaryDirectory() as tmp:
-        # 1. 낮(무료 시간대)에 무료 4개 모두 하루 한도 → 유료로 안 넘어가고 18시까지 미룸(10/8 변경)
+        # 1. 낮(무료 시간대)에 무료 모델 전부 하루 한도 → 유료로 안 넘어가고 18시까지 미룸(10/8 변경)
         calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY) if k == "paid" else FakeResp(429, DAILY_429))
         check(
-            "낮에 무료 4개 한도 소진 → 유료로 안 넘어감(18시까지 미룸)",
-            out == "deferred" and sum(c.startswith("free") for c in calls) == 4 and not any(c.startswith("paid") for c in calls),
+            "낮에 무료 모델 전부 한도 소진 → 유료로 안 넘어감(18시까지 미룸)",
+            out == "deferred" and sum(c.startswith("free") for c in calls) == len([s.MODEL] + s.FALLBACK_MODELS) and not any(c.startswith("paid") for c in calls),
             {"calls": calls, "outcome": out},
         )
 
@@ -179,7 +179,7 @@ def main():
             {"calls": calls, "outcome": out},
         )
 
-        # 7. gemini_ready: 무료 4개 한도 소진 표시 → 낮엔 준비 안 됨(유료 안 씀), 저녁 유료 시간대엔 준비됨
+        # 7. gemini_ready: 무료 모델 전부 한도 소진 표시 → 낮엔 준비 안 됨(유료 안 씀), 저녁 유료 시간대엔 준비됨
         _reset(tmp, ACTIVE_NOW)
         until = (ACTIVE_NOW + datetime.timedelta(hours=5)).isoformat()
         s._quota["exhausted"] = {m: until for m in [s.MODEL] + s.FALLBACK_MODELS}
@@ -187,7 +187,7 @@ def main():
         s._now = lambda: PAID_NOW
         check("무료 소진: 낮엔 대기, 18시 유료 시간대엔 진행(gemini_ready)", not day_ready and s.gemini_ready(), {})
 
-        # 8. 무료 전용 요청(묶음 시험): 무료 4개 한도 소진 → 유료 안 쓰고 미룸
+        # 8. 무료 전용 요청(묶음 시험): 무료 모델 전부 한도 소진 → 유료 안 쓰고 미룸
         calls, out = _run(
             tmp, lambda k, m: FakeResp(200, OK_BODY) if k == "paid" else FakeResp(429, DAILY_429), allow_paid=False
         )
@@ -282,7 +282,7 @@ def main():
         check(
             "초기화 직전: 간격이 좁아 다음 영상에서 바로 다시 시도, 유료로는 안 넘어감",
             out == "deferred" and not any(c.startswith("paid") for c in calls) and not busy_after
-            and not s._halted_this_run and "backoff_until" not in s._quota and len(calls2) == 4,
+            and not s._halted_this_run and "backoff_until" not in s._quota and len(calls2) == len([s.MODEL] + s.FALLBACK_MODELS),
             {"calls": calls, "calls_next_video": calls2},
         )
 
