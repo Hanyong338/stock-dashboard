@@ -46,7 +46,7 @@ jobs:
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          # 결제를 연결하지 않은 프로젝트의 키(무료 사용량). 이 키를 먼저 쓰고, 무료 모델(3.6·3.7·3.8-flash)의 하루 한도가
+          # 결제를 연결하지 않은 프로젝트의 키(무료 사용량). 이 키를 먼저 쓰고, 무료 모델(3.6·3.8-flash)의 하루 한도가
           # 모두 찼을 때만 위 유료 키(결제 켠 별도 프로젝트, 선불)를 쓴다. 혼잡(503)일 땐 유료로 넘기지 않는다.
           GEMINI_API_KEY_FREE: ${{ secrets.GEMINI_API_KEY_FREE }}
           SUPADATA_API_KEY: ${{ secrets.SUPADATA_API_KEY }}

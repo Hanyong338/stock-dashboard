@@ -17,7 +17,8 @@ import requests
 RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
 
 # 2026-10-10 구글이 gemini-3.5-flash 를 종료하고 모든 요청을 3.6-flash 로 돌린다고 공지했다.
-# 3.5 로 보내면 실제로는 3.6 이 처리하고 한도도 3.6 몫에서 빠질 수 있어(하루 20회를 둘이 나눠 씀) 목록에서 뺐다.
+# 3.7-flash 도 같은 날 3.8-flash 로 돌린다고 공지했다(공식 deprecations 문서). 그대로 두면 실제로는 같은 모델을
+# 두 번 부르고 한도도 그 모델 몫에서 빠질 수 있어(하루 20회를 둘이 나눠 씀) 둘 다 목록에서 뺐다. 남는 건 3.6·3.8.
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.6-flash")
 # 기본 모델이 혼잡(503)·한도(429)·시간초과로 계속 거절하면 차례로 넘어갈 모델. 모두 무료 사용량이 있다(공식 가격표).
 # 2026-10-05 무료로 전환하자 3.5-flash(공식 문서상 'Legacy')가 503 을 반복해 요약이 몇 시간 밀렸다.
@@ -25,7 +26,7 @@ MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.6-flash")
 # 요약 품질이 떨어지지 않도록 3.5 보다 새로운 세대만 둔다(2.5 처럼 이전 세대는 넣지 않는다).
 FALLBACK_MODELS = [
     m.strip()
-    for m in os.environ.get("GEMINI_FALLBACK_MODELS", "gemini-3.6-flash,gemini-3.7-flash,gemini-3.8-flash").split(",")
+    for m in os.environ.get("GEMINI_FALLBACK_MODELS", "gemini-3.8-flash").split(",")
     if m.strip() and m.strip() != MODEL
 ]
 
