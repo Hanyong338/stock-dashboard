@@ -26,6 +26,7 @@ from summarize import (
     gemini_quiet_now,
     gemini_ready,
     quota_day_start,
+    refresh_model_list,
     summarize_many,
     summarize_transcript,
 )
@@ -1257,6 +1258,13 @@ def main():
             commit_and_push(f"chore: gemini key diagnostic {now.isoformat()}")
     except Exception as e:
         print(f"[WARN] 제미나이 키 진단 실패: {e}")
+
+    # 하루 한 번 구글 모델 목록을 보고 새 Flash 모델은 추가, 통합·종료된 모델은 뺀다(사용자 지정 10/10). 무료 한도와 무관.
+    try:
+        for change in refresh_model_list():
+            warn(change)
+    except Exception as e:
+        print(f"[WARN] 제미나이 모델 목록 갱신 실패: {e}")
 
     # 당잠사(아침 브리핑)를 채널 요약보다 먼저 돌린다. 무료 한도가 빠듯해서 채널 요약이 먼저 다 쓰면
     # 아침 브리핑이 오후 4시 한도 초기화 뒤로 밀린다(10/7).

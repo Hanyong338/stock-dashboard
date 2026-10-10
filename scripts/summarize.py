@@ -4,6 +4,7 @@
 import datetime
 import json
 import os
+import re
 import time
 from pathlib import Path
 
@@ -183,6 +184,95 @@ def _save_quota():
     QUOTA_FILE.write_text(json.dumps(_quota, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+# ── 쓸 모델 목록 자동 관리(사용자 지정, 10/10: "새로운 모델 또 나오면 추가해줘") ──
+# 하루 한 번 구글의 모델 목록(ListModels, 요약 요청이 아니라 무료 한도를 쓰지 않는다)을 보고
+# - 지금 쓰는 것보다 새 세대의 정식 Flash 모델(gemini-X.Y-flash, lite·preview 제외)이 생기면 자동으로 추가한다.
+# - 지금 쓰는 모델이 목록에서 사라지면(10/8 3.5·3.7 처럼 다른 모델로 통합된 경우) 자동으로 뺀다.
+#   목록을 잘못 읽어 다 빼버리는 일이 없게, 목록이 정상(우리 모델 중 하나 이상이 보임)일 때만 빼고, 최소 1개는 남긴다.
+# 결과는 gemini_quota.json 의 auto_models / retired_models 에 남는다.
+_FLASH_NAME = re.compile(r"^models/gemini-(\d+)\.(\d+)-flash$")
+
+
+def _flash_version(model):
+    m = _FLASH_NAME.match(f"models/{model}")
+    return (int(m.group(1)), int(m.group(2))) if m else None
+
+
+def all_models():
+    """지금 쓸 모델(기본 + 대체 + 자동 추가 − 자동 제외), 중복 없이."""
+    retired = set(_quota.get("retired_models") or [])
+    out = []
+    for m in [MODEL] + FALLBACK_MODELS + list(_quota.get("auto_models") or []):
+        if m not in out and m not in retired:
+            out.append(m)
+    if not out:  # 혹시 다 빠지면 안전하게 원래 목록으로
+        out = [MODEL] + [m for m in FALLBACK_MODELS if m != MODEL]
+    return out
+
+
+def _list_models(key):
+    """구글이 지금 제공하는 모델 이름 목록(models/...). 실패하면 None."""
+    names, token = [], None
+    for _ in range(10):
+        params = {"pageSize": 1000}
+        if token:
+            params["pageToken"] = token
+        try:
+            resp = requests.get(
+                "https://generativelanguage.googleapis.com/v1beta/models",
+                headers={"x-goog-api-key": key},
+                params=params,
+                timeout=30,
+            )
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as e:
+            print(f"[WARN] 제미나이 모델 목록 조회 실패: {type(e).__name__}")
+            return None
+        for item in data.get("models") or []:
+            if "generateContent" in (item.get("supportedGenerationMethods") or []):
+                names.append(item.get("name", ""))
+        token = data.get("nextPageToken")
+        if not token:
+            return names
+    return names
+
+
+def refresh_model_list():
+    """하루 한 번 모델 목록을 갱신한다. 바뀐 내용을 문장 목록으로 돌려준다(없으면 빈 목록)."""
+    today = (_now() + datetime.timedelta(hours=9)).date().isoformat()
+    if _quota.get("models_checked_on") == today:
+        return []
+    key = (os.environ.get("GEMINI_API_KEY_FREE") or os.environ.get("GEMINI_API_KEY") or "").strip()
+    if not key:
+        return []
+    names = _list_models(key)
+    if names is None:
+        return []  # 조회 실패면 내일 다시(오늘 확인한 것으로 치지 않는다)
+    available = {n[len("models/"):] for n in names if _FLASH_NAME.match(n)}
+    changes = []
+    current = all_models()
+    newest = max((v for v in map(_flash_version, current) if v), default=(0, 0))
+    auto = list(_quota.get("auto_models") or [])
+    for model in sorted(available, key=_flash_version):
+        if _flash_version(model) > newest and model not in auto:
+            auto.append(model)
+            changes.append(f"새 제미나이 모델 {model} 발견 — 요약 모델 목록에 자동 추가")
+    retired = list(_quota.get("retired_models") or [])
+    if available & set(current):  # 목록이 정상으로 읽혔을 때만 뺀다
+        for model in current:
+            if model not in available and model not in retired and len([m for m in current if m not in retired]) > 1:
+                retired.append(model)
+                changes.append(f"제미나이 모델 {model} 이 구글 목록에서 사라짐(통합·종료) — 요약 모델 목록에서 자동 제외")
+    # 다시 목록에 나타난 모델은 제외를 푼다
+    retired = [m for m in retired if m not in available]
+    _quota["auto_models"] = auto
+    _quota["retired_models"] = retired
+    _quota["models_checked_on"] = today
+    _save_quota()
+    return changes
+
+
 def _now():
     return datetime.datetime.now(datetime.timezone.utc)
 
@@ -222,7 +312,7 @@ def remaining_free_requests():
     """이번 한도 날짜에 무료 키로 더 보낼 수 있는 요청 수(모델 4개 합계, 우리가 센 요청 기준)."""
     sent = (_quota.get("sent") or {}).get(_quota_day(), {})
     total = 0
-    for model in [MODEL] + FALLBACK_MODELS:
+    for model in all_models():
         if _quota_exhausted(model):
             continue
         used = sum(sent.get(model, {}).values())
@@ -282,7 +372,7 @@ def diagnose_keys(only_kind=None):
     for kind, key in _keys():
         if only_kind and kind != only_kind:
             continue
-        for model in [MODEL] + FALLBACK_MODELS:
+        for model in all_models():
             entry = {"key": kind, "model": model}
             try:
                 resp = _post(payload, key, timeout=60, model=model)
@@ -346,7 +436,7 @@ def _models():
     - 단, 오늘 성공이 없고 이 규칙으로 아직 한 번도 안 불러본 모델은 맨 앞에 한 번 세운다.
       성공률 순서만 쓰면 꼴찌 모델은 앞 모델들이 혼잡으로 막히는 순간 '쉬기'로 끝나 영영 차례가 안 온다
       (10/8 3.6-flash: 한도 18회가 남았는데 21시간 동안 한 번도 안 불렸다)."""
-    order = [MODEL] + FALLBACK_MODELS
+    order = all_models()
     sent = _quota.get("sent") or {}
     day = _quota_day()
     today = sent.get(day, {})

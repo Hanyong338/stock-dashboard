@@ -114,7 +114,7 @@ def main():
         calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY) if k == "paid" else FakeResp(429, DAILY_429))
         check(
             "낮에 무료 모델 전부 한도 소진 → 유료로 안 넘어감(18시까지 미룸)",
-            out == "deferred" and sum(c.startswith("free") for c in calls) == len([s.MODEL] + s.FALLBACK_MODELS) and not any(c.startswith("paid") for c in calls),
+            out == "deferred" and sum(c.startswith("free") for c in calls) == len(s.all_models()) and not any(c.startswith("paid") for c in calls),
             {"calls": calls, "outcome": out},
         )
 
@@ -182,7 +182,7 @@ def main():
         # 7. gemini_ready: 무료 모델 전부 한도 소진 표시 → 낮엔 준비 안 됨(유료 안 씀), 저녁 유료 시간대엔 준비됨
         _reset(tmp, ACTIVE_NOW)
         until = (ACTIVE_NOW + datetime.timedelta(hours=5)).isoformat()
-        s._quota["exhausted"] = {m: until for m in [s.MODEL] + s.FALLBACK_MODELS}
+        s._quota["exhausted"] = {m: until for m in s.all_models()}
         day_ready = s.gemini_ready()
         s._now = lambda: PAID_NOW
         check("무료 소진: 낮엔 대기, 18시 유료 시간대엔 진행(gemini_ready)", not day_ready and s.gemini_ready(), {})
@@ -200,7 +200,7 @@ def main():
         # 9. 무료가 당잠사 몫(4번)만 남았을 때 일반 영상 → 그 몫은 안 쓰고 유료로
         def leave_four():
             day = s._quota_day()
-            s._quota["sent"] = {day: {m: {"503": s.FREE_RPD - 1} for m in [s.MODEL] + s.FALLBACK_MODELS}}
+            s._quota["sent"] = {day: {m: {"503": s.FREE_RPD - 1} for m in s.all_models()}}
 
         calls, out = _run(tmp, lambda k, m: FakeResp(200, OK_BODY), before=leave_four, reserve=4)
         check(
@@ -282,8 +282,56 @@ def main():
         check(
             "초기화 직전: 간격이 좁아 다음 영상에서 바로 다시 시도, 유료로는 안 넘어감",
             out == "deferred" and not any(c.startswith("paid") for c in calls) and not busy_after
-            and not s._halted_this_run and "backoff_until" not in s._quota and len(calls2) == len([s.MODEL] + s.FALLBACK_MODELS),
+            and not s._halted_this_run and "backoff_until" not in s._quota and len(calls2) == len(s.all_models()),
             {"calls": calls, "calls_next_video": calls2},
+        )
+
+        # 모델 목록 자동 관리(10/10): 새 Flash 모델은 추가, 사라진 모델은 제외, 목록을 못 읽으면 그대로
+        base = [s.MODEL] + [m for m in s.FALLBACK_MODELS if m != s.MODEL]
+        newest = max(base, key=s._flash_version)
+        major, minor = s._flash_version(newest)
+        next_model = f"gemini-{major}.{minor + 1}-flash"
+
+        def run_refresh(names):
+            s._quota.pop("models_checked_on", None)
+            s._list_models = lambda key: names
+            return s.refresh_model_list()
+
+        _reset(tmp, ACTIVE_NOW)
+        listed = [f"models/{m}" for m in base] + [
+            f"models/{next_model}",
+            f"models/{next_model}-lite",  # lite·preview 는 넣지 않는다
+            f"models/gemini-{major}.{minor + 2}-flash-preview",
+        ]
+        changes = run_refresh(listed)
+        check(
+            "새 Flash 모델 자동 추가(lite·preview 제외)",
+            s.all_models() == base + [next_model] and len(changes) == 1,
+            {"models": s.all_models(), "changes": changes},
+        )
+
+        changes = run_refresh([f"models/{m}" for m in base[1:]] + [f"models/{next_model}"])
+        check(
+            "구글 목록에서 사라진 모델 자동 제외",
+            s.all_models() == base[1:] + [next_model] and any(base[0] in c for c in changes),
+            {"models": s.all_models(), "changes": changes},
+        )
+
+        _reset(tmp, ACTIVE_NOW)
+        changes = run_refresh(["models/some-other-model"])
+        check(
+            "목록을 제대로 못 읽으면 아무것도 빼지 않음",
+            s.all_models() == base and not changes,
+            {"models": s.all_models(), "changes": changes},
+        )
+
+        _reset(tmp, ACTIVE_NOW)
+        s._list_models = lambda key: None
+        s._quota.pop("models_checked_on", None)
+        check(
+            "목록 조회 실패 → 그대로 두고 내일 다시",
+            s.refresh_model_list() == [] and s.all_models() == base and "models_checked_on" not in s._quota,
+            {"models": s.all_models()},
         )
 
     summary = {"all_pass": all(r["pass"] for r in results), "results": results}
