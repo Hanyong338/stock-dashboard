@@ -308,6 +308,7 @@
       "title": "미국 기존주택판매",
       "category": "macro",
       "detail": "23:00",
+      "consensus": "3.97M",
       "previous": "3.98M"
     },
     {
@@ -340,6 +341,7 @@
       "title": "미국 CPI",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "0.6%",
       "previous": "0.4%"
     },
     {
@@ -348,6 +350,7 @@
       "title": "미국 근원 CPI",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "0.2%",
       "previous": "0.3%"
     },
     {
@@ -364,6 +367,7 @@
       "title": "미국 PPI",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "0.5%",
       "previous": "0.4%"
     },
     {
@@ -372,6 +376,7 @@
       "title": "미국 근원 PPI",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "0.3%",
       "previous": "0.2%"
     },
     {
@@ -380,6 +385,7 @@
       "title": "미국 소매판매",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "0.5%",
       "previous": "1.4%"
     },
     {
@@ -388,6 +394,7 @@
       "title": "미국 실업수당",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "195K",
       "previous": "197K"
     },
     {
@@ -396,6 +403,7 @@
       "title": "필라델피아 연은지수",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "26.5",
       "previous": "37.8"
     },
     {
@@ -1253,7 +1261,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-11",
+  "built_on": "2026-10-12",
   "builder_version": 10,
-  "updated_at": "2026-10-10T15:01:15.770387+00:00"
+  "updated_at": "2026-10-11T15:01:23.579854+00:00"
 }
