@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "캐릭터상품",
+      "change_percent": 0.24,
+      "total": 9,
+      "rise": 1
+    },
+    {
+      "name": "엔젤산업",
+      "change_percent": 0.08,
+      "total": 26,
+      "rise": 1
+    },
+    {
+      "name": "5G(5세대 이동통신)",
+      "change_percent": 0.04,
+      "total": 55,
+      "rise": 1
+    },
+    {
+      "name": "PCB(FPCB 등)",
+      "change_percent": 0.04,
+      "total": 31,
+      "rise": 1
+    },
+    {
+      "name": "도시가스",
+      "change_percent": 0.04,
+      "total": 9,
+      "rise": 1
+    },
+    {
+      "name": "면역항암제",
+      "change_percent": 0.03,
+      "total": 36,
+      "rise": 1
+    },
+    {
+      "name": "증강현실(AR)",
+      "change_percent": 0.03,
+      "total": 20,
+      "rise": 1
+    },
+    {
+      "name": "건강기능식품",
+      "change_percent": 0.02,
+      "total": 43,
+      "rise": 1
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-10-11T23:02:00.085194+00:00"
+  "updated_at": "2026-10-12T00:01:41.890410+00:00"
 }
