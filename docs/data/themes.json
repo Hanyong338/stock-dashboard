@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
+      "name": "서울고속버스터미널 재개발 수혜",
+      "change_percent": 5.87,
+      "total": 5,
+      "rise": 5
+    },
+    {
       "name": "해운",
-      "change_percent": 4.67,
+      "change_percent": 4.47,
       "total": 6,
       "rise": 6
     },
     {
       "name": "시멘트/레미콘",
-      "change_percent": 4.63,
+      "change_percent": 4.39,
       "total": 15,
-      "rise": 9
-    },
-    {
-      "name": "서울고속버스터미널 재개발 수혜",
-      "change_percent": 4.3,
-      "total": 5,
-      "rise": 5
+      "rise": 11
     },
     {
       "name": "부동산 보유 자산주",
-      "change_percent": 1.36,
+      "change_percent": 1.61,
       "total": 22,
-      "rise": 12
-    },
-    {
-      "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 1.31,
-      "total": 9,
-      "rise": 6
+      "rise": 11
     },
     {
       "name": "손해보험",
-      "change_percent": 1.22,
+      "change_percent": 1.18,
       "total": 8,
       "rise": 6
     },
     {
+      "name": "아스콘(아스팔트 콘크리트)",
+      "change_percent": 0.95,
+      "total": 9,
+      "rise": 5
+    },
+    {
       "name": "골프",
-      "change_percent": 1.2,
+      "change_percent": 0.83,
       "total": 15,
       "rise": 7
     },
     {
       "name": "건설 중소형",
-      "change_percent": 0.6,
+      "change_percent": 0.44,
       "total": 26,
-      "rise": 5
+      "rise": 6
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-12T02:04:12.610495+00:00"
+  "updated_at": "2026-10-12T02:32:10.938408+00:00"
 }
