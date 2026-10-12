@@ -11721,6 +11721,50 @@
       "final_ret": null,
       "closed_on": "",
       "checked_for": "2026-10-11"
+    },
+    {
+      "id": "kr:042510:MORNING_BREAKOUT:2026-10-12",
+      "market": "kr",
+      "code": "042510",
+      "name": "라온시큐어",
+      "board": "KOSDAQ",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "A",
+      "found_on": "2026-10-12",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "042510.KQ",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-10-12T00:43:07.764118+00:00",
+      "reason": "전일 고가 17,180 돌파 · 30분 거래대금 297억 · 거래량 전일 하루의 69%",
+      "stop": null,
+      "checked_for": "2026-10-11"
+    },
+    {
+      "id": "kr:457190:MORNING_BREAKOUT:2026-10-12",
+      "market": "kr",
+      "code": "457190",
+      "name": "이수스페셜티케미컬",
+      "board": "KOSPI",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "A",
+      "found_on": "2026-10-12",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "457190.KS",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-10-12T00:43:07.764118+00:00",
+      "reason": "전일 고가 81,500 돌파 · 30분 거래대금 221억 · 거래량 전일 하루의 118%",
+      "stop": null,
+      "checked_for": "2026-10-11"
     }
   ],
   "updated_for": {
@@ -11728,8 +11772,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 301,
-    "pending": 22,
+    "total": 303,
+    "pending": 24,
     "active": 104,
     "half_tp": 91,
     "closed": 105,
@@ -11741,7 +11785,7 @@
     "avg_mdd": -4.68,
     "closed_avg_final": -5.0
   },
-  "updated_at": "2026-10-11T20:29:14.248978+00:00",
+  "updated_at": "2026-10-12T00:43:07.764118+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
