@@ -1,10 +1,6 @@
 {
-  "updated_at": "2026-10-12T08:37:06.018296+00:00",
+  "updated_at": "2026-10-12T08:55:49.822379+00:00",
   "entries": [
-    {
-      "at": "2026-10-05T17:03:31.641993+00:00",
-      "message": "12번째 시도 [한국경제TV] 미·이란 전쟁 때문에 美 국채가 8.1%까지 갈수도 있다?｜퀀텀글로벌 김"
-    },
     {
       "at": "2026-10-05T17:04:16.034074+00:00",
       "message": "요약 실패 [한국경제TV] 미·이란 전쟁 때문에 美 국채가 8.1%까지 갈수도 있다?｜퀀텀글로벌 김 : gemini-3.8-flash 429: RESOURCE_EXHAUSTED You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usag"
@@ -1199,6 +1195,10 @@
     },
     {
       "at": "2026-10-12T08:38:33.106868+00:00",
+      "message": "제미나이 모델이 모두 혼잡/한도라 10편 요약을 다음 실행으로 미룸"
+    },
+    {
+      "at": "2026-10-12T08:56:21.652787+00:00",
       "message": "제미나이 모델이 모두 혼잡/한도라 10편 요약을 다음 실행으로 미룸"
     }
   ]
