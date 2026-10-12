@@ -1,50 +1,6 @@
 {
-  "updated_at": "2026-10-12T23:30:24.843303+00:00",
+  "updated_at": "2026-10-12T23:48:59.595849+00:00",
   "entries": [
-    {
-      "at": "2026-10-05T18:39:00.050087+00:00",
-      "message": "요약 실패 [소수몽키] 나스닥 엔비디아는 신고가인데 내 주식은 왜? 역대급 기묘한 랠리 이어질까 : gemini-3.8-flash 429: RESOURCE_EXHAUSTED You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usag"
-    },
-    {
-      "at": "2026-10-05T18:54:16.087792+00:00",
-      "message": "20번째 시도 [815머니톡] [#찐시황] 삼성전자·SK하이닉스 자사주 매입 끝나면 누가 사나? 외인 "
-    },
-    {
-      "at": "2026-10-05T18:55:03.499130+00:00",
-      "message": "요약 실패 [815머니톡] [#찐시황] 삼성전자·SK하이닉스 자사주 매입 끝나면 누가 사나? 외인  : gemini-3.8-flash 429: RESOURCE_EXHAUSTED You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usag"
-    },
-    {
-      "at": "2026-10-05T18:55:11.410847+00:00",
-      "message": "17번째 시도 [한국경제TV] 미·이란 전쟁 때문에 美 국채가 8.1%까지 갈수도 있다?｜퀀텀글로벌 김"
-    },
-    {
-      "at": "2026-10-05T18:55:56.382709+00:00",
-      "message": "요약 실패 [한국경제TV] 미·이란 전쟁 때문에 美 국채가 8.1%까지 갈수도 있다?｜퀀텀글로벌 김 : gemini-3.8-flash 429: RESOURCE_EXHAUSTED You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usag"
-    },
-    {
-      "at": "2026-10-05T18:56:00.190584+00:00",
-      "message": "18번째 시도 [소수몽키] 나스닥 엔비디아는 신고가인데 내 주식은 왜? 역대급 기묘한 랠리 이어질까"
-    },
-    {
-      "at": "2026-10-05T18:56:47.207455+00:00",
-      "message": "요약 실패 [소수몽키] 나스닥 엔비디아는 신고가인데 내 주식은 왜? 역대급 기묘한 랠리 이어질까 : gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
-    },
-    {
-      "at": "2026-10-05T21:31:58.779280+00:00",
-      "message": "21번째 시도 [815머니톡] [#찐시황] 삼성전자·SK하이닉스 자사주 매입 끝나면 누가 사나? 외인 "
-    },
-    {
-      "at": "2026-10-05T21:34:23.489688+00:00",
-      "message": "요약 실패 [815머니톡] [#찐시황] 삼성전자·SK하이닉스 자사주 매입 끝나면 누가 사나? 외인  : gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
-    },
-    {
-      "at": "2026-10-05T21:34:32.154625+00:00",
-      "message": "18번째 시도 [한국경제TV] 미·이란 전쟁 때문에 美 국채가 8.1%까지 갈수도 있다?｜퀀텀글로벌 김"
-    },
-    {
-      "at": "2026-10-05T21:34:59.963522+00:00",
-      "message": "19번째 시도 [소수몽키] 나스닥 엔비디아는 신고가인데 내 주식은 왜? 역대급 기묘한 랠리 이어질까"
-    },
     {
       "at": "2026-10-05T21:49:01.165509+00:00",
       "message": "22번째 시도 [815머니톡] [#찐시황] 삼성전자·SK하이닉스 자사주 매입 끝나면 누가 사나? 외인 "
@@ -1199,6 +1155,50 @@
     },
     {
       "at": "2026-10-12T23:31:37.820423+00:00",
+      "message": "제미나이 모델이 모두 혼잡/한도라 10편 요약을 다음 실행으로 미룸"
+    },
+    {
+      "at": "2026-10-12T23:49:12.509594+00:00",
+      "message": "7번째 시도 [삼프로TV] 코스피 단기 경고등 켜졌지만 반도체 실적은 건재…지금 매도보다 중요한 투"
+    },
+    {
+      "at": "2026-10-12T23:49:18.382186+00:00",
+      "message": "7번째 시도 [한국경제TV] AI 발전이 오히려 증시에 악재?…반도체 랠리, 조정 가능성은ㅣ10년물 "
+    },
+    {
+      "at": "2026-10-12T23:49:21.383051+00:00",
+      "message": "7번째 시도 [한국경제TV] 외인 거센 투매에 코스피 6,400선 붕괴! 자사주 공백 속 반도체 투톱"
+    },
+    {
+      "at": "2026-10-12T23:49:24.384004+00:00",
+      "message": "7번째 시도 [한국경제TV] AI 데이터센터가 키운 ESS 시장진짜 수혜 받을 종목은?ㅣ임주아 엘리고"
+    },
+    {
+      "at": "2026-10-12T23:49:27.384852+00:00",
+      "message": "7번째 시도 [한국경제TV] 美·이란 전쟁 종식 조건, 두바이유 155달러 돌파｜퀀텀글로벌 김준영 대"
+    },
+    {
+      "at": "2026-10-12T23:49:30.385661+00:00",
+      "message": "7번째 시도 [한국경제TV] [Ep 5-1] \"예탁금 100조 장세, 코스닥 1,000p 돌파를 결정"
+    },
+    {
+      "at": "2026-10-12T23:49:33.386517+00:00",
+      "message": "7번째 시도 [한국경제TV] “삼전·닉스까지 무너졌는데 더 빠질까요?” 수급이 돌아올 반등 신호는 l"
+    },
+    {
+      "at": "2026-10-12T23:49:37.960500+00:00",
+      "message": "8번째 시도 [경제사냥꾼] 트럼프는 중간선거 전에 이란과의 전쟁을 끝낼까"
+    },
+    {
+      "at": "2026-10-12T23:49:43.362161+00:00",
+      "message": "5번째 시도 [올랜도 킴 미국주식] (시황분석) 정말 메모리 반도체 끝났나? 갈길 많이 남았다"
+    },
+    {
+      "at": "2026-10-12T23:49:47.975957+00:00",
+      "message": "6번째 시도 [소수몽키] AI투자 판도 조용히 바뀌는 중? 부진했던 빅테크, 팔란티어의 수상한 신"
+    },
+    {
+      "at": "2026-10-12T23:50:09.196619+00:00",
       "message": "제미나이 모델이 모두 혼잡/한도라 10편 요약을 다음 실행으로 미룸"
     }
   ]
