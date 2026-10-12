@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "해운",
-      "change_percent": 4.33,
+      "change_percent": 4.38,
       "total": 6,
       "rise": 5
     },
     {
       "name": "시멘트/레미콘",
-      "change_percent": 2.98,
+      "change_percent": 2.8,
       "total": 15,
-      "rise": 6
+      "rise": 5
     },
     {
       "name": "카지노",
-      "change_percent": 2.56,
+      "change_percent": 2.54,
       "total": 6,
       "rise": 3
     },
     {
       "name": "골프",
-      "change_percent": 1.88,
+      "change_percent": 1.73,
       "total": 15,
       "rise": 7
     },
     {
       "name": "손해보험",
-      "change_percent": 0.88,
+      "change_percent": 0.91,
       "total": 8,
       "rise": 5
     },
     {
-      "name": "영화",
-      "change_percent": 0.6,
-      "total": 12,
-      "rise": 6
-    },
-    {
       "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 0.58,
+      "change_percent": 0.54,
       "total": 9,
       "rise": 3
     },
     {
       "name": "편의점",
-      "change_percent": 0.33,
+      "change_percent": 0.41,
       "total": 5,
       "rise": 2
+    },
+    {
+      "name": "영화",
+      "change_percent": 0.39,
+      "total": 12,
+      "rise": 4
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-12T07:55:49.279643+00:00"
+  "updated_at": "2026-10-12T08:07:31.375552+00:00"
 }
