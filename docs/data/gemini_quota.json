@@ -95,10 +95,10 @@
       "gemini-3.8-flash": {
         "200": 5,
         "503": 4,
-        "ReadTimeout": 1
+        "ReadTimeout": 2
       },
       "gemini-3.6-flash": {
-        "503": 3
+        "503": 4
       }
     }
   },
