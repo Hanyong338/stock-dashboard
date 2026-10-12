@@ -308,8 +308,7 @@
       "title": "미국 기존주택판매",
       "category": "macro",
       "detail": "23:00",
-      "consensus": "3.97M",
-      "previous": "3.98M"
+      "previous": "-2.0%"
     },
     {
       "start": "2026-10-14",
@@ -551,7 +550,14 @@
       "title": "테슬라 실적",
       "category": "earnings",
       "detail": "TSLA 장마감 후",
-      "eps_forecast": "$0.23"
+      "eps_forecast": "$0.22"
+    },
+    {
+      "start": "2026-10-22",
+      "end": "2026-10-22",
+      "title": "미국 실업수당",
+      "category": "macro",
+      "detail": "21:30"
     },
     {
       "start": "2026-10-22",
@@ -612,18 +618,22 @@
     {
       "start": "2026-10-27",
       "end": "2026-10-27",
-      "title": "비자 실적",
-      "category": "earnings",
-      "detail": "V",
-      "eps_forecast": "$3.43"
-    },
-    {
-      "start": "2026-10-27",
-      "end": "2026-10-27",
       "title": "시게이트 실적",
       "category": "earnings",
       "detail": "STX",
       "eps_forecast": "$7.11"
+    },
+    {
+      "start": "2026-10-27",
+      "end": "2026-10-27",
+      "title": "신한지주 실적",
+      "category": "earnings",
+      "detail": "코스피 14:00",
+      "code": "055550",
+      "quarter": "2026.09",
+      "op_consensus": 21173,
+      "op_prev_year": 19546,
+      "op_prev_q": 24763
     },
     {
       "start": "2026-10-27",
@@ -703,6 +713,27 @@
       "eps_forecast": "$0.55"
     },
     {
+      "start": "2026-10-28",
+      "end": "2026-10-28",
+      "title": "비자 실적",
+      "category": "earnings",
+      "detail": "V 장마감 후",
+      "eps_forecast": "$3.43"
+    },
+    {
+      "start": "2026-10-28",
+      "end": "2026-10-28",
+      "title": "삼성전기 실적",
+      "category": "earnings",
+      "detail": "코스피 13:00",
+      "code": "009150",
+      "quarter": "2026.09",
+      "op_consensus": 6423,
+      "rev_consensus": 38264,
+      "op_prev_year": 2603,
+      "op_prev_q": 4404
+    },
+    {
       "start": "2026-10-29",
       "end": "2026-10-29",
       "title": "OCI홀딩스 실적",
@@ -720,7 +751,7 @@
       "end": "2026-10-29",
       "title": "마스터카드 실적",
       "category": "earnings",
-      "detail": "MA",
+      "detail": "MA 장전",
       "eps_forecast": "$5.13"
     },
     {
@@ -737,7 +768,20 @@
       "title": "머크 실적",
       "category": "earnings",
       "detail": "MRK 장전",
-      "eps_forecast": "$2.14"
+      "eps_forecast": "$2.12"
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "title": "삼성SDI 실적",
+      "category": "earnings",
+      "detail": "코스피 10:00",
+      "code": "006400",
+      "quarter": "2026.09",
+      "op_consensus": 1654,
+      "rev_consensus": 40373,
+      "op_prev_year": -5913,
+      "op_prev_q": 2038
     },
     {
       "start": "2026-10-29",
@@ -787,7 +831,7 @@
       "title": "알파벳 실적",
       "category": "earnings",
       "detail": "GOOGL 장마감 후",
-      "eps_forecast": "$2.95"
+      "eps_forecast": "$2.94"
     },
     {
       "start": "2026-10-29",
@@ -848,7 +892,15 @@
       "title": "셰브론 실적",
       "category": "earnings",
       "detail": "CVX 장전",
-      "eps_forecast": "$4.89"
+      "eps_forecast": "$4.73"
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "title": "스타벅스 실적",
+      "category": "earnings",
+      "detail": "SBUX 장마감 후",
+      "eps_forecast": "$0.72"
     },
     {
       "start": "2026-10-30",
@@ -904,6 +956,14 @@
       "category": "earnings",
       "detail": "PLTR",
       "eps_forecast": "$0.34"
+    },
+    {
+      "start": "2026-11-02",
+      "end": "2026-11-02",
+      "title": "한국 제조업 PMI",
+      "category": "macro",
+      "detail": "09:30",
+      "previous": "53.9"
     },
     {
       "start": "2026-11-03",
@@ -965,14 +1025,6 @@
       "category": "earnings",
       "detail": "META",
       "eps_forecast": "$6.39"
-    },
-    {
-      "start": "2026-11-04",
-      "end": "2026-11-04",
-      "title": "스타벅스 실적",
-      "category": "earnings",
-      "detail": "SBUX",
-      "eps_forecast": "$0.72"
     },
     {
       "start": "2026-11-04",
@@ -1252,16 +1304,9 @@
       "title": "마틴 루터 킹 데이 (미국 휴장)",
       "category": "holiday",
       "detail": ""
-    },
-    {
-      "start": "2027-01-28",
-      "end": "2027-01-28",
-      "title": "FOMC 금리결정",
-      "category": "major",
-      "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-12",
+  "built_on": "2026-10-13",
   "builder_version": 10,
-  "updated_at": "2026-10-11T15:01:23.579854+00:00"
+  "updated_at": "2026-10-12T15:15:23.569394+00:00"
 }
