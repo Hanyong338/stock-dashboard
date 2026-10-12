@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "서울고속버스터미널 재개발 수혜",
-      "change_percent": 5.22,
-      "total": 5,
-      "rise": 4
-    },
-    {
-      "name": "시멘트/레미콘",
-      "change_percent": 4.28,
-      "total": 15,
-      "rise": 9
-    },
-    {
       "name": "해운",
-      "change_percent": 4.28,
+      "change_percent": 4.67,
       "total": 6,
       "rise": 6
     },
     {
-      "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 1.83,
-      "total": 9,
-      "rise": 7
+      "name": "시멘트/레미콘",
+      "change_percent": 4.63,
+      "total": 15,
+      "rise": 9
+    },
+    {
+      "name": "서울고속버스터미널 재개발 수혜",
+      "change_percent": 4.3,
+      "total": 5,
+      "rise": 5
     },
     {
       "name": "부동산 보유 자산주",
-      "change_percent": 1.1,
+      "change_percent": 1.36,
       "total": 22,
-      "rise": 10
+      "rise": 12
     },
     {
-      "name": "골프",
-      "change_percent": 1.02,
-      "total": 15,
-      "rise": 7
+      "name": "아스콘(아스팔트 콘크리트)",
+      "change_percent": 1.31,
+      "total": 9,
+      "rise": 6
     },
     {
       "name": "손해보험",
-      "change_percent": 0.86,
+      "change_percent": 1.22,
       "total": 8,
       "rise": 6
     },
     {
-      "name": "건설 중소형",
-      "change_percent": 0.75,
-      "total": 26,
+      "name": "골프",
+      "change_percent": 1.2,
+      "total": 15,
       "rise": 7
+    },
+    {
+      "name": "건설 중소형",
+      "change_percent": 0.6,
+      "total": 26,
+      "rise": 5
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-12T01:52:19.772512+00:00"
+  "updated_at": "2026-10-12T02:04:12.610495+00:00"
 }
