@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "해운",
-      "change_percent": 4.48,
+      "change_percent": 4.47,
       "total": 6,
       "rise": 5
     },
     {
       "name": "시멘트/레미콘",
-      "change_percent": 3.34,
+      "change_percent": 3.33,
       "total": 15,
-      "rise": 8
+      "rise": 7
     },
     {
       "name": "손해보험",
-      "change_percent": 1.35,
+      "change_percent": 1.22,
       "total": 8,
       "rise": 6
     },
     {
       "name": "골프",
-      "change_percent": 1.01,
+      "change_percent": 0.99,
       "total": 15,
-      "rise": 7
-    },
-    {
-      "name": "편의점",
-      "change_percent": 0.98,
-      "total": 5,
-      "rise": 3
+      "rise": 6
     },
     {
       "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 0.66,
+      "change_percent": 0.58,
       "total": 9,
-      "rise": 3
+      "rise": 2
     },
     {
-      "name": "서울고속버스터미널 재개발 수혜",
-      "change_percent": 0.45,
+      "name": "편의점",
+      "change_percent": 0.52,
       "total": 5,
       "rise": 3
     },
     {
       "name": "영화",
-      "change_percent": 0.4,
+      "change_percent": 0.17,
       "total": 12,
-      "rise": 5
+      "rise": 4
+    },
+    {
+      "name": "부동산 보유 자산주",
+      "change_percent": 0.08,
+      "total": 22,
+      "rise": 8
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-12T05:32:46.938019+00:00"
+  "updated_at": "2026-10-12T05:51:52.632907+00:00"
 }
