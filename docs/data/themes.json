@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "해운",
-      "change_percent": 5.08,
+      "change_percent": 4.48,
       "total": 6,
       "rise": 5
     },
     {
       "name": "시멘트/레미콘",
-      "change_percent": 3.62,
+      "change_percent": 3.34,
       "total": 15,
-      "rise": 10
-    },
-    {
-      "name": "서울고속버스터미널 재개발 수혜",
-      "change_percent": 1.76,
-      "total": 5,
-      "rise": 4
-    },
-    {
-      "name": "골프",
-      "change_percent": 1.48,
-      "total": 15,
-      "rise": 6
+      "rise": 8
     },
     {
       "name": "손해보험",
-      "change_percent": 1.43,
+      "change_percent": 1.35,
       "total": 8,
       "rise": 6
     },
     {
-      "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 0.9,
-      "total": 9,
-      "rise": 5
+      "name": "골프",
+      "change_percent": 1.01,
+      "total": 15,
+      "rise": 7
     },
     {
-      "name": "부동산 보유 자산주",
-      "change_percent": 0.86,
-      "total": 22,
-      "rise": 11
+      "name": "편의점",
+      "change_percent": 0.98,
+      "total": 5,
+      "rise": 3
+    },
+    {
+      "name": "아스콘(아스팔트 콘크리트)",
+      "change_percent": 0.66,
+      "total": 9,
+      "rise": 3
+    },
+    {
+      "name": "서울고속버스터미널 재개발 수혜",
+      "change_percent": 0.45,
+      "total": 5,
+      "rise": 3
     },
     {
       "name": "영화",
-      "change_percent": 0.83,
+      "change_percent": 0.4,
       "total": 12,
       "rise": 5
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-12T05:05:35.518751+00:00"
+  "updated_at": "2026-10-12T05:32:46.938019+00:00"
 }
