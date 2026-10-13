@@ -823,9 +823,11 @@ def call_gemini(
     raise GeminiUnavailable(f"쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: {last_error}")
 
 
-def summarize_transcript(channel_name, title, transcript_text, reserve=0, allow_paid=True):
+def summarize_transcript(channel_name, title, transcript_text, reserve=0, allow_paid=True, paid_only=False):
     user_prompt = f"채널명: {channel_name}\n영상 제목: {title}\n\n자막:\n{transcript_text[:MAX_TRANSCRIPT_CHARS]}"
-    return call_gemini(SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, title, reserve=reserve, allow_paid=allow_paid)
+    return call_gemini(
+        SYSTEM_PROMPT, user_prompt, RESPONSE_SCHEMA, title, reserve=reserve, allow_paid=allow_paid, paid_only=paid_only
+    )
 
 
 # 요청 한 번에 영상 여러 개 요약하기(시험 중). 무료 한도는 '요청 횟수'로 세므로 2개씩 묶으면 같은 한도로 두 배를 처리한다.

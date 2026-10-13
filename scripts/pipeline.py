@@ -211,6 +211,7 @@ VERIFY_TRANSCRIPT_DIR = DATA_DIR / "transcripts_review"
 VERIFY_KEPT_KEY = "_review_kept"  # state.json: 검수용 자막을 남긴 시각(영상 id → ISO)
 VERIFY_KEEP_DAYS = 3
 TYPO_FIXES_FILE = DATA_DIR / "typo_fixes.json"  # 음성 인식 오타 사전(검수 작업이 자주 나온 오타를 추가한다)
+FORCE_PAID_NOW_IDS = {"9M5TRRXKqo0"}  # 10/13 815머니톡 [#찐시황] — 시간 지나도 지금 유료로 요약(사용자 지정)
 PAIR_WAIT_KEY = "_pair_wait"  # state.json: 짝을 기다리기 시작한 시각(영상 id → ISO)
 PAIR_WAIT_MINUTES = 60  # 혼자 남은 영상이 짝을 기다리는 최대 시간
 PAIR_FAIL_KEY = "_pair_fail"  # state.json: 묶음 요청이 (제미나이 혼잡이 아닌 이유로) 실패한 횟수
@@ -446,7 +447,7 @@ def process_channel(ch, state, summaries, now):
         # 다만 자막은 지금 받아둔다(언제 받든 1크레딧으로 같다). 그러면 아침 07시엔 받아둔 자막으로 바로 요약한다
         # (사용자 지정, 10/7: 21~07시엔 자막만 받기). 이미 받아둔 영상은 아무것도 하지 않는다.
         # '확인함' 처리하지 않으니 영상이 빠지지는 않는다.
-        summarize_now = gemini_ready(reserve=_brief_reserve())
+        summarize_now = gemini_ready(reserve=_brief_reserve()) or v["video_id"] in FORCE_PAID_NOW_IDS
         if not summarize_now and read_transcript_cache(v["video_id"]):
             _deferred.append(v["video_id"])
             continue
@@ -482,6 +483,20 @@ def process_channel(ch, state, summaries, now):
                 warn(f"자막 없음 {NO_CAPTION_TRIES}회 — 요약 건너뜀 [{name}] {v['title'][:40]}")
                 state[cid].append(v["video_id"])
                 attempts.pop(v["video_id"], None)
+            continue
+
+        # 사용자 지정(10/13 밤): 815머니톡 [#찐시황] "비정상적인 투매의 진실!"은 운영 시간이 지났어도 지금 유료로 바로 요약한다.
+        # 날짜를 박아둔 일회성 예외(영상 ID 지정)라 다른 영상에는 영향이 없다.
+        if v["video_id"] in FORCE_PAID_NOW_IDS:
+            try:
+                result = call_with_timeout(
+                    summarize_transcript, SUMMARIZE_TIMEOUT_SECONDS, name, v["title"], transcript_text, paid_only=True
+                )
+            except Exception as e:
+                warn(f"지정 영상 유료 요약 실패(다음 실행에서 다시) [{name}] {v['title'][:40]} : {e}")
+                continue
+            _store_summary(ch, v, result, state, summaries, now.isoformat())
+            print(f"[INFO] 지정 영상 유료로 바로 요약: {name} - {v['title'][:40]}")
             continue
 
         if not summarize_now:
