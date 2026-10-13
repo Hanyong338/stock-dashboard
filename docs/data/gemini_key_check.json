@@ -1,8 +1,8 @@
 {
   "configured": true,
   "ok": true,
-  "status": 200,
-  "message": "gemini-3.6-flash 응답 정상",
-  "checked_on": "2026-10-13",
-  "checked_at": "2026-10-12T22:02:33.099436+00:00"
+  "status": 503,
+  "message": "키 정상(지금은 한도/혼잡): This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+  "checked_on": "2026-10-14",
+  "checked_at": "2026-10-13T22:12:00.897659+00:00"
 }
