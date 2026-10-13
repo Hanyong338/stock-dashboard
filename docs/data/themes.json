@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "서울고속버스터미널 재개발 수혜",
+      "change_percent": 0.69,
+      "total": 5,
+      "rise": 3
+    },
+    {
+      "name": "미디어(방송/신문)",
+      "change_percent": 0.24,
+      "total": 12,
+      "rise": 5
+    },
+    {
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.08,
+      "total": 69,
+      "rise": 10
+    },
+    {
+      "name": "리츠(REITs)",
+      "change_percent": -0.37,
+      "total": 22,
+      "rise": 2
+    },
+    {
+      "name": "남북경협",
+      "change_percent": -0.39,
+      "total": 29,
+      "rise": 5
+    },
+    {
+      "name": "사료",
+      "change_percent": -0.42,
+      "total": 18,
+      "rise": 4
+    },
+    {
+      "name": "제지",
+      "change_percent": -0.44,
+      "total": 14,
+      "rise": 3
+    },
+    {
+      "name": "수산",
+      "change_percent": -0.49,
+      "total": 9,
+      "rise": 3
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-10-12T23:03:13.287414+00:00"
+  "updated_at": "2026-10-13T00:03:43.933021+00:00"
 }
