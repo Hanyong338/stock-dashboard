@@ -33,15 +33,15 @@
     },
     {
       "name": "달러 인덱스",
-      "value": "102.54",
-      "change": "+0.32%",
+      "value": "102.58",
+      "change": "+0.36%",
       "close_date": "2026-10-12"
     },
     {
       "name": "WTI 유가",
-      "value": "$93.15",
-      "change": "+1.42%",
-      "close_date": "2026-10-12"
+      "value": "$91.85",
+      "change": "+0.39%",
+      "close_date": "2026-10-09"
     }
   ],
   "economic_events": [],
@@ -304,92 +304,92 @@
   "indices_note": "지수·금리·유가는 시장 데이터 종가 기준",
   "sectors": [
     {
-      "name": "구리",
-      "change_percent": 4.293357731558895
-    },
-    {
       "name": "사이버보안",
       "change_percent": 3.5781574020287295
-    },
-    {
-      "name": "바이오",
-      "change_percent": 3.0008782824054574
-    },
-    {
-      "name": "금광",
-      "change_percent": 2.9520266634666377
-    },
-    {
-      "name": "소프트웨어",
-      "change_percent": 2.8104771730791454
-    },
-    {
-      "name": "클라우드",
-      "change_percent": 2.791818512425008
     },
     {
       "name": "게임",
       "change_percent": 2.6769237029246793
     },
     {
-      "name": "인터넷 플랫폼",
-      "change_percent": 2.152763358048878
+      "name": "의료기기",
+      "change_percent": 2.029376117120492
     },
     {
       "name": "AI·로봇",
       "change_percent": 1.866200623056235
     },
     {
-      "name": "전력망·전력기기",
-      "change_percent": 1.4753758352167146
-    },
-    {
-      "name": "의료기기",
-      "change_percent": 1.2524524920873024
+      "name": "원유·가스",
+      "change_percent": 1.4463183750409814
     },
     {
       "name": "전기차",
       "change_percent": 1.0303034926905776
     },
     {
-      "name": "2차전지",
-      "change_percent": 1.0286971144593835
-    },
-    {
-      "name": "태양광",
-      "change_percent": 0.9926138231878999
-    },
-    {
-      "name": "원자력",
-      "change_percent": 0.8817431029019498
-    },
-    {
-      "name": "방산·우주항공",
-      "change_percent": 0.8639149607031079
-    },
-    {
-      "name": "운송",
-      "change_percent": 0.26269586947608564
+      "name": "은행",
+      "change_percent": 0.7969792861005172
     },
     {
       "name": "소매",
-      "change_percent": 0.21450681435559033
+      "change_percent": 0.07135829539957197
+    },
+    {
+      "name": "운송",
+      "change_percent": -0.18715099566214435
+    },
+    {
+      "name": "방산·우주항공",
+      "change_percent": -0.3000218415191774
+    },
+    {
+      "name": "구리",
+      "change_percent": -0.46647408265761664
+    },
+    {
+      "name": "태양광",
+      "change_percent": -0.6171439034598214
+    },
+    {
+      "name": "인터넷 플랫폼",
+      "change_percent": -0.8296827091571165
+    },
+    {
+      "name": "금광",
+      "change_percent": -0.8400537749267056
+    },
+    {
+      "name": "전력망·전력기기",
+      "change_percent": -1.2106818778239072
+    },
+    {
+      "name": "소프트웨어",
+      "change_percent": -1.2336907892411384
+    },
+    {
+      "name": "클라우드",
+      "change_percent": -1.3608581915023839
+    },
+    {
+      "name": "바이오",
+      "change_percent": -1.5412696300490472
+    },
+    {
+      "name": "2차전지",
+      "change_percent": -1.9503808186986569
     },
     {
       "name": "통신장비",
-      "change_percent": -0.4486290018713178
+      "change_percent": -2.2338521681573753
     },
     {
       "name": "반도체",
-      "change_percent": -0.6888234414516329
+      "change_percent": -2.601009687721285
     },
     {
-      "name": "은행",
-      "change_percent": -0.8334447940534793
-    },
-    {
-      "name": "원유·가스",
-      "change_percent": -1.01814107435783
+      "name": "원자력",
+      "change_percent": -3.0334196886618767
     }
   ],
   "video_id": "_cgq6oojx4k",
@@ -397,7 +397,7 @@
   "title": "[🔴10/13 #당잠사] 中 CXMT, 차세대 D램 기술 공개 | 유가 급등…브렌트유 106달러 돌파 | 美 달러화 18개월래 최고 수준 | #메타 #마이크로소프트 #마이크론",
   "url": "https://www.youtube.com/watch?v=_cgq6oojx4k",
   "published": "2026-10-12T20:03:09Z",
-  "fetched_at": "2026-10-13T00:03:43.933021+00:00",
+  "fetched_at": "2026-10-13T00:44:43.943104+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
