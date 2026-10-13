@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "시멘트/레미콘",
-      "change_percent": 1.54,
+      "change_percent": 1.42,
       "total": 15,
-      "rise": 3
-    },
-    {
-      "name": "육계",
-      "change_percent": 0.17,
-      "total": 9,
-      "rise": 3
+      "rise": 4
     },
     {
       "name": "태풍 및 장마",
-      "change_percent": 0.11,
+      "change_percent": 0.85,
       "total": 10,
       "rise": 2
     },
     {
-      "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": -0.11,
+      "name": "육계",
+      "change_percent": 0.06,
       "total": 9,
+      "rise": 3
+    },
+    {
+      "name": "유심(USIM)",
+      "change_percent": 0.04,
+      "total": 5,
       "rise": 1
+    },
+    {
+      "name": "아스콘(아스팔트 콘크리트)",
+      "change_percent": -0.16,
+      "total": 9,
+      "rise": 2
+    },
+    {
+      "name": "골프",
+      "change_percent": -0.19,
+      "total": 15,
+      "rise": 3
     },
     {
       "name": "기업인수목적회사(SPAC)",
       "change_percent": -0.22,
       "total": 69,
-      "rise": 7
+      "rise": 9
     },
     {
-      "name": "골프",
-      "change_percent": -0.26,
-      "total": 15,
-      "rise": 3
-    },
-    {
-      "name": "코로나19(음압병실/음압구급차)",
-      "change_percent": -0.32,
-      "total": 7,
+      "name": "니켈",
+      "change_percent": -0.44,
+      "total": 14,
       "rise": 2
-    },
-    {
-      "name": "유심(USIM)",
-      "change_percent": -0.45,
-      "total": 5,
-      "rise": 1
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-13T03:54:20.457981+00:00"
+  "updated_at": "2026-10-13T04:05:07.725192+00:00"
 }
