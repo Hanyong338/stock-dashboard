@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "시멘트/레미콘",
-      "change_percent": 3.7,
+      "change_percent": 3.5,
       "total": 15,
-      "rise": 10
+      "rise": 6
     },
     {
       "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 1.6,
+      "change_percent": 2.44,
       "total": 9,
-      "rise": 5
-    },
-    {
-      "name": "남북경협",
-      "change_percent": 0.65,
-      "total": 29,
-      "rise": 8
-    },
-    {
-      "name": "손해보험",
-      "change_percent": 0.38,
-      "total": 8,
       "rise": 4
     },
     {
-      "name": "백화점",
-      "change_percent": 0.3,
-      "total": 6,
+      "name": "딥페이크(deepfake)",
+      "change_percent": 0.63,
+      "total": 14,
       "rise": 3
     },
     {
-      "name": "골프",
-      "change_percent": 0.17,
-      "total": 15,
-      "rise": 2
-    },
-    {
-      "name": "애플페이",
-      "change_percent": 0.14,
-      "total": 8,
+      "name": "육계",
+      "change_percent": 0.05,
+      "total": 9,
       "rise": 2
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 0.02,
+      "change_percent": -0.1,
       "total": 52,
+      "rise": 11
+    },
+    {
+      "name": "애플페이",
+      "change_percent": -0.1,
+      "total": 8,
+      "rise": 2
+    },
+    {
+      "name": "남북경협",
+      "change_percent": -0.13,
+      "total": 29,
+      "rise": 7
+    },
+    {
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.17,
+      "total": 69,
       "rise": 18
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-13T00:44:43.943104+00:00"
+  "updated_at": "2026-10-13T01:00:04.503761+00:00"
 }
