@@ -7,54 +7,75 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-10-12 09:30",
-  "universe_count": 391,
-  "fetch_failures": 1,
+  "as_of": "2026-10-13 09:30",
+  "universe_count": 409,
+  "fetch_failures": 0,
   "dropped": 0,
   "items": [
     {
-      "code": "042510",
-      "name": "라온시큐어",
-      "market": "KOSDAQ",
-      "tags": [],
-      "market_cap_eok": 1842,
-      "type": "A",
-      "reason": "전일 고가 17,180 돌파 · 30분 거래대금 297억 · 거래량 전일 하루의 69%",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/042510/total",
-      "open_gap": 1.04,
-      "value_30m_eok": 297,
-      "vol_vs_prev_day": 69,
-      "close": 17190,
-      "volume": 1800266,
-      "change_percent": 11.7
-    },
-    {
-      "code": "457190",
-      "name": "이수스페셜티케미컬",
+      "code": "001210",
+      "name": "금호전기",
       "market": "KOSPI",
       "tags": [],
-      "market_cap_eok": 26170,
+      "market_cap_eok": 1662,
       "type": "A",
-      "reason": "전일 고가 81,500 돌파 · 30분 거래대금 221억 · 거래량 전일 하루의 118%",
+      "reason": "전일 고가 8,830 돌파 · 30분 거래대금 1352억 · 거래량 전일 하루의 2038%",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/457190/total",
-      "open_gap": 4.71,
-      "value_30m_eok": 221,
-      "vol_vs_prev_day": 118,
-      "close": 88200,
-      "volume": 255303,
-      "change_percent": 9.29
+      "url": "https://m.stock.naver.com/domestic/stock/001210/total",
+      "open_gap": 39.2,
+      "value_30m_eok": 1352,
+      "vol_vs_prev_day": 2038,
+      "close": 13460,
+      "volume": 11100875,
+      "change_percent": 57.98
+    },
+    {
+      "code": "079650",
+      "name": "서산",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 1756,
+      "type": "A",
+      "reason": "전일 고가 5,430 돌파 · 30분 거래대금 850억 · 거래량 전일 하루의 2402%",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/079650/total",
+      "open_gap": 44.81,
+      "value_30m_eok": 850,
+      "vol_vs_prev_day": 2402,
+      "close": 8780,
+      "volume": 10198054,
+      "change_percent": 68.85
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 5414,
+      "type": "A",
+      "reason": "전일 고가 11,430 돌파 · 30분 거래대금 582억 · 거래량 전일 하루의 554%",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/002990/total",
+      "open_gap": 23.43,
+      "value_30m_eok": 582,
+      "vol_vs_prev_day": 554,
+      "close": 14350,
+      "volume": 4298915,
+      "change_percent": 28.82
     }
   ],
-  "built_on": "2026-10-12",
-  "updated_at": "2026-10-12T00:43:07.764118+00:00"
+  "built_on": "2026-10-13",
+  "updated_at": "2026-10-13T00:44:43.943104+00:00"
 }
