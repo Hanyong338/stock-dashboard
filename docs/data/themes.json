@@ -2,15 +2,15 @@
   "leaders": [
     {
       "name": "시멘트/레미콘",
-      "change_percent": 1.56,
+      "change_percent": 1.54,
       "total": 15,
-      "rise": 4
+      "rise": 3
     },
     {
       "name": "육계",
-      "change_percent": 0.16,
+      "change_percent": 0.17,
       "total": 9,
-      "rise": 4
+      "rise": 3
     },
     {
       "name": "태풍 및 장마",
@@ -19,26 +19,20 @@
       "rise": 2
     },
     {
-      "name": "유심(USIM)",
-      "change_percent": -0.04,
-      "total": 5,
+      "name": "아스콘(아스팔트 콘크리트)",
+      "change_percent": -0.11,
+      "total": 9,
       "rise": 1
     },
     {
-      "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": -0.07,
-      "total": 9,
-      "rise": 2
-    },
-    {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.26,
+      "change_percent": -0.22,
       "total": 69,
-      "rise": 5
+      "rise": 7
     },
     {
       "name": "골프",
-      "change_percent": -0.27,
+      "change_percent": -0.26,
       "total": 15,
       "rise": 3
     },
@@ -47,8 +41,14 @@
       "change_percent": -0.32,
       "total": 7,
       "rise": 2
+    },
+    {
+      "name": "유심(USIM)",
+      "change_percent": -0.45,
+      "total": 5,
+      "rise": 1
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-13T03:33:22.927753+00:00"
+  "updated_at": "2026-10-13T03:54:20.457981+00:00"
 }
