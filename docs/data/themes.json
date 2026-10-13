@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "요소수",
-      "change_percent": 2.85,
+      "change_percent": 2.75,
       "total": 5,
       "rise": 3
     },
     {
       "name": "시멘트/레미콘",
-      "change_percent": 2.12,
+      "change_percent": 1.92,
       "total": 15,
       "rise": 8
     },
     {
       "name": "태풍 및 장마",
-      "change_percent": 1.61,
+      "change_percent": 1.57,
       "total": 10,
-      "rise": 5
-    },
-    {
-      "name": "니켈",
-      "change_percent": 1.55,
-      "total": 14,
       "rise": 6
     },
     {
       "name": "우주태양광(페로브스카이트 등)",
-      "change_percent": 1.5,
+      "change_percent": 1.38,
       "total": 10,
-      "rise": 5
+      "rise": 6
     },
     {
       "name": "전자파",
-      "change_percent": 1.17,
+      "change_percent": 1.34,
       "total": 12,
       "rise": 6
     },
     {
+      "name": "니켈",
+      "change_percent": 1.16,
+      "total": 14,
+      "rise": 5
+    },
+    {
       "name": "강관업체(Steel pipe)",
-      "change_percent": 0.88,
+      "change_percent": 0.99,
       "total": 11,
       "rise": 2
     },
     {
       "name": "육계",
-      "change_percent": 0.87,
+      "change_percent": 0.81,
       "total": 9,
-      "rise": 4
+      "rise": 5
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-13T08:54:33.780816+00:00"
+  "updated_at": "2026-10-13T09:05:17.617077+00:00"
 }
