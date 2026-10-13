@@ -2,21 +2,33 @@
   "leaders": [
     {
       "name": "시멘트/레미콘",
-      "change_percent": 1.84,
+      "change_percent": 2.17,
       "total": 15,
-      "rise": 4
+      "rise": 6
     },
     {
       "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 0.38,
+      "change_percent": 0.55,
       "total": 9,
       "rise": 2
     },
     {
       "name": "육계",
-      "change_percent": -0.28,
+      "change_percent": -0.05,
       "total": 9,
-      "rise": 2
+      "rise": 3
+    },
+    {
+      "name": "태풍 및 장마",
+      "change_percent": -0.22,
+      "total": 10,
+      "rise": 1
+    },
+    {
+      "name": "골프",
+      "change_percent": -0.27,
+      "total": 15,
+      "rise": 3
     },
     {
       "name": "기업인수목적회사(SPAC)",
@@ -25,30 +37,18 @@
       "rise": 8
     },
     {
-      "name": "골프",
-      "change_percent": -0.62,
-      "total": 15,
-      "rise": 4
-    },
-    {
-      "name": "태풍 및 장마",
-      "change_percent": -0.96,
-      "total": 10,
-      "rise": 1
-    },
-    {
-      "name": "손해보험",
-      "change_percent": -1.23,
-      "total": 8,
-      "rise": 3
-    },
-    {
       "name": "코로나19(음압병실/음압구급차)",
-      "change_percent": -1.38,
+      "change_percent": -0.95,
       "total": 7,
       "rise": 2
+    },
+    {
+      "name": "폐기물처리",
+      "change_percent": -1.18,
+      "total": 5,
+      "rise": 1
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-13T02:52:24.342098+00:00"
+  "updated_at": "2026-10-13T03:04:24.031641+00:00"
 }
