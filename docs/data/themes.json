@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "시멘트/레미콘",
-      "change_percent": 3.2,
+      "change_percent": 2.43,
       "total": 15,
-      "rise": 7
+      "rise": 5
     },
     {
       "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 2.02,
+      "change_percent": 1.12,
       "total": 9,
-      "rise": 3
-    },
-    {
-      "name": "보안주(정보)",
-      "change_percent": 0.85,
-      "total": 52,
-      "rise": 20
-    },
-    {
-      "name": "딥페이크(deepfake)",
-      "change_percent": 0.85,
-      "total": 14,
-      "rise": 4
-    },
-    {
-      "name": "유심(USIM)",
-      "change_percent": 0.43,
-      "total": 5,
       "rise": 2
     },
     {
-      "name": "스테이블코인",
-      "change_percent": 0.3,
-      "total": 25,
-      "rise": 7
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.31,
+      "total": 69,
+      "rise": 10
     },
     {
       "name": "손해보험",
-      "change_percent": 0.29,
+      "change_percent": -0.41,
       "total": 8,
-      "rise": 4
+      "rise": 3
     },
     {
-      "name": "블록체인",
-      "change_percent": 0.18,
-      "total": 23,
-      "rise": 7
+      "name": "육계",
+      "change_percent": -0.55,
+      "total": 9,
+      "rise": 2
+    },
+    {
+      "name": "골프",
+      "change_percent": -0.57,
+      "total": 15,
+      "rise": 2
+    },
+    {
+      "name": "보안주(정보)",
+      "change_percent": -0.59,
+      "total": 52,
+      "rise": 10
+    },
+    {
+      "name": "딥페이크(deepfake)",
+      "change_percent": -0.75,
+      "total": 14,
+      "rise": 3
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-13T01:11:21.088402+00:00"
+  "updated_at": "2026-10-13T01:33:07.950798+00:00"
 }
