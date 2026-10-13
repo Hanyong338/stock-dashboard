@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "시멘트/레미콘",
-      "change_percent": 1.96,
+      "change_percent": 2.08,
       "total": 15,
-      "rise": 4
+      "rise": 5
     },
     {
       "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 0.24,
+      "change_percent": 0.79,
       "total": 9,
-      "rise": 1
+      "rise": 2
     },
     {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.27,
+      "change_percent": -0.28,
       "total": 69,
-      "rise": 10
+      "rise": 9
+    },
+    {
+      "name": "육계",
+      "change_percent": -0.51,
+      "total": 9,
+      "rise": 2
+    },
+    {
+      "name": "골프",
+      "change_percent": -0.55,
+      "total": 15,
+      "rise": 2
+    },
+    {
+      "name": "손해보험",
+      "change_percent": -0.87,
+      "total": 8,
+      "rise": 3
     },
     {
       "name": "딥페이크(deepfake)",
-      "change_percent": -0.48,
+      "change_percent": -0.88,
       "total": 14,
       "rise": 3
     },
     {
-      "name": "육계",
-      "change_percent": -0.58,
-      "total": 9,
-      "rise": 1
-    },
-    {
-      "name": "골프",
-      "change_percent": -0.62,
-      "total": 15,
-      "rise": 3
-    },
-    {
       "name": "보안주(정보)",
-      "change_percent": -0.81,
+      "change_percent": -1.09,
       "total": 52,
-      "rise": 9
-    },
-    {
-      "name": "손해보험",
-      "change_percent": -1.06,
-      "total": 8,
-      "rise": 3
+      "rise": 10
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-13T01:52:28.458980+00:00"
+  "updated_at": "2026-10-13T02:04:54.588406+00:00"
 }
