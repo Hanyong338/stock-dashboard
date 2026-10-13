@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "시멘트/레미콘",
-      "change_percent": 1.99,
+      "change_percent": 1.9,
       "total": 15,
       "rise": 7
     },
     {
       "name": "니켈",
-      "change_percent": 1.53,
+      "change_percent": 1.32,
       "total": 14,
       "rise": 4
     },
     {
+      "name": "태풍 및 장마",
+      "change_percent": 1.07,
+      "total": 10,
+      "rise": 5
+    },
+    {
       "name": "육계",
-      "change_percent": 1.17,
+      "change_percent": 1.05,
       "total": 9,
       "rise": 5
     },
     {
-      "name": "태풍 및 장마",
-      "change_percent": 0.95,
-      "total": 10,
-      "rise": 6
-    },
-    {
-      "name": "우주태양광(페로브스카이트 등)",
-      "change_percent": 0.61,
-      "total": 10,
-      "rise": 5
-    },
-    {
-      "name": "강관업체(Steel pipe)",
-      "change_percent": 0.58,
-      "total": 11,
+      "name": "아스콘(아스팔트 콘크리트)",
+      "change_percent": 0.53,
+      "total": 9,
       "rise": 2
     },
     {
       "name": "요소수",
-      "change_percent": 0.55,
+      "change_percent": 0.42,
       "total": 5,
       "rise": 2
     },
     {
+      "name": "우주태양광(페로브스카이트 등)",
+      "change_percent": 0.35,
+      "total": 10,
+      "rise": 4
+    },
+    {
       "name": "골프",
-      "change_percent": 0.33,
+      "change_percent": 0.34,
       "total": 15,
-      "rise": 3
+      "rise": 4
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-13T05:51:55.116660+00:00"
+  "updated_at": "2026-10-13T06:05:03.333163+00:00"
 }
