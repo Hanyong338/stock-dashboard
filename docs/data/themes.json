@@ -8,47 +8,47 @@
     },
     {
       "name": "시멘트/레미콘",
-      "change_percent": 2.5,
+      "change_percent": 2.32,
       "total": 15,
-      "rise": 7
+      "rise": 8
     },
     {
       "name": "태풍 및 장마",
-      "change_percent": 1.86,
+      "change_percent": 1.97,
       "total": 10,
-      "rise": 7
-    },
-    {
-      "name": "유심(USIM)",
-      "change_percent": 1.84,
-      "total": 5,
-      "rise": 3
+      "rise": 6
     },
     {
       "name": "니켈",
-      "change_percent": 1.72,
+      "change_percent": 1.8,
       "total": 14,
       "rise": 6
     },
     {
+      "name": "우주태양광(페로브스카이트 등)",
+      "change_percent": 1.12,
+      "total": 10,
+      "rise": 5
+    },
+    {
+      "name": "육계",
+      "change_percent": 1.02,
+      "total": 9,
+      "rise": 4
+    },
+    {
       "name": "전자파",
-      "change_percent": 1.53,
+      "change_percent": 0.97,
       "total": 12,
       "rise": 7
     },
     {
       "name": "골프",
-      "change_percent": 1.52,
+      "change_percent": 0.84,
       "total": 15,
-      "rise": 6
-    },
-    {
-      "name": "육계",
-      "change_percent": 1.51,
-      "total": 9,
-      "rise": 6
+      "rise": 5
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-13T07:37:12.232224+00:00"
+  "updated_at": "2026-10-13T07:55:25.685365+00:00"
 }
