@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "요소수",
-      "change_percent": 3.31,
+      "change_percent": 2.95,
       "total": 5,
       "rise": 3
     },
     {
       "name": "시멘트/레미콘",
-      "change_percent": 2.52,
+      "change_percent": 2.5,
       "total": 15,
-      "rise": 8
+      "rise": 7
     },
     {
       "name": "태풍 및 장마",
-      "change_percent": 2.25,
+      "change_percent": 1.86,
       "total": 10,
-      "rise": 8
+      "rise": 7
+    },
+    {
+      "name": "유심(USIM)",
+      "change_percent": 1.84,
+      "total": 5,
+      "rise": 3
     },
     {
       "name": "니켈",
-      "change_percent": 1.26,
+      "change_percent": 1.72,
       "total": 14,
-      "rise": 4
-    },
-    {
-      "name": "애플페이",
-      "change_percent": 1.17,
-      "total": 8,
-      "rise": 2
-    },
-    {
-      "name": "육계",
-      "change_percent": 1.14,
-      "total": 9,
       "rise": 6
     },
     {
       "name": "전자파",
-      "change_percent": 1.08,
+      "change_percent": 1.53,
       "total": 12,
+      "rise": 7
+    },
+    {
+      "name": "골프",
+      "change_percent": 1.52,
+      "total": 15,
       "rise": 6
     },
     {
-      "name": "손해보험",
-      "change_percent": 1.05,
-      "total": 8,
-      "rise": 4
+      "name": "육계",
+      "change_percent": 1.51,
+      "total": 9,
+      "rise": 6
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-13T07:10:48.200433+00:00"
+  "updated_at": "2026-10-13T07:37:12.232224+00:00"
 }
