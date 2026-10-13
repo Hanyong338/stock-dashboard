@@ -308,7 +308,8 @@
       "title": "미국 기존주택판매",
       "category": "macro",
       "detail": "23:00",
-      "previous": "-2.0%"
+      "previous": "3.98M",
+      "consensus": "3.95M"
     },
     {
       "start": "2026-10-14",
@@ -1308,5 +1309,6 @@
   ],
   "built_on": "2026-10-13",
   "builder_version": 10,
-  "updated_at": "2026-10-12T15:15:23.569394+00:00"
+  "updated_at": "2026-10-12T15:15:23.569394+00:00",
+  "values_updated_at": "2026-10-13T13:13:24.619622+00:00"
 }
