@@ -1,30 +1,6 @@
 {
-  "updated_at": "2026-10-13T01:52:28.458980+00:00",
+  "updated_at": "2026-10-13T02:04:54.588406+00:00",
   "entries": [
-    {
-      "at": "2026-10-06T06:58:42.243494+00:00",
-      "message": "제미나이 모델이 모두 혼잡/한도라 5편 요약을 다음 실행으로 미룸"
-    },
-    {
-      "at": "2026-10-06T07:06:10.445260+00:00",
-      "message": "요약 실패 [815머니톡] [#긴급시황] 외국인이 삼성전자·SK하이닉스 17조 던지고 산 것은? / : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
-    },
-    {
-      "at": "2026-10-06T07:06:35.830296+00:00",
-      "message": "제미나이 모델이 모두 혼잡/한도라 6편 요약을 다음 실행으로 미룸"
-    },
-    {
-      "at": "2026-10-06T07:36:31.572660+00:00",
-      "message": "요약 실패 [삼프로TV] 덜 오른 종목엔 이유가 있다…연말까지 가져갈 종목은 '신고가'에서ㅣ권다영 : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
-    },
-    {
-      "at": "2026-10-06T09:34:21.090067+00:00",
-      "message": "요약 실패 [한국경제TV] 삼전닉스, 실적 발표 앞두고 짙어진 관망세에 '숨고르기'…반면 코스닥 반 : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
-    },
-    {
-      "at": "2026-10-06T09:34:47.518479+00:00",
-      "message": "제미나이 모델이 모두 혼잡/한도라 1편 요약을 다음 실행으로 미룸"
-    },
     {
       "at": "2026-10-06T10:04:48.564047+00:00",
       "message": "요약 실패 [한국경제TV] 지금 가장 저평가된 '이 주식' 앞으로 무섭게 오를 겁니다 | 김수현 D : 쓸 수 있는 제미나이 모델이 없다(혼잡/한도). 마지막 오류: gemini-3.8-flash 503: UNAVAILABLE This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."
@@ -1199,6 +1175,30 @@
     },
     {
       "at": "2026-10-13T01:53:21.569643+00:00",
+      "message": "제미나이 모델이 모두 혼잡/한도라 6편 요약을 다음 실행으로 미룸"
+    },
+    {
+      "at": "2026-10-13T02:05:07.533691+00:00",
+      "message": "7번째 시도 [한국경제TV] 북한은 코스피 고점, 포지션 구축가격에서 도발한다? ｜퀀텀글로벌 김준영 "
+    },
+    {
+      "at": "2026-10-13T02:05:10.534587+00:00",
+      "message": "14번째 시도 [한국경제TV] AI 발전이 오히려 증시에 악재?…반도체 랠리, 조정 가능성은ㅣ10년물 "
+    },
+    {
+      "at": "2026-10-13T02:05:13.535405+00:00",
+      "message": "14번째 시도 [한국경제TV] 외인 거센 투매에 코스피 6,400선 붕괴! 자사주 공백 속 반도체 투톱"
+    },
+    {
+      "at": "2026-10-13T02:05:16.536314+00:00",
+      "message": "14번째 시도 [한국경제TV] AI 데이터센터가 키운 ESS 시장진짜 수혜 받을 종목은?ㅣ임주아 엘리고"
+    },
+    {
+      "at": "2026-10-13T02:05:19.537232+00:00",
+      "message": "13번째 시도 [한국경제TV] 美·이란 전쟁 종식 조건, 두바이유 155달러 돌파｜퀀텀글로벌 김준영 대"
+    },
+    {
+      "at": "2026-10-13T02:05:48.085037+00:00",
       "message": "제미나이 모델이 모두 혼잡/한도라 6편 요약을 다음 실행으로 미룸"
     }
   ]
