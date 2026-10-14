@@ -277,7 +277,8 @@
       "category": "earnings",
       "detail": "JPM 장전",
       "eps_forecast": "$5.94",
-      "eps": "$5.07"
+      "eps": "$5.75",
+      "surprise": "-3.2"
     },
     {
       "start": "2026-10-13",
@@ -286,7 +287,8 @@
       "category": "earnings",
       "detail": "GS 장전",
       "eps_forecast": "$12.90",
-      "eps": "$12.25"
+      "eps": "$17.01",
+      "surprise": "31.86"
     },
     {
       "start": "2026-10-13",
@@ -295,7 +297,8 @@
       "category": "earnings",
       "detail": "UNH 장전",
       "eps_forecast": "$4.12",
-      "eps": "$2.92"
+      "eps": "$4.69",
+      "surprise": "13.83"
     },
     {
       "start": "2026-10-13",
@@ -304,7 +307,8 @@
       "category": "earnings",
       "detail": "JNJ 장전",
       "eps_forecast": "$2.53",
-      "eps": "$2.80"
+      "eps": "$2.59",
+      "surprise": "2.37"
     },
     {
       "start": "2026-10-13",
@@ -1407,5 +1411,5 @@
   "built_on": "2026-10-14",
   "builder_version": 10,
   "updated_at": "2026-10-13T15:10:03.123518+00:00",
-  "values_updated_at": "2026-10-14T06:55:06.389869+00:00"
+  "values_updated_at": "2026-10-14T08:08:10.020363+00:00"
 }
