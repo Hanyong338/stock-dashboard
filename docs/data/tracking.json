@@ -13678,6 +13678,28 @@
       "final_ret": null,
       "closed_on": "",
       "checked_for": "2026-10-13"
+    },
+    {
+      "id": "kr:092790:MORNING_BREAKOUT:2026-10-14",
+      "market": "kr",
+      "code": "092790",
+      "name": "넥스틸",
+      "board": "KOSPI",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "C",
+      "found_on": "2026-10-14",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "092790.KS",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-10-14T01:00:29.244055+00:00",
+      "reason": "240일선 12,688 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 65억",
+      "stop": null,
+      "checked_for": "2026-10-13"
     }
   ],
   "updated_for": {
@@ -13685,8 +13707,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 350,
-    "pending": 27,
+    "total": 351,
+    "pending": 28,
     "active": 104,
     "half_tp": 105,
     "closed": 152,
@@ -13698,7 +13720,7 @@
     "avg_mdd": -5.68,
     "closed_avg_final": -4.96
   },
-  "updated_at": "2026-10-13T21:41:21.822990+00:00",
+  "updated_at": "2026-10-14T01:00:29.244055+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
