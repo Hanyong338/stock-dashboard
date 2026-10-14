@@ -350,8 +350,9 @@
       "title": "미국 CPI",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "3.6%",
-      "previous": "3.4%"
+      "consensus": "0.6%",
+      "previous": "0.4%",
+      "actual": "0.6%"
     },
     {
       "start": "2026-10-14",
@@ -359,8 +360,9 @@
       "title": "미국 근원 CPI",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "2.5%",
-      "previous": "2.4%"
+      "consensus": "0.2%",
+      "previous": "0.3%",
+      "actual": "0.3%"
     },
     {
       "start": "2026-10-15",
@@ -422,7 +424,7 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "49.85B",
-      "previous": "49.85B"
+      "previous": "34.79B"
     },
     {
       "start": "2026-10-15",
@@ -431,7 +433,7 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "26.0%",
-      "previous": "26.0%"
+      "previous": "22.4%"
     },
     {
       "start": "2026-10-15",
@@ -440,7 +442,7 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "83.5%",
-      "previous": "83.5%"
+      "previous": "68.7%"
     },
     {
       "start": "2026-10-16",
@@ -1411,5 +1413,5 @@
   "built_on": "2026-10-14",
   "builder_version": 10,
   "updated_at": "2026-10-13T15:10:03.123518+00:00",
-  "values_updated_at": "2026-10-14T09:18:44.597318+00:00"
+  "values_updated_at": "2026-10-14T13:24:08.019018+00:00"
 }
