@@ -87,12 +87,12 @@
     },
     "2026-10-13": {
       "gemini-3.8-flash": {
-        "ReadTimeout": 2,
+        "ReadTimeout": 3,
         "503": 8,
         "200": 9
       },
       "gemini-3.6-flash": {
-        "503": 5
+        "503": 6
       }
     }
   },
