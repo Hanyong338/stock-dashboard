@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "서울고속버스터미널 재개발 수혜",
-      "change_percent": 13.52,
+      "change_percent": 15.83,
       "total": 5,
       "rise": 4
     },
     {
       "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 6.61,
+      "change_percent": 5.88,
       "total": 9,
       "rise": 7
     },
     {
-      "name": "항공/저가 항공사(LCC)",
-      "change_percent": 5.28,
+      "name": "LPG(액화석유가스)",
+      "change_percent": 4.56,
       "total": 9,
-      "rise": 7
+      "rise": 9
     },
     {
       "name": "해운",
-      "change_percent": 4.8,
+      "change_percent": 4.47,
       "total": 6,
-      "rise": 6
-    },
-    {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 4.31,
-      "total": 14,
-      "rise": 10
+      "rise": 5
     },
     {
       "name": "부동산 보유 자산주",
-      "change_percent": 3.8,
+      "change_percent": 4.25,
       "total": 22,
       "rise": 16
     },
     {
-      "name": "2차전지(전고체)",
-      "change_percent": 3.71,
-      "total": 30,
-      "rise": 25
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": 4.24,
+      "total": 9,
+      "rise": 7
     },
     {
-      "name": "LPG(액화석유가스)",
-      "change_percent": 3.54,
-      "total": 9,
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 3.44,
+      "total": 14,
       "rise": 9
+    },
+    {
+      "name": "주유소",
+      "change_percent": 3.25,
+      "total": 15,
+      "rise": 13
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-14T05:16:07.951276+00:00"
+  "updated_at": "2026-10-14T05:43:39.197504+00:00"
 }
