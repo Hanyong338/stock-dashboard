@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.3,
+      "change_percent": -0.21,
       "total": 69,
-      "rise": 7
+      "rise": 8
     },
     {
-      "name": "편의점",
-      "change_percent": -0.56,
-      "total": 5,
-      "rise": 1
+      "name": "사료",
+      "change_percent": -0.47,
+      "total": 18,
+      "rise": 5
     },
     {
-      "name": "은행",
-      "change_percent": -0.66,
-      "total": 11,
-      "rise": 6
-    },
-    {
-      "name": "도시가스",
-      "change_percent": -0.92,
+      "name": "육계",
+      "change_percent": -0.93,
       "total": 9,
       "rise": 2
     },
     {
-      "name": "요소수",
-      "change_percent": -0.98,
+      "name": "제지",
+      "change_percent": -0.96,
+      "total": 14,
+      "rise": 3
+    },
+    {
+      "name": "도시가스",
+      "change_percent": -1.1,
+      "total": 9,
+      "rise": 1
+    },
+    {
+      "name": "구제역/광우병 수혜",
+      "change_percent": -1.11,
+      "total": 19,
+      "rise": 5
+    },
+    {
+      "name": "편의점",
+      "change_percent": -1.11,
       "total": 5,
       "rise": 1
     },
     {
       "name": "겨울",
-      "change_percent": -1.08,
+      "change_percent": -1.13,
       "total": 22,
-      "rise": 5
-    },
-    {
-      "name": "손해보험",
-      "change_percent": -1.08,
-      "total": 8,
-      "rise": 2
-    },
-    {
-      "name": "카지노",
-      "change_percent": -1.16,
-      "total": 6,
-      "rise": 2
+      "rise": 4
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-15T06:56:33.034873+00:00"
+  "updated_at": "2026-10-15T07:26:44.216863+00:00"
 }
