@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "해운",
+      "change_percent": 1.04,
+      "total": 6,
+      "rise": 4
+    },
+    {
+      "name": "2026 하반기 신규상장",
+      "change_percent": 0.11,
+      "total": 22,
+      "rise": 2
+    },
+    {
+      "name": "손해보험",
+      "change_percent": 0.09,
+      "total": 8,
+      "rise": 4
+    },
+    {
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.14,
+      "total": 69,
+      "rise": 12
+    },
+    {
+      "name": "LPG(액화석유가스)",
+      "change_percent": -0.28,
+      "total": 9,
+      "rise": 3
+    },
+    {
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": -0.29,
+      "total": 9,
+      "rise": 3
+    },
+    {
+      "name": "미디어(방송/신문)",
+      "change_percent": -0.35,
+      "total": 12,
+      "rise": 2
+    },
+    {
+      "name": "강관업체(Steel pipe)",
+      "change_percent": -0.37,
+      "total": 11,
+      "rise": 3
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-10-14T23:12:29.737047+00:00"
+  "updated_at": "2026-10-15T00:10:58.426428+00:00"
 }
