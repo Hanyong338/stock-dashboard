@@ -33,9 +33,9 @@
     },
     {
       "name": "달러 인덱스",
-      "value": "102.18",
-      "change": "-0.39%",
-      "close_date": "2026-10-13"
+      "value": "102.55",
+      "change": "+0.36%",
+      "close_date": "2026-10-14"
     },
     {
       "name": "WTI 유가",
@@ -283,92 +283,92 @@
   "indices_note": "지수·금리·유가는 시장 데이터 종가 기준",
   "sectors": [
     {
-      "name": "원유·가스",
-      "change_percent": 2.8462680679296906
-    },
-    {
-      "name": "태양광",
-      "change_percent": 2.069920734485399
+      "name": "소매",
+      "change_percent": 0.4387467202108474
     },
     {
       "name": "전기차",
       "change_percent": 0.42891970669839347
     },
     {
-      "name": "전력망·전력기기",
-      "change_percent": 0.3077801125632435
-    },
-    {
-      "name": "소매",
-      "change_percent": 0.213904102093718
-    },
-    {
-      "name": "인터넷 플랫폼",
-      "change_percent": 0.2007918107252505
-    },
-    {
       "name": "AI·로봇",
       "change_percent": 0.1719127678239809
+    },
+    {
+      "name": "방산·우주항공",
+      "change_percent": 0.11764975155101104
     },
     {
       "name": "게임",
       "change_percent": 0.07972280246254203
     },
     {
-      "name": "반도체",
-      "change_percent": -0.17435096163001793
-    },
-    {
-      "name": "운송",
-      "change_percent": -0.17499923706054688
-    },
-    {
       "name": "의료기기",
-      "change_percent": -0.18943414867216887
+      "change_percent": 0.03795873654385233
     },
     {
-      "name": "소프트웨어",
-      "change_percent": -0.2695861121981734
+      "name": "바이오",
+      "change_percent": -0.020435135335997383
     },
     {
       "name": "사이버보안",
       "change_percent": -0.3061241388798889
     },
     {
-      "name": "통신장비",
-      "change_percent": -0.5402440362644311
-    },
-    {
-      "name": "클라우드",
-      "change_percent": -0.5738741324554214
+      "name": "운송",
+      "change_percent": -0.42575001839041365
     },
     {
       "name": "은행",
-      "change_percent": -0.7188039355217427
+      "change_percent": -0.7529635989709045
     },
     {
-      "name": "원자력",
-      "change_percent": -0.9013789543603647
-    },
-    {
-      "name": "방산·우주항공",
-      "change_percent": -0.9852928172229167
+      "name": "원유·가스",
+      "change_percent": -0.9908972644142937
     },
     {
       "name": "2차전지",
-      "change_percent": -1.0530952051762488
+      "change_percent": -1.8773159553811818
+    },
+    {
+      "name": "전력망·전력기기",
+      "change_percent": -2.6610902496295328
+    },
+    {
+      "name": "인터넷 플랫폼",
+      "change_percent": -2.812107758376867
+    },
+    {
+      "name": "소프트웨어",
+      "change_percent": -3.000542197088195
+    },
+    {
+      "name": "태양광",
+      "change_percent": -3.920688680913303
+    },
+    {
+      "name": "통신장비",
+      "change_percent": -4.171024664155699
     },
     {
       "name": "구리",
-      "change_percent": -1.1130602990347274
+      "change_percent": -4.241708253947104
+    },
+    {
+      "name": "클라우드",
+      "change_percent": -4.372667801527213
     },
     {
       "name": "금광",
-      "change_percent": -1.45713422943028
+      "change_percent": -4.401646529023314
     },
     {
-      "name": "바이오",
-      "change_percent": -3.038303190336772
+      "name": "반도체",
+      "change_percent": -4.500834786738303
+    },
+    {
+      "name": "원자력",
+      "change_percent": -4.92241867311607
     }
   ],
   "video_id": "NCiGpCCS3So",
@@ -376,7 +376,7 @@
   "title": "[🔴10/15 #당잠사]예상 웃돈 미 9월 CPI…금리인상 확률 커져 | 기술주 급락 | 연준 베이지북 “전 지역 물가 상승” | #ASML #애플 #코어위브",
   "url": "https://www.youtube.com/watch?v=NCiGpCCS3So",
   "published": "2026-10-14T19:49:36Z",
-  "fetched_at": "2026-10-15T00:10:58.426428+00:00",
+  "fetched_at": "2026-10-15T00:52:35.530931+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
