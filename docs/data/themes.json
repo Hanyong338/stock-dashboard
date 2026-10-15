@@ -8,33 +8,21 @@
     },
     {
       "name": "사료",
-      "change_percent": -0.47,
+      "change_percent": -0.46,
       "total": 18,
       "rise": 5
     },
     {
       "name": "육계",
-      "change_percent": -0.93,
+      "change_percent": -0.92,
       "total": 9,
       "rise": 2
-    },
-    {
-      "name": "제지",
-      "change_percent": -0.96,
-      "total": 14,
-      "rise": 3
     },
     {
       "name": "도시가스",
       "change_percent": -1.1,
       "total": 9,
       "rise": 1
-    },
-    {
-      "name": "구제역/광우병 수혜",
-      "change_percent": -1.11,
-      "total": 19,
-      "rise": 5
     },
     {
       "name": "편의점",
@@ -44,11 +32,23 @@
     },
     {
       "name": "겨울",
-      "change_percent": -1.13,
+      "change_percent": -1.12,
       "total": 22,
       "rise": 4
+    },
+    {
+      "name": "구제역/광우병 수혜",
+      "change_percent": -1.16,
+      "total": 19,
+      "rise": 5
+    },
+    {
+      "name": "카지노",
+      "change_percent": -1.2,
+      "total": 6,
+      "rise": 1
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-15T07:26:44.216863+00:00"
+  "updated_at": "2026-10-15T07:29:43.339026+00:00"
 }
