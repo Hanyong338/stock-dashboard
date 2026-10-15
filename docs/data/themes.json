@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "서울고속버스터미널 재개발 수혜",
-      "change_percent": 0.25,
+      "change_percent": 4.32,
       "total": 5,
-      "rise": 3
-    },
-    {
-      "name": "손해보험",
-      "change_percent": 0.16,
-      "total": 8,
-      "rise": 3
+      "rise": 4
     },
     {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.19,
+      "change_percent": -0.24,
       "total": 69,
-      "rise": 18
-    },
-    {
-      "name": "요소수",
-      "change_percent": -0.4,
-      "total": 5,
-      "rise": 1
+      "rise": 14
     },
     {
       "name": "미디어(방송/신문)",
-      "change_percent": -0.44,
+      "change_percent": -0.64,
       "total": 12,
       "rise": 2
     },
     {
-      "name": "은행",
-      "change_percent": -0.67,
-      "total": 11,
+      "name": "손해보험",
+      "change_percent": -0.86,
+      "total": 8,
       "rise": 2
     },
     {
       "name": "도시가스",
-      "change_percent": -1.16,
+      "change_percent": -1.18,
       "total": 9,
       "rise": 1
     },
     {
-      "name": "소매유통",
-      "change_percent": -1.42,
-      "total": 19,
-      "rise": 5
+      "name": "은행",
+      "change_percent": -1.27,
+      "total": 11,
+      "rise": 0
+    },
+    {
+      "name": "요소수",
+      "change_percent": -1.31,
+      "total": 5,
+      "rise": 1
+    },
+    {
+      "name": "부동산 보유 자산주",
+      "change_percent": -1.47,
+      "total": 22,
+      "rise": 4
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-15T01:09:57.795206+00:00"
+  "updated_at": "2026-10-15T01:22:00.279008+00:00"
 }
