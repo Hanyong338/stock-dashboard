@@ -327,7 +327,7 @@
       "category": "earnings",
       "detail": "ASML 장전",
       "eps_forecast": "$12.47",
-      "eps": "$14.89",
+      "eps": "$6.41",
       "surprise": "19.41"
     },
     {
@@ -337,7 +337,7 @@
       "category": "earnings",
       "detail": "MS 장전",
       "eps_forecast": "$2.83",
-      "eps": "$3.03",
+      "eps": "$2.80",
       "surprise": "7.07"
     },
     {
@@ -347,7 +347,7 @@
       "category": "earnings",
       "detail": "BAC 장전",
       "eps_forecast": "$1.11",
-      "eps": "$1.08",
+      "eps": "$1.06",
       "surprise": "-2.7"
     },
     {
@@ -1491,5 +1491,5 @@
   "built_on": "2026-10-15",
   "builder_version": 10,
   "updated_at": "2026-10-14T15:19:03.411181+00:00",
-  "values_updated_at": "2026-10-15T09:49:08.529904+00:00"
+  "values_updated_at": "2026-10-15T10:16:56.088627+00:00"
 }
