@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.29,
+      "change_percent": -0.27,
       "total": 69,
       "rise": 11
     },
     {
+      "name": "은행",
+      "change_percent": -0.56,
+      "total": 11,
+      "rise": 5
+    },
+    {
+      "name": "편의점",
+      "change_percent": -0.84,
+      "total": 5,
+      "rise": 1
+    },
+    {
+      "name": "손해보험",
+      "change_percent": -0.97,
+      "total": 8,
+      "rise": 1
+    },
+    {
       "name": "도시가스",
-      "change_percent": -1.15,
+      "change_percent": -1.12,
       "total": 9,
       "rise": 2
-    },
-    {
-      "name": "제지",
-      "change_percent": -1.42,
-      "total": 14,
-      "rise": 2
-    },
-    {
-      "name": "여행",
-      "change_percent": -1.42,
-      "total": 9,
-      "rise": 4
     },
     {
       "name": "요소수",
-      "change_percent": -1.43,
+      "change_percent": -1.15,
       "total": 5,
       "rise": 1
     },
     {
       "name": "주류업(주정, 에탄올 등)",
-      "change_percent": -1.46,
+      "change_percent": -1.25,
       "total": 13,
-      "rise": 2
-    },
-    {
-      "name": "미디어(방송/신문)",
-      "change_percent": -1.47,
-      "total": 12,
       "rise": 3
     },
     {
-      "name": "은행",
-      "change_percent": -1.48,
-      "total": 11,
-      "rise": 0
+      "name": "겨울",
+      "change_percent": -1.26,
+      "total": 22,
+      "rise": 5
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-15T08:47:02.426318+00:00"
+  "updated_at": "2026-10-15T09:18:13.553256+00:00"
 }
