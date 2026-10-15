@@ -444,7 +444,8 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "83.5%",
-      "previous": "68.7%"
+      "previous": "68.7%",
+      "actual": "83.7%"
     },
     {
       "start": "2026-10-16",
@@ -1484,5 +1485,5 @@
   "built_on": "2026-10-15",
   "builder_version": 10,
   "updated_at": "2026-10-14T15:19:03.411181+00:00",
-  "values_updated_at": "2026-10-15T01:09:57.795206+00:00"
+  "values_updated_at": "2026-10-15T01:22:00.279008+00:00"
 }
