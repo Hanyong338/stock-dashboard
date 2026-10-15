@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.28,
+      "change_percent": -0.31,
       "total": 69,
-      "rise": 14
+      "rise": 12
     },
     {
-      "name": "서울고속버스터미널 재개발 수혜",
-      "change_percent": -1.25,
+      "name": "요소수",
+      "change_percent": -0.63,
       "total": 5,
-      "rise": 2
+      "rise": 1
     },
     {
       "name": "도시가스",
-      "change_percent": -1.26,
+      "change_percent": -1.19,
       "total": 9,
       "rise": 2
     },
     {
       "name": "은행",
-      "change_percent": -1.39,
+      "change_percent": -1.4,
       "total": 11,
-      "rise": 0
-    },
-    {
-      "name": "요소수",
-      "change_percent": -1.41,
-      "total": 5,
       "rise": 1
     },
     {
       "name": "미디어(방송/신문)",
-      "change_percent": -1.61,
+      "change_percent": -1.46,
       "total": 12,
       "rise": 1
     },
     {
-      "name": "육계",
-      "change_percent": -1.61,
-      "total": 9,
+      "name": "손해보험",
+      "change_percent": -1.58,
+      "total": 8,
       "rise": 0
     },
     {
-      "name": "손해보험",
-      "change_percent": -1.69,
-      "total": 8,
-      "rise": 1
+      "name": "구제역/광우병 수혜",
+      "change_percent": -1.72,
+      "total": 19,
+      "rise": 2
+    },
+    {
+      "name": "육계",
+      "change_percent": -1.75,
+      "total": 9,
+      "rise": 0
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-15T03:15:09.272553+00:00"
+  "updated_at": "2026-10-15T03:43:42.386369+00:00"
 }
