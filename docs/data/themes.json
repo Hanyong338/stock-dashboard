@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "해운",
-      "change_percent": 1.04,
-      "total": 6,
-      "rise": 4
-    },
-    {
-      "name": "2026 하반기 신규상장",
-      "change_percent": 0.11,
-      "total": 22,
-      "rise": 2
-    },
-    {
-      "name": "손해보험",
-      "change_percent": 0.09,
-      "total": 8,
-      "rise": 4
-    },
-    {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.14,
+      "change_percent": -0.22,
       "total": 69,
-      "rise": 12
-    },
-    {
-      "name": "LPG(액화석유가스)",
-      "change_percent": -0.28,
-      "total": 9,
-      "rise": 3
-    },
-    {
-      "name": "항공/저가 항공사(LCC)",
-      "change_percent": -0.29,
-      "total": 9,
-      "rise": 3
+      "rise": 14
     },
     {
       "name": "미디어(방송/신문)",
-      "change_percent": -0.35,
+      "change_percent": -0.64,
       "total": 12,
       "rise": 2
     },
     {
-      "name": "강관업체(Steel pipe)",
-      "change_percent": -0.37,
+      "name": "손해보험",
+      "change_percent": -0.87,
+      "total": 8,
+      "rise": 2
+    },
+    {
+      "name": "은행",
+      "change_percent": -1.16,
       "total": 11,
+      "rise": 0
+    },
+    {
+      "name": "도시가스",
+      "change_percent": -1.41,
+      "total": 9,
+      "rise": 0
+    },
+    {
+      "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
+      "change_percent": -1.53,
+      "total": 10,
+      "rise": 0
+    },
+    {
+      "name": "육계",
+      "change_percent": -1.53,
+      "total": 9,
+      "rise": 0
+    },
+    {
+      "name": "소매유통",
+      "change_percent": -1.63,
+      "total": 19,
       "rise": 3
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-15T00:10:58.426428+00:00"
+  "updated_at": "2026-10-15T00:52:35.530931+00:00"
 }
