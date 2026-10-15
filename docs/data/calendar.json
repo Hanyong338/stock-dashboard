@@ -424,7 +424,8 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "49.85B",
-      "previous": "34.79B"
+      "previous": "34.79B",
+      "actual": "49.97B"
     },
     {
       "start": "2026-10-15",
@@ -433,7 +434,8 @@
       "category": "macro",
       "detail": "09:00",
       "consensus": "26.0%",
-      "previous": "26.0%"
+      "previous": "22.4%",
+      "actual": "26.0%"
     },
     {
       "start": "2026-10-15",
@@ -1482,5 +1484,5 @@
   "built_on": "2026-10-15",
   "builder_version": 10,
   "updated_at": "2026-10-14T15:19:03.411181+00:00",
-  "values_updated_at": "2026-10-14T23:37:33.435628+00:00"
+  "values_updated_at": "2026-10-15T01:09:57.795206+00:00"
 }
