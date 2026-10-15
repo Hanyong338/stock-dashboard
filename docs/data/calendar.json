@@ -385,7 +385,8 @@
       "category": "macro",
       "detail": "21:30",
       "consensus": "0.6%",
-      "previous": "0.4%"
+      "previous": "0.5%",
+      "actual": "1.3%"
     },
     {
       "start": "2026-10-15",
@@ -394,7 +395,8 @@
       "category": "macro",
       "detail": "21:30",
       "consensus": "0.3%",
-      "previous": "0.2%"
+      "previous": "0.2%",
+      "actual": "0.7%"
     },
     {
       "start": "2026-10-15",
@@ -403,7 +405,8 @@
       "category": "macro",
       "detail": "21:30",
       "consensus": "0.6%",
-      "previous": "1.4%"
+      "previous": "1.4%",
+      "actual": "0.9%"
     },
     {
       "start": "2026-10-15",
@@ -412,7 +415,8 @@
       "category": "macro",
       "detail": "21:30",
       "consensus": "199K",
-      "previous": "197K"
+      "previous": "198K",
+      "actual": "199K"
     },
     {
       "start": "2026-10-15",
@@ -421,7 +425,8 @@
       "category": "macro",
       "detail": "21:30",
       "consensus": "28.2",
-      "previous": "37.8"
+      "previous": "37.8",
+      "actual": "20.9"
     },
     {
       "start": "2026-10-15",
@@ -1491,5 +1496,5 @@
   "built_on": "2026-10-15",
   "builder_version": 10,
   "updated_at": "2026-10-14T15:19:03.411181+00:00",
-  "values_updated_at": "2026-10-15T11:16:30.461689+00:00"
+  "values_updated_at": "2026-10-15T13:31:20.693459+00:00"
 }
