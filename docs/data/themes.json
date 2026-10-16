@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
+      "name": "탈모 치료",
+      "change_percent": 5.9,
+      "total": 28,
+      "rise": 26
+    },
+    {
       "name": "HBM(고대역폭메모리)",
-      "change_percent": 6.07,
+      "change_percent": 5.78,
       "total": 35,
       "rise": 35
     },
     {
-      "name": "탈모 치료",
-      "change_percent": 5.93,
-      "total": 28,
-      "rise": 27
-    },
-    {
       "name": "LED장비",
-      "change_percent": 5.91,
+      "change_percent": 5.72,
       "total": 11,
       "rise": 11
     },
     {
+      "name": "뉴로모픽 반도체",
+      "change_percent": 5.72,
+      "total": 7,
+      "rise": 7
+    },
+    {
       "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 5.61,
+      "change_percent": 5.67,
       "total": 13,
-      "rise": 11
+      "rise": 12
     },
     {
       "name": "면역항암제",
-      "change_percent": 5.43,
+      "change_percent": 5.57,
       "total": 36,
       "rise": 36
     },
     {
-      "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 5.42,
-      "total": 9,
+      "name": "오가노이드",
+      "change_percent": 5.43,
+      "total": 8,
       "rise": 8
     },
     {
-      "name": "반도체 장비",
-      "change_percent": 5.4,
-      "total": 97,
-      "rise": 94
-    },
-    {
-      "name": "반도체 재료/부품",
+      "name": "피팅(관이음쇠)/밸브",
       "change_percent": 5.38,
-      "total": 71,
-      "rise": 66
+      "total": 9,
+      "rise": 8
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-16T06:14:51.154668+00:00"
+  "updated_at": "2026-10-16T06:54:52.971597+00:00"
 }
