@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "탈모 치료",
-      "change_percent": 5.9,
+      "change_percent": 6.74,
       "total": 28,
-      "rise": 26
-    },
-    {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 5.78,
-      "total": 35,
-      "rise": 35
-    },
-    {
-      "name": "LED장비",
-      "change_percent": 5.72,
-      "total": 11,
-      "rise": 11
-    },
-    {
-      "name": "뉴로모픽 반도체",
-      "change_percent": 5.72,
-      "total": 7,
-      "rise": 7
+      "rise": 25
     },
     {
       "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 5.67,
+      "change_percent": 6.17,
       "total": 13,
       "rise": 12
     },
     {
+      "name": "LED장비",
+      "change_percent": 5.82,
+      "total": 11,
+      "rise": 11
+    },
+    {
       "name": "면역항암제",
-      "change_percent": 5.57,
+      "change_percent": 5.78,
       "total": 36,
       "rise": 36
     },
     {
-      "name": "오가노이드",
-      "change_percent": 5.43,
-      "total": 8,
-      "rise": 8
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 5.72,
+      "total": 35,
+      "rise": 34
     },
     {
-      "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 5.38,
-      "total": 9,
-      "rise": 8
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 5.68,
+      "total": 14,
+      "rise": 10
+    },
+    {
+      "name": "뉴로모픽 반도체",
+      "change_percent": 5.57,
+      "total": 7,
+      "rise": 7
+    },
+    {
+      "name": "미용기기",
+      "change_percent": 5.4,
+      "total": 19,
+      "rise": 16
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-16T06:54:52.971597+00:00"
+  "updated_at": "2026-10-16T07:24:19.680385+00:00"
 }
