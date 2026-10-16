@@ -377,7 +377,8 @@
       "category": "earnings",
       "detail": "TSM 장전",
       "eps_forecast": "$4.45",
-      "eps": "$2.92"
+      "eps": "$4.60",
+      "surprise": "3.37"
     },
     {
       "start": "2026-10-15",
@@ -1651,5 +1652,5 @@
   "built_on": "2026-10-16",
   "builder_version": 10,
   "updated_at": "2026-10-15T15:20:37.659906+00:00",
-  "values_updated_at": "2026-10-16T05:43:58.615325+00:00"
+  "values_updated_at": "2026-10-16T07:25:26.048292+00:00"
 }
