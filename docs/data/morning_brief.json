@@ -39,9 +39,9 @@
     },
     {
       "name": "WTI 유가",
-      "value": "$95.09",
-      "change": "+1.01%",
-      "close_date": "2026-10-14"
+      "value": "$97.97",
+      "change": "+3.03%",
+      "close_date": "2026-10-15"
     }
   ],
   "economic_events": [
@@ -343,6 +343,10 @@
       "change_percent": 3.6835925135730267
     },
     {
+      "name": "게임",
+      "change_percent": 2.512872727003946
+    },
+    {
       "name": "의료기기",
       "change_percent": 2.466323770898151
     },
@@ -391,16 +395,24 @@
       "change_percent": 0.01237581819875866
     },
     {
+      "name": "사이버보안",
+      "change_percent": -0.20242827144494954
+    },
+    {
+      "name": "전기차",
+      "change_percent": -0.22986056934421428
+    },
+    {
       "name": "반도체",
       "change_percent": -0.9067731493716288
     },
     {
-      "name": "2차전지",
-      "change_percent": -1.2202434349333187
+      "name": "AI·로봇",
+      "change_percent": -1.0847227360426368
     },
     {
-      "name": "게임",
-      "change_percent": -1.3342666167612245
+      "name": "2차전지",
+      "change_percent": -1.2202434349333187
     },
     {
       "name": "전력망·전력기기",
@@ -409,18 +421,6 @@
     {
       "name": "원유·가스",
       "change_percent": -1.4911024074241754
-    },
-    {
-      "name": "전기차",
-      "change_percent": -1.787671009696174
-    },
-    {
-      "name": "AI·로봇",
-      "change_percent": -2.431345813446023
-    },
-    {
-      "name": "사이버보안",
-      "change_percent": -3.4707391035323094
     }
   ],
   "video_id": "IGPJOocA2pE",
@@ -428,7 +428,7 @@
   "title": "[🔴10/16 #당잠사] 나스닥·S&P500 상승 전환 | 9월 PPI, 4년 6개월만에 최고 | 젠슨 황 “코어위브, 자본조달 비용 하락” | #코어위브 #엔비디아 #마이크론",
   "url": "https://www.youtube.com/watch?v=IGPJOocA2pE",
   "published": "2026-10-15T19:54:33Z",
-  "fetched_at": "2026-10-16T00:52:00.744510+00:00",
+  "fetched_at": "2026-10-16T02:03:08.075344+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
