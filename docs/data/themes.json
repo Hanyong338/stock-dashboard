@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 6.12,
+      "change_percent": 5.68,
       "total": 9,
-      "rise": 9
+      "rise": 8
+    },
+    {
+      "name": "mRNA(메신저 리보핵산)",
+      "change_percent": 5.57,
+      "total": 14,
+      "rise": 13
     },
     {
       "name": "면역항암제",
-      "change_percent": 6.05,
+      "change_percent": 5.56,
       "total": 36,
       "rise": 35
     },
     {
-      "name": "유전자 치료제/분석",
-      "change_percent": 5.77,
-      "total": 41,
-      "rise": 40
-    },
-    {
       "name": "미용기기",
-      "change_percent": 5.68,
+      "change_percent": 5.56,
       "total": 19,
-      "rise": 17
+      "rise": 16
     },
     {
-      "name": "mRNA(메신저 리보핵산)",
-      "change_percent": 5.68,
-      "total": 14,
-      "rise": 13
+      "name": "오가노이드",
+      "change_percent": 5.55,
+      "total": 8,
+      "rise": 8
     },
     {
-      "name": "스페이스X(SpaceX)",
-      "change_percent": 5.68,
-      "total": 14,
-      "rise": 13
-    },
-    {
-      "name": "탈모 치료",
-      "change_percent": 5.67,
-      "total": 28,
-      "rise": 25
+      "name": "유전자 치료제/분석",
+      "change_percent": 5.53,
+      "total": 41,
+      "rise": 38
     },
     {
       "name": "원격진료/비대면진료(U-Healthcare)",
-      "change_percent": 5.59,
+      "change_percent": 5.33,
       "total": 22,
       "rise": 21
+    },
+    {
+      "name": "탈모 치료",
+      "change_percent": 5.23,
+      "total": 28,
+      "rise": 25
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-16T03:14:52.235440+00:00"
+  "updated_at": "2026-10-16T03:43:47.778118+00:00"
 }
