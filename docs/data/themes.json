@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 5.91,
+      "change_percent": 6.35,
       "total": 9,
-      "rise": 9
+      "rise": 8
     },
     {
       "name": "오가노이드",
-      "change_percent": 5.62,
+      "change_percent": 5.41,
       "total": 8,
       "rise": 8
     },
     {
-      "name": "미용기기",
-      "change_percent": 5.07,
-      "total": 19,
-      "rise": 15
-    },
-    {
-      "name": "시멘트/레미콘",
-      "change_percent": 5.06,
-      "total": 15,
-      "rise": 15
-    },
-    {
       "name": "원격진료/비대면진료(U-Healthcare)",
-      "change_percent": 4.99,
+      "change_percent": 5.2,
       "total": 22,
       "rise": 21
     },
     {
-      "name": "건설 대표주",
-      "change_percent": 4.98,
+      "name": "미용기기",
+      "change_percent": 5.02,
+      "total": 19,
+      "rise": 15
+    },
+    {
+      "name": "면역항암제",
+      "change_percent": 4.84,
+      "total": 36,
+      "rise": 34
+    },
+    {
+      "name": "자동차 대표주",
+      "change_percent": 4.82,
+      "total": 7,
+      "rise": 7
+    },
+    {
+      "name": "모더나(MODERNA)",
+      "change_percent": 4.75,
       "total": 6,
       "rise": 6
     },
     {
-      "name": "면역항암제",
-      "change_percent": 4.91,
-      "total": 36,
-      "rise": 36
-    },
-    {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 4.8,
-      "total": 14,
-      "rise": 11
+      "name": "의료AI",
+      "change_percent": 4.74,
+      "total": 29,
+      "rise": 28
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-16T01:20:56.656764+00:00"
+  "updated_at": "2026-10-16T02:03:08.075344+00:00"
 }
