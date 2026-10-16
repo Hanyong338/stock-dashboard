@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 5.87,
+      "change_percent": 5.91,
       "total": 9,
       "rise": 9
     },
     {
       "name": "오가노이드",
-      "change_percent": 5.73,
+      "change_percent": 5.62,
       "total": 8,
       "rise": 8
     },
     {
       "name": "미용기기",
-      "change_percent": 5.02,
+      "change_percent": 5.07,
       "total": 19,
-      "rise": 16
-    },
-    {
-      "name": "원격진료/비대면진료(U-Healthcare)",
-      "change_percent": 4.98,
-      "total": 22,
-      "rise": 21
-    },
-    {
-      "name": "LED장비",
-      "change_percent": 4.75,
-      "total": 11,
-      "rise": 11
-    },
-    {
-      "name": "면역항암제",
-      "change_percent": 4.7,
-      "total": 36,
-      "rise": 35
+      "rise": 15
     },
     {
       "name": "시멘트/레미콘",
-      "change_percent": 4.58,
+      "change_percent": 5.06,
       "total": 15,
       "rise": 15
     },
     {
+      "name": "원격진료/비대면진료(U-Healthcare)",
+      "change_percent": 4.99,
+      "total": 22,
+      "rise": 21
+    },
+    {
+      "name": "건설 대표주",
+      "change_percent": 4.98,
+      "total": 6,
+      "rise": 6
+    },
+    {
+      "name": "면역항암제",
+      "change_percent": 4.91,
+      "total": 36,
+      "rise": 36
+    },
+    {
       "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 4.49,
+      "change_percent": 4.8,
       "total": 14,
       "rise": 11
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-16T01:08:51.754180+00:00"
+  "updated_at": "2026-10-16T01:20:56.656764+00:00"
 }
