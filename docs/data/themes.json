@@ -1,26 +1,26 @@
 {
   "leaders": [
     {
-      "name": "탈모 치료",
-      "change_percent": 6.74,
-      "total": 28,
-      "rise": 25
-    },
-    {
       "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 6.17,
+      "change_percent": 6.52,
       "total": 13,
       "rise": 12
     },
     {
+      "name": "탈모 치료",
+      "change_percent": 6.09,
+      "total": 28,
+      "rise": 25
+    },
+    {
       "name": "LED장비",
-      "change_percent": 5.82,
+      "change_percent": 5.79,
       "total": 11,
       "rise": 11
     },
     {
       "name": "면역항암제",
-      "change_percent": 5.78,
+      "change_percent": 5.75,
       "total": 36,
       "rise": 36
     },
@@ -31,24 +31,24 @@
       "rise": 34
     },
     {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 5.68,
-      "total": 14,
-      "rise": 10
-    },
-    {
       "name": "뉴로모픽 반도체",
-      "change_percent": 5.57,
+      "change_percent": 5.72,
       "total": 7,
       "rise": 7
     },
     {
-      "name": "미용기기",
-      "change_percent": 5.4,
-      "total": 19,
-      "rise": 16
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 5.62,
+      "total": 14,
+      "rise": 10
+    },
+    {
+      "name": "피팅(관이음쇠)/밸브",
+      "change_percent": 5.31,
+      "total": 9,
+      "rise": 8
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-16T07:24:19.680385+00:00"
+  "updated_at": "2026-10-16T07:25:26.048292+00:00"
 }
