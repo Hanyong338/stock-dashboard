@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "탈모 치료",
-      "change_percent": 5.72,
+      "change_percent": 5.57,
       "total": 28,
-      "rise": 26
-    },
-    {
-      "name": "뉴로모픽 반도체",
-      "change_percent": 5.7,
-      "total": 7,
-      "rise": 7
-    },
-    {
-      "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 5.65,
-      "total": 13,
-      "rise": 12
-    },
-    {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 5.61,
-      "total": 35,
-      "rise": 35
+      "rise": 25
     },
     {
       "name": "면역항암제",
-      "change_percent": 5.47,
+      "change_percent": 5.48,
       "total": 36,
       "rise": 36
     },
     {
+      "name": "뉴로모픽 반도체",
+      "change_percent": 5.45,
+      "total": 7,
+      "rise": 7
+    },
+    {
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 5.36,
+      "total": 35,
+      "rise": 35
+    },
+    {
+      "name": "피팅(관이음쇠)/밸브",
+      "change_percent": 5.3,
+      "total": 9,
+      "rise": 9
+    },
+    {
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 5.28,
+      "total": 13,
+      "rise": 10
+    },
+    {
       "name": "스페이스X(SpaceX)",
-      "change_percent": 5.39,
+      "change_percent": 5.26,
       "total": 14,
       "rise": 12
     },
     {
-      "name": "LED장비",
-      "change_percent": 5.32,
-      "total": 11,
-      "rise": 11
-    },
-    {
-      "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 5.16,
-      "total": 9,
-      "rise": 8
+      "name": "유전자 치료제/분석",
+      "change_percent": 5.1,
+      "total": 41,
+      "rise": 39
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-16T09:49:21.751307+00:00"
+  "updated_at": "2026-10-16T10:17:12.140261+00:00"
 }
