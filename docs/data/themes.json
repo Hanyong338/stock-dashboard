@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "면역항암제",
-      "change_percent": 6.03,
+      "change_percent": 6.62,
       "total": 36,
-      "rise": 35
-    },
-    {
-      "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 5.85,
-      "total": 9,
-      "rise": 9
-    },
-    {
-      "name": "오가노이드",
-      "change_percent": 5.82,
-      "total": 8,
-      "rise": 8
+      "rise": 36
     },
     {
       "name": "미용기기",
-      "change_percent": 5.72,
+      "change_percent": 6.3,
       "total": 19,
       "rise": 17
     },
     {
-      "name": "유전자 치료제/분석",
-      "change_percent": 5.67,
-      "total": 41,
-      "rise": 39
+      "name": "mRNA(메신저 리보핵산)",
+      "change_percent": 6.25,
+      "total": 14,
+      "rise": 13
     },
     {
-      "name": "원격진료/비대면진료(U-Healthcare)",
-      "change_percent": 5.67,
-      "total": 22,
-      "rise": 21
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 6.24,
+      "total": 35,
+      "rise": 35
+    },
+    {
+      "name": "오가노이드",
+      "change_percent": 6.21,
+      "total": 8,
+      "rise": 8
     },
     {
       "name": "스페이스X(SpaceX)",
-      "change_percent": 5.64,
+      "change_percent": 6.15,
       "total": 14,
       "rise": 13
     },
     {
-      "name": "mRNA(메신저 리보핵산)",
-      "change_percent": 5.59,
+      "name": "유전자 치료제/분석",
+      "change_percent": 6.12,
+      "total": 41,
+      "rise": 40
+    },
+    {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 6.04,
       "total": 14,
-      "rise": 13
+      "rise": 12
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-16T04:16:18.887712+00:00"
+  "updated_at": "2026-10-16T04:45:55.598433+00:00"
 }
