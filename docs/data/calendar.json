@@ -375,7 +375,7 @@
       "end": "2026-10-15",
       "title": "TSMC 실적",
       "category": "earnings",
-      "detail": "TSM 장전",
+      "detail": "TSM",
       "eps_forecast": "$4.45",
       "eps": "$4.60",
       "surprise": "3.37"
@@ -486,8 +486,8 @@
       "title": "한국 실업률",
       "category": "macro",
       "detail": "08:00",
-      "previous": "2.7%",
-      "actual": "2.6%"
+      "actual": "2.6%",
+      "previous": "2.7%"
     },
     {
       "start": "2026-10-16",
@@ -504,8 +504,8 @@
       "detail": "코스피 14:10",
       "code": "064350",
       "quarter": "2026.09",
-      "op_consensus": 2790,
-      "rev_consensus": 18007,
+      "op_consensus": 2764,
+      "rev_consensus": 17955,
       "op_prev_year": 2777,
       "op_prev_q": 2324
     },
@@ -515,7 +515,7 @@
       "title": "GE 실적",
       "category": "earnings",
       "detail": "GE 장전",
-      "eps_forecast": "$2.01"
+      "eps_forecast": "$2.02"
     },
     {
       "start": "2026-10-20",
@@ -523,6 +523,7 @@
       "title": "미국 건축허가",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "1.400M",
       "previous": "1.403M"
     },
     {
@@ -531,6 +532,7 @@
       "title": "미국 주택착공",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "1.300M",
       "previous": "1.275M"
     },
     {
@@ -592,7 +594,7 @@
       "title": "메타 실적",
       "category": "earnings",
       "detail": "META 장마감 후",
-      "eps_forecast": "$6.35"
+      "eps_forecast": "$6.67"
     },
     {
       "start": "2026-10-22",
@@ -620,7 +622,8 @@
       "end": "2026-10-22",
       "title": "미국 실업수당",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "199K"
     },
     {
       "start": "2026-10-22",
@@ -656,6 +659,7 @@
       "title": "S&P글로벌 서비스업 PMI",
       "category": "macro",
       "detail": "22:45",
+      "consensus": "57.9",
       "previous": "58.8"
     },
     {
@@ -664,6 +668,7 @@
       "title": "S&P글로벌 제조업 PMI",
       "category": "macro",
       "detail": "22:45",
+      "consensus": "55.6",
       "previous": "55.9"
     },
     {
@@ -674,6 +679,19 @@
       "detail": "23:00",
       "consensus": "46.3",
       "previous": "48.1"
+    },
+    {
+      "start": "2026-10-27",
+      "end": "2026-10-27",
+      "title": "ISC 실적",
+      "category": "earnings",
+      "detail": "코스닥 10:30",
+      "code": "095340",
+      "quarter": "2026.09",
+      "op_consensus": 275,
+      "rev_consensus": 824,
+      "op_prev_year": 174,
+      "op_prev_q": 213
     },
     {
       "start": "2026-10-27",
@@ -689,7 +707,7 @@
       "title": "보잉 실적",
       "category": "earnings",
       "detail": "BA 장전",
-      "eps_forecast": "($0.16)"
+      "eps_forecast": "($0.17)"
     },
     {
       "start": "2026-10-27",
@@ -714,13 +732,26 @@
     {
       "start": "2026-10-27",
       "end": "2026-10-27",
+      "title": "한미약품 실적",
+      "category": "earnings",
+      "detail": "코스피 16:30",
+      "code": "128940",
+      "quarter": "2026.09",
+      "op_consensus": 803,
+      "rev_consensus": 4225,
+      "op_prev_year": 551,
+      "op_prev_q": 1311
+    },
+    {
+      "start": "2026-10-27",
+      "end": "2026-10-27",
       "title": "한화오션 실적",
       "category": "earnings",
       "detail": "코스피 14:00",
       "code": "042660",
       "quarter": "2026.09",
-      "op_consensus": 5520,
-      "rev_consensus": 34927,
+      "op_consensus": 5491,
+      "rev_consensus": 34835,
       "op_prev_year": 2898,
       "op_prev_q": 7361
     },
@@ -804,7 +835,7 @@
       "title": "로빈후드 실적",
       "category": "earnings",
       "detail": "HOOD 장마감 후",
-      "eps_forecast": "$0.56"
+      "eps_forecast": "$0.55"
     },
     {
       "start": "2026-10-28",
@@ -836,6 +867,17 @@
       "eps_forecast": "$7.11"
     },
     {
+      "start": "2026-10-28",
+      "end": "2026-10-28",
+      "title": "한미사이언스 실적",
+      "category": "earnings",
+      "detail": "코스피 10:00",
+      "code": "008930",
+      "quarter": "2026.09",
+      "op_prev_year": 393,
+      "op_prev_q": 591
+    },
+    {
       "start": "2026-10-29",
       "end": "2026-10-29",
       "title": "KB금융 실적",
@@ -855,8 +897,8 @@
       "detail": "코스피 15:30",
       "code": "010060",
       "quarter": "2026.09",
-      "op_consensus": 1015,
-      "rev_consensus": 10746,
+      "op_consensus": 1003,
+      "rev_consensus": 10700,
       "op_prev_year": -533,
       "op_prev_q": 1081
     },
@@ -868,8 +910,8 @@
       "detail": "코스피 11:00",
       "code": "096770",
       "quarter": "2026.09",
-      "op_consensus": 25964,
-      "rev_consensus": 272413,
+      "op_consensus": 26958,
+      "rev_consensus": 273548,
       "op_prev_year": 5735,
       "op_prev_q": 34873
     },
@@ -979,15 +1021,15 @@
       "title": "일라이릴리 실적",
       "category": "earnings",
       "detail": "LLY 장전",
-      "eps_forecast": "$6.40"
+      "eps_forecast": "$5.38"
     },
     {
       "start": "2026-10-29",
       "end": "2026-10-29",
-      "title": "코인베이스 실적",
+      "title": "캐터필러 실적",
       "category": "earnings",
-      "detail": "COIN",
-      "eps_forecast": "($0.19)"
+      "detail": "CAT 장전",
+      "eps_forecast": "$6.95"
     },
     {
       "start": "2026-10-29",
@@ -1047,8 +1089,8 @@
       "detail": "코스피",
       "code": "000270",
       "quarter": "2026.09",
-      "op_consensus": 24286,
-      "rev_consensus": 319140,
+      "op_consensus": 24162,
+      "rev_consensus": 319119,
       "op_prev_year": 14623,
       "op_prev_q": 26286
     },
@@ -1058,7 +1100,7 @@
       "title": "셰브론 실적",
       "category": "earnings",
       "detail": "CVX 장전",
-      "eps_forecast": "$4.62"
+      "eps_forecast": "$4.74"
     },
     {
       "start": "2026-10-30",
@@ -1071,10 +1113,23 @@
     {
       "start": "2026-10-30",
       "end": "2026-10-30",
+      "title": "에이피알 실적",
+      "category": "earnings",
+      "detail": "코스피 10:00",
+      "code": "278470",
+      "quarter": "2026.09",
+      "op_consensus": 1819,
+      "rev_consensus": 7846,
+      "op_prev_year": 961,
+      "op_prev_q": 1906
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
       "title": "엑슨모빌 실적",
       "category": "earnings",
       "detail": "XOM",
-      "eps_forecast": "$3.93"
+      "eps_forecast": "$3.92"
     },
     {
       "start": "2026-10-30",
@@ -1082,7 +1137,7 @@
       "title": "인텔 실적",
       "category": "earnings",
       "detail": "INTC 장마감 후",
-      "eps_forecast": "$0.27"
+      "eps_forecast": "$0.28"
     },
     {
       "start": "2026-10-30",
@@ -1098,13 +1153,21 @@
     {
       "start": "2026-10-30",
       "end": "2026-10-30",
+      "title": "코인베이스 실적",
+      "category": "earnings",
+      "detail": "COIN 장마감 후",
+      "eps_forecast": "($0.19)"
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
       "title": "현대모비스 실적",
       "category": "earnings",
       "detail": "코스피 10:10",
       "code": "012330",
       "quarter": "2026.09",
-      "op_consensus": 9308,
-      "rev_consensus": 159096,
+      "op_consensus": 9303,
+      "rev_consensus": 158293,
       "op_prev_year": 7803,
       "op_prev_q": 9752
     },
@@ -1137,7 +1200,7 @@
       "title": "온세미 실적",
       "category": "earnings",
       "detail": "ON",
-      "eps_forecast": "$0.87"
+      "eps_forecast": "$0.88"
     },
     {
       "start": "2026-11-02",
@@ -1268,18 +1331,23 @@
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
-      "title": "캐터필러 실적",
+      "title": "퀄컴 실적",
       "category": "earnings",
-      "detail": "CAT",
-      "eps_forecast": "$6.95"
+      "detail": "QCOM",
+      "eps_forecast": "$1.46"
     },
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
-      "title": "퀄컴 실적",
+      "title": "한화 실적",
       "category": "earnings",
-      "detail": "QCOM",
-      "eps_forecast": "$1.47"
+      "detail": "코스피 14:00",
+      "code": "000880",
+      "quarter": "2026.09",
+      "op_consensus": 16960,
+      "rev_consensus": 201043,
+      "op_prev_year": 13442,
+      "op_prev_q": 24085
     },
     {
       "start": "2026-11-04",
@@ -1312,6 +1380,19 @@
       "category": "earnings",
       "detail": "ARM 장마감 후",
       "eps_forecast": "$0.22"
+    },
+    {
+      "start": "2026-11-05",
+      "end": "2026-11-05",
+      "title": "LG화학 실적",
+      "category": "earnings",
+      "detail": "코스피 14:00",
+      "code": "051910",
+      "quarter": "2026.09",
+      "op_consensus": 2756,
+      "rev_consensus": 147113,
+      "op_prev_year": 6797,
+      "op_prev_q": 5996
     },
     {
       "start": "2026-11-05",
@@ -1356,8 +1437,8 @@
       "detail": "코스피 09:00",
       "code": "035720",
       "quarter": "2026.09",
-      "op_consensus": 2583,
-      "rev_consensus": 20741,
+      "op_consensus": 2544,
+      "rev_consensus": 20581,
       "op_prev_year": 2080,
       "op_prev_q": 2770
     },
@@ -1385,8 +1466,8 @@
       "detail": "코스피 09:30",
       "code": "023530",
       "quarter": "2026.09",
-      "op_consensus": 1797,
-      "rev_consensus": 36015,
+      "op_consensus": 1786,
+      "rev_consensus": 35994,
       "op_prev_year": 1305,
       "op_prev_q": 899
     },
@@ -1399,6 +1480,22 @@
       "eps_forecast": "$2.89"
     },
     {
+      "start": "2026-11-06",
+      "end": "2026-11-06",
+      "title": "미국 고용지표",
+      "category": "macro",
+      "detail": "22:30",
+      "previous": "29K"
+    },
+    {
+      "start": "2026-11-06",
+      "end": "2026-11-06",
+      "title": "미국 실업률",
+      "category": "macro",
+      "detail": "22:30",
+      "previous": "7.6%"
+    },
+    {
       "start": "2026-11-12",
       "end": "2026-11-12",
       "title": "NC 실적",
@@ -1406,10 +1503,23 @@
       "detail": "코스피 09:00",
       "code": "036570",
       "quarter": "2026.09",
-      "op_consensus": 995,
-      "rev_consensus": 6987,
+      "op_consensus": 1007,
+      "rev_consensus": 7010,
       "op_prev_year": -75,
       "op_prev_q": 1739
+    },
+    {
+      "start": "2026-11-12",
+      "end": "2026-11-12",
+      "title": "달바글로벌 실적",
+      "category": "earnings",
+      "detail": "코스피 10:30",
+      "code": "483650",
+      "quarter": "2026.09",
+      "op_consensus": 327,
+      "rev_consensus": 1748,
+      "op_prev_year": 167,
+      "op_prev_q": 472
     },
     {
       "start": "2026-11-12",
@@ -1447,7 +1557,7 @@
       "title": "엔비디아 실적",
       "category": "earnings",
       "detail": "NVDA",
-      "eps_forecast": "$2.47"
+      "eps_forecast": "$2.48"
     },
     {
       "start": "2026-11-18",
@@ -1560,6 +1670,22 @@
     {
       "start": "2026-12-10",
       "end": "2026-12-10",
+      "title": "브로드컴 실적",
+      "category": "earnings",
+      "detail": "AVGO",
+      "eps_forecast": "$3.45"
+    },
+    {
+      "start": "2026-12-10",
+      "end": "2026-12-10",
+      "title": "코스트코 실적",
+      "category": "earnings",
+      "detail": "COST",
+      "eps_forecast": "$4.87"
+    },
+    {
+      "start": "2026-12-10",
+      "end": "2026-12-10",
       "title": "국내 선물·옵션 동시만기",
       "category": "flow",
       "detail": "최종거래일 · 장 막판 프로그램 매매 변동성"
@@ -1649,8 +1775,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-16",
+  "built_on": "2026-10-17",
   "builder_version": 10,
-  "updated_at": "2026-10-15T15:20:37.659906+00:00",
-  "values_updated_at": "2026-10-16T09:18:30.229388+00:00"
+  "updated_at": "2026-10-16T15:15:52.069424+00:00"
 }
