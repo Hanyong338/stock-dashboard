@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "건설 대표주",
+      "change_percent": 3.21,
+      "total": 6,
+      "rise": 6
+    },
+    {
+      "name": "피팅(관이음쇠)/밸브",
+      "change_percent": 2.97,
+      "total": 9,
+      "rise": 9
+    },
+    {
+      "name": "S7(삼성전자/SK하이닉스 등)",
+      "change_percent": 2.83,
+      "total": 7,
+      "rise": 7
+    },
+    {
+      "name": "자동차 대표주",
+      "change_percent": 2.77,
+      "total": 7,
+      "rise": 7
+    },
+    {
+      "name": "전선",
+      "change_percent": 2.73,
+      "total": 8,
+      "rise": 8
+    },
+    {
+      "name": "서울고속버스터미널 재개발 수혜",
+      "change_percent": 2.71,
+      "total": 5,
+      "rise": 5
+    },
+    {
+      "name": "양자암호/양자컴퓨팅",
+      "change_percent": 2.62,
+      "total": 26,
+      "rise": 24
+    },
+    {
+      "name": "의료AI",
+      "change_percent": 2.6,
+      "total": 29,
+      "rise": 22
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-10-15T23:09:02.204769+00:00"
+  "updated_at": "2026-10-16T00:06:35.075450+00:00"
 }
