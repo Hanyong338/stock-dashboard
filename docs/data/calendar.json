@@ -388,8 +388,8 @@
       "detail": "코스피 16:10",
       "code": "003490",
       "quarter": "2026.09",
-      "op_consensus": 3085,
-      "rev_consensus": 73741,
+      "op_consensus": 2852,
+      "rev_consensus": 73780,
       "op_prev_year": 1575,
       "op_prev_q": -2071
     },
@@ -504,8 +504,8 @@
       "detail": "코스피 14:10",
       "code": "064350",
       "quarter": "2026.09",
-      "op_consensus": 2764,
-      "rev_consensus": 17955,
+      "op_consensus": 2760,
+      "rev_consensus": 18005,
       "op_prev_year": 2777,
       "op_prev_q": 2324
     },
@@ -559,8 +559,8 @@
       "detail": "코스피 14:00",
       "code": "034220",
       "quarter": "2026.09",
-      "op_consensus": 3003,
-      "rev_consensus": 66913,
+      "op_consensus": 2706,
+      "rev_consensus": 66511,
       "op_prev_year": 4310,
       "op_prev_q": -1077
     },
@@ -604,8 +604,8 @@
       "detail": "코스피 14:00",
       "code": "028050",
       "quarter": "2026.09",
-      "op_consensus": 2475,
-      "rev_consensus": 27428,
+      "op_consensus": 2493,
+      "rev_consensus": 27530,
       "op_prev_year": 1765,
       "op_prev_q": 2731
     },
@@ -678,7 +678,7 @@
       "category": "macro",
       "detail": "23:00",
       "consensus": "46.3",
-      "previous": "48.1"
+      "previous": "46.3"
     },
     {
       "start": "2026-10-27",
@@ -737,8 +737,8 @@
       "detail": "코스피 16:30",
       "code": "128940",
       "quarter": "2026.09",
-      "op_consensus": 803,
-      "rev_consensus": 4225,
+      "op_consensus": 811,
+      "rev_consensus": 4235,
       "op_prev_year": 551,
       "op_prev_q": 1311
     },
@@ -750,8 +750,8 @@
       "detail": "코스피 14:00",
       "code": "042660",
       "quarter": "2026.09",
-      "op_consensus": 5491,
-      "rev_consensus": 34835,
+      "op_consensus": 5427,
+      "rev_consensus": 34740,
       "op_prev_year": 2898,
       "op_prev_q": 7361
     },
@@ -1039,8 +1039,8 @@
       "detail": "코스피 15:30",
       "code": "012450",
       "quarter": "2026.09",
-      "op_consensus": 12129,
-      "rev_consensus": 76501,
+      "op_consensus": 11896,
+      "rev_consensus": 75629,
       "op_prev_year": 8564,
       "op_prev_q": 13655
     },
@@ -1076,8 +1076,8 @@
       "detail": "코스피 10:30",
       "code": "064400",
       "quarter": "2026.09",
-      "op_consensus": 1358,
-      "rev_consensus": 16311,
+      "op_consensus": 1354,
+      "rev_consensus": 16326,
       "op_prev_year": 1202,
       "op_prev_q": 1279
     },
@@ -1437,8 +1437,8 @@
       "detail": "코스피 09:00",
       "code": "035720",
       "quarter": "2026.09",
-      "op_consensus": 2544,
-      "rev_consensus": 20581,
+      "op_consensus": 2527,
+      "rev_consensus": 20518,
       "op_prev_year": 2080,
       "op_prev_q": 2770
     },
@@ -1517,7 +1517,7 @@
       "code": "483650",
       "quarter": "2026.09",
       "op_consensus": 327,
-      "rev_consensus": 1748,
+      "rev_consensus": 1741,
       "op_prev_year": 167,
       "op_prev_q": 472
     },
@@ -1775,7 +1775,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-17",
+  "built_on": "2026-10-18",
   "builder_version": 10,
-  "updated_at": "2026-10-16T15:15:52.069424+00:00"
+  "updated_at": "2026-10-17T15:14:02.675415+00:00"
 }
