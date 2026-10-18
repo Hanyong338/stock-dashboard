@@ -523,7 +523,7 @@
       "title": "미국 건축허가",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "1.400M",
+      "consensus": "1.390M",
       "previous": "1.403M"
     },
     {
@@ -623,6 +623,7 @@
       "title": "미국 실업수당",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "200K",
       "previous": "199K"
     },
     {
@@ -659,7 +660,7 @@
       "title": "S&P글로벌 서비스업 PMI",
       "category": "macro",
       "detail": "22:45",
-      "consensus": "57.9",
+      "consensus": "58.0",
       "previous": "58.8"
     },
     {
@@ -668,7 +669,7 @@
       "title": "S&P글로벌 제조업 PMI",
       "category": "macro",
       "detail": "22:45",
-      "consensus": "55.6",
+      "consensus": "55.5",
       "previous": "55.9"
     },
     {
@@ -1775,7 +1776,7 @@
       "detail": "03:00"
     }
   ],
-  "built_on": "2026-10-18",
+  "built_on": "2026-10-19",
   "builder_version": 10,
-  "updated_at": "2026-10-17T15:14:02.675415+00:00"
+  "updated_at": "2026-10-18T15:16:42.888406+00:00"
 }
