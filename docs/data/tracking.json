@@ -15578,6 +15578,28 @@
       "final_ret": null,
       "closed_on": "",
       "checked_for": "2026-10-18"
+    },
+    {
+      "id": "kr:010580:MORNING_BREAKOUT:2026-10-19",
+      "market": "kr",
+      "code": "010580",
+      "name": "에스엠벡셀",
+      "board": "KOSPI",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "A",
+      "found_on": "2026-10-19",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "010580.KS",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-10-19T01:13:11.853132+00:00",
+      "reason": "전일 고가 3,425 돌파 · 30분 거래대금 466억 · 거래량 전일 하루의 132%",
+      "stop": null,
+      "checked_for": "2026-10-18"
     }
   ],
   "updated_for": {
@@ -15585,8 +15607,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 389,
-    "pending": 21,
+    "total": 390,
+    "pending": 22,
     "active": 67,
     "half_tp": 127,
     "closed": 249,
@@ -15598,7 +15620,7 @@
     "avg_mdd": -6.95,
     "closed_avg_final": -5.18
   },
-  "updated_at": "2026-10-18T20:38:26.446154+00:00",
+  "updated_at": "2026-10-19T01:13:11.853132+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
