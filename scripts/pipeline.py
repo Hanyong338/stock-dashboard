@@ -22,6 +22,7 @@ from summarize import (
     GeminiUnavailable,
     check_free_key,
     diagnose_keys,
+    _is_kr_holiday,
     gemini_mode,
     gemini_quiet_now,
     gemini_ready,
@@ -211,7 +212,27 @@ VERIFY_TRANSCRIPT_DIR = DATA_DIR / "transcripts_review"
 VERIFY_KEPT_KEY = "_review_kept"  # state.json: 검수용 자막을 남긴 시각(영상 id → ISO)
 VERIFY_KEEP_DAYS = 3
 TYPO_FIXES_FILE = DATA_DIR / "typo_fixes.json"  # 음성 인식 오타 사전(검수 작업이 자주 나온 오타를 추가한다)
-FORCE_PAID_NOW_IDS = {"9M5TRRXKqo0"}  # 10/13 815머니톡 [#찐시황] — 시간 지나도 지금 유료로 요약(사용자 지정)
+FORCE_PAID_NOW_IDS = set()  # 일회성으로 지금 유료로 요약할 영상 ID(10/13 815 찐시황에 썼다)
+# 사용자 지정(10/19): 815머니톡은 평일 저녁 유료 시간(18~21시)이 끝나도 그날 올라온 영상(#찐시황 포함)은 유료로 마저 끝낸다.
+# 다음 날 07시 전까지, 영상이 올라온 날이 평일(공휴일 아님)일 때만. 주말·공휴일은 저녁 유료를 쉬는 규칙을 그대로 따른다.
+LATE_PAID_CHANNELS = {"815머니톡"}
+
+
+def _late_paid_ok(name, v, now):
+    if name not in LATE_PAID_CHANNELS or gemini_mode() != "off":
+        return False
+    pub = parse_published(v.get("published", ""))
+    if pub is None:
+        return False
+    kst_now = now + datetime.timedelta(hours=9)
+    if 7 <= kst_now.hour < 21:
+        return False  # 낮 휴식(일회성 정지 등)은 해당 없음. 밤 21시~다음 날 07시만
+    session_day = kst_now.date() if kst_now.hour >= 21 else (kst_now - datetime.timedelta(days=1)).date()
+    if (pub + datetime.timedelta(hours=9)).date() != session_day:
+        return False  # 그날 올라온 영상만
+    return session_day.weekday() < 5 and not _is_kr_holiday(session_day)
+
+
 PAIR_WAIT_KEY = "_pair_wait"  # state.json: 짝을 기다리기 시작한 시각(영상 id → ISO)
 PAIR_WAIT_MINUTES = 60  # 혼자 남은 영상이 짝을 기다리는 최대 시간
 PAIR_FAIL_KEY = "_pair_fail"  # state.json: 묶음 요청이 (제미나이 혼잡이 아닌 이유로) 실패한 횟수
@@ -447,7 +468,8 @@ def process_channel(ch, state, summaries, now):
         # 다만 자막은 지금 받아둔다(언제 받든 1크레딧으로 같다). 그러면 아침 07시엔 받아둔 자막으로 바로 요약한다
         # (사용자 지정, 10/7: 21~07시엔 자막만 받기). 이미 받아둔 영상은 아무것도 하지 않는다.
         # '확인함' 처리하지 않으니 영상이 빠지지는 않는다.
-        summarize_now = gemini_ready(reserve=_brief_reserve()) or v["video_id"] in FORCE_PAID_NOW_IDS
+        force_paid = v["video_id"] in FORCE_PAID_NOW_IDS or _late_paid_ok(name, v, now)
+        summarize_now = gemini_ready(reserve=_brief_reserve()) or force_paid
         if not summarize_now and read_transcript_cache(v["video_id"]):
             _deferred.append(v["video_id"])
             continue
@@ -485,9 +507,9 @@ def process_channel(ch, state, summaries, now):
                 attempts.pop(v["video_id"], None)
             continue
 
-        # 사용자 지정(10/13 밤): 815머니톡 [#찐시황] "비정상적인 투매의 진실!"은 운영 시간이 지났어도 지금 유료로 바로 요약한다.
-        # 날짜를 박아둔 일회성 예외(영상 ID 지정)라 다른 영상에는 영향이 없다.
-        if v["video_id"] in FORCE_PAID_NOW_IDS:
+        # 지정 영상(FORCE_PAID_NOW_IDS) · 815머니톡 당일 영상의 밤 21시 이후(_late_paid_ok)는 운영 시간이 지났어도 유료로 바로 요약한다.
+        # 묶음(2편) 대기 없이 한 편씩 바로 처리한다.
+        if force_paid:
             try:
                 result = call_with_timeout(
                     summarize_transcript, SUMMARIZE_TIMEOUT_SECONDS, name, v["title"], transcript_text, paid_only=True
