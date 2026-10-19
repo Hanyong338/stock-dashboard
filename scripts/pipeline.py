@@ -459,7 +459,12 @@ def process_channel(ch, state, summaries, now):
         # 2026-09-28 업로드 3~4분 만에 요청한 22·29분 영상 두 개가 자막이 없어 AI 생성으로 넘어가 102크레딧이 나갔다.
         # 일정 시간이 지날 때까지는 요청하지 않고 '확인함' 처리도 하지 않아 다음 실행에서 다시 본다(크레딧 0).
         pub = parse_published(v.get("published", ""))
-        if pub is not None and (now - pub).total_seconds() < MIN_VIDEO_AGE_MINUTES * 60:
+        if (
+            pub is not None
+            and (now - pub).total_seconds() < MIN_VIDEO_AGE_MINUTES * 60
+            # 815머니톡은 60분을 다 기다리지 않고, 유튜브에 자막이 생겼으면(무료 확인) 바로 요약한다(사용자 지정 10/19).
+            and not (name in LATE_PAID_CHANNELS and _youtube_has_captions(v["video_id"]) is True)
+        ):
             print(f"[INFO] 업로드 {int((now - pub).total_seconds() // 60)}분 — 자막 생성 대기 후 요약: {name} - {v['title'][:40]}")
             continue
 
