@@ -7,54 +7,33 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-10-16 09:30",
-  "universe_count": 392,
+  "as_of": "2026-10-19 09:30",
+  "universe_count": 405,
   "fetch_failures": 0,
   "dropped": 0,
   "items": [
     {
-      "code": "073240",
-      "name": "금호타이어",
+      "code": "010580",
+      "name": "에스엠벡셀",
       "market": "KOSPI",
       "tags": [],
-      "market_cap_eok": 17868,
-      "type": "C",
-      "reason": "240일선 6,024 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 22억",
+      "market_cap_eok": 4244,
+      "type": "A",
+      "reason": "전일 고가 3,425 돌파 · 30분 거래대금 466억 · 거래량 전일 하루의 132%",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/073240/total",
-      "open_gap": 1.34,
-      "value_30m_eok": 22,
-      "vol_vs_prev_day": 21,
-      "close": 6240,
-      "volume": 364596,
-      "change_percent": 4.35
-    },
-    {
-      "code": "484120",
-      "name": "도우인시스",
-      "market": "KOSDAQ",
-      "tags": [],
-      "market_cap_eok": 2723,
-      "type": "B",
-      "reason": "시초 +2.1% 갭 · 시초가 22,250 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 8억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/484120/total",
-      "open_gap": 2.06,
-      "value_30m_eok": 8,
-      "vol_vs_prev_day": 62,
-      "close": 25000,
-      "volume": 34166,
-      "change_percent": 14.68
+      "url": "https://m.stock.naver.com/domestic/stock/010580/total",
+      "open_gap": 0.96,
+      "value_30m_eok": 466,
+      "vol_vs_prev_day": 132,
+      "close": 3720,
+      "volume": 13174326,
+      "change_percent": 19.61
     }
   ],
-  "built_on": "2026-10-16",
-  "updated_at": "2026-10-16T00:52:00.744510+00:00"
+  "built_on": "2026-10-19",
+  "updated_at": "2026-10-19T01:13:11.853132+00:00"
 }
