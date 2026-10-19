@@ -6,58 +6,58 @@
   },
   "chart_count": 16,
   "as_of_trading_day": "2026-10-16",
-  "universe_count": 5751,
-  "base_passed": 1430,
-  "dropped": 761,
+  "universe_count": 5731,
+  "base_passed": 1345,
+  "dropped": 714,
   "fetch_failures": 0,
   "theme_leaders": [
     {
-      "name": "기타 광물",
-      "change_percent": 4.52,
-      "total": 5,
-      "rise": 4
+      "name": "원유·가스 생산",
+      "change_percent": 2.97,
+      "total": 53,
+      "rise": 50
     },
     {
-      "name": "건자재",
-      "change_percent": 4.45,
-      "total": 5,
-      "rise": 5
+      "name": "가스 유통",
+      "change_percent": 2.27,
+      "total": 22,
+      "rise": 21
     },
     {
-      "name": "자동차 딜러",
-      "change_percent": 4.37,
-      "total": 13,
-      "rise": 13
-    },
-    {
-      "name": "금·귀금속",
-      "change_percent": 4.24,
-      "total": 33,
-      "rise": 32
-    },
-    {
-      "name": "의류",
-      "change_percent": 4.17,
-      "total": 9,
-      "rise": 9
-    },
-    {
-      "name": "부동산",
-      "change_percent": 4.09,
+      "name": "음료·주류",
+      "change_percent": 1.95,
       "total": 18,
-      "rise": 16
+      "rise": 18
     },
     {
-      "name": "신발",
-      "change_percent": 4.03,
-      "total": 6,
+      "name": "파이프라인",
+      "change_percent": 1.95,
+      "total": 11,
+      "rise": 11
+    },
+    {
+      "name": "발전",
+      "change_percent": 1.68,
+      "total": 16,
+      "rise": 14
+    },
+    {
+      "name": "손해보험",
+      "change_percent": 1.56,
+      "total": 38,
+      "rise": 36
+    },
+    {
+      "name": "육류·수산",
+      "change_percent": 1.56,
+      "total": 5,
       "rise": 5
     },
     {
-      "name": "IT서비스",
-      "change_percent": 3.98,
-      "total": 48,
-      "rise": 43
+      "name": "종합 석유",
+      "change_percent": 1.41,
+      "total": 16,
+      "rise": 12
     }
   ],
   "note": "미국은 외국인·기관 순매수를 공개하지 않아 수급 조건(외인·기관 순매수 하한, 킬스위치 '메이저 수급 이탈', 종가베팅 유형 A, 대시세 유형 C)은 빼고 판정합니다.",
@@ -85,11 +85,11 @@
           "tags": [
             "분석장비"
           ],
-          "trading_value_usd": 367432537,
-          "market_cap_usd": 17263532099,
+          "trading_value_usd": 203978785,
+          "market_cap_usd": 17032548249,
           "close": 152.64,
           "change_percent": -1.34,
-          "volume": 1336218,
+          "volume": 1336300,
           "url": "https://finance.yahoo.com/quote/RVTY",
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
@@ -109,11 +109,11 @@
           "tags": [
             "바이오 연구서비스"
           ],
-          "trading_value_usd": 284388857,
-          "market_cap_usd": 14619552161,
+          "trading_value_usd": 202479089,
+          "market_cap_usd": 14328822431,
           "close": 300.15,
           "change_percent": -1.99,
-          "volume": 674573,
+          "volume": 674600,
           "url": "https://finance.yahoo.com/quote/CRL",
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
@@ -133,11 +133,11 @@
           "tags": [
             "반도체"
           ],
-          "trading_value_usd": 221354878,
-          "market_cap_usd": 4665843148,
+          "trading_value_usd": 153862730,
+          "market_cap_usd": 4651156955,
           "close": 117.18,
           "change_percent": -0.31,
-          "volume": 1303230,
+          "volume": 1312900,
           "url": "https://finance.yahoo.com/quote/SYNA",
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
@@ -148,7 +148,7 @@
             "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
             "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
           ],
-          "stop": 117.0
+          "stop": 116.98
         },
         {
           "code": "VSXY",
@@ -157,11 +157,11 @@
           "tags": [
             "의류 소매"
           ],
-          "trading_value_usd": 169280870,
-          "market_cap_usd": 7221038451,
+          "trading_value_usd": 126962839,
+          "market_cap_usd": 6966591166,
           "close": 87.34,
           "change_percent": -3.52,
-          "volume": 1453056,
+          "volume": 1453100,
           "url": "https://finance.yahoo.com/quote/VSXY",
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
@@ -181,11 +181,11 @@
           "tags": [
             "제약"
           ],
-          "trading_value_usd": 154477530,
-          "market_cap_usd": 23601894361,
+          "trading_value_usd": 99340301,
+          "market_cap_usd": 23090166350,
           "close": 37.0,
           "change_percent": -2.17,
-          "volume": 2684549,
+          "volume": 2684700,
           "url": "https://finance.yahoo.com/quote/GMAB",
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
@@ -205,11 +205,11 @@
           "tags": [
             "특수의료"
           ],
-          "trading_value_usd": 86853989,
-          "market_cap_usd": 3449379319,
+          "trading_value_usd": 95921600,
+          "market_cap_usd": 3310990272,
           "close": 64.0,
           "change_percent": -4.01,
-          "volume": 1497639,
+          "volume": 1497600,
           "url": "https://finance.yahoo.com/quote/CDNA",
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
@@ -240,11 +240,11 @@
           "tags": [
             "컴퓨터·하드웨어"
           ],
-          "trading_value_usd": 13600519884,
-          "market_cap_usd": 4991209560000,
+          "trading_value_usd": 20589310412,
+          "market_cap_usd": 5012517062800,
           "close": 343.46,
           "change_percent": 0.43,
-          "volume": 59852690,
+          "volume": 59895300,
           "url": "https://finance.yahoo.com/quote/AAPL",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -264,11 +264,11 @@
           "tags": [
             "특수의료"
           ],
-          "trading_value_usd": 4133750123,
-          "market_cap_usd": 365024896429,
+          "trading_value_usd": 3255551136,
+          "market_cap_usd": 360321499431,
           "close": 401.43,
           "change_percent": -1.29,
-          "volume": 8103977,
+          "volume": 8106000,
           "url": "https://finance.yahoo.com/quote/UNH",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -288,11 +288,11 @@
           "tags": [
             "비즈니스 서비스"
           ],
-          "trading_value_usd": 3430309516,
-          "market_cap_usd": 714255401194,
+          "trading_value_usd": 2730440226,
+          "market_cap_usd": 719365521137,
           "close": 402.61,
           "change_percent": 0.72,
-          "volume": 6757293,
+          "volume": 6780000,
           "url": "https://finance.yahoo.com/quote/V",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -306,18 +306,18 @@
           "stop": 371.42
         },
         {
-          "code": "TMO",
-          "name": "Thermo Fisher Scientific Inc",
+          "code": "XOM",
+          "name": "ExxonMobil Holdings Corporation",
           "market": "NYSE",
           "tags": [
-            "산업기계"
+            "종합 석유"
           ],
-          "trading_value_usd": 2760263001,
-          "market_cap_usd": 257525287226,
-          "close": 690.0,
-          "change_percent": -0.93,
-          "volume": 2097173,
-          "url": "https://finance.yahoo.com/quote/TMO",
+          "trading_value_usd": 2363959786,
+          "market_cap_usd": 735950002601,
+          "close": 178.98,
+          "change_percent": 2.46,
+          "volume": 13198300,
+          "url": "https://finance.yahoo.com/quote/XOM",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
           "type": "A",
@@ -327,42 +327,18 @@
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ],
-          "stop": 626.05
-        },
-        {
-          "code": "MA",
-          "name": "Mastercard Incorporated",
-          "market": "NYSE",
-          "tags": [
-            "비즈니스 서비스"
-          ],
-          "trading_value_usd": 2615137592,
-          "market_cap_usd": 539902446221,
-          "close": 617.42,
-          "change_percent": 0.18,
-          "volume": 3265373,
-          "url": "https://finance.yahoo.com/quote/MA",
-          "section": "TREND_RALLY",
-          "section_name": "대시세 추세 랠리주",
-          "type": "A",
-          "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
-          "exits": [
-            "일봉 5·10일선 추종",
-            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
-            "일봉 60일선 이탈 시 전량 손절"
-          ],
-          "stop": 573.95
+          "stop": 162.23
         },
         {
           "code": "BRK-B",
           "name": "Berkshire Hathaway Inc",
           "market": "NYSE",
           "tags": [],
-          "trading_value_usd": 2204804953,
-          "market_cap_usd": 1159813761507,
+          "trading_value_usd": 2171521561,
+          "market_cap_usd": 1173801775599,
           "close": 532.02,
           "change_percent": 1.21,
-          "volume": 4017494,
+          "volume": 4077500,
           "url": "https://finance.yahoo.com/quote/BRK-B",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -376,17 +352,65 @@
           "stop": 508.9
         },
         {
+          "code": "KO",
+          "name": "Coca-Cola Company",
+          "market": "NYSE",
+          "tags": [
+            "음료·주류"
+          ],
+          "trading_value_usd": 2167735211,
+          "market_cap_usd": 404009373918,
+          "close": 93.9,
+          "change_percent": 2.07,
+          "volume": 23069000,
+          "url": "https://finance.yahoo.com/quote/KO",
+          "section": "TREND_RALLY",
+          "section_name": "대시세 추세 랠리주",
+          "type": "A",
+          "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
+          "exits": [
+            "일봉 5·10일선 추종",
+            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
+            "일봉 60일선 이탈 시 전량 손절"
+          ],
+          "stop": 88.15
+        },
+        {
+          "code": "VRNS",
+          "name": "Varonis Systems Inc",
+          "market": "NASDAQ",
+          "tags": [
+            "소프트웨어"
+          ],
+          "trading_value_usd": 1766358265,
+          "market_cap_usd": 5596002829,
+          "close": 48.72,
+          "change_percent": 2.92,
+          "volume": 36254800,
+          "url": "https://finance.yahoo.com/quote/VRNS",
+          "section": "TREND_RALLY",
+          "section_name": "대시세 추세 랠리주",
+          "type": "B",
+          "reason": "480일선 돌파 4회 실패 후 재돌파 · 상단 우상향",
+          "exits": [
+            "일봉 5·10일선 추종",
+            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
+            "일봉 60일선 이탈 시 전량 손절"
+          ],
+          "stop": 45.27
+        },
+        {
           "code": "BLK",
           "name": "BlackRock Inc",
           "market": "NYSE",
           "tags": [
             "증권·IB"
           ],
-          "trading_value_usd": 1379256525,
-          "market_cap_usd": 173574368102,
+          "trading_value_usd": 1330261335,
+          "market_cap_usd": 175680590024,
           "close": 1134.38,
           "change_percent": 1.21,
-          "volume": 1141274,
+          "volume": 1172400,
           "url": "https://finance.yahoo.com/quote/BLK",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -400,17 +424,41 @@
           "stop": 1105.41
         },
         {
+          "code": "ECL",
+          "name": "Ecolab Inc",
+          "market": "NYSE",
+          "tags": [
+            "생활용품·화장품"
+          ],
+          "trading_value_usd": 982368423,
+          "market_cap_usd": 80984130121,
+          "close": 288.89,
+          "change_percent": -0.66,
+          "volume": 3400500,
+          "url": "https://finance.yahoo.com/quote/ECL",
+          "section": "TREND_RALLY",
+          "section_name": "대시세 추세 랠리주",
+          "type": "B",
+          "reason": "480일선 돌파 2회 실패 후 재돌파 · 상단 우상향",
+          "exits": [
+            "일봉 5·10일선 추종",
+            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
+            "일봉 60일선 이탈 시 전량 손절"
+          ],
+          "stop": 279.7
+        },
+        {
           "code": "LMT",
           "name": "Lockheed Martin Corporation",
           "market": "NYSE",
           "tags": [
             "방산"
           ],
-          "trading_value_usd": 761661351,
-          "market_cap_usd": 122928386678,
+          "trading_value_usd": 884430513,
+          "market_cap_usd": 127417266824,
           "close": 552.09,
           "change_percent": 3.65,
-          "volume": 1595807,
+          "volume": 1600000,
           "url": "https://finance.yahoo.com/quote/LMT",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -422,60 +470,12 @@
             "일봉 60일선 이탈 시 전량 손절"
           ],
           "stop": 549.4
-        },
-        {
-          "code": "PAG",
-          "name": "Penske Automotive Group Inc",
-          "market": "NYSE",
-          "tags": [
-            "자동차 딜러"
-          ],
-          "trading_value_usd": 687136732,
-          "market_cap_usd": 13920529076,
-          "close": 212.42,
-          "change_percent": 0.2,
-          "volume": 1092815,
-          "url": "https://finance.yahoo.com/quote/PAG",
-          "section": "TREND_RALLY",
-          "section_name": "대시세 추세 랠리주",
-          "type": "B",
-          "reason": "480일선 돌파 2회 실패 후 재돌파 · 상단 우상향",
-          "exits": [
-            "일봉 5·10일선 추종",
-            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
-            "일봉 60일선 이탈 시 전량 손절"
-          ],
-          "stop": 212.68
-        },
-        {
-          "code": "MDLZ",
-          "name": "Mondelez International Inc",
-          "market": "NASDAQ",
-          "tags": [
-            "가공식품"
-          ],
-          "trading_value_usd": 646826403,
-          "market_cap_usd": 80445696833,
-          "close": 63.91,
-          "change_percent": 1.4,
-          "volume": 10067806,
-          "url": "https://finance.yahoo.com/quote/MDLZ",
-          "section": "TREND_RALLY",
-          "section_name": "대시세 추세 랠리주",
-          "type": "B",
-          "reason": "480일선 돌파 7회 실패 후 재돌파 · 상단 우상향",
-          "exits": [
-            "일봉 5·10일선 추종",
-            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
-            "일봉 60일선 이탈 시 전량 손절"
-          ],
-          "stop": 61.79
         }
       ]
     }
   ],
-  "built_slot": "2026-10-17/close",
+  "built_slot": "2026-10-19/manual",
   "rules_version": 8,
-  "updated_at": "2026-10-16T21:41:31.723965+00:00",
+  "updated_at": "2026-10-19T12:24:04.359642+00:00",
   "intraday": false
 }
