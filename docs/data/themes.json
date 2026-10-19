@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "서울고속버스터미널 재개발 수혜",
+      "change_percent": 3.47,
+      "total": 5,
+      "rise": 2
+    },
+    {
+      "name": "육계",
+      "change_percent": 0.75,
+      "total": 9,
+      "rise": 5
+    },
+    {
+      "name": "폐기물처리",
+      "change_percent": 0.54,
+      "total": 6,
+      "rise": 3
+    },
+    {
+      "name": "수자원(양적/질적 개선)",
+      "change_percent": 0.51,
+      "total": 27,
+      "rise": 10
+    },
+    {
+      "name": "화장품",
+      "change_percent": 0.42,
+      "total": 96,
+      "rise": 35
+    },
+    {
+      "name": "부동산 보유 자산주",
+      "change_percent": 0.24,
+      "total": 22,
+      "rise": 4
+    },
+    {
+      "name": "SNS(소셜네트워크서비스)",
+      "change_percent": 0.22,
+      "total": 10,
+      "rise": 4
+    },
+    {
+      "name": "탈모 치료",
+      "change_percent": 0.21,
+      "total": 28,
+      "rise": 8
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-10-18T22:57:31.962625+00:00"
+  "updated_at": "2026-10-19T00:06:17.416814+00:00"
 }
