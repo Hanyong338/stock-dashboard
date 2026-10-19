@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "2차전지(나트륨이온)",
-      "change_percent": 7.49,
+      "change_percent": 7.65,
       "total": 9,
       "rise": 9
     },
     {
+      "name": "2차전지(전고체)",
+      "change_percent": 5.86,
+      "total": 30,
+      "rise": 29
+    },
+    {
+      "name": "2차전지(소재/부품)",
+      "change_percent": 5.62,
+      "total": 73,
+      "rise": 67
+    },
+    {
       "name": "백화점",
-      "change_percent": 5.74,
+      "change_percent": 5.56,
       "total": 6,
       "rise": 6
     },
     {
-      "name": "2차전지(소재/부품)",
-      "change_percent": 5.71,
-      "total": 73,
-      "rise": 66
-    },
-    {
-      "name": "2차전지(전고체)",
-      "change_percent": 5.56,
-      "total": 30,
-      "rise": 28
-    },
-    {
       "name": "전력저장장치(ESS)",
-      "change_percent": 5.14,
+      "change_percent": 5.32,
       "total": 42,
-      "rise": 41
+      "rise": 42
     },
     {
       "name": "남-북-러 가스관사업",
-      "change_percent": 5.14,
+      "change_percent": 4.93,
       "total": 13,
       "rise": 12
     },
     {
       "name": "2차전지",
-      "change_percent": 4.94,
+      "change_percent": 4.88,
       "total": 143,
-      "rise": 126
+      "rise": 128
     },
     {
-      "name": "화학섬유",
-      "change_percent": 4.92,
-      "total": 6,
-      "rise": 6
+      "name": "리튬",
+      "change_percent": 4.75,
+      "total": 22,
+      "rise": 21
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-19T07:34:16.722646+00:00"
+  "updated_at": "2026-10-19T10:21:09.043082+00:00"
 }
