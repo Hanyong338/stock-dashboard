@@ -2,13 +2,13 @@
   "market": "us",
   "probe": {
     "nasdaq_screener": "OK / 5건",
-    "yahoo_daily": "OK / 22건"
+    "yahoo_daily": "OK / 21건"
   },
-  "chart_count": 16,
-  "as_of_trading_day": "2026-10-16",
+  "chart_count": 18,
+  "as_of_trading_day": "2026-10-19",
   "universe_count": 5731,
   "base_passed": 1345,
-  "dropped": 714,
+  "dropped": 718,
   "fetch_failures": 0,
   "theme_leaders": [
     {
@@ -79,6 +79,150 @@
       "legend": [],
       "items": [
         {
+          "code": "MRVL",
+          "name": "Marvell Technology Inc",
+          "market": "NASDAQ",
+          "tags": [
+            "반도체"
+          ],
+          "trading_value_usd": 4899864170,
+          "market_cap_usd": 199784127000,
+          "close": 237.09,
+          "change_percent": 4.06,
+          "volume": 17864768,
+          "url": "https://finance.yahoo.com/quote/MRVL",
+          "section": "SWING_PULLBACK",
+          "section_name": "눌림목 스윙 대기주",
+          "type": "60일선",
+          "reason": "1차 상승 +39% · 고점 후 9거래일 조정 · 거래량 59% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
+          "exits": [
+            "1회 매수 금지 — 3회 분할 매수",
+            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
+            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
+          ],
+          "stop": 233.68
+        },
+        {
+          "code": "CDNS",
+          "name": "Cadence Design Systems Inc",
+          "market": "NASDAQ",
+          "tags": [
+            "소프트웨어"
+          ],
+          "trading_value_usd": 799561953,
+          "market_cap_usd": 87990817430,
+          "close": 325.86,
+          "change_percent": 1.99,
+          "volume": 1807383,
+          "url": "https://finance.yahoo.com/quote/CDNS",
+          "section": "SWING_PULLBACK",
+          "section_name": "눌림목 스윙 대기주",
+          "type": "60일선",
+          "reason": "1차 상승 +31% · 고점 후 9거래일 조정 · 거래량 20일 평균 이하 · 20일선 이탈 후 60일선 3일 저점 지지",
+          "exits": [
+            "1회 매수 금지 — 3회 분할 매수",
+            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
+            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
+          ],
+          "stop": 322.6
+        },
+        {
+          "code": "PTC",
+          "name": "PTC Inc",
+          "market": "NASDAQ",
+          "tags": [
+            "소프트웨어"
+          ],
+          "trading_value_usd": 606312090,
+          "market_cap_usd": 20939538248,
+          "close": 193.06,
+          "change_percent": 0.04,
+          "volume": 2779270,
+          "url": "https://finance.yahoo.com/quote/PTC",
+          "section": "SWING_PULLBACK",
+          "section_name": "눌림목 스윙 대기주",
+          "type": "10일선",
+          "reason": "1차 상승 +51% · 고점 후 6거래일 조정 · 거래량 9% 감소 · 10일선 도지 지지",
+          "exits": [
+            "1회 매수 금지 — 3회 분할 매수",
+            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
+            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
+          ],
+          "stop": 192.96
+        },
+        {
+          "code": "TEM",
+          "name": "Tempus AI Inc",
+          "market": "NASDAQ",
+          "tags": [
+            "데이터·IT플랫폼"
+          ],
+          "trading_value_usd": 444827226,
+          "market_cap_usd": 11750314352,
+          "close": 64.34,
+          "change_percent": -0.59,
+          "volume": 4173089,
+          "url": "https://finance.yahoo.com/quote/TEM",
+          "section": "SWING_PULLBACK",
+          "section_name": "눌림목 스윙 대기주",
+          "type": "60일선",
+          "reason": "1차 상승 +45% · 고점 후 15거래일 조정 · 거래량 6% 감소 · 20일선 이탈 후 60일선 3일 저점 지지",
+          "exits": [
+            "1회 매수 금지 — 3회 분할 매수",
+            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
+            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
+          ],
+          "stop": 64.28
+        },
+        {
+          "code": "DT",
+          "name": "Dynatrace Inc",
+          "market": "NYSE",
+          "tags": [
+            "소프트웨어"
+          ],
+          "trading_value_usd": 414152614,
+          "market_cap_usd": 17660920042,
+          "close": 61.54,
+          "change_percent": 0.7,
+          "volume": 5193442,
+          "url": "https://finance.yahoo.com/quote/DT",
+          "section": "SWING_PULLBACK",
+          "section_name": "눌림목 스윙 대기주",
+          "type": "20일선",
+          "reason": "1차 상승 +30% · 고점 후 5거래일 조정 · 거래량 27% 감소 · 20일선 지지",
+          "exits": [
+            "1회 매수 금지 — 3회 분할 매수",
+            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
+            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
+          ],
+          "stop": 60.47
+        },
+        {
+          "code": "XP",
+          "name": "XP Inc",
+          "market": "NASDAQ",
+          "tags": [
+            "증권·IB"
+          ],
+          "trading_value_usd": 281871934,
+          "market_cap_usd": 15150257977,
+          "close": 30.26,
+          "change_percent": 3.52,
+          "volume": 9452164,
+          "url": "https://finance.yahoo.com/quote/XP",
+          "section": "SWING_PULLBACK",
+          "section_name": "눌림목 스윙 대기주",
+          "type": "10일선",
+          "reason": "1차 상승 +85% · 고점 후 5거래일 조정 · 거래량 20일 평균 이하 · 10일선 도지 지지",
+          "exits": [
+            "1회 매수 금지 — 3회 분할 매수",
+            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
+            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
+          ],
+          "stop": 29.81
+        },
+        {
           "code": "RVTY",
           "name": "Revvity Inc",
           "market": "NYSE",
@@ -87,20 +231,20 @@
           ],
           "trading_value_usd": 203978785,
           "market_cap_usd": 17032548249,
-          "close": 152.64,
-          "change_percent": -1.34,
-          "volume": 1336300,
+          "close": 150.94,
+          "change_percent": -1.11,
+          "volume": 1259281,
           "url": "https://finance.yahoo.com/quote/RVTY",
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
           "type": "20일선",
-          "reason": "1차 상승 +30% · 고점 후 9거래일 조정 · 거래량 20일 평균 이하 · 20일선 지지",
+          "reason": "1차 상승 +30% · 고점 후 10거래일 조정 · 거래량 20일 평균 이하 · 20일선 지지",
           "exits": [
             "1회 매수 금지 — 3회 분할 매수",
             "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
             "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
           ],
-          "stop": 151.44
+          "stop": 150.71
         },
         {
           "code": "CRL",
@@ -111,116 +255,20 @@
           ],
           "trading_value_usd": 202479089,
           "market_cap_usd": 14328822431,
-          "close": 300.15,
-          "change_percent": -1.99,
-          "volume": 674600,
+          "close": 300.02,
+          "change_percent": -0.04,
+          "volume": 489433,
           "url": "https://finance.yahoo.com/quote/CRL",
           "section": "SWING_PULLBACK",
           "section_name": "눌림목 스윙 대기주",
           "type": "20일선",
-          "reason": "거래대금 $406M 장대양봉 · 고점 후 9거래일 조정 · 거래량 35% 감소 · 20일선 지지",
+          "reason": "거래대금 $406M 장대양봉 · 고점 후 10거래일 조정 · 거래량 47% 감소 · 20일선 지지",
           "exits": [
             "1회 매수 금지 — 3회 분할 매수",
             "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
             "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
           ],
-          "stop": 295.82
-        },
-        {
-          "code": "SYNA",
-          "name": "Synaptics Incorporated",
-          "market": "NASDAQ",
-          "tags": [
-            "반도체"
-          ],
-          "trading_value_usd": 153862730,
-          "market_cap_usd": 4651156955,
-          "close": 117.18,
-          "change_percent": -0.31,
-          "volume": 1312900,
-          "url": "https://finance.yahoo.com/quote/SYNA",
-          "section": "SWING_PULLBACK",
-          "section_name": "눌림목 스윙 대기주",
-          "type": "10일선",
-          "reason": "1차 상승 +36% · 고점 후 10거래일 조정 · 거래량 78% 감소 · 10일선 도지 지지",
-          "exits": [
-            "1회 매수 금지 — 3회 분할 매수",
-            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
-            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
-          ],
-          "stop": 116.98
-        },
-        {
-          "code": "VSXY",
-          "name": "Victorias Secret & Co",
-          "market": "NYSE",
-          "tags": [
-            "의류 소매"
-          ],
-          "trading_value_usd": 126962839,
-          "market_cap_usd": 6966591166,
-          "close": 87.34,
-          "change_percent": -3.52,
-          "volume": 1453100,
-          "url": "https://finance.yahoo.com/quote/VSXY",
-          "section": "SWING_PULLBACK",
-          "section_name": "눌림목 스윙 대기주",
-          "type": "20일선",
-          "reason": "1차 상승 +26% · 고점 후 10거래일 조정 · 거래량 9% 감소 · 20일선 지지",
-          "exits": [
-            "1회 매수 금지 — 3회 분할 매수",
-            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
-            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
-          ],
-          "stop": 86.76
-        },
-        {
-          "code": "GMAB",
-          "name": "Genmab A/S ADS",
-          "market": "NASDAQ",
-          "tags": [
-            "제약"
-          ],
-          "trading_value_usd": 99340301,
-          "market_cap_usd": 23090166350,
-          "close": 37.0,
-          "change_percent": -2.17,
-          "volume": 2684700,
-          "url": "https://finance.yahoo.com/quote/GMAB",
-          "section": "SWING_PULLBACK",
-          "section_name": "눌림목 스윙 대기주",
-          "type": "20일선",
-          "reason": "거래대금 $477M 장대양봉 · 고점 후 9거래일 조정 · 거래량 75% 감소 · 20일선 지지",
-          "exits": [
-            "1회 매수 금지 — 3회 분할 매수",
-            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
-            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
-          ],
-          "stop": 36.12
-        },
-        {
-          "code": "CDNA",
-          "name": "CareDx Inc",
-          "market": "NASDAQ",
-          "tags": [
-            "특수의료"
-          ],
-          "trading_value_usd": 95921600,
-          "market_cap_usd": 3310990272,
-          "close": 64.0,
-          "change_percent": -4.01,
-          "volume": 1497600,
-          "url": "https://finance.yahoo.com/quote/CDNA",
-          "section": "SWING_PULLBACK",
-          "section_name": "눌림목 스윙 대기주",
-          "type": "20일선",
-          "reason": "1차 상승 +43% · 고점 후 9거래일 조정 · 거래량 19% 감소 · 20일선 지지",
-          "exits": [
-            "1회 매수 금지 — 3회 분할 매수",
-            "반등 양봉·갭상승 시 1차 익절, 전고점(+10~30%) 분할 매도",
-            "지지선 종가 이탈 후 1주일 내 복귀 실패 시 손절"
-          ],
-          "stop": 63.18
+          "stop": 296.87
         }
       ]
     },
@@ -242,9 +290,9 @@
           ],
           "trading_value_usd": 20589310412,
           "market_cap_usd": 5012517062800,
-          "close": 343.46,
-          "change_percent": 0.43,
-          "volume": 59895300,
+          "close": 342.94,
+          "change_percent": -0.15,
+          "volume": 34524344,
           "url": "https://finance.yahoo.com/quote/AAPL",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -255,31 +303,7 @@
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ],
-          "stop": 325.2
-        },
-        {
-          "code": "UNH",
-          "name": "UnitedHealth Group Incorporated",
-          "market": "NYSE",
-          "tags": [
-            "특수의료"
-          ],
-          "trading_value_usd": 3255551136,
-          "market_cap_usd": 360321499431,
-          "close": 401.43,
-          "change_percent": -1.29,
-          "volume": 8106000,
-          "url": "https://finance.yahoo.com/quote/UNH",
-          "section": "TREND_RALLY",
-          "section_name": "대시세 추세 랠리주",
-          "type": "B",
-          "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
-          "exits": [
-            "일봉 5·10일선 추종",
-            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
-            "일봉 60일선 이탈 시 전량 손절"
-          ],
-          "stop": 392.14
+          "stop": 325.36
         },
         {
           "code": "V",
@@ -290,9 +314,9 @@
           ],
           "trading_value_usd": 2730440226,
           "market_cap_usd": 719365521137,
-          "close": 402.61,
-          "change_percent": 0.72,
-          "volume": 6780000,
+          "close": 402.92,
+          "change_percent": 0.08,
+          "volume": 5831869,
           "url": "https://finance.yahoo.com/quote/V",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -303,7 +327,7 @@
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ],
-          "stop": 371.42
+          "stop": 372.21
         },
         {
           "code": "XOM",
@@ -314,9 +338,9 @@
           ],
           "trading_value_usd": 2363959786,
           "market_cap_usd": 735950002601,
-          "close": 178.98,
-          "change_percent": 2.46,
-          "volume": 13198300,
+          "close": 178.28,
+          "change_percent": -0.39,
+          "volume": 11108419,
           "url": "https://finance.yahoo.com/quote/XOM",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -327,7 +351,7 @@
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ],
-          "stop": 162.23
+          "stop": 162.59
         },
         {
           "code": "BRK-B",
@@ -336,9 +360,9 @@
           "tags": [],
           "trading_value_usd": 2171521561,
           "market_cap_usd": 1173801775599,
-          "close": 532.02,
-          "change_percent": 1.21,
-          "volume": 4077500,
+          "close": 532.23,
+          "change_percent": 0.04,
+          "volume": 4776764,
           "url": "https://finance.yahoo.com/quote/BRK-B",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -349,7 +373,7 @@
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ],
-          "stop": 508.9
+          "stop": 509.52
         },
         {
           "code": "KO",
@@ -360,9 +384,9 @@
           ],
           "trading_value_usd": 2167735211,
           "market_cap_usd": 404009373918,
-          "close": 93.9,
-          "change_percent": 2.07,
-          "volume": 23069000,
+          "close": 93.42,
+          "change_percent": -0.51,
+          "volume": 16433909,
           "url": "https://finance.yahoo.com/quote/KO",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -373,7 +397,7 @@
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ],
-          "stop": 88.15
+          "stop": 88.33
         },
         {
           "code": "VRNS",
@@ -384,9 +408,9 @@
           ],
           "trading_value_usd": 1766358265,
           "market_cap_usd": 5596002829,
-          "close": 48.72,
-          "change_percent": 2.92,
-          "volume": 36254800,
+          "close": 48.7,
+          "change_percent": -0.04,
+          "volume": 7525474,
           "url": "https://finance.yahoo.com/quote/VRNS",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -397,31 +421,7 @@
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ],
-          "stop": 45.27
-        },
-        {
-          "code": "BLK",
-          "name": "BlackRock Inc",
-          "market": "NYSE",
-          "tags": [
-            "증권·IB"
-          ],
-          "trading_value_usd": 1330261335,
-          "market_cap_usd": 175680590024,
-          "close": 1134.38,
-          "change_percent": 1.21,
-          "volume": 1172400,
-          "url": "https://finance.yahoo.com/quote/BLK",
-          "section": "TREND_RALLY",
-          "section_name": "대시세 추세 랠리주",
-          "type": "B",
-          "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
-          "exits": [
-            "일봉 5·10일선 추종",
-            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
-            "일봉 60일선 이탈 시 전량 손절"
-          ],
-          "stop": 1105.41
+          "stop": 45.31
         },
         {
           "code": "ECL",
@@ -432,9 +432,9 @@
           ],
           "trading_value_usd": 982368423,
           "market_cap_usd": 80984130121,
-          "close": 288.89,
-          "change_percent": -0.66,
-          "volume": 3400500,
+          "close": 285.94,
+          "change_percent": -1.02,
+          "volume": 1937559,
           "url": "https://finance.yahoo.com/quote/ECL",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -445,37 +445,85 @@
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ],
-          "stop": 279.7
+          "stop": 279.98
         },
         {
-          "code": "LMT",
-          "name": "Lockheed Martin Corporation",
-          "market": "NYSE",
+          "code": "CME",
+          "name": "CME Group Inc",
+          "market": "NASDAQ",
           "tags": [
-            "방산"
+            "증권·IB"
           ],
-          "trading_value_usd": 884430513,
-          "market_cap_usd": 127417266824,
-          "close": 552.09,
-          "change_percent": 3.65,
-          "volume": 1600000,
-          "url": "https://finance.yahoo.com/quote/LMT",
+          "trading_value_usd": 640733577,
+          "market_cap_usd": 105669558018,
+          "close": 293.53,
+          "change_percent": -0.12,
+          "volume": 3392809,
+          "url": "https://finance.yahoo.com/quote/CME",
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
           "type": "B",
-          "reason": "480일선 돌파 5회 실패 후 재돌파 · 상단 우상향",
+          "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
           "exits": [
             "일봉 5·10일선 추종",
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
             "일봉 60일선 이탈 시 전량 손절"
           ],
-          "stop": 549.4
+          "stop": 272.59
+        },
+        {
+          "code": "CLF",
+          "name": "Cleveland-Cliffs Inc",
+          "market": "NYSE",
+          "tags": [
+            "금속 광업"
+          ],
+          "trading_value_usd": 302238694,
+          "market_cap_usd": 6914945370,
+          "close": 14.1,
+          "change_percent": 16.34,
+          "volume": 88331455,
+          "url": "https://finance.yahoo.com/quote/CLF",
+          "section": "TREND_RALLY",
+          "section_name": "대시세 추세 랠리주",
+          "type": "B",
+          "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
+          "exits": [
+            "일봉 5·10일선 추종",
+            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
+            "일봉 60일선 이탈 시 전량 손절"
+          ],
+          "stop": 12.03
+        },
+        {
+          "code": "FOXA",
+          "name": "Fox Corporation",
+          "market": "NASDAQ",
+          "tags": [
+            "방송"
+          ],
+          "trading_value_usd": 264865022,
+          "market_cap_usd": 27050362851,
+          "close": 65.27,
+          "change_percent": 1.75,
+          "volume": 4971645,
+          "url": "https://finance.yahoo.com/quote/FOXA",
+          "section": "TREND_RALLY",
+          "section_name": "대시세 추세 랠리주",
+          "type": "B",
+          "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
+          "exits": [
+            "일봉 5·10일선 추종",
+            "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
+            "일봉 60일선 이탈 시 전량 손절"
+          ],
+          "stop": 64.26
         }
       ]
     }
   ],
-  "built_slot": "2026-10-19/manual",
+  "built_slot": "2026-10-20/close",
   "rules_version": 8,
-  "updated_at": "2026-10-19T12:24:04.359642+00:00",
+  "updated_at": "2026-10-19T21:32:10.473954+00:00",
   "intraday": false
 }
