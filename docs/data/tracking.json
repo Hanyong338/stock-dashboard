@@ -16400,6 +16400,28 @@
       "final_ret": null,
       "closed_on": "",
       "checked_for": "2026-10-19"
+    },
+    {
+      "id": "kr:007810:MORNING_BREAKOUT:2026-10-20",
+      "market": "kr",
+      "code": "007810",
+      "name": "코리아써키트",
+      "board": "KOSPI",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "C",
+      "found_on": "2026-10-20",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "007810.KS",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-10-20T00:35:20.633961+00:00",
+      "reason": "240일선 65,053 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 190억",
+      "stop": null,
+      "checked_for": "2026-10-19"
     }
   ],
   "updated_for": {
@@ -16407,8 +16429,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 409,
-    "pending": 20,
+    "total": 410,
+    "pending": 21,
     "active": 82,
     "half_tp": 130,
     "closed": 253,
@@ -16420,7 +16442,7 @@
     "avg_mdd": -6.83,
     "closed_avg_final": -5.16
   },
-  "updated_at": "2026-10-19T21:32:10.473954+00:00",
+  "updated_at": "2026-10-20T00:35:20.633961+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
