@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "2차전지(나트륨이온)",
-      "change_percent": 8.29,
-      "total": 9,
-      "rise": 9
+      "name": "영상콘텐츠",
+      "change_percent": 1.54,
+      "total": 33,
+      "rise": 15
     },
     {
-      "name": "2차전지(전고체)",
-      "change_percent": 6.13,
-      "total": 30,
-      "rise": 29
+      "name": "마이코플라스마 폐렴",
+      "change_percent": 0.94,
+      "total": 11,
+      "rise": 8
     },
     {
-      "name": "2차전지(소재/부품)",
-      "change_percent": 6.02,
-      "total": 73,
-      "rise": 66
+      "name": "골프",
+      "change_percent": 0.89,
+      "total": 15,
+      "rise": 1
     },
     {
-      "name": "백화점",
-      "change_percent": 5.81,
-      "total": 6,
-      "rise": 6
-    },
-    {
-      "name": "전력저장장치(ESS)",
-      "change_percent": 5.67,
-      "total": 42,
-      "rise": 42
-    },
-    {
-      "name": "2차전지",
-      "change_percent": 5.28,
-      "total": 143,
-      "rise": 128
-    },
-    {
-      "name": "리튬",
-      "change_percent": 5.07,
-      "total": 22,
-      "rise": 19
-    },
-    {
-      "name": "남-북-러 가스관사업",
-      "change_percent": 5.02,
-      "total": 13,
+      "name": "엔터테인먼트",
+      "change_percent": 0.73,
+      "total": 31,
       "rise": 11
+    },
+    {
+      "name": "탈모 치료",
+      "change_percent": 0.5,
+      "total": 28,
+      "rise": 11
+    },
+    {
+      "name": "모바일콘텐츠(스마트폰/태블릿PC)",
+      "change_percent": 0.14,
+      "total": 32,
+      "rise": 5
+    },
+    {
+      "name": "메타버스(Metaverse)",
+      "change_percent": 0.13,
+      "total": 46,
+      "rise": 14
+    },
+    {
+      "name": "인터넷은행",
+      "change_percent": 0.13,
+      "total": 29,
+      "rise": 10
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-19T12:24:04.359642+00:00"
+  "updated_at": "2026-10-20T00:35:20.633961+00:00"
 }
