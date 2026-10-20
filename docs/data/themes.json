@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "영상콘텐츠",
-      "change_percent": 1.43,
-      "total": 33,
-      "rise": 13
-    },
-    {
       "name": "엔터테인먼트",
-      "change_percent": 0.9,
+      "change_percent": 0.89,
       "total": 31,
-      "rise": 11
+      "rise": 12
     },
     {
       "name": "골프",
-      "change_percent": 0.58,
+      "change_percent": 0.66,
       "total": 15,
       "rise": 3
     },
     {
-      "name": "마이코플라스마 폐렴",
-      "change_percent": 0.2,
-      "total": 11,
-      "rise": 2
+      "name": "영상콘텐츠",
+      "change_percent": 0.54,
+      "total": 33,
+      "rise": 12
+    },
+    {
+      "name": "미디어(방송/신문)",
+      "change_percent": -0.09,
+      "total": 12,
+      "rise": 4
+    },
+    {
+      "name": "애플페이",
+      "change_percent": -0.1,
+      "total": 8,
+      "rise": 1
     },
     {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.04,
+      "change_percent": -0.11,
       "total": 69,
-      "rise": 27
+      "rise": 28
     },
     {
-      "name": "제대혈",
-      "change_percent": -0.15,
-      "total": 5,
+      "name": "폐기물처리",
+      "change_percent": -0.44,
+      "total": 6,
       "rise": 2
     },
     {
-      "name": "AI 챗봇(챗GPT 등)",
-      "change_percent": -0.2,
-      "total": 31,
-      "rise": 7
-    },
-    {
-      "name": "메타버스(Metaverse)",
+      "name": "일자리(취업)",
       "change_percent": -0.45,
-      "total": 46,
-      "rise": 9
+      "total": 9,
+      "rise": 3
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-20T05:10:28.184129+00:00"
+  "updated_at": "2026-10-20T10:05:02.645955+00:00"
 }
