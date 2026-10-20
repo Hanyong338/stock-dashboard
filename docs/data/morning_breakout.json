@@ -7,33 +7,33 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-10-19 09:30",
-  "universe_count": 405,
+  "as_of": "2026-10-20 09:30",
+  "universe_count": 358,
   "fetch_failures": 0,
   "dropped": 0,
   "items": [
     {
-      "code": "010580",
-      "name": "에스엠벡셀",
+      "code": "007810",
+      "name": "코리아써키트",
       "market": "KOSPI",
       "tags": [],
-      "market_cap_eok": 4244,
-      "type": "A",
-      "reason": "전일 고가 3,425 돌파 · 30분 거래대금 466억 · 거래량 전일 하루의 132%",
+      "market_cap_eok": 17675,
+      "type": "C",
+      "reason": "240일선 65,053 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 190억",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/010580/total",
-      "open_gap": 0.96,
-      "value_30m_eok": 466,
-      "vol_vs_prev_day": 132,
-      "close": 3720,
-      "volume": 13174326,
-      "change_percent": 19.61
+      "url": "https://m.stock.naver.com/domestic/stock/007810/total",
+      "open_gap": 5.27,
+      "value_30m_eok": 190,
+      "vol_vs_prev_day": 82,
+      "close": 69800,
+      "volume": 277263,
+      "change_percent": 8.22
     }
   ],
-  "built_on": "2026-10-19",
-  "updated_at": "2026-10-19T01:13:11.853132+00:00"
+  "built_on": "2026-10-20",
+  "updated_at": "2026-10-20T00:35:20.633961+00:00"
 }
