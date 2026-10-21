@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "2026 하반기 신규상장",
-      "change_percent": 6.75,
+      "change_percent": 6.88,
       "total": 23,
       "rise": 21
     },
     {
       "name": "폐기물처리",
-      "change_percent": 5.23,
+      "change_percent": 4.88,
       "total": 6,
       "rise": 3
     },
     {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 3.91,
+      "change_percent": 4.11,
       "total": 7,
       "rise": 7
     },
     {
       "name": "GTX(수도권 광역급행철도)",
-      "change_percent": 3.66,
+      "change_percent": 3.63,
       "total": 24,
-      "rise": 22
+      "rise": 23
     },
     {
       "name": "건설기계",
-      "change_percent": 3.6,
+      "change_percent": 3.59,
       "total": 16,
-      "rise": 13
+      "rise": 14
+    },
+    {
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 3.33,
+      "total": 35,
+      "rise": 29
     },
     {
       "name": "전후 재건(우크라/중동 전쟁 등)",
-      "change_percent": 3.31,
+      "change_percent": 3.32,
       "total": 40,
       "rise": 33
     },
     {
       "name": "전력반도체",
-      "change_percent": 3.13,
+      "change_percent": 3.23,
       "total": 19,
-      "rise": 14
-    },
-    {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 3.04,
-      "total": 35,
-      "rise": 29
+      "rise": 16
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-21T10:31:29.146394+00:00"
+  "updated_at": "2026-10-21T12:28:49.822595+00:00"
 }
