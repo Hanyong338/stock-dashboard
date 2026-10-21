@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "2026 하반기 신규상장",
-      "change_percent": 6.96,
+      "change_percent": 5.98,
       "total": 23,
-      "rise": 22
+      "rise": 19
+    },
+    {
+      "name": "건설기계",
+      "change_percent": 3.2,
+      "total": 16,
+      "rise": 10
+    },
+    {
+      "name": "무선충전기술",
+      "change_percent": 3.09,
+      "total": 12,
+      "rise": 8
+    },
+    {
+      "name": "CCTV＆DVR",
+      "change_percent": 3.05,
+      "total": 8,
+      "rise": 5
     },
     {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 4.73,
+      "change_percent": 2.91,
       "total": 7,
       "rise": 7
     },
     {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 3.61,
-      "total": 35,
-      "rise": 33
+      "name": "전후 재건(우크라/중동 전쟁 등)",
+      "change_percent": 2.62,
+      "total": 40,
+      "rise": 29
     },
     {
-      "name": "뉴로모픽 반도체",
-      "change_percent": 3.28,
-      "total": 7,
-      "rise": 6
+      "name": "오가노이드",
+      "change_percent": 2.52,
+      "total": 8,
+      "rise": 4
     },
     {
-      "name": "LED장비",
-      "change_percent": 3.0,
-      "total": 11,
-      "rise": 11
-    },
-    {
-      "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 2.99,
-      "total": 13,
-      "rise": 11
-    },
-    {
-      "name": "무선충전기술",
-      "change_percent": 2.96,
-      "total": 12,
-      "rise": 10
-    },
-    {
-      "name": "반도체 장비",
-      "change_percent": 2.86,
-      "total": 97,
-      "rise": 90
+      "name": "우주태양광(페로브스카이트 등)",
+      "change_percent": 2.39,
+      "total": 10,
+      "rise": 8
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-21T00:40:17.519067+00:00"
+  "updated_at": "2026-10-21T05:12:47.042879+00:00"
 }
