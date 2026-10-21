@@ -515,7 +515,8 @@
       "title": "GE 실적",
       "category": "earnings",
       "detail": "GE 장전",
-      "eps_forecast": "$2.02"
+      "eps_forecast": "$2.02",
+      "eps": "$1.66"
     },
     {
       "start": "2026-10-20",
@@ -543,7 +544,8 @@
       "title": "넷플릭스 실적",
       "category": "earnings",
       "detail": "NFLX 장마감 후",
-      "eps_forecast": "$0.82"
+      "eps_forecast": "$0.82",
+      "eps": "$0.59"
     },
     {
       "start": "2026-10-21",
@@ -2051,5 +2053,5 @@
   "built_on": "2026-10-21",
   "builder_version": 10,
   "updated_at": "2026-10-20T15:06:06.076176+00:00",
-  "values_updated_at": "2026-10-21T05:24:58.458020+00:00"
+  "values_updated_at": "2026-10-21T10:31:29.146394+00:00"
 }
