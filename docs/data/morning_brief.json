@@ -33,15 +33,15 @@
     },
     {
       "name": "달러 인덱스",
-      "value": "101.73",
-      "change": "-0.25%",
-      "close_date": "2026-10-20"
+      "value": "101.98",
+      "change": "+0.14%",
+      "close_date": "2026-10-19"
     },
     {
       "name": "WTI 유가",
-      "value": "$98.15",
-      "change": "-5.32%",
-      "close_date": "2026-10-20"
+      "value": "$103.66",
+      "change": "+2.22%",
+      "close_date": "2026-10-19"
     }
   ],
   "economic_events": [
@@ -293,91 +293,91 @@
   "sectors": [
     {
       "name": "바이오",
-      "change_percent": 3.638580319629628
-    },
-    {
-      "name": "은행",
-      "change_percent": 1.9636161830843133
-    },
-    {
-      "name": "게임",
-      "change_percent": 1.6620204151596245
-    },
-    {
-      "name": "클라우드",
-      "change_percent": 1.4030261243765594
-    },
-    {
-      "name": "태양광",
-      "change_percent": 1.0651140452235994
-    },
-    {
-      "name": "소매",
-      "change_percent": 1.0135881784280054
-    },
-    {
-      "name": "의료기기",
-      "change_percent": 0.9486647175474163
-    },
-    {
-      "name": "소프트웨어",
-      "change_percent": 0.886878441694516
-    },
-    {
-      "name": "통신장비",
-      "change_percent": 0.8034103698553544
-    },
-    {
-      "name": "AI·로봇",
-      "change_percent": 0.7196452457202754
-    },
-    {
-      "name": "운송",
-      "change_percent": 0.6046905688358734
-    },
-    {
-      "name": "사이버보안",
-      "change_percent": 0.48038767587045117
-    },
-    {
-      "name": "원유·가스",
-      "change_percent": 0.2907714581166247
-    },
-    {
-      "name": "인터넷 플랫폼",
-      "change_percent": 0.052167891045088614
-    },
-    {
-      "name": "전기차",
-      "change_percent": 0.0
-    },
-    {
-      "name": "원자력",
-      "change_percent": -0.25517479846836716
+      "change_percent": 2.45287770681727
     },
     {
       "name": "반도체",
-      "change_percent": -0.38252006020219076
+      "change_percent": 1.7308777587298492
     },
     {
-      "name": "금광",
-      "change_percent": -0.42789723760688825
+      "name": "클라우드",
+      "change_percent": 1.6213534876552627
+    },
+    {
+      "name": "전기차",
+      "change_percent": 1.5918497371186564
+    },
+    {
+      "name": "소프트웨어",
+      "change_percent": 1.5813701205581847
+    },
+    {
+      "name": "인터넷 플랫폼",
+      "change_percent": 1.2962285152859316
+    },
+    {
+      "name": "사이버보안",
+      "change_percent": 1.113133452254713
+    },
+    {
+      "name": "AI·로봇",
+      "change_percent": 0.9993882852289079
     },
     {
       "name": "2차전지",
-      "change_percent": -0.5262404644377641
+      "change_percent": 0.874313086513399
     },
     {
-      "name": "전력망·전력기기",
-      "change_percent": -0.5272508137192059
+      "name": "통신장비",
+      "change_percent": 0.4811515005617731
+    },
+    {
+      "name": "의료기기",
+      "change_percent": 0.03720997849246207
+    },
+    {
+      "name": "소매",
+      "change_percent": -0.22982872438219393
+    },
+    {
+      "name": "게임",
+      "change_percent": -0.27788683342653014
     },
     {
       "name": "구리",
-      "change_percent": -0.6776269280759413
+      "change_percent": -0.3625917771385078
+    },
+    {
+      "name": "원자력",
+      "change_percent": -0.45159425919828694
+    },
+    {
+      "name": "원유·가스",
+      "change_percent": -0.45413895595100373
+    },
+    {
+      "name": "전력망·전력기기",
+      "change_percent": -0.6123370869979194
     },
     {
       "name": "방산·우주항공",
-      "change_percent": -0.7749329288216691
+      "change_percent": -0.6265905062849539
+    },
+    {
+      "name": "은행",
+      "change_percent": -0.7878462134333304
+    },
+    {
+      "name": "운송",
+      "change_percent": -0.8121973457371293
+    },
+    {
+      "name": "태양광",
+      "change_percent": -1.2903157001642371
+    },
+    {
+      "name": "금광",
+      "change_percent": -1.4137474366808522
     }
   ],
   "video_id": "n0skp-lFJCQ",
@@ -385,7 +385,7 @@
   "title": "[🔴10/21 #당잠사] 스페이스X·넷플릭스·앤트로픽 실적발표ㅣ파키스탄 “美·이란에 타협안 제시”…국제유가 하락ㅣ中 빅테크, 엔비디아 칩 주문ㅣ#엔비디아 #스페이스x #넷플릭스",
   "url": "https://www.youtube.com/watch?v=n0skp-lFJCQ",
   "published": "2026-10-20T20:08:46Z",
-  "fetched_at": "2026-10-20T22:19:45.151883+00:00",
+  "fetched_at": "2026-10-21T00:40:17.519067+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
