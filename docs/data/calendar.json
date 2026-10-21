@@ -533,9 +533,9 @@
       "title": "미국 주택착공",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "1.9%",
-      "actual": "-5.2%",
-      "previous": "-5.9%"
+      "consensus": "1.300M",
+      "actual": "1.221M",
+      "previous": "1.288M"
     },
     {
       "start": "2026-10-21",
@@ -2051,5 +2051,5 @@
   "built_on": "2026-10-21",
   "builder_version": 10,
   "updated_at": "2026-10-20T15:06:06.076176+00:00",
-  "values_updated_at": "2026-10-20T22:19:45.151883+00:00"
+  "values_updated_at": "2026-10-21T05:24:58.458020+00:00"
 }
