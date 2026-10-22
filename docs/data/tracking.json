@@ -17440,6 +17440,50 @@
       "final_ret": null,
       "closed_on": "",
       "checked_for": "2026-10-21"
+    },
+    {
+      "id": "kr:028050:MORNING_BREAKOUT:2026-10-22",
+      "market": "kr",
+      "code": "028050",
+      "name": "삼성E&A",
+      "board": "KOSPI",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "A",
+      "found_on": "2026-10-22",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "028050.KS",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-10-22T00:52:29.217354+00:00",
+      "reason": "전일 고가 48,300 돌파 · 30분 거래대금 2986억 · 거래량 전일 하루의 241%",
+      "stop": null,
+      "checked_for": "2026-10-21"
+    },
+    {
+      "id": "kr:126340:MORNING_BREAKOUT:2026-10-22",
+      "market": "kr",
+      "code": "126340",
+      "name": "비나텍",
+      "board": "KOSDAQ",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "C",
+      "found_on": "2026-10-22",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "126340.KQ",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-10-22T00:52:29.217354+00:00",
+      "reason": "240일선 94,776 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 373억",
+      "stop": null,
+      "checked_for": "2026-10-21"
     }
   ],
   "updated_for": {
@@ -17447,8 +17491,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 431,
-    "pending": 15,
+    "total": 433,
+    "pending": 17,
     "active": 102,
     "half_tp": 132,
     "closed": 267,
@@ -17460,7 +17504,7 @@
     "avg_mdd": -6.69,
     "closed_avg_final": -4.99
   },
-  "updated_at": "2026-10-21T22:40:12.644329+00:00",
+  "updated_at": "2026-10-22T00:52:29.217354+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
