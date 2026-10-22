@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "2026 하반기 신규상장",
-      "change_percent": 1.47,
-      "total": 24,
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 1.28,
+      "total": 14,
       "rise": 5
     },
     {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 1.29,
-      "total": 14,
-      "rise": 7
-    },
-    {
       "name": "영화",
-      "change_percent": 1.05,
+      "change_percent": 0.99,
       "total": 12,
       "rise": 6
     },
     {
+      "name": "주류업(주정, 에탄올 등)",
+      "change_percent": 0.57,
+      "total": 13,
+      "rise": 5
+    },
+    {
       "name": "전후 재건(우크라/중동 전쟁 등)",
-      "change_percent": 0.91,
+      "change_percent": 0.52,
       "total": 40,
-      "rise": 17
+      "rise": 16
     },
     {
       "name": "AI 챗봇(챗GPT 등)",
-      "change_percent": 0.71,
+      "change_percent": 0.45,
       "total": 31,
-      "rise": 8
+      "rise": 7
     },
     {
       "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 0.56,
+      "change_percent": 0.4,
       "total": 9,
       "rise": 4
     },
     {
       "name": "건설기계",
-      "change_percent": 0.35,
+      "change_percent": 0.02,
       "total": 16,
       "rise": 7
     },
     {
-      "name": "건설 대표주",
-      "change_percent": 0.07,
-      "total": 6,
-      "rise": 4
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.07,
+      "total": 69,
+      "rise": 24
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-22T05:30:54.676615+00:00"
+  "updated_at": "2026-10-22T10:33:14.068854+00:00"
 }
