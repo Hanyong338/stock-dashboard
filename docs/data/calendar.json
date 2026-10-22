@@ -598,7 +598,8 @@
       "title": "TI 실적",
       "category": "earnings",
       "detail": "TXN 장마감 후",
-      "eps_forecast": "$2.40"
+      "eps_forecast": "$2.40",
+      "eps": "$1.48"
     },
     {
       "start": "2026-10-22",
@@ -606,7 +607,8 @@
       "title": "램리서치 실적",
       "category": "earnings",
       "detail": "LRCX 장마감 후",
-      "eps_forecast": "$2.17"
+      "eps_forecast": "$2.17",
+      "eps": "$1.26"
     },
     {
       "start": "2026-10-22",
@@ -614,7 +616,8 @@
       "title": "메타 실적",
       "category": "earnings",
       "detail": "META 장마감 후",
-      "eps_forecast": "$4.98"
+      "eps_forecast": "$4.98",
+      "eps": "$7.25"
     },
     {
       "start": "2026-10-22",
@@ -635,7 +638,8 @@
       "title": "테슬라 실적",
       "category": "earnings",
       "detail": "TSLA 장마감 후",
-      "eps_forecast": "$0.22"
+      "eps_forecast": "$0.22",
+      "eps": "$0.37"
     },
     {
       "start": "2026-10-22",
@@ -2180,5 +2184,5 @@
   "built_on": "2026-10-22",
   "builder_version": 10,
   "updated_at": "2026-10-21T15:32:45.966428+00:00",
-  "values_updated_at": "2026-10-22T05:16:02.157764+00:00"
+  "values_updated_at": "2026-10-22T05:30:54.676615+00:00"
 }
