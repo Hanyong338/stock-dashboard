@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 5.42,
+      "total": 14,
+      "rise": 12
+    },
+    {
       "name": "2026 하반기 신규상장",
-      "change_percent": 6.88,
-      "total": 23,
-      "rise": 21
-    },
-    {
-      "name": "폐기물처리",
-      "change_percent": 4.88,
-      "total": 6,
-      "rise": 3
-    },
-    {
-      "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 4.11,
-      "total": 7,
+      "change_percent": 3.24,
+      "total": 24,
       "rise": 7
     },
     {
-      "name": "GTX(수도권 광역급행철도)",
-      "change_percent": 3.63,
-      "total": 24,
-      "rise": 23
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 3.15,
+      "total": 14,
+      "rise": 13
+    },
+    {
+      "name": "건설 대표주",
+      "change_percent": 2.93,
+      "total": 6,
+      "rise": 5
     },
     {
       "name": "건설기계",
-      "change_percent": 3.59,
+      "change_percent": 2.77,
       "total": 16,
-      "rise": 14
-    },
-    {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 3.33,
-      "total": 35,
-      "rise": 29
+      "rise": 11
     },
     {
       "name": "전후 재건(우크라/중동 전쟁 등)",
-      "change_percent": 3.32,
+      "change_percent": 2.66,
       "total": 40,
-      "rise": 33
+      "rise": 31
     },
     {
-      "name": "전력반도체",
-      "change_percent": 3.23,
-      "total": 19,
-      "rise": 16
+      "name": "전선",
+      "change_percent": 2.35,
+      "total": 8,
+      "rise": 6
+    },
+    {
+      "name": "모듈러주택",
+      "change_percent": 1.72,
+      "total": 10,
+      "rise": 8
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-21T12:28:49.822595+00:00"
+  "updated_at": "2026-10-22T00:52:29.217354+00:00"
 }
