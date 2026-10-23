@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "서울고속버스터미널 재개발 수혜",
-      "change_percent": 4.28,
-      "total": 5,
-      "rise": 2
-    },
-    {
       "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 2.22,
+      "change_percent": 2.07,
       "total": 9,
       "rise": 3
     },
     {
       "name": "건설 대표주",
-      "change_percent": 0.68,
+      "change_percent": 1.14,
       "total": 6,
+      "rise": 3
+    },
+    {
+      "name": "S7(삼성전자/SK하이닉스 등)",
+      "change_percent": 0.93,
+      "total": 6,
+      "rise": 4
+    },
+    {
+      "name": "모더나(MODERNA)",
+      "change_percent": 0.3,
+      "total": 6,
+      "rise": 3
+    },
+    {
+      "name": "SNS(소셜네트워크서비스)",
+      "change_percent": 0.28,
+      "total": 10,
+      "rise": 4
+    },
+    {
+      "name": "지역화폐",
+      "change_percent": 0.24,
+      "total": 5,
       "rise": 3
     },
     {
       "name": "오가노이드",
-      "change_percent": 0.4,
+      "change_percent": 0.09,
       "total": 8,
-      "rise": 3
+      "rise": 4
     },
     {
-      "name": "주류업(주정, 에탄올 등)",
-      "change_percent": 0.06,
-      "total": 13,
-      "rise": 2
-    },
-    {
-      "name": "모더나(MODERNA)",
-      "change_percent": 0.03,
+      "name": "화학섬유",
+      "change_percent": 0.02,
       "total": 6,
-      "rise": 3
-    },
-    {
-      "name": "석유화학",
-      "change_percent": -0.02,
-      "total": 19,
-      "rise": 2
-    },
-    {
-      "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.11,
-      "total": 69,
-      "rise": 12
+      "rise": 1
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-23T05:15:19.315515+00:00"
+  "updated_at": "2026-10-23T06:02:36.062069+00:00"
 }
