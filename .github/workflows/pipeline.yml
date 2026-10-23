@@ -3,12 +3,10 @@ name: stock-youtube-pipeline
 on:
   schedule:
     # 20분마다 (UTC 0·20·40분) — 유튜브 요약 / 당잠사 브리핑 / 캘린더 / 오늘의 주도 테마.
-    # 원래 매시 정각이었는데, 제미나이 무료 사용량이 구글 혼잡(503 high demand)으로 거절되는 시간대에
-    # 밀린 영상을 더 자주 다시 시도하려고 20분으로 줄였다(2026-10-05). 비용은 그대로다
-    # (새 영상만 자막을 받고, 밀린 영상은 저장해 둔 자막으로 재시도, 제미나이는 무료).
+    # 2026-10-19부터 GitHub 이 이 예약을 하루 7~8번(약 3시간 간격)밖에 실행해 주지 않는다(우리 설정 문제 아님).
+    # 그래서 한 번 시작된 실행이 안에서 20분마다 스스로 반복한다(아래 Run pipeline 단계). 예약은 '깨우는' 역할만 한다.
     - cron: "*/20 * * * *"
     # 섹션 1~3 종목 선별용. UTC 06:50 = 한국시간 15:50 (정규장 마감 직후).
-    # 매시 정각 크론만으론 한국시간이 항상 정각이라 15:50 에 도는 실행이 없다.
     - cron: "50 6 * * *"
     # 섹션 4 모닝 브레이크아웃용. UTC 00:32 = 한국시간 09:32 (장 시작 30분 직후).
     - cron: "32 0 * * 1-5"
@@ -16,9 +14,9 @@ on:
 
 permissions:
   contents: write
+  actions: read # 반복 중에 손으로 누른 실행이 기다리고 있는지 확인하려고
 
 # 실행이 겹치지 않게 한다. 앞 실행이 안 끝났으면 다음 실행은 기다렸다가 돈다(취소하지 않음).
-# 간격이 20분이라 밀린 영상이 많을 때 겹칠 수 있고, 겹치면 같은 영상을 두 번 처리하거나 데이터 저장이 부딪힌다.
 concurrency:
   group: stock-pipeline
   cancel-in-progress: false
@@ -26,6 +24,7 @@ concurrency:
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
+    timeout-minutes: 350 # GitHub 한도(360분) 안에서 끝나게
     steps:
       - uses: actions/checkout@v4
 
@@ -42,7 +41,13 @@ jobs:
         continue-on-error: true
         run: python scripts/selftest_gemini.py
 
-      - name: Run pipeline
+      # 5시간 30분 동안 20분마다(UTC :01·:21·:41) 파이프라인을 반복한다(공개 저장소라 실행 시간 비용 없음).
+      # - 매 회차 시작 전에 저장소를 최신으로 받아(git pull) 그 사이 올린 코드 수정도 다음 회차부터 바로 반영된다.
+      # - 첫 회차만 '손으로 누른 실행'으로 본다. 반복 회차는 예약 실행처럼 동작한다
+      #   (손으로 누른 실행은 스크리너 등을 시간대 밖에서도 강제로 만들기 때문).
+      # - 반복 중에 누가 Actions 에서 Run workflow 를 누르면(기다리는 실행이 생기면) 이번 실행을 일찍 끝내 그 실행이 바로 돌게 한다.
+      # - 한 회차가 실패해도 다음 회차는 계속 돈다.
+      - name: Run pipeline (repeat every 20 minutes)
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -51,8 +56,43 @@ jobs:
           GEMINI_API_KEY_FREE: ${{ secrets.GEMINI_API_KEY_FREE }}
           SUPADATA_API_KEY: ${{ secrets.SUPADATA_API_KEY }}
           # GEMINI_MODEL 을 지정하지 않으면 summarize.py 기본값인 gemini-3.6-flash 를 쓴다(3.5-flash 는 10/10 종료).
-          # 비용을 낮추려면 여기에 GEMINI_MODEL: gemini-3.5-flash-lite 를 추가하면 된다.
-        run: python scripts/pipeline.py
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          git config user.name "stock-dashboard-bot"
+          git config user.email "actions@github.com"
+          end=$(( $(date +%s) + 330 * 60 ))
+          round=1
+          while :; do
+            if [ "$round" -gt 1 ]; then
+              export GITHUB_EVENT_NAME=schedule
+              git pull --rebase --autostash -q origin main || echo "[WARN] git pull 실패 — 이번 회차는 받아둔 코드로 돈다"
+            fi
+            echo "===== 회차 $round 시작 $(TZ=Asia/Seoul date '+%m-%d %H:%M KST') ====="
+            python scripts/pipeline.py || echo "[WARN] 회차 $round 파이프라인이 오류로 끝났다(다음 회차는 계속)"
+            git add docs/data
+            if ! git diff --cached --quiet; then
+              git commit -q -m "chore: update data $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+              git push -q || { git pull --rebase -q origin main && git push -q; } || echo "[WARN] git push 실패 — 다음 회차에서 다시"
+            fi
+            waiting=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs?event=workflow_dispatch&status=pending" \
+              | grep -c '"id"')
+            queued=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs?event=workflow_dispatch&status=queued" \
+              | grep -c '"id"')
+            if [ "$waiting" -gt 0 ] || [ "$queued" -gt 0 ]; then
+              echo "손으로 누른 실행이 기다리고 있어 이번 반복을 끝낸다"
+              break
+            fi
+            now=$(date +%s)
+            next=$(( (now / 1200 + 1) * 1200 + 60 ))
+            if [ "$next" -ge "$end" ]; then
+              break
+            fi
+            sleep $(( next - now ))
+            round=$(( round + 1 ))
+          done
 
       - name: Commit and push updated data
         run: |
@@ -60,4 +100,4 @@ jobs:
           git config user.email "actions@github.com"
           git add docs/data
           git diff --cached --quiet || git commit -m "chore: update data $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-          git push
+          git push || { git pull --rebase origin main && git push; }
