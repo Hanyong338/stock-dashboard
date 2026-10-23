@@ -630,7 +630,8 @@
       "title": "P&G 실적",
       "category": "earnings",
       "detail": "PG 장전",
-      "eps_forecast": "$1.89"
+      "eps_forecast": "$1.89",
+      "eps": "$1.99"
     },
     {
       "start": "2026-10-22",
@@ -683,7 +684,8 @@
       "title": "웨스턴디지털 실적",
       "category": "earnings",
       "detail": "WDC 장마감 후",
-      "eps_forecast": "$3.99"
+      "eps_forecast": "$3.99",
+      "eps": "$1.64"
     },
     {
       "start": "2026-10-23",
@@ -2275,5 +2277,6 @@
   ],
   "built_on": "2026-10-23",
   "builder_version": 10,
-  "updated_at": "2026-10-22T15:33:37.467868+00:00"
+  "updated_at": "2026-10-22T15:33:37.467868+00:00",
+  "values_updated_at": "2026-10-23T06:02:36.062069+00:00"
 }
