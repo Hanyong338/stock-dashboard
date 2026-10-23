@@ -7,75 +7,11 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-10-22 09:30",
-  "universe_count": 354,
+  "as_of": "2026-10-23 09:30",
+  "universe_count": 378,
   "fetch_failures": 0,
   "dropped": 0,
-  "items": [
-    {
-      "code": "028050",
-      "name": "삼성E&A",
-      "market": "KOSPI",
-      "tags": [],
-      "market_cap_eok": 107996,
-      "type": "A",
-      "reason": "전일 고가 48,300 돌파 · 30분 거래대금 2986억 · 거래량 전일 하루의 241%",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/028050/total",
-      "open_gap": 6.92,
-      "value_30m_eok": 2986,
-      "vol_vs_prev_day": 241,
-      "close": 55700,
-      "volume": 5442571,
-      "change_percent": 16.77
-    },
-    {
-      "code": "126340",
-      "name": "비나텍",
-      "market": "KOSDAQ",
-      "tags": [],
-      "market_cap_eok": 8286,
-      "type": "C",
-      "reason": "240일선 94,776 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 373억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/126340/total",
-      "open_gap": 13.94,
-      "value_30m_eok": 373,
-      "vol_vs_prev_day": 128,
-      "close": 118000,
-      "volume": 325836,
-      "change_percent": 24.6
-    },
-    {
-      "code": "007810",
-      "name": "코리아써키트",
-      "market": "KOSPI",
-      "tags": [],
-      "market_cap_eok": 18371,
-      "type": "A",
-      "reason": "전일 고가 73,500 돌파 · 30분 거래대금 302억 · 거래량 전일 하루의 62%",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/007810/total",
-      "open_gap": 2.64,
-      "value_30m_eok": 302,
-      "vol_vs_prev_day": 62,
-      "close": 76700,
-      "volume": 398111,
-      "change_percent": 6.38
-    }
-  ],
-  "built_on": "2026-10-22",
-  "updated_at": "2026-10-22T00:52:29.217354+00:00"
+  "items": [],
+  "built_on": "2026-10-23",
+  "updated_at": "2026-10-23T01:03:03.910129+00:00"
 }
