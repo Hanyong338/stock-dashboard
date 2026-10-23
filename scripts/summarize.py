@@ -628,11 +628,16 @@ QUIET_LABEL = "한국시간 21:00~07:00, 주말·공휴일은 18:00~07:00"
 # 이 시각(한국시간)까지는 운영 시간이어도 제미나이를 부르지 않는다. 일회성 정지용.
 # 10/7 저녁 무료가 계속 혼잡해 사용자가 "오늘은 그만, 내일 07시부터 다시"로 정했다.
 PAUSE_UNTIL_KST = datetime.datetime(2026, 10, 8, 7, 0)
+# 이 시각(한국시간)까지는 휴식·무료 시간이어도 유료 시간처럼 돈다. 일회성 따라잡기용.
+# 10/23 GitHub 예약 실행이 드물어 밀린 영상을 그날 밤 유료로 다 끝내기로 했다(사용자 지정).
+PAID_CATCHUP_UNTIL_KST = datetime.datetime(2026, 10, 24, 0, 30)
 
 
 def gemini_mode():
     """지금 시간대: 'free'(무료 시간), 'paid'(평일 저녁 유료 시간), 'off'(휴식·주말/공휴일 저녁·일회성 정지)."""
     kst = _now() + datetime.timedelta(hours=9)
+    if kst.replace(tzinfo=None) < PAID_CATCHUP_UNTIL_KST and kst.replace(tzinfo=None) >= datetime.datetime(2026, 10, 23, 20, 0):
+        return "paid"  # 일회성 따라잡기(PAID_CATCHUP_UNTIL_KST 참고)
     if kst.replace(tzinfo=None) < PAUSE_UNTIL_KST:
         return "off"
     hm = (kst.hour, kst.minute)
