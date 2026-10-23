@@ -708,7 +708,8 @@
       "category": "macro",
       "detail": "22:45",
       "consensus": "57.9",
-      "previous": "58.8"
+      "previous": "58.8",
+      "actual": "57.9"
     },
     {
       "start": "2026-10-23",
@@ -717,7 +718,8 @@
       "category": "macro",
       "detail": "22:45",
       "consensus": "55.4",
-      "previous": "55.9"
+      "previous": "55.9",
+      "actual": "56.0"
     },
     {
       "start": "2026-10-23",
@@ -726,7 +728,8 @@
       "category": "macro",
       "detail": "23:00",
       "consensus": "46.3",
-      "previous": "48.1"
+      "previous": "48.1",
+      "actual": "48.0"
     },
     {
       "start": "2026-10-26",
@@ -2353,5 +2356,6 @@
   ],
   "built_on": "2026-10-24",
   "builder_version": 10,
-  "updated_at": "2026-10-23T17:01:41.860924+00:00"
+  "updated_at": "2026-10-23T17:01:41.860924+00:00",
+  "values_updated_at": "2026-10-23T17:21:00.397669+00:00"
 }
