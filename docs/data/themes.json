@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "아스콘(아스팔트 콘크리트)",
-      "change_percent": 2.07,
+      "change_percent": 2.9,
       "total": 9,
-      "rise": 3
-    },
-    {
-      "name": "건설 대표주",
-      "change_percent": 1.14,
-      "total": 6,
-      "rise": 3
-    },
-    {
-      "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 0.93,
-      "total": 6,
       "rise": 4
     },
     {
-      "name": "모더나(MODERNA)",
-      "change_percent": 0.3,
-      "total": 6,
-      "rise": 3
-    },
-    {
-      "name": "SNS(소셜네트워크서비스)",
-      "change_percent": 0.28,
+      "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
+      "change_percent": 0.63,
       "total": 10,
-      "rise": 4
-    },
-    {
-      "name": "지역화폐",
-      "change_percent": 0.24,
-      "total": 5,
-      "rise": 3
-    },
-    {
-      "name": "오가노이드",
-      "change_percent": 0.09,
-      "total": 8,
-      "rise": 4
+      "rise": 5
     },
     {
       "name": "화학섬유",
-      "change_percent": 0.02,
+      "change_percent": 0.53,
       "total": 6,
-      "rise": 1
+      "rise": 2
+    },
+    {
+      "name": "주류업(주정, 에탄올 등)",
+      "change_percent": 0.42,
+      "total": 13,
+      "rise": 5
+    },
+    {
+      "name": "건설 대표주",
+      "change_percent": 0.42,
+      "total": 6,
+      "rise": 3
+    },
+    {
+      "name": "골프",
+      "change_percent": 0.33,
+      "total": 14,
+      "rise": 7
+    },
+    {
+      "name": "리츠(REITs)",
+      "change_percent": 0.32,
+      "total": 22,
+      "rise": 14
+    },
+    {
+      "name": "오가노이드",
+      "change_percent": 0.27,
+      "total": 8,
+      "rise": 4
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-23T06:02:36.062069+00:00"
+  "updated_at": "2026-10-23T11:39:13.238294+00:00"
 }
