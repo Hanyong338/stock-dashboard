@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "의료AI",
-      "change_percent": 5.33,
+      "change_percent": 4.5,
       "total": 29,
+      "rise": 19
+    },
+    {
+      "name": "2026 하반기 신규상장",
+      "change_percent": 1.67,
+      "total": 25,
+      "rise": 13
+    },
+    {
+      "name": "원격진료/비대면진료(U-Healthcare)",
+      "change_percent": 1.53,
+      "total": 22,
+      "rise": 9
+    },
+    {
+      "name": "서울고속버스터미널 재개발 수혜",
+      "change_percent": 1.01,
+      "total": 5,
+      "rise": 2
+    },
+    {
+      "name": "남북경협",
+      "change_percent": 0.99,
+      "total": 29,
+      "rise": 14
+    },
+    {
+      "name": "피지컬 AI/휴머노이드 로봇",
+      "change_percent": 0.82,
+      "total": 46,
       "rise": 20
     },
     {
       "name": "딥페이크(deepfake)",
-      "change_percent": 2.29,
+      "change_percent": 0.8,
       "total": 14,
-      "rise": 9
-    },
-    {
-      "name": "원격진료/비대면진료(U-Healthcare)",
-      "change_percent": 2.09,
-      "total": 22,
-      "rise": 10
-    },
-    {
-      "name": "2026 하반기 신규상장",
-      "change_percent": 2.07,
-      "total": 25,
-      "rise": 16
-    },
-    {
-      "name": "남북경협",
-      "change_percent": 2.03,
-      "total": 29,
-      "rise": 15
-    },
-    {
-      "name": "로봇(산업용/협동로봇 등)",
-      "change_percent": 1.48,
-      "total": 76,
-      "rise": 52
+      "rise": 6
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 1.4,
+      "change_percent": 0.52,
       "total": 52,
-      "rise": 30
-    },
-    {
-      "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": 1.36,
-      "total": 46,
-      "rise": 30
+      "rise": 22
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-26T00:41:00.823293+00:00"
+  "updated_at": "2026-10-26T01:01:00.833380+00:00"
 }
