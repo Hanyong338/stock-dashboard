@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "의료AI",
-      "change_percent": 4.67,
+      "change_percent": 4.85,
       "total": 29,
       "rise": 18
     },
     {
       "name": "2026 하반기 신규상장",
-      "change_percent": 2.12,
+      "change_percent": 2.29,
       "total": 25,
-      "rise": 12
+      "rise": 13
     },
     {
       "name": "원격진료/비대면진료(U-Healthcare)",
-      "change_percent": 1.8,
+      "change_percent": 2.04,
       "total": 22,
       "rise": 9
     },
     {
       "name": "로봇(산업용/협동로봇 등)",
-      "change_percent": 1.43,
+      "change_percent": 1.53,
       "total": 76,
-      "rise": 35
+      "rise": 34
     },
     {
       "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": 1.3,
+      "change_percent": 1.41,
       "total": 46,
-      "rise": 20
+      "rise": 19
+    },
+    {
+      "name": "딥페이크(deepfake)",
+      "change_percent": 0.9,
+      "total": 14,
+      "rise": 6
     },
     {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 0.6,
+      "change_percent": 0.81,
       "total": 7,
       "rise": 5
     },
     {
       "name": "마이데이터",
-      "change_percent": 0.58,
+      "change_percent": 0.68,
       "total": 12,
-      "rise": 6
-    },
-    {
-      "name": "딥페이크(deepfake)",
-      "change_percent": 0.52,
-      "total": 14,
       "rise": 6
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-26T09:41:00.721946+00:00"
+  "updated_at": "2026-10-26T10:01:00.964824+00:00"
 }
