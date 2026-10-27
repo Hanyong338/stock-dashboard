@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "소캠(SOCAMM)",
+      "change_percent": 5.8,
+      "total": 11,
+      "rise": 11
+    },
+    {
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 5.47,
+      "total": 14,
+      "rise": 14
+    },
+    {
+      "name": "S7(삼성전자/SK하이닉스 등)",
+      "change_percent": 5.29,
+      "total": 7,
+      "rise": 7
+    },
+    {
+      "name": "광통신(광케이블/광섬유 등)",
+      "change_percent": 5.18,
+      "total": 15,
+      "rise": 15
+    },
+    {
+      "name": "2026 하반기 신규상장",
+      "change_percent": 5.16,
+      "total": 26,
+      "rise": 17
+    },
+    {
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 4.71,
+      "total": 13,
+      "rise": 12
+    },
+    {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 4.08,
+      "total": 14,
+      "rise": 14
+    },
+    {
+      "name": "반도체 장비",
+      "change_percent": 4.02,
+      "total": 97,
+      "rise": 91
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-10-26T23:01:01.408592+00:00"
+  "updated_at": "2026-10-27T00:01:00.591436+00:00"
 }
