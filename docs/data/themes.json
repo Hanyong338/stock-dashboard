@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 9.11,
-      "total": 14,
-      "rise": 14
-    },
-    {
       "name": "소캠(SOCAMM)",
-      "change_percent": 8.15,
+      "change_percent": 8.02,
       "total": 11,
       "rise": 11
     },
     {
-      "name": "2026 하반기 신규상장",
-      "change_percent": 7.62,
-      "total": 26,
-      "rise": 24
-    },
-    {
       "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 7.15,
+      "change_percent": 7.62,
       "total": 13,
       "rise": 11
     },
     {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 6.03,
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 7.32,
       "total": 14,
-      "rise": 14
+      "rise": 13
     },
     {
       "name": "온디바이스 AI",
-      "change_percent": 5.87,
+      "change_percent": 5.41,
       "total": 24,
-      "rise": 24
+      "rise": 23
     },
     {
-      "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 5.57,
-      "total": 7,
-      "rise": 7
+      "name": "갤럭시 부품주",
+      "change_percent": 5.11,
+      "total": 39,
+      "rise": 32
+    },
+    {
+      "name": "반도체 재료/부품",
+      "change_percent": 4.99,
+      "total": 71,
+      "rise": 67
     },
     {
       "name": "반도체 장비",
-      "change_percent": 5.5,
+      "change_percent": 4.95,
       "total": 97,
-      "rise": 94
+      "rise": 88
+    },
+    {
+      "name": "카메라모듈/부품",
+      "change_percent": 4.89,
+      "total": 27,
+      "rise": 19
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-27T01:01:01.107827+00:00"
+  "updated_at": "2026-10-27T06:24:19.024338+00:00"
 }
