@@ -201,7 +201,9 @@
     "d1rskvuR8aM",
     "6_sebDAjmwY",
     "DNVmAdHSq-k",
-    "oPdUbw6HJF4"
+    "oPdUbw6HJF4",
+    "MvMsNcj80dk",
+    "w6m8Spw6Pd8"
   ],
   "UCwSSqi-s0wcH6pJbH3YPZqQ": [
     "qvdHmIskFP0",
@@ -405,7 +407,13 @@
     "l56hBlTBi7s",
     "EiQ7o9XLLIc",
     "6Ung4bJmxEE",
-    "zflfvJ9Pb3g"
+    "zflfvJ9Pb3g",
+    "6lm8lDVfwrg",
+    "nVXQKDZSAQQ",
+    "ylff2hbEpUE",
+    "0MAhkdO77k8",
+    "qd8obxd7Cl0",
+    "2nlenXPYuHc"
   ],
   "UChlv4GSd7OQl3js-jkLOnFA": [
     "DteOB2F5NsY",
@@ -507,7 +515,9 @@
     "jqXImayGUIc",
     "lzSr7LdeivE",
     "B6wNEKADPOI",
-    "J1tA30Xq2fg"
+    "J1tA30Xq2fg",
+    "Di0oS3T0l24",
+    "YNXt2JE0QqM"
   ],
   "UCRDXoxD0x0J2CzPTQNLJLhg": [
     "2uZmQTNdIo4",
@@ -959,20 +969,10 @@
     "FJqIihJfpgo": 1,
     "VcRpaLUm7lU": 1,
     "LkwnwmKrVTI": 1,
-    "Di0oS3T0l24": 2,
-    "YNXt2JE0QqM": 2,
-    "nVXQKDZSAQQ": 2,
-    "ylff2hbEpUE": 2,
-    "0MAhkdO77k8": 2,
-    "qd8obxd7Cl0": 2,
-    "2nlenXPYuHc": 2,
-    "MvMsNcj80dk": 2,
-    "w6m8Spw6Pd8": 2,
     "Rbd6XNy7cU8": 2,
     "cPsom3rLjjs": 2,
     "WM76m1GByyg": 2,
-    "PSwrXpUYGUg": 2,
-    "6lm8lDVfwrg": 2,
+    "PSwrXpUYGUg": 1,
     "9O5d5sUb2OA": 1
   },
   "UCQW05vzztAlwV54WL3pjGBQ": [
@@ -1058,11 +1058,11 @@
     "G8LcRhwEdS0",
     "pVUP9ay3quw"
   ],
-  "_pair_wait": {},
+  "_pair_wait": {
+    "PSwrXpUYGUg": "2026-10-27T22:01:00.713458+00:00"
+  },
   "_pair_fail": {},
   "_review_kept": {
-    "6MRxfCgJ3XU": "2026-10-24T22:01:00.392602+00:00",
-    "qNyqnAJ1LeI": "2026-10-24T22:01:00.392602+00:00",
     "ysS-wbvCH6c": "2026-10-24T23:21:00.884785+00:00",
     "wPUAjae_TN8": "2026-10-24T23:21:00.884785+00:00",
     "SaLKDI5ccnI": "2026-10-25T06:21:36.604983+00:00",
@@ -1156,6 +1156,16 @@
     "S1D7tyrIpmw": "2026-10-27T11:01:00.789253+00:00",
     "cfPSt89jS5Q": "2026-10-27T11:01:00.789253+00:00",
     "pVUP9ay3quw": "2026-10-27T11:21:01.497426+00:00",
-    "_xYx9qSNf7Y": "2026-10-27T17:01:56.406608+00:00"
+    "_xYx9qSNf7Y": "2026-10-27T17:01:56.406608+00:00",
+    "Di0oS3T0l24": "2026-10-27T22:01:00.713458+00:00",
+    "YNXt2JE0QqM": "2026-10-27T22:01:00.713458+00:00",
+    "6lm8lDVfwrg": "2026-10-27T22:01:00.713458+00:00",
+    "nVXQKDZSAQQ": "2026-10-27T22:01:00.713458+00:00",
+    "ylff2hbEpUE": "2026-10-27T22:01:00.713458+00:00",
+    "0MAhkdO77k8": "2026-10-27T22:01:00.713458+00:00",
+    "qd8obxd7Cl0": "2026-10-27T22:01:00.713458+00:00",
+    "2nlenXPYuHc": "2026-10-27T22:01:00.713458+00:00",
+    "MvMsNcj80dk": "2026-10-27T22:01:00.713458+00:00",
+    "w6m8Spw6Pd8": "2026-10-27T22:01:00.713458+00:00"
   }
 }
