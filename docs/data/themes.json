@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "소캠(SOCAMM)",
-      "change_percent": 8.5,
-      "total": 11,
-      "rise": 11
-    },
-    {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 7.93,
+      "change_percent": 8.71,
       "total": 14,
       "rise": 14
     },
     {
-      "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 6.87,
-      "total": 13,
-      "rise": 13
+      "name": "소캠(SOCAMM)",
+      "change_percent": 8.66,
+      "total": 11,
+      "rise": 11
     },
     {
       "name": "2026 하반기 신규상장",
-      "change_percent": 6.19,
+      "change_percent": 7.54,
       "total": 26,
-      "rise": 21
+      "rise": 22
+    },
+    {
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 6.94,
+      "total": 13,
+      "rise": 11
     },
     {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 6.17,
+      "change_percent": 5.75,
       "total": 7,
       "rise": 7
     },
     {
       "name": "온디바이스 AI",
-      "change_percent": 6.04,
+      "change_percent": 5.74,
       "total": 24,
       "rise": 24
     },
     {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 5.87,
-      "total": 35,
-      "rise": 35
+      "name": "반도체 장비",
+      "change_percent": 5.4,
+      "total": 97,
+      "rise": 93
     },
     {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 5.58,
-      "total": 14,
-      "rise": 14
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 5.26,
+      "total": 35,
+      "rise": 34
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-27T00:21:00.910589+00:00"
+  "updated_at": "2026-10-27T00:41:01.100632+00:00"
 }
