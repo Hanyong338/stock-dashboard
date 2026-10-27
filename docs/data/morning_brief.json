@@ -33,14 +33,14 @@
     },
     {
       "name": "달러 인덱스",
-      "value": "102.03",
-      "change": "+0.22%",
+      "value": "102.02",
+      "change": "+0.21%",
       "close_date": "2026-10-26"
     },
     {
       "name": "WTI 유가",
-      "value": "$101.42",
-      "change": "-1.79%",
+      "value": "$101.55",
+      "change": "-1.67%",
       "close_date": "2026-10-26"
     }
   ],
@@ -277,92 +277,92 @@
   "indices_note": "지수·금리·유가는 시장 데이터 종가 기준",
   "sectors": [
     {
-      "name": "반도체",
-      "change_percent": 2.8502664193436766
-    },
-    {
-      "name": "방산·우주항공",
-      "change_percent": 2.4378223007097453
-    },
-    {
       "name": "사이버보안",
-      "change_percent": 2.176778645690481
+      "change_percent": 3.2195362966542573
     },
     {
       "name": "원유·가스",
-      "change_percent": 1.5717180477828794
+      "change_percent": 2.44831992876803
     },
     {
       "name": "클라우드",
-      "change_percent": 1.493785845412676
-    },
-    {
-      "name": "통신장비",
-      "change_percent": 1.3142316025410166
-    },
-    {
-      "name": "금광",
-      "change_percent": 1.0224435486617451
-    },
-    {
-      "name": "구리",
-      "change_percent": 0.9850885986840154
-    },
-    {
-      "name": "2차전지",
-      "change_percent": 0.9723140237650357
-    },
-    {
-      "name": "원자력",
-      "change_percent": 0.7329228833966395
+      "change_percent": 1.8500445171808089
     },
     {
       "name": "소프트웨어",
-      "change_percent": 0.7233954952973567
-    },
-    {
-      "name": "운송",
-      "change_percent": 0.6485365940224865
-    },
-    {
-      "name": "바이오",
-      "change_percent": 0.6219125159319866
-    },
-    {
-      "name": "은행",
-      "change_percent": 0.3726252772183602
+      "change_percent": 1.7200102062097882
     },
     {
       "name": "AI·로봇",
-      "change_percent": 0.36341287165715785
+      "change_percent": 1.040392134066297
     },
     {
-      "name": "전기차",
-      "change_percent": 0.3292672748033349
+      "name": "반도체",
+      "change_percent": 0.5276566151785319
     },
     {
-      "name": "전력망·전력기기",
-      "change_percent": 0.2212937217602648
+      "name": "통신장비",
+      "change_percent": 0.35675873627533783
     },
     {
       "name": "의료기기",
-      "change_percent": 0.21850464417875232
+      "change_percent": 0.09112308735893285
     },
     {
-      "name": "게임",
-      "change_percent": 0.2169784793936275
+      "name": "은행",
+      "change_percent": 0.06904491069573415
+    },
+    {
+      "name": "원자력",
+      "change_percent": 0.058669573699469665
+    },
+    {
+      "name": "2차전지",
+      "change_percent": 0.0
+    },
+    {
+      "name": "구리",
+      "change_percent": -0.05469836869913758
     },
     {
       "name": "인터넷 플랫폼",
-      "change_percent": 0.0604577137367415
+      "change_percent": -0.05687603367824892
     },
     {
-      "name": "소매",
-      "change_percent": -0.26241112713008297
+      "name": "전력망·전력기기",
+      "change_percent": -0.31252512898767815
     },
     {
       "name": "태양광",
-      "change_percent": -0.7548122123070847
+      "change_percent": -0.6771433848349772
+    },
+    {
+      "name": "전기차",
+      "change_percent": -0.8488355489941708
+    },
+    {
+      "name": "방산·우주항공",
+      "change_percent": -1.1003521356671142
+    },
+    {
+      "name": "바이오",
+      "change_percent": -1.3848629068637281
+    },
+    {
+      "name": "게임",
+      "change_percent": -1.5401461259520255
+    },
+    {
+      "name": "소매",
+      "change_percent": -1.6494627192541271
+    },
+    {
+      "name": "금광",
+      "change_percent": -1.8239753319052694
+    },
+    {
+      "name": "운송",
+      "change_percent": -2.124020877272357
     }
   ],
   "video_id": "IdMKvMCmvLs",
@@ -370,7 +370,7 @@
   "title": "[🔴10/27 #당잠사] ‘AI 시험대’ 앤트로픽, IPO 신청ㅣ메타, 유상증자 추진ㅣ스페이스X, AI칩 금융리스 계약ㅣ비트코인, 8만 달러 하회ㅣ#앤트로픽 #메타 #스페이스X",
   "url": "https://www.youtube.com/watch?v=IdMKvMCmvLs",
   "published": "2026-10-26T20:08:13Z",
-  "fetched_at": "2026-10-26T23:41:01.065782+00:00",
+  "fetched_at": "2026-10-27T00:01:00.591436+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
