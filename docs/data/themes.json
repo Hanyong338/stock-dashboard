@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "소캠(SOCAMM)",
-      "change_percent": 9.04,
+      "change_percent": 9.47,
       "total": 11,
-      "rise": 11
-    },
-    {
-      "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 8.73,
-      "total": 13,
-      "rise": 11
+      "rise": 10
     },
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 8.67,
+      "change_percent": 9.38,
       "total": 14,
       "rise": 13
     },
     {
-      "name": "온디바이스 AI",
-      "change_percent": 6.34,
-      "total": 24,
-      "rise": 24
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 9.19,
+      "total": 13,
+      "rise": 11
     },
     {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 6.21,
+      "change_percent": 7.07,
       "total": 7,
       "rise": 7
     },
     {
+      "name": "온디바이스 AI",
+      "change_percent": 6.96,
+      "total": 24,
+      "rise": 24
+    },
+    {
       "name": "반도체 장비",
-      "change_percent": 5.69,
+      "change_percent": 6.15,
       "total": 97,
       "rise": 91
     },
     {
       "name": "반도체 재료/부품",
-      "change_percent": 5.66,
+      "change_percent": 6.13,
       "total": 71,
-      "rise": 67
+      "rise": 68
     },
     {
-      "name": "갤럭시 부품주",
-      "change_percent": 5.42,
-      "total": 39,
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 5.97,
+      "total": 35,
       "rise": 33
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-27T10:41:00.677346+00:00"
+  "updated_at": "2026-10-27T11:01:00.789253+00:00"
 }
