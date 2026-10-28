@@ -800,7 +800,8 @@
       "title": "UPS 실적",
       "category": "earnings",
       "detail": "UPS 장전",
-      "eps_forecast": "$1.63"
+      "eps_forecast": "$1.63",
+      "eps": "$1.74"
     },
     {
       "start": "2026-10-27",
@@ -820,7 +821,8 @@
       "title": "보잉 실적",
       "category": "earnings",
       "detail": "BA 장전",
-      "eps_forecast": "($0.21)"
+      "eps_forecast": "($0.21)",
+      "eps": "($7.47)"
     },
     {
       "start": "2026-10-27",
@@ -853,7 +855,8 @@
       "title": "코카콜라 실적",
       "category": "earnings",
       "detail": "KO 장전",
-      "eps_forecast": "$0.87"
+      "eps_forecast": "$0.87",
+      "eps": "$0.82"
     },
     {
       "start": "2026-10-27",
@@ -997,7 +1000,8 @@
       "title": "로빈후드 실적",
       "category": "earnings",
       "detail": "HOOD 장마감 후",
-      "eps_forecast": "$0.56"
+      "eps_forecast": "$0.56",
+      "eps": "$0.61"
     },
     {
       "start": "2026-10-28",
@@ -1005,7 +1009,8 @@
       "title": "비자 실적",
       "category": "earnings",
       "detail": "V 장마감 후",
-      "eps_forecast": "$3.43"
+      "eps_forecast": "$3.43",
+      "eps": "$2.98"
     },
     {
       "start": "2026-10-28",
@@ -1026,7 +1031,8 @@
       "title": "시게이트 실적",
       "category": "earnings",
       "detail": "STX 장마감 후",
-      "eps_forecast": "$7.17"
+      "eps_forecast": "$7.17",
+      "eps": "$2.51"
     },
     {
       "start": "2026-10-28",
@@ -2455,5 +2461,6 @@
   ],
   "built_on": "2026-10-28",
   "builder_version": 10,
-  "updated_at": "2026-10-27T17:01:56.406608+00:00"
+  "updated_at": "2026-10-27T17:01:56.406608+00:00",
+  "values_updated_at": "2026-10-28T05:41:00.512117+00:00"
 }
