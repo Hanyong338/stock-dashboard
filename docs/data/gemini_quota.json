@@ -5,7 +5,7 @@
     "gemini-3.8-flash": "2026-10-28T07:02:00+00:00",
     "gemini-3.7-flash": "2026-10-08T07:02:00+00:00"
   },
-  "last_ok_model": "gemini-3.8-flash",
+  "last_ok_model": "gemini-3.6-flash",
   "sent": {
     "2026-10-23": {
       "gemini-3.8-flash": {
@@ -67,7 +67,8 @@
     },
     "2026-10-28": {
       "gemini-3.6-flash": {
-        "503": 1
+        "503": 2,
+        "200": 1
       },
       "gemini-3.8-flash": {
         "503": 1
@@ -114,5 +115,5 @@
   "auto_models": [],
   "retired_models": [],
   "models_checked_on": "2026-10-28",
-  "backoff_until": "2026-10-28T08:38:47.767697+00:00"
+  "backoff_until": "2026-10-28T09:19:41.912538+00:00"
 }
