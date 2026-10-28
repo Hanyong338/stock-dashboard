@@ -2,13 +2,13 @@
   "leaders": [
     {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 9.79,
+      "change_percent": 9.84,
       "total": 7,
       "rise": 7
     },
     {
       "name": "소캠(SOCAMM)",
-      "change_percent": 8.26,
+      "change_percent": 8.43,
       "total": 11,
       "rise": 10
     },
@@ -20,35 +20,35 @@
     },
     {
       "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 7.62,
+      "change_percent": 7.74,
       "total": 13,
       "rise": 13
     },
     {
       "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 6.91,
+      "change_percent": 6.76,
       "total": 11,
       "rise": 11
     },
     {
-      "name": "보안주(정보)",
-      "change_percent": 6.37,
-      "total": 52,
-      "rise": 43
-    },
-    {
       "name": "HBM(고대역폭메모리)",
-      "change_percent": 6.31,
+      "change_percent": 6.37,
       "total": 35,
       "rise": 33
     },
     {
-      "name": "클라우드 컴퓨팅",
-      "change_percent": 6.19,
-      "total": 36,
-      "rise": 32
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 6.13,
+      "total": 14,
+      "rise": 12
+    },
+    {
+      "name": "보안주(정보)",
+      "change_percent": 6.06,
+      "total": 52,
+      "rise": 42
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-28T07:41:00.933534+00:00"
+  "updated_at": "2026-10-28T08:01:01.190061+00:00"
 }
