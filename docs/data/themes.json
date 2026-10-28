@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 10.15,
+      "change_percent": 9.66,
       "total": 7,
       "rise": 7
     },
     {
       "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 8.05,
+      "change_percent": 7.78,
       "total": 15,
       "rise": 15
     },
     {
       "name": "소캠(SOCAMM)",
-      "change_percent": 7.11,
+      "change_percent": 6.99,
       "total": 11,
       "rise": 10
     },
     {
       "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 6.33,
+      "change_percent": 6.34,
       "total": 13,
       "rise": 12
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 5.69,
+      "change_percent": 5.68,
       "total": 52,
-      "rise": 43
+      "rise": 41
     },
     {
       "name": "클라우드 컴퓨팅",
-      "change_percent": 5.49,
+      "change_percent": 5.52,
       "total": 36,
-      "rise": 29
+      "rise": 31
+    },
+    {
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 5.21,
+      "total": 35,
+      "rise": 33
     },
     {
       "name": "김밥(냉동김밥 등)",
-      "change_percent": 5.22,
+      "change_percent": 5.05,
       "total": 6,
-      "rise": 4
-    },
-    {
-      "name": "IT 대표주",
-      "change_percent": 5.07,
-      "total": 6,
-      "rise": 6
+      "rise": 3
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-28T03:43:39.467557+00:00"
+  "updated_at": "2026-10-28T04:01:00.509536+00:00"
 }
