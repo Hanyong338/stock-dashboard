@@ -801,7 +801,8 @@
       "category": "earnings",
       "detail": "UPS 장전",
       "eps_forecast": "$1.63",
-      "eps": "$1.74"
+      "eps": "$1.69",
+      "surprise": "3.68"
     },
     {
       "start": "2026-10-27",
@@ -822,7 +823,8 @@
       "category": "earnings",
       "detail": "BA 장전",
       "eps_forecast": "($0.21)",
-      "eps": "($7.47)"
+      "eps": "($0.34)",
+      "surprise": "-61.9"
     },
     {
       "start": "2026-10-27",
@@ -856,7 +858,8 @@
       "category": "earnings",
       "detail": "KO 장전",
       "eps_forecast": "$0.87",
-      "eps": "$0.82"
+      "eps": "$0.91",
+      "surprise": "4.6"
     },
     {
       "start": "2026-10-27",
@@ -1447,7 +1450,7 @@
       "title": "코인베이스 실적",
       "category": "earnings",
       "detail": "COIN 장마감 후",
-      "eps_forecast": "($0.15)"
+      "eps_forecast": "($0.16)"
     },
     {
       "start": "2026-10-30",
@@ -2462,5 +2465,5 @@
   "built_on": "2026-10-28",
   "builder_version": 10,
   "updated_at": "2026-10-27T17:01:56.406608+00:00",
-  "values_updated_at": "2026-10-28T05:41:00.512117+00:00"
+  "values_updated_at": "2026-10-28T14:21:40.108198+00:00"
 }
