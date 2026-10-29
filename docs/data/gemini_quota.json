@@ -70,7 +70,8 @@
     },
     "2026-10-29": {
       "gemini-3.6-flash": {
-        "200": 1
+        "200": 1,
+        "503": 1
       },
       "gemini-3.8-flash": {
         "ReadTimeout": 1
@@ -117,5 +118,5 @@
   "auto_models": [],
   "retired_models": [],
   "models_checked_on": "2026-10-29",
-  "backoff_until": "2026-10-29T08:01:56.512075+00:00"
+  "backoff_until": "2026-10-29T08:59:15.819613+00:00"
 }
