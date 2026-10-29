@@ -20760,6 +20760,50 @@
       "final_ret": null,
       "closed_on": "",
       "checked_for": "2026-10-28"
+    },
+    {
+      "id": "kr:327260:MORNING_BREAKOUT:2026-10-29",
+      "market": "kr",
+      "code": "327260",
+      "name": "RF머트리얼즈",
+      "board": "KOSDAQ",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "A",
+      "found_on": "2026-10-29",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "327260.KQ",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-10-29T00:41:00.987872+00:00",
+      "reason": "전일 고가 36,600 돌파 · 30분 거래대금 427억 · 거래량 전일 하루의 71%",
+      "stop": null,
+      "checked_for": "2026-10-28"
+    },
+    {
+      "id": "kr:017900:MORNING_BREAKOUT:2026-10-29",
+      "market": "kr",
+      "code": "017900",
+      "name": "광전자",
+      "board": "KOSPI",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "A",
+      "found_on": "2026-10-29",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "017900.KS",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-10-29T00:41:00.987872+00:00",
+      "reason": "전일 고가 8,270 돌파 · 30분 거래대금 304억 · 거래량 전일 하루의 106%",
+      "stop": null,
+      "checked_for": "2026-10-28"
     }
   ],
   "updated_for": {
@@ -20767,8 +20811,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 510,
-    "pending": 27,
+    "total": 512,
+    "pending": 29,
     "active": 89,
     "half_tp": 163,
     "closed": 358,
@@ -20780,7 +20824,7 @@
     "avg_mdd": -6.91,
     "closed_avg_final": -3.94
   },
-  "updated_at": "2026-10-28T21:41:01.226351+00:00",
+  "updated_at": "2026-10-29T00:41:00.987872+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
