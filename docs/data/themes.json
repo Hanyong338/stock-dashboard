@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "마이크로 LED",
-      "change_percent": 2.21,
+      "change_percent": 2.29,
       "total": 10,
       "rise": 2
     },
     {
       "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 2.08,
+      "change_percent": 2.21,
       "total": 15,
       "rise": 8
-    },
-    {
-      "name": "CCTV＆DVR",
-      "change_percent": 2.02,
-      "total": 8,
-      "rise": 4
     },
     {
       "name": "은행",
       "change_percent": 1.95,
       "total": 11,
-      "rise": 9
+      "rise": 8
     },
     {
-      "name": "김밥(냉동김밥 등)",
-      "change_percent": 1.15,
-      "total": 6,
-      "rise": 2
+      "name": "CCTV＆DVR",
+      "change_percent": 1.92,
+      "total": 8,
+      "rise": 3
     },
     {
       "name": "주류업(주정, 에탄올 등)",
-      "change_percent": 1.14,
+      "change_percent": 1.23,
       "total": 13,
       "rise": 8
     },
     {
       "name": "손해보험",
-      "change_percent": 1.13,
+      "change_percent": 1.23,
       "total": 8,
       "rise": 6
     },
     {
       "name": "애플페이",
-      "change_percent": 1.08,
+      "change_percent": 1.07,
       "total": 8,
       "rise": 3
+    },
+    {
+      "name": "김밥(냉동김밥 등)",
+      "change_percent": 1.03,
+      "total": 6,
+      "rise": 2
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-29T10:01:00.936524+00:00"
+  "updated_at": "2026-10-29T10:21:01.061968+00:00"
 }
