@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "수자원(양적/질적 개선)",
+      "change_percent": 4.09,
+      "total": 27,
+      "rise": 12
+    },
+    {
+      "name": "우주항공산업(누리호/인공위성 등)",
+      "change_percent": 1.74,
+      "total": 41,
+      "rise": 7
+    },
+    {
+      "name": "수소에너지(수소차/연료전지 등)",
+      "change_percent": 1.39,
+      "total": 72,
+      "rise": 26
+    },
+    {
+      "name": "마이코플라스마 폐렴",
+      "change_percent": 1.22,
+      "total": 11,
+      "rise": 10
+    },
+    {
+      "name": "탈모 치료",
+      "change_percent": 1.21,
+      "total": 29,
+      "rise": 15
+    },
+    {
+      "name": "의료AI",
+      "change_percent": 1.07,
+      "total": 29,
+      "rise": 14
+    },
+    {
+      "name": "mRNA(메신저 리보핵산)",
+      "change_percent": 0.96,
+      "total": 14,
+      "rise": 10
+    },
+    {
+      "name": "탄소나노튜브(CNT)",
+      "change_percent": 0.96,
+      "total": 5,
+      "rise": 3
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-10-28T23:01:00.801337+00:00"
+  "updated_at": "2026-10-29T00:01:00.467507+00:00"
 }
