@@ -2,10 +2,10 @@
   "exhausted": {
     "gemini-3.5-flash": "2026-10-09T07:02:00+00:00",
     "gemini-3.6-flash": "2026-10-29T07:02:00+00:00",
-    "gemini-3.8-flash": "2026-10-28T07:02:00+00:00",
+    "gemini-3.8-flash": "2026-10-29T07:02:00+00:00",
     "gemini-3.7-flash": "2026-10-08T07:02:00+00:00"
   },
-  "last_ok_model": "gemini-3.6-flash",
+  "last_ok_model": "gemini-3.8-flash",
   "sent": {
     "2026-10-23": {
       "gemini-3.8-flash": {
@@ -72,8 +72,10 @@
         "429": 1
       },
       "gemini-3.8-flash": {
-        "503": 1,
-        "ReadTimeout": 1
+        "503": 2,
+        "ReadTimeout": 4,
+        "200": 1,
+        "429": 1
       }
     }
   },
