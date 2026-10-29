@@ -7,180 +7,54 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-10-27 09:30",
-  "universe_count": 306,
+  "as_of": "2026-10-29 09:30",
+  "universe_count": 319,
   "fetch_failures": 0,
   "dropped": 0,
   "items": [
     {
-      "code": "000660",
-      "name": "SK하이닉스",
-      "market": "KOSPI",
-      "tags": [],
-      "market_cap_eok": 9912781,
-      "type": "C",
-      "reason": "240일선 1,325,692 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 7421억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/000660/total",
-      "open_gap": 5.57,
-      "value_30m_eok": 7421,
-      "vol_vs_prev_day": 20,
-      "close": 1368000,
-      "volume": 545619,
-      "change_percent": 7.29
-    },
-    {
-      "code": "005930",
-      "name": "삼성전자",
-      "market": "KOSPI",
-      "tags": [],
-      "market_cap_eok": 13051817,
-      "type": "C",
-      "reason": "240일선 213,397 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 4234억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/005930/total",
-      "open_gap": 4.23,
-      "value_30m_eok": 4234,
-      "vol_vs_prev_day": 17,
-      "close": 224000,
-      "volume": 1899281,
-      "change_percent": 5.16
-    },
-    {
-      "code": "402340",
-      "name": "SK스퀘어",
-      "market": "KOSPI",
-      "tags": [],
-      "market_cap_eok": 1120035,
-      "type": "C",
-      "reason": "240일선 811,152 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 1338억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/402340/total",
-      "open_gap": 6.89,
-      "value_30m_eok": 1338,
-      "vol_vs_prev_day": 41,
-      "close": 851000,
-      "volume": 158828,
-      "change_percent": 10.66
-    },
-    {
-      "code": "222800",
-      "name": "심텍",
+      "code": "327260",
+      "name": "RF머트리얼즈",
       "market": "KOSDAQ",
       "tags": [],
-      "market_cap_eok": 47772,
+      "market_cap_eok": 6925,
       "type": "A",
-      "reason": "전일 고가 111,700 돌파 · 30분 거래대금 352억 · 거래량 전일 하루의 61%",
+      "reason": "전일 고가 36,600 돌파 · 30분 거래대금 427억 · 거래량 전일 하루의 71%",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/222800/total",
-      "open_gap": 5.5,
-      "value_30m_eok": 352,
-      "vol_vs_prev_day": 61,
-      "close": 121900,
-      "volume": 295081,
-      "change_percent": 13.61
+      "url": "https://m.stock.naver.com/domestic/stock/327260/total",
+      "open_gap": 5.17,
+      "value_30m_eok": 427,
+      "vol_vs_prev_day": 71,
+      "close": 39450,
+      "volume": 1116127,
+      "change_percent": 13.36
     },
     {
-      "code": "098460",
-      "name": "고영",
-      "market": "KOSDAQ",
+      "code": "017900",
+      "name": "광전자",
+      "market": "KOSPI",
       "tags": [],
-      "market_cap_eok": 21109,
-      "type": "B",
-      "reason": "시초 +2.5% 갭 · 시초가 28,700 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 162억",
+      "market_cap_eok": 5615,
+      "type": "A",
+      "reason": "전일 고가 8,270 돌파 · 30분 거래대금 304억 · 거래량 전일 하루의 106%",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/098460/total",
-      "open_gap": 2.5,
-      "value_30m_eok": 162,
-      "vol_vs_prev_day": 68,
-      "close": 31550,
-      "volume": 534505,
-      "change_percent": 12.68
-    },
-    {
-      "code": "078350",
-      "name": "한양디지텍",
-      "market": "KOSDAQ",
-      "tags": [],
-      "market_cap_eok": 5564,
-      "type": "B",
-      "reason": "시초 +4.8% 갭 · 시초가 33,550 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 48억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/078350/total",
-      "open_gap": 4.84,
-      "value_30m_eok": 48,
-      "vol_vs_prev_day": 39,
-      "close": 36450,
-      "volume": 136838,
-      "change_percent": 13.91
-    },
-    {
-      "code": "091580",
-      "name": "상신이디피",
-      "market": "KOSDAQ",
-      "tags": [],
-      "market_cap_eok": 3459,
-      "type": "B",
-      "reason": "시초 +2.5% 갭 · 시초가 24,250 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 33억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/091580/total",
-      "open_gap": 2.54,
-      "value_30m_eok": 33,
-      "vol_vs_prev_day": 33,
-      "close": 26050,
-      "volume": 129497,
-      "change_percent": 10.15
-    },
-    {
-      "code": "083450",
-      "name": "GST",
-      "market": "KOSDAQ",
-      "tags": [],
-      "market_cap_eok": 8026,
-      "type": "B",
-      "reason": "시초 +2.1% 갭 · 시초가 41,400 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 9억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/083450/total",
-      "open_gap": 2.1,
-      "value_30m_eok": 9,
-      "vol_vs_prev_day": 32,
-      "close": 43800,
-      "volume": 20627,
-      "change_percent": 8.01
+      "url": "https://m.stock.naver.com/domestic/stock/017900/total",
+      "open_gap": 3.5,
+      "value_30m_eok": 304,
+      "vol_vs_prev_day": 106,
+      "close": 9680,
+      "volume": 3270291,
+      "change_percent": 21.15
     }
   ],
-  "built_on": "2026-10-27",
-  "updated_at": "2026-10-27T00:41:01.100632+00:00"
+  "built_on": "2026-10-29",
+  "updated_at": "2026-10-29T00:41:00.987872+00:00"
 }
