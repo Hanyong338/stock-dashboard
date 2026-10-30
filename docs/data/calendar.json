@@ -1249,7 +1249,8 @@
       "category": "earnings",
       "detail": "MA 장전",
       "eps_forecast": "$5.14",
-      "eps": "$4.38"
+      "eps": "$5.31",
+      "surprise": "3.31"
     },
     {
       "start": "2026-10-29",
@@ -1258,7 +1259,8 @@
       "category": "earnings",
       "detail": "MRK 장전",
       "eps_forecast": "$2.12",
-      "eps": "$2.58"
+      "eps": "$2.49",
+      "surprise": "17.45"
     },
     {
       "start": "2026-10-29",
@@ -1319,7 +1321,8 @@
       "category": "earnings",
       "detail": "LLY 장전",
       "eps_forecast": "$5.38",
-      "eps": "$7.02"
+      "eps": "$7.48",
+      "surprise": "39.03"
     },
     {
       "start": "2026-10-29",
@@ -1328,7 +1331,8 @@
       "category": "earnings",
       "detail": "CAT 장전",
       "eps_forecast": "$7.12",
-      "eps": "$4.95"
+      "eps": "$7.20",
+      "surprise": "1.12"
     },
     {
       "start": "2026-10-29",
@@ -2711,5 +2715,5 @@
   "built_on": "2026-10-30",
   "builder_version": 10,
   "updated_at": "2026-10-29T17:01:46.147890+00:00",
-  "values_updated_at": "2026-10-30T06:01:00.323286+00:00"
+  "values_updated_at": "2026-10-30T14:21:38.633082+00:00"
 }
