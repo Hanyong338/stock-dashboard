@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "보안주(물리)",
-      "change_percent": 7.35,
+      "change_percent": 7.72,
       "total": 21,
-      "rise": 5
+      "rise": 4
     },
     {
       "name": "해운",
-      "change_percent": 2.27,
+      "change_percent": 1.7,
       "total": 6,
       "rise": 5
     },
     {
+      "name": "김밥(냉동김밥 등)",
+      "change_percent": 1.11,
+      "total": 6,
+      "rise": 2
+    },
+    {
       "name": "블록체인",
-      "change_percent": 1.21,
+      "change_percent": 1.02,
       "total": 23,
-      "rise": 7
+      "rise": 6
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 0.77,
+      "change_percent": 0.71,
       "total": 52,
-      "rise": 18
-    },
-    {
-      "name": "김밥(냉동김밥 등)",
-      "change_percent": 0.51,
-      "total": 6,
-      "rise": 3
+      "rise": 16
     },
     {
       "name": "편의점",
-      "change_percent": 0.39,
+      "change_percent": 0.34,
       "total": 5,
       "rise": 2
     },
     {
       "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
-      "change_percent": 0.18,
+      "change_percent": 0.28,
       "total": 10,
       "rise": 4
     },
     {
-      "name": "마이데이터",
-      "change_percent": 0.01,
-      "total": 12,
+      "name": "주류업(주정, 에탄올 등)",
+      "change_percent": 0.0,
+      "total": 13,
       "rise": 5
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-30T05:41:00.985235+00:00"
+  "updated_at": "2026-10-30T06:01:00.323286+00:00"
 }
