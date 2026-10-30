@@ -1248,7 +1248,8 @@
       "title": "마스터카드 실적",
       "category": "earnings",
       "detail": "MA 장전",
-      "eps_forecast": "$5.14"
+      "eps_forecast": "$5.14",
+      "eps": "$4.38"
     },
     {
       "start": "2026-10-29",
@@ -1256,7 +1257,8 @@
       "title": "머크 실적",
       "category": "earnings",
       "detail": "MRK 장전",
-      "eps_forecast": "$2.12"
+      "eps_forecast": "$2.12",
+      "eps": "$2.58"
     },
     {
       "start": "2026-10-29",
@@ -1316,7 +1318,8 @@
       "title": "일라이릴리 실적",
       "category": "earnings",
       "detail": "LLY 장전",
-      "eps_forecast": "$5.38"
+      "eps_forecast": "$5.38",
+      "eps": "$7.02"
     },
     {
       "start": "2026-10-29",
@@ -1324,7 +1327,8 @@
       "title": "캐터필러 실적",
       "category": "earnings",
       "detail": "CAT 장전",
-      "eps_forecast": "$7.12"
+      "eps_forecast": "$7.12",
+      "eps": "$4.95"
     },
     {
       "start": "2026-10-29",
@@ -1446,7 +1450,8 @@
       "title": "스타벅스 실적",
       "category": "earnings",
       "detail": "SBUX 장마감 후",
-      "eps_forecast": "$0.73"
+      "eps_forecast": "$0.73",
+      "eps": "$0.52"
     },
     {
       "start": "2026-10-30",
@@ -1454,7 +1459,8 @@
       "title": "아마존 실적",
       "category": "earnings",
       "detail": "AMZN 장마감 후",
-      "eps_forecast": "$2.01"
+      "eps_forecast": "$2.01",
+      "eps": "$1.95"
     },
     {
       "start": "2026-10-30",
@@ -1483,7 +1489,8 @@
       "title": "인텔 실적",
       "category": "earnings",
       "detail": "INTC 장마감 후",
-      "eps_forecast": "$0.28"
+      "eps_forecast": "$0.28",
+      "eps": "$0.11"
     },
     {
       "start": "2026-10-30",
@@ -1502,7 +1509,8 @@
       "title": "코인베이스 실적",
       "category": "earnings",
       "detail": "COIN 장마감 후",
-      "eps_forecast": "($0.16)"
+      "eps_forecast": "($0.16)",
+      "eps": "$1.44"
     },
     {
       "start": "2026-10-30",
@@ -2703,5 +2711,5 @@
   "built_on": "2026-10-30",
   "builder_version": 10,
   "updated_at": "2026-10-29T17:01:46.147890+00:00",
-  "values_updated_at": "2026-10-30T05:41:00.985235+00:00"
+  "values_updated_at": "2026-10-30T06:01:00.323286+00:00"
 }
