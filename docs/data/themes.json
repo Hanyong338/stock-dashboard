@@ -2,7 +2,7 @@
   "leaders": [
     {
       "name": "보안주(물리)",
-      "change_percent": 8.53,
+      "change_percent": 8.79,
       "total": 21,
       "rise": 5
     },
@@ -20,9 +20,9 @@
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 1.36,
+      "change_percent": 1.68,
       "total": 52,
-      "rise": 20
+      "rise": 22
     },
     {
       "name": "마이데이터",
@@ -37,18 +37,18 @@
       "rise": 3
     },
     {
+      "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
+      "change_percent": 0.95,
+      "total": 10,
+      "rise": 6
+    },
+    {
       "name": "김밥(냉동김밥 등)",
       "change_percent": 0.95,
       "total": 6,
       "rise": 2
-    },
-    {
-      "name": "딥페이크(deepfake)",
-      "change_percent": 0.82,
-      "total": 14,
-      "rise": 4
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-30T06:41:00.918930+00:00"
+  "updated_at": "2026-10-30T07:01:01.167018+00:00"
 }
