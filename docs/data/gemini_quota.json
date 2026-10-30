@@ -75,7 +75,7 @@
         "429": 1
       },
       "gemini-3.8-flash": {
-        "ReadTimeout": 3,
+        "ReadTimeout": 4,
         "200": 5,
         "503": 1
       }
