@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "보안주(물리)",
-      "change_percent": 7.14,
+      "change_percent": 7.43,
       "total": 21,
       "rise": 5
     },
     {
-      "name": "블록체인",
-      "change_percent": 1.78,
-      "total": 23,
-      "rise": 9
-    },
-    {
       "name": "해운",
-      "change_percent": 1.53,
+      "change_percent": 1.61,
       "total": 6,
       "rise": 4
     },
     {
-      "name": "보안주(정보)",
-      "change_percent": 1.44,
-      "total": 52,
-      "rise": 22
+      "name": "블록체인",
+      "change_percent": 1.29,
+      "total": 23,
+      "rise": 6
     },
     {
-      "name": "김밥(냉동김밥 등)",
-      "change_percent": 1.05,
-      "total": 6,
-      "rise": 3
+      "name": "보안주(정보)",
+      "change_percent": 0.82,
+      "total": 52,
+      "rise": 18
     },
     {
       "name": "주류업(주정, 에탄올 등)",
-      "change_percent": 0.99,
+      "change_percent": 0.66,
       "total": 13,
       "rise": 6
     },
     {
-      "name": "편의점",
-      "change_percent": 0.82,
-      "total": 5,
-      "rise": 2
+      "name": "日제품 불매운동(수혜)",
+      "change_percent": 0.37,
+      "total": 21,
+      "rise": 10
     },
     {
-      "name": "카카오뱅크(kakao BANK)",
-      "change_percent": 0.79,
-      "total": 11,
-      "rise": 6
+      "name": "딥페이크(deepfake)",
+      "change_percent": 0.37,
+      "total": 14,
+      "rise": 5
+    },
+    {
+      "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
+      "change_percent": 0.37,
+      "total": 10,
+      "rise": 4
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-30T09:01:00.641472+00:00"
+  "updated_at": "2026-10-30T14:21:38.633082+00:00"
 }
