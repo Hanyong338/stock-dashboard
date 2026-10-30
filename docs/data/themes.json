@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "보안주(물리)",
-      "change_percent": 3.27,
+      "change_percent": 4.88,
       "total": 21,
       "rise": 4
     },
     {
       "name": "해운",
-      "change_percent": 1.39,
+      "change_percent": 1.44,
       "total": 6,
       "rise": 5
     },
     {
       "name": "편의점",
-      "change_percent": 0.5,
+      "change_percent": 0.7,
       "total": 5,
       "rise": 2
     },
     {
       "name": "블록체인",
-      "change_percent": 0.36,
+      "change_percent": 0.52,
       "total": 23,
-      "rise": 5
+      "rise": 6
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 0.18,
+      "change_percent": 0.19,
       "total": 52,
-      "rise": 14
+      "rise": 15
     },
     {
       "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
-      "change_percent": -0.13,
+      "change_percent": -0.09,
       "total": 10,
       "rise": 3
+    },
+    {
+      "name": "피지컬 AI/휴머노이드 로봇",
+      "change_percent": -0.15,
+      "total": 47,
+      "rise": 2
     },
     {
       "name": "기업인수목적회사(SPAC)",
       "change_percent": -0.28,
       "total": 70,
       "rise": 13
-    },
-    {
-      "name": "미디어(방송/신문)",
-      "change_percent": -0.52,
-      "total": 12,
-      "rise": 4
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-30T03:45:55.099592+00:00"
+  "updated_at": "2026-10-30T04:01:00.637378+00:00"
 }
