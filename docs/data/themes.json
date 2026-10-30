@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "보안주(물리)",
-      "change_percent": 4.88,
+      "change_percent": 4.29,
       "total": 21,
-      "rise": 4
+      "rise": 3
     },
     {
       "name": "해운",
-      "change_percent": 1.44,
+      "change_percent": 1.81,
       "total": 6,
       "rise": 5
     },
     {
+      "name": "블록체인",
+      "change_percent": 1.29,
+      "total": 23,
+      "rise": 7
+    },
+    {
+      "name": "보안주(정보)",
+      "change_percent": 1.28,
+      "total": 52,
+      "rise": 21
+    },
+    {
       "name": "편의점",
-      "change_percent": 0.7,
+      "change_percent": 0.62,
       "total": 5,
       "rise": 2
     },
     {
-      "name": "블록체인",
-      "change_percent": 0.52,
-      "total": 23,
-      "rise": 6
+      "name": "딥페이크(deepfake)",
+      "change_percent": 0.45,
+      "total": 14,
+      "rise": 5
     },
     {
-      "name": "보안주(정보)",
+      "name": "제대혈",
       "change_percent": 0.19,
-      "total": 52,
-      "rise": 15
-    },
-    {
-      "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
-      "change_percent": -0.09,
-      "total": 10,
-      "rise": 3
-    },
-    {
-      "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": -0.15,
-      "total": 47,
+      "total": 5,
       "rise": 2
     },
     {
-      "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.28,
-      "total": 70,
-      "rise": 13
+      "name": "타이어",
+      "change_percent": 0.07,
+      "total": 9,
+      "rise": 3
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-30T04:01:00.637378+00:00"
+  "updated_at": "2026-10-30T04:21:00.540624+00:00"
 }
