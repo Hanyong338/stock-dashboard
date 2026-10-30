@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "마이크로 LED",
-      "change_percent": 2.59,
-      "total": 10,
-      "rise": 2
+      "name": "보안주(물리)",
+      "change_percent": 3.27,
+      "total": 21,
+      "rise": 4
     },
     {
-      "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 2.31,
-      "total": 15,
-      "rise": 8
-    },
-    {
-      "name": "은행",
-      "change_percent": 2.21,
-      "total": 11,
-      "rise": 9
-    },
-    {
-      "name": "CCTV＆DVR",
-      "change_percent": 1.66,
-      "total": 8,
-      "rise": 3
-    },
-    {
-      "name": "손해보험",
-      "change_percent": 1.37,
-      "total": 8,
-      "rise": 6
-    },
-    {
-      "name": "주류업(주정, 에탄올 등)",
-      "change_percent": 1.29,
-      "total": 13,
-      "rise": 7
-    },
-    {
-      "name": "애플페이",
-      "change_percent": 1.2,
-      "total": 8,
-      "rise": 3
+      "name": "해운",
+      "change_percent": 1.39,
+      "total": 6,
+      "rise": 5
     },
     {
       "name": "편의점",
-      "change_percent": 1.09,
+      "change_percent": 0.5,
       "total": 5,
+      "rise": 2
+    },
+    {
+      "name": "블록체인",
+      "change_percent": 0.36,
+      "total": 23,
+      "rise": 5
+    },
+    {
+      "name": "보안주(정보)",
+      "change_percent": 0.18,
+      "total": 52,
+      "rise": 14
+    },
+    {
+      "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
+      "change_percent": -0.13,
+      "total": 10,
+      "rise": 3
+    },
+    {
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.28,
+      "total": 70,
+      "rise": 13
+    },
+    {
+      "name": "미디어(방송/신문)",
+      "change_percent": -0.52,
+      "total": 12,
       "rise": 4
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-10-29T11:01:00.576167+00:00"
+  "updated_at": "2026-10-30T03:45:55.099592+00:00"
 }
