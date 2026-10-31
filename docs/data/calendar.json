@@ -1143,7 +1143,9 @@
       "title": "셰브론 실적",
       "category": "earnings",
       "detail": "CVX 장전",
-      "eps_forecast": "$4.78"
+      "eps_forecast": "$4.78",
+      "eps": "$5.28",
+      "surprise": "10.46"
     },
     {
       "start": "2026-10-30",
@@ -1164,7 +1166,9 @@
       "title": "엑슨모빌 실적",
       "category": "earnings",
       "detail": "XOM 장전",
-      "eps_forecast": "$3.90"
+      "eps_forecast": "$3.90",
+      "eps": "$4.23",
+      "surprise": "8.46"
     },
     {
       "start": "2026-10-30",
@@ -2381,5 +2385,6 @@
   ],
   "built_on": "2026-10-31",
   "builder_version": 10,
-  "updated_at": "2026-10-30T15:01:00.654577+00:00"
+  "updated_at": "2026-10-30T15:01:00.654577+00:00",
+  "values_updated_at": "2026-10-31T06:22:54.032610+00:00"
 }
