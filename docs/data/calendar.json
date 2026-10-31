@@ -1144,7 +1144,7 @@
       "category": "earnings",
       "detail": "CVX 장전",
       "eps_forecast": "$4.78",
-      "eps": "$5.28",
+      "eps": "$1.85",
       "surprise": "10.46"
     },
     {
@@ -1167,7 +1167,7 @@
       "category": "earnings",
       "detail": "XOM 장전",
       "eps_forecast": "$3.90",
-      "eps": "$4.23",
+      "eps": "$1.88",
       "surprise": "8.46"
     },
     {
@@ -2386,5 +2386,5 @@
   "built_on": "2026-10-31",
   "builder_version": 10,
   "updated_at": "2026-10-30T15:01:00.654577+00:00",
-  "values_updated_at": "2026-10-31T06:22:54.032610+00:00"
+  "values_updated_at": "2026-10-31T07:41:00.592066+00:00"
 }
