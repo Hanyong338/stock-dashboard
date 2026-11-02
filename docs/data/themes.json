@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "자동차부품",
+      "change_percent": 0.01,
+      "total": 147,
+      "rise": 1
+    },
+    {
+      "name": "윤활유",
+      "change_percent": 0.01,
+      "total": 7,
+      "rise": 1
+    },
+    {
+      "name": "2차전지",
+      "change_percent": 0.0,
+      "total": 143,
+      "rise": 0
+    },
+    {
+      "name": "지주사",
+      "change_percent": 0.0,
+      "total": 127,
+      "rise": 0
+    },
+    {
+      "name": "코리아 밸류업 지수(Korea Value-up Index)",
+      "change_percent": 0.0,
+      "total": 99,
+      "rise": 0
+    },
+    {
+      "name": "전기차",
+      "change_percent": 0.0,
+      "total": 97,
+      "rise": 0
+    },
+    {
+      "name": "화장품",
+      "change_percent": 0.0,
+      "total": 96,
+      "rise": 0
+    },
+    {
+      "name": "의료기기",
+      "change_percent": 0.0,
+      "total": 95,
+      "rise": 0
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-11-01T23:01:00.574007+00:00"
+  "updated_at": "2026-11-02T00:01:00.656636+00:00"
 }
