@@ -74,8 +74,8 @@
     },
     "2026-11-01": {
       "gemini-3.8-flash": {
-        "503": 2,
-        "ReadTimeout": 4
+        "503": 3,
+        "ReadTimeout": 8
       },
       "gemini-3.6-flash": {
         "200": 11,
