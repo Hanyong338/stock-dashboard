@@ -7,54 +7,96 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-10-29 09:30",
-  "universe_count": 319,
+  "as_of": "2026-11-02 09:30",
+  "universe_count": 303,
   "fetch_failures": 0,
   "dropped": 0,
   "items": [
     {
-      "code": "327260",
-      "name": "RF머트리얼즈",
+      "code": "232680",
+      "name": "라온로보틱스",
       "market": "KOSDAQ",
       "tags": [],
-      "market_cap_eok": 6925,
-      "type": "A",
-      "reason": "전일 고가 36,600 돌파 · 30분 거래대금 427억 · 거래량 전일 하루의 71%",
+      "market_cap_eok": 1787,
+      "type": "B",
+      "reason": "시초 +4.3% 갭 · 시초가 12,050 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 256억",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/327260/total",
-      "open_gap": 5.17,
-      "value_30m_eok": 427,
-      "vol_vs_prev_day": 71,
-      "close": 39450,
-      "volume": 1116127,
-      "change_percent": 13.36
+      "url": "https://m.stock.naver.com/domestic/stock/232680/total",
+      "open_gap": 4.33,
+      "value_30m_eok": 256,
+      "vol_vs_prev_day": 31,
+      "close": 13730,
+      "volume": 1939969,
+      "change_percent": 18.87
     },
     {
-      "code": "017900",
-      "name": "광전자",
+      "code": "248170",
+      "name": "샘표식품",
       "market": "KOSPI",
       "tags": [],
-      "market_cap_eok": 5615,
-      "type": "A",
-      "reason": "전일 고가 8,270 돌파 · 30분 거래대금 304억 · 거래량 전일 하루의 106%",
+      "market_cap_eok": 1251,
+      "type": "C",
+      "reason": "240일선 25,830 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 22억",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/017900/total",
-      "open_gap": 3.5,
-      "value_30m_eok": 304,
-      "vol_vs_prev_day": 106,
-      "close": 9680,
-      "volume": 3270291,
-      "change_percent": 21.15
+      "url": "https://m.stock.naver.com/domestic/stock/248170/total",
+      "open_gap": 29.86,
+      "value_30m_eok": 22,
+      "vol_vs_prev_day": 772,
+      "close": 27400,
+      "volume": 79607,
+      "change_percent": 29.86
+    },
+    {
+      "code": "001940",
+      "name": "KISCO홀딩스",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 3927,
+      "type": "C",
+      "reason": "240일선 25,447 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 15억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/001940/total",
+      "open_gap": 19.28,
+      "value_30m_eok": 15,
+      "vol_vs_prev_day": 718,
+      "close": 27650,
+      "volume": 53230,
+      "change_percent": 17.16
+    },
+    {
+      "code": "007540",
+      "name": "샘표",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 1121,
+      "type": "C",
+      "reason": "240일선 48,373 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 11억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/007540/total",
+      "open_gap": 29.91,
+      "value_30m_eok": 11,
+      "vol_vs_prev_day": 217,
+      "close": 55600,
+      "volume": 19074,
+      "change_percent": 29.91
     }
   ],
-  "built_on": "2026-10-29",
-  "updated_at": "2026-10-29T00:41:00.987872+00:00"
+  "built_on": "2026-11-02",
+  "updated_at": "2026-11-02T00:41:01.093259+00:00"
 }
