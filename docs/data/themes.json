@@ -2,27 +2,15 @@
   "leaders": [
     {
       "name": "콩/대두",
-      "change_percent": 14.48,
+      "change_percent": 14.12,
       "total": 5,
       "rise": 5
     },
     {
       "name": "조선",
-      "change_percent": 8.38,
+      "change_percent": 6.36,
       "total": 6,
       "rise": 6
-    },
-    {
-      "name": "조선기자재",
-      "change_percent": 7.16,
-      "total": 38,
-      "rise": 35
-    },
-    {
-      "name": "철강 주요종목",
-      "change_percent": 6.37,
-      "total": 11,
-      "rise": 11
     },
     {
       "name": "피팅(관이음쇠)/밸브",
@@ -31,24 +19,36 @@
       "rise": 9
     },
     {
+      "name": "철강 주요종목",
+      "change_percent": 6.03,
+      "total": 11,
+      "rise": 11
+    },
+    {
+      "name": "조선기자재",
+      "change_percent": 5.64,
+      "total": 38,
+      "rise": 36
+    },
+    {
+      "name": "냉각시스템(액침냉각 등)",
+      "change_percent": 5.46,
+      "total": 13,
+      "rise": 12
+    },
+    {
       "name": "건설 대표주",
-      "change_percent": 5.25,
+      "change_percent": 5.01,
       "total": 6,
       "rise": 6
     },
     {
-      "name": "LNG(액화천연가스)",
-      "change_percent": 3.95,
-      "total": 27,
-      "rise": 23
-    },
-    {
-      "name": "원자력발전",
-      "change_percent": 3.42,
-      "total": 50,
-      "rise": 46
+      "name": "온실가스(탄소배출권)/탄소 포집·활용·저장(CCUS)",
+      "change_percent": 4.97,
+      "total": 17,
+      "rise": 15
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-02T01:41:01.050752+00:00"
+  "updated_at": "2026-11-02T07:04:09.588143+00:00"
 }
