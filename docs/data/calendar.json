@@ -102,7 +102,7 @@
       "title": "ISM 제조업",
       "category": "macro",
       "detail": "23:00",
-      "consensus": "54.7",
+      "consensus": "54.5",
       "previous": "54.5"
     },
     {
@@ -112,7 +112,7 @@
       "category": "macro",
       "detail": "22:45",
       "consensus": "56.0",
-      "previous": "56.0"
+      "previous": "55.9"
     },
     {
       "start": "2026-11-02",
@@ -1222,5 +1222,5 @@
   "built_on": "2026-11-02",
   "builder_version": 10,
   "updated_at": "2026-11-01T15:01:00.684308+00:00",
-  "values_updated_at": "2026-11-02T01:01:01.016404+00:00"
+  "values_updated_at": "2026-11-02T07:41:01.198697+00:00"
 }
