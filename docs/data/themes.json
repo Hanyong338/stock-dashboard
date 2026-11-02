@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "콩/대두",
-      "change_percent": 13.96,
+      "change_percent": 13.7,
       "total": 5,
       "rise": 5
     },
     {
       "name": "조선",
-      "change_percent": 6.37,
+      "change_percent": 6.32,
       "total": 6,
       "rise": 6
     },
     {
-      "name": "피팅(관이음쇠)/밸브",
-      "change_percent": 6.2,
-      "total": 9,
-      "rise": 9
-    },
-    {
       "name": "철강 주요종목",
-      "change_percent": 6.01,
+      "change_percent": 5.8,
       "total": 11,
       "rise": 11
     },
     {
-      "name": "조선기자재",
-      "change_percent": 5.29,
-      "total": 38,
-      "rise": 36
-    },
-    {
-      "name": "냉각시스템(액침냉각 등)",
-      "change_percent": 5.12,
-      "total": 13,
-      "rise": 12
-    },
-    {
-      "name": "항공/저가 항공사(LCC)",
-      "change_percent": 4.89,
+      "name": "피팅(관이음쇠)/밸브",
+      "change_percent": 5.62,
       "total": 9,
       "rise": 9
     },
     {
+      "name": "냉각시스템(액침냉각 등)",
+      "change_percent": 5.3,
+      "total": 13,
+      "rise": 12
+    },
+    {
+      "name": "조선기자재",
+      "change_percent": 5.15,
+      "total": 38,
+      "rise": 36
+    },
+    {
       "name": "LNG(액화천연가스)",
-      "change_percent": 4.79,
+      "change_percent": 4.82,
       "total": 27,
       "rise": 26
+    },
+    {
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": 4.69,
+      "total": 9,
+      "rise": 9
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-02T07:21:00.374615+00:00"
+  "updated_at": "2026-11-02T07:41:01.198697+00:00"
 }
