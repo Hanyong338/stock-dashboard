@@ -120,7 +120,8 @@
       "title": "한국 제조업 PMI",
       "category": "macro",
       "detail": "09:30",
-      "previous": "53.9"
+      "previous": "53.9",
+      "actual": "51.3"
     },
     {
       "start": "2026-11-03",
@@ -1221,5 +1222,5 @@
   "built_on": "2026-11-02",
   "builder_version": 10,
   "updated_at": "2026-11-01T15:01:00.684308+00:00",
-  "values_updated_at": "2026-11-01T23:21:00.622121+00:00"
+  "values_updated_at": "2026-11-02T01:01:01.016404+00:00"
 }
