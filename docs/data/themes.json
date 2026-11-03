@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": 4.44,
+      "total": 9,
+      "rise": 7
+    },
+    {
+      "name": "주류업(주정, 에탄올 등)",
+      "change_percent": 2.0,
+      "total": 13,
+      "rise": 4
+    },
+    {
+      "name": "김밥(냉동김밥 등)",
+      "change_percent": 1.93,
+      "total": 6,
+      "rise": 1
+    },
+    {
+      "name": "제지",
+      "change_percent": 1.71,
+      "total": 14,
+      "rise": 4
+    },
+    {
+      "name": "출산장려정책",
+      "change_percent": 1.2,
+      "total": 23,
+      "rise": 9
+    },
+    {
+      "name": "보안주(정보)",
+      "change_percent": 0.9,
+      "total": 52,
+      "rise": 24
+    },
+    {
+      "name": "日제품 불매운동(수혜)",
+      "change_percent": 0.82,
+      "total": 21,
+      "rise": 5
+    },
+    {
+      "name": "제대혈",
+      "change_percent": 0.72,
+      "total": 5,
+      "rise": 3
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-11-02T23:01:01.246356+00:00"
+  "updated_at": "2026-11-03T04:21:45.291972+00:00"
 }
