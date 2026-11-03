@@ -157,7 +157,8 @@
       "title": "애플 실적",
       "category": "earnings",
       "detail": "AAPL 장마감 후",
-      "eps_forecast": "$1.98"
+      "eps_forecast": "$1.98",
+      "eps": "$1.85"
     },
     {
       "start": "2026-11-03",
@@ -165,7 +166,8 @@
       "title": "온세미 실적",
       "category": "earnings",
       "detail": "ON 장마감 후",
-      "eps_forecast": "$0.88"
+      "eps_forecast": "$0.88",
+      "eps": "$0.63"
     },
     {
       "start": "2026-11-03",
@@ -186,7 +188,8 @@
       "title": "팔란티어 실적",
       "category": "earnings",
       "detail": "PLTR 장마감 후",
-      "eps_forecast": "$0.32"
+      "eps_forecast": "$0.32",
+      "eps": "$0.18"
     },
     {
       "start": "2026-11-03",
@@ -1295,5 +1298,5 @@
   "built_on": "2026-11-03",
   "builder_version": 10,
   "updated_at": "2026-11-02T15:01:00.667094+00:00",
-  "values_updated_at": "2026-11-03T04:41:01.443956+00:00"
+  "values_updated_at": "2026-11-03T05:21:00.715516+00:00"
 }
