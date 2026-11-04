@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "농업",
-      "change_percent": 5.49,
-      "total": 23,
-      "rise": 19
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 5.71,
+      "total": 14,
+      "rise": 14
     },
     {
       "name": "소캠(SOCAMM)",
-      "change_percent": 4.2,
+      "change_percent": 5.3,
       "total": 11,
-      "rise": 10
+      "rise": 11
     },
     {
-      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 3.99,
-      "total": 14,
-      "rise": 13
-    },
-    {
-      "name": "전후 재건(우크라/중동 전쟁 등)",
-      "change_percent": 3.35,
-      "total": 40,
-      "rise": 33
-    },
-    {
-      "name": "건설기계",
-      "change_percent": 2.92,
-      "total": 16,
-      "rise": 12
-    },
-    {
-      "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 2.82,
-      "total": 13,
-      "rise": 12
+      "name": "농업",
+      "change_percent": 4.32,
+      "total": 23,
+      "rise": 18
     },
     {
       "name": "온디바이스 AI",
-      "change_percent": 2.49,
+      "change_percent": 4.15,
       "total": 24,
-      "rise": 22
+      "rise": 23
     },
     {
-      "name": "자원개발",
-      "change_percent": 2.35,
-      "total": 14,
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 3.63,
+      "total": 13,
       "rise": 11
+    },
+    {
+      "name": "뉴로모픽 반도체",
+      "change_percent": 3.48,
+      "total": 7,
+      "rise": 7
+    },
+    {
+      "name": "전선",
+      "change_percent": 3.34,
+      "total": 8,
+      "rise": 8
+    },
+    {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 3.08,
+      "total": 14,
+      "rise": 14
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-04T00:41:00.776555+00:00"
+  "updated_at": "2026-11-04T01:01:01.091308+00:00"
 }
