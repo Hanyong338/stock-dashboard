@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 4.02,
+      "total": 14,
+      "rise": 10
+    },
+    {
+      "name": "반도체 장비",
+      "change_percent": 3.94,
+      "total": 98,
+      "rise": 92
+    },
+    {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 3.66,
+      "total": 14,
+      "rise": 14
+    },
+    {
+      "name": "2026 하반기 신규상장",
+      "change_percent": 3.63,
+      "total": 34,
+      "rise": 24
+    },
+    {
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 3.51,
+      "total": 35,
+      "rise": 33
+    },
+    {
+      "name": "S7(삼성전자/SK하이닉스 등)",
+      "change_percent": 3.5,
+      "total": 7,
+      "rise": 7
+    },
+    {
+      "name": "MLCC(적층세라믹콘덴서)",
+      "change_percent": 3.37,
+      "total": 11,
+      "rise": 11
+    },
+    {
+      "name": "LED장비",
+      "change_percent": 3.34,
+      "total": 11,
+      "rise": 10
+    }
+  ],
   "group_count": 264,
-  "updated_at": "2026-11-03T23:01:00.805216+00:00"
+  "updated_at": "2026-11-04T00:01:01.172534+00:00"
 }
