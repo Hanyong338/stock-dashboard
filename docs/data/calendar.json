@@ -188,8 +188,8 @@
       "detail": "코스피 16:00",
       "code": "377300",
       "quarter": "2026.09",
-      "op_consensus": 357,
-      "rev_consensus": 3050,
+      "op_consensus": 363,
+      "rev_consensus": 3087,
       "op_prev_year": 158,
       "op_prev_q": 586
     },
@@ -201,8 +201,8 @@
       "detail": "코스피 16:00",
       "code": "352820",
       "quarter": "2026.09",
-      "op_consensus": 1645,
-      "rev_consensus": 14688,
+      "op_consensus": 1637,
+      "rev_consensus": 14579,
       "op_prev_year": -422,
       "op_prev_q": 1709
     },
@@ -226,8 +226,8 @@
       "category": "macro",
       "detail": "23:00",
       "consensus": "7.150M",
-      "previous": "7.190M",
-      "actual": "7.523M"
+      "actual": "7.523M",
+      "previous": "7.190M"
     },
     {
       "start": "2026-11-03",
@@ -383,7 +383,8 @@
       "category": "macro",
       "detail": "21:15",
       "consensus": "67K",
-      "previous": "90K"
+      "actual": "86K",
+      "previous": "86K"
     },
     {
       "start": "2026-11-04",
@@ -432,10 +433,23 @@
       "detail": "코스피 14:00",
       "code": "051910",
       "quarter": "2026.09",
-      "op_consensus": 3090,
-      "rev_consensus": 150550,
+      "op_consensus": 4549,
+      "rev_consensus": 149870,
       "op_prev_year": 6797,
       "op_prev_q": 5996
+    },
+    {
+      "start": "2026-11-05",
+      "end": "2026-11-05",
+      "title": "SK가스 실적",
+      "category": "earnings",
+      "detail": "코스피 09:10",
+      "code": "018670",
+      "quarter": "2026.09",
+      "op_consensus": 1492,
+      "rev_consensus": 25735,
+      "op_prev_year": 1735,
+      "op_prev_q": -439
     },
     {
       "start": "2026-11-05",
@@ -514,13 +528,24 @@
     {
       "start": "2026-11-05",
       "end": "2026-11-05",
+      "title": "에코프로머티 실적",
+      "category": "earnings",
+      "detail": "코스피 14:00",
+      "code": "450080",
+      "quarter": "2026.09",
+      "op_prev_year": -251,
+      "op_prev_q": -106
+    },
+    {
+      "start": "2026-11-05",
+      "end": "2026-11-05",
       "title": "에코프로비엠 실적",
       "category": "earnings",
       "detail": "코스닥 10:00",
       "code": "247540",
       "quarter": "2026.09",
-      "op_consensus": 155,
-      "rev_consensus": 6010,
+      "op_consensus": 123,
+      "rev_consensus": 5935,
       "op_prev_year": 505,
       "op_prev_q": 180
     },
@@ -641,8 +666,8 @@
       "detail": "코스피 10:30",
       "code": "161890",
       "quarter": "2026.09",
-      "op_consensus": 919,
-      "rev_consensus": 8360,
+      "op_consensus": 916,
+      "rev_consensus": 8362,
       "op_prev_year": 583,
       "op_prev_q": 1103
     },
@@ -706,8 +731,8 @@
       "detail": "코스피 16:00",
       "code": "000150",
       "quarter": "2026.09",
-      "op_consensus": 4862,
-      "rev_consensus": 54239,
+      "op_consensus": 4893,
+      "rev_consensus": 54586,
       "op_prev_year": 2313,
       "op_prev_q": 4884
     },
@@ -732,8 +757,8 @@
       "detail": "코스피 09:30",
       "code": "097950",
       "quarter": "2026.09",
-      "op_consensus": 3255,
-      "rev_consensus": 74178,
+      "op_consensus": 3234,
+      "rev_consensus": 74100,
       "op_prev_year": 3465,
       "op_prev_q": 2576
     },
@@ -758,8 +783,8 @@
       "detail": "코스피 16:00",
       "code": "259960",
       "quarter": "2026.09",
-      "op_consensus": 2746,
-      "rev_consensus": 11228,
+      "op_consensus": 2726,
+      "rev_consensus": 11222,
       "op_prev_year": 3486,
       "op_prev_q": 4109
     },
@@ -787,8 +812,8 @@
       "detail": "코스피 16:00",
       "code": "036570",
       "quarter": "2026.09",
-      "op_consensus": 1048,
-      "rev_consensus": 7086,
+      "op_consensus": 1068,
+      "rev_consensus": 7129,
       "op_prev_year": -75,
       "op_prev_q": 1739
     },
@@ -917,7 +942,14 @@
       "title": "미국 기존주택판매",
       "category": "macro",
       "detail": "23:00",
-      "previous": "1.5%"
+      "previous": "3.99M"
+    },
+    {
+      "start": "2026-11-12",
+      "end": "2026-11-12",
+      "title": "미국 실업수당",
+      "category": "macro",
+      "detail": "21:30"
     },
     {
       "start": "2026-11-13",
@@ -977,10 +1009,18 @@
     {
       "start": "2026-11-17",
       "end": "2026-11-17",
-      "title": "미국 소매판매",
+      "title": "미국 건축허가",
       "category": "macro",
       "detail": "21:30",
-      "previous": "0.9%"
+      "previous": "-0.4%"
+    },
+    {
+      "start": "2026-11-17",
+      "end": "2026-11-17",
+      "title": "미국 주택착공",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "1.221M"
     },
     {
       "start": "2026-11-18",
@@ -989,14 +1029,6 @@
       "category": "earnings",
       "detail": "NVDA 장마감 후",
       "eps_forecast": "$2.49"
-    },
-    {
-      "start": "2026-11-18",
-      "end": "2026-11-18",
-      "title": "팔로알토 실적",
-      "category": "earnings",
-      "detail": "PANW",
-      "eps_forecast": "$0.52"
     },
     {
       "start": "2026-11-18",
@@ -1021,6 +1053,14 @@
       "category": "earnings",
       "detail": "WMT 장전",
       "eps_forecast": "$0.64"
+    },
+    {
+      "start": "2026-11-19",
+      "end": "2026-11-19",
+      "title": "팔로알토 실적",
+      "category": "earnings",
+      "detail": "PANW 장마감 후",
+      "eps_forecast": "$0.52"
     },
     {
       "start": "2026-11-19",
@@ -1059,7 +1099,7 @@
       "title": "S&P글로벌 서비스업 PMI",
       "category": "macro",
       "detail": "22:45",
-      "previous": "58.8"
+      "previous": "56.1"
     },
     {
       "start": "2026-11-23",
@@ -1088,10 +1128,58 @@
     {
       "start": "2026-11-24",
       "end": "2026-11-24",
+      "title": "리치먼드 연은지수",
+      "category": "macro",
+      "detail": "23:00",
+      "previous": "-2"
+    },
+    {
+      "start": "2026-11-24",
+      "end": "2026-11-24",
+      "title": "미국 소비자신뢰",
+      "category": "macro",
+      "detail": "23:00",
+      "previous": "91.7"
+    },
+    {
+      "start": "2026-11-24",
+      "end": "2026-11-24",
       "title": "한국 소비자심리",
       "category": "macro",
       "detail": "05:00",
       "previous": "105.4"
+    },
+    {
+      "start": "2026-11-25",
+      "end": "2026-11-25",
+      "title": "미국 PCE",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "0.5%"
+    },
+    {
+      "start": "2026-11-25",
+      "end": "2026-11-25",
+      "title": "미국 근원 PCE",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "3.1%"
+    },
+    {
+      "start": "2026-11-25",
+      "end": "2026-11-25",
+      "title": "미국 내구재",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "0.5%"
+    },
+    {
+      "start": "2026-11-25",
+      "end": "2026-11-25",
+      "title": "미국 신규주택판매",
+      "category": "macro",
+      "detail": "23:00",
+      "previous": "676K"
     },
     {
       "start": "2026-11-26",
@@ -1328,8 +1416,7 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     }
   ],
-  "built_on": "2026-11-04",
+  "built_on": "2026-11-05",
   "builder_version": 10,
-  "updated_at": "2026-11-03T15:03:52.817263+00:00",
-  "values_updated_at": "2026-11-04T07:05:08.143210+00:00"
+  "updated_at": "2026-11-04T17:41:40.252580+00:00"
 }
