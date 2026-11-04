@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 5.19,
-      "total": 14,
-      "rise": 14
+      "name": "농업",
+      "change_percent": 5.49,
+      "total": 23,
+      "rise": 19
     },
     {
       "name": "소캠(SOCAMM)",
-      "change_percent": 5.07,
+      "change_percent": 4.2,
       "total": 11,
-      "rise": 11
+      "rise": 10
     },
     {
-      "name": "전선",
-      "change_percent": 4.13,
-      "total": 8,
-      "rise": 8
-    },
-    {
-      "name": "농업",
-      "change_percent": 3.75,
-      "total": 23,
-      "rise": 18
-    },
-    {
-      "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 3.56,
-      "total": 13,
-      "rise": 12
-    },
-    {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 3.47,
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 3.99,
       "total": 14,
       "rise": 13
     },
     {
-      "name": "2026 하반기 신규상장",
-      "change_percent": 3.45,
-      "total": 34,
-      "rise": 24
+      "name": "전후 재건(우크라/중동 전쟁 등)",
+      "change_percent": 3.35,
+      "total": 40,
+      "rise": 33
+    },
+    {
+      "name": "건설기계",
+      "change_percent": 2.92,
+      "total": 16,
+      "rise": 12
+    },
+    {
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 2.82,
+      "total": 13,
+      "rise": 12
     },
     {
       "name": "온디바이스 AI",
-      "change_percent": 3.4,
+      "change_percent": 2.49,
       "total": 24,
-      "rise": 23
+      "rise": 22
+    },
+    {
+      "name": "자원개발",
+      "change_percent": 2.35,
+      "total": 14,
+      "rise": 11
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-04T00:21:00.872457+00:00"
+  "updated_at": "2026-11-04T00:41:00.776555+00:00"
 }
