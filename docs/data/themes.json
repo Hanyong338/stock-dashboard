@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 8.92,
+      "change_percent": 8.71,
       "total": 14,
       "rise": 13
     },
     {
       "name": "2차전지(나트륨이온)",
-      "change_percent": 6.75,
+      "change_percent": 6.73,
       "total": 9,
       "rise": 9
     },
     {
       "name": "우주태양광(페로브스카이트 등)",
-      "change_percent": 6.68,
+      "change_percent": 6.24,
       "total": 10,
       "rise": 8
     },
     {
-      "name": "태양광에너지",
-      "change_percent": 6.1,
-      "total": 43,
-      "rise": 39
-    },
-    {
       "name": "전력저장장치(ESS)",
-      "change_percent": 6.04,
+      "change_percent": 6.22,
       "total": 42,
       "rise": 39
     },
     {
-      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 5.26,
-      "total": 14,
-      "rise": 13
+      "name": "태양광에너지",
+      "change_percent": 6.15,
+      "total": 43,
+      "rise": 39
     },
     {
       "name": "리튬",
-      "change_percent": 5.0,
+      "change_percent": 5.29,
       "total": 22,
       "rise": 21
     },
     {
-      "name": "풍력에너지",
-      "change_percent": 4.9,
-      "total": 37,
-      "rise": 30
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 5.29,
+      "total": 14,
+      "rise": 13
+    },
+    {
+      "name": "2차전지(소재/부품)",
+      "change_percent": 5.18,
+      "total": 73,
+      "rise": 66
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-04T08:41:00.600442+00:00"
+  "updated_at": "2026-11-04T09:01:00.490877+00:00"
 }
