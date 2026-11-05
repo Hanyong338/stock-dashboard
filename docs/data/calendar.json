@@ -293,7 +293,9 @@
       "title": "맥도날드 실적",
       "category": "earnings",
       "detail": "MCD 장전",
-      "eps_forecast": "$3.36"
+      "eps_forecast": "$3.36",
+      "eps": "$3.57",
+      "surprise": "6.25"
     },
     {
       "start": "2026-11-04",
@@ -310,7 +312,9 @@
       "title": "우버 실적",
       "category": "earnings",
       "detail": "UBER 장전",
-      "eps_forecast": "$0.94"
+      "eps_forecast": "$0.94",
+      "eps": "$0.25",
+      "surprise": "-73.4"
     },
     {
       "start": "2026-11-04",
@@ -412,7 +416,8 @@
       "title": "ARM 실적",
       "category": "earnings",
       "detail": "ARM 장마감 후",
-      "eps_forecast": "$0.22"
+      "eps_forecast": "$0.22",
+      "eps": "$0.15"
     },
     {
       "start": "2026-11-05",
@@ -596,7 +601,8 @@
       "title": "퀄컴 실적",
       "category": "earnings",
       "detail": "QCOM 장마감 후",
-      "eps_forecast": "$1.46"
+      "eps_forecast": "$1.46",
+      "eps": "$2.56"
     },
     {
       "start": "2026-11-05",
@@ -1422,5 +1428,5 @@
   "built_on": "2026-11-05",
   "builder_version": 10,
   "updated_at": "2026-11-04T17:41:40.252580+00:00",
-  "values_updated_at": "2026-11-05T04:23:46.092331+00:00"
+  "values_updated_at": "2026-11-05T05:41:00.925168+00:00"
 }
