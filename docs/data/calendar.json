@@ -624,7 +624,8 @@
       "title": "한국 경상수지",
       "category": "macro",
       "detail": "07:00",
-      "previous": "46.11B"
+      "previous": "46.11B",
+      "actual": "61.46B"
     },
     {
       "start": "2026-11-06",
@@ -1421,5 +1422,5 @@
   "built_on": "2026-11-05",
   "builder_version": 10,
   "updated_at": "2026-11-04T17:41:40.252580+00:00",
-  "values_updated_at": "2026-11-04T18:21:00.719757+00:00"
+  "values_updated_at": "2026-11-05T04:23:46.092331+00:00"
 }
