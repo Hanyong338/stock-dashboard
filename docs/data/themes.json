@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "항공/저가 항공사(LCC)",
-      "change_percent": 5.99,
+      "change_percent": 5.74,
       "total": 9,
       "rise": 9
     },
     {
       "name": "김밥(냉동김밥 등)",
-      "change_percent": 3.2,
+      "change_percent": 2.93,
       "total": 6,
       "rise": 3
     },
     {
+      "name": "은행",
+      "change_percent": 2.72,
+      "total": 11,
+      "rise": 11
+    },
+    {
       "name": "음원/음반",
-      "change_percent": 2.89,
+      "change_percent": 2.66,
       "total": 15,
-      "rise": 10
+      "rise": 9
     },
     {
       "name": "타이어",
-      "change_percent": 2.83,
+      "change_percent": 2.59,
       "total": 9,
       "rise": 7
     },
     {
-      "name": "은행",
-      "change_percent": 2.64,
-      "total": 11,
-      "rise": 10
-    },
-    {
       "name": "바이오시밀러(복제 바이오의약품)",
-      "change_percent": 2.49,
+      "change_percent": 2.24,
       "total": 21,
       "rise": 14
     },
     {
-      "name": "제지",
-      "change_percent": 2.21,
-      "total": 14,
-      "rise": 4
+      "name": "여행",
+      "change_percent": 2.04,
+      "total": 9,
+      "rise": 7
     },
     {
-      "name": "여행",
-      "change_percent": 2.03,
-      "total": 9,
+      "name": "제지",
+      "change_percent": 1.95,
+      "total": 14,
       "rise": 6
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-05T05:01:00.400524+00:00"
+  "updated_at": "2026-11-05T05:21:01.041510+00:00"
 }
