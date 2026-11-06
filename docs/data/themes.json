@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "건설기계",
-      "change_percent": 0.98,
+      "change_percent": 0.27,
       "total": 16,
       "rise": 4
     },
     {
-      "name": "재택근무/스마트워크",
-      "change_percent": 0.61,
-      "total": 15,
-      "rise": 4
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.17,
+      "total": 70,
+      "rise": 12
     },
     {
       "name": "모바일게임(스마트폰)",
-      "change_percent": 0.17,
+      "change_percent": -0.43,
       "total": 36,
-      "rise": 15
-    },
-    {
-      "name": "게임",
-      "change_percent": -0.08,
-      "total": 30,
       "rise": 13
     },
     {
-      "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.2,
-      "total": 70,
-      "rise": 9
-    },
-    {
-      "name": "제대혈",
-      "change_percent": -0.26,
-      "total": 5,
-      "rise": 2
+      "name": "엔터테인먼트",
+      "change_percent": -0.44,
+      "total": 31,
+      "rise": 11
     },
     {
       "name": "육계",
-      "change_percent": -0.34,
+      "change_percent": -0.49,
       "total": 9,
       "rise": 2
     },
     {
-      "name": "코로나19(치료제/백신 개발 등)",
-      "change_percent": -0.37,
-      "total": 27,
-      "rise": 12
+      "name": "재택근무/스마트워크",
+      "change_percent": -0.6,
+      "total": 15,
+      "rise": 4
+    },
+    {
+      "name": "게임",
+      "change_percent": -0.74,
+      "total": 30,
+      "rise": 10
+    },
+    {
+      "name": "제지",
+      "change_percent": -0.75,
+      "total": 14,
+      "rise": 3
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-06T06:01:01.325953+00:00"
+  "updated_at": "2026-11-06T06:21:00.800644+00:00"
 }
