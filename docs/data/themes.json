@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "건설기계",
-      "change_percent": 0.32,
+      "change_percent": 0.91,
       "total": 16,
-      "rise": 4
+      "rise": 6
     },
     {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.16,
+      "change_percent": -0.15,
       "total": 70,
       "rise": 12
     },
     {
-      "name": "제지",
-      "change_percent": -0.32,
-      "total": 14,
-      "rise": 1
-    },
-    {
-      "name": "日제품 불매운동(수혜)",
-      "change_percent": -0.57,
-      "total": 21,
-      "rise": 6
-    },
-    {
-      "name": "영화",
-      "change_percent": -0.64,
-      "total": 11,
-      "rise": 3
-    },
-    {
       "name": "모바일게임(스마트폰)",
-      "change_percent": -0.71,
+      "change_percent": -0.19,
       "total": 36,
+      "rise": 16
+    },
+    {
+      "name": "제지",
+      "change_percent": -0.24,
+      "total": 14,
+      "rise": 2
+    },
+    {
+      "name": "게임",
+      "change_percent": -0.36,
+      "total": 30,
       "rise": 14
     },
     {
       "name": "제대혈",
-      "change_percent": -0.71,
+      "change_percent": -0.36,
       "total": 5,
       "rise": 2
     },
     {
-      "name": "항공/저가 항공사(LCC)",
-      "change_percent": -0.76,
-      "total": 9,
-      "rise": 1
+      "name": "영화",
+      "change_percent": -0.54,
+      "total": 11,
+      "rise": 3
+    },
+    {
+      "name": "엔터테인먼트",
+      "change_percent": -0.66,
+      "total": 31,
+      "rise": 10
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-06T04:21:00.950582+00:00"
+  "updated_at": "2026-11-06T04:41:00.968599+00:00"
 }
