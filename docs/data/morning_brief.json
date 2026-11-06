@@ -33,9 +33,9 @@
     },
     {
       "name": "달러 인덱스",
-      "value": "101.51",
-      "change": "-0.35%",
-      "close_date": "2026-11-04"
+      "value": "101.55",
+      "change": "+0.04%",
+      "close_date": "2026-11-05"
     },
     {
       "name": "WTI 유가",
@@ -252,92 +252,92 @@
   "indices_note": "지수·금리·유가는 시장 데이터 종가 기준",
   "sectors": [
     {
+      "name": "게임",
+      "change_percent": 1.374603789451955
+    },
+    {
       "name": "금광",
-      "change_percent": 9.007729383011048
+      "change_percent": 1.3713248756694547
     },
     {
       "name": "의료기기",
-      "change_percent": 6.716287249744571
-    },
-    {
-      "name": "태양광",
-      "change_percent": 5.652978205615351
-    },
-    {
-      "name": "소매",
-      "change_percent": 5.540538288132322
-    },
-    {
-      "name": "게임",
-      "change_percent": 4.279675645701529
-    },
-    {
-      "name": "구리",
-      "change_percent": 3.9743390189753933
-    },
-    {
-      "name": "전기차",
-      "change_percent": 3.766785432904718
-    },
-    {
-      "name": "2차전지",
-      "change_percent": 2.961734840576752
-    },
-    {
-      "name": "운송",
-      "change_percent": 2.8301842395423176
-    },
-    {
-      "name": "바이오",
-      "change_percent": 2.665035071485019
-    },
-    {
-      "name": "인터넷 플랫폼",
-      "change_percent": 2.3575338479551458
+      "change_percent": -1.976091692600526
     },
     {
       "name": "은행",
-      "change_percent": 1.7151482534412097
+      "change_percent": -2.4551460437836488
     },
     {
-      "name": "AI·로봇",
-      "change_percent": 1.516094316502319
+      "name": "2차전지",
+      "change_percent": -2.7472539327660237
     },
     {
-      "name": "소프트웨어",
-      "change_percent": 0.876674327274111
-    },
-    {
-      "name": "클라우드",
-      "change_percent": 0.4551908791608155
-    },
-    {
-      "name": "사이버보안",
-      "change_percent": 0.14400266189116695
-    },
-    {
-      "name": "통신장비",
-      "change_percent": -0.368060988244249
-    },
-    {
-      "name": "원자력",
-      "change_percent": -1.0589969204254133
-    },
-    {
-      "name": "방산·우주항공",
-      "change_percent": -1.5404551321928406
-    },
-    {
-      "name": "전력망·전력기기",
-      "change_percent": -3.082430460846438
-    },
-    {
-      "name": "반도체",
-      "change_percent": -3.1376336210517475
+      "name": "소매",
+      "change_percent": -2.827573080839344
     },
     {
       "name": "원유·가스",
-      "change_percent": -6.38576165074089
+      "change_percent": -2.894744479316463
+    },
+    {
+      "name": "전기차",
+      "change_percent": -3.5037897716503936
+    },
+    {
+      "name": "운송",
+      "change_percent": -3.540337127361449
+    },
+    {
+      "name": "태양광",
+      "change_percent": -3.712602596526668
+    },
+    {
+      "name": "방산·우주항공",
+      "change_percent": -3.9983129590083886
+    },
+    {
+      "name": "소프트웨어",
+      "change_percent": -4.393583941317607
+    },
+    {
+      "name": "인터넷 플랫폼",
+      "change_percent": -4.507448243179854
+    },
+    {
+      "name": "원자력",
+      "change_percent": -5.259942448235318
+    },
+    {
+      "name": "구리",
+      "change_percent": -5.807395846891472
+    },
+    {
+      "name": "클라우드",
+      "change_percent": -6.075693486584068
+    },
+    {
+      "name": "전력망·전력기기",
+      "change_percent": -6.305479930940439
+    },
+    {
+      "name": "사이버보안",
+      "change_percent": -6.522184094405137
+    },
+    {
+      "name": "AI·로봇",
+      "change_percent": -6.613843013761859
+    },
+    {
+      "name": "바이오",
+      "change_percent": -6.725337395694049
+    },
+    {
+      "name": "통신장비",
+      "change_percent": -7.844842650531218
+    },
+    {
+      "name": "반도체",
+      "change_percent": -12.14671853048934
     }
   ],
   "video_id": "4yb-QgodD30",
@@ -345,7 +345,7 @@
   "title": "[🔴11/06 #당잠사] 중간선거발 AI 규제 공포…나스닥 조정국면 진입 | 미 3대지수·필라델피아반도체 모두 급락 | #엔비디아 #알파벳 #애플",
   "url": "https://www.youtube.com/watch?v=4yb-QgodD30",
   "published": "2026-11-05T20:18:36Z",
-  "fetched_at": "2026-11-06T02:21:00.669768+00:00",
+  "fetched_at": "2026-11-06T02:41:00.670743+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
