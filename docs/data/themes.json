@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "건설기계",
-      "change_percent": 0.91,
+      "change_percent": 1.36,
       "total": 16,
-      "rise": 6
-    },
-    {
-      "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.15,
-      "total": 70,
-      "rise": 12
+      "rise": 7
     },
     {
       "name": "모바일게임(스마트폰)",
-      "change_percent": -0.19,
+      "change_percent": 0.63,
       "total": 36,
-      "rise": 16
+      "rise": 19
+    },
+    {
+      "name": "게임",
+      "change_percent": 0.45,
+      "total": 30,
+      "rise": 15
+    },
+    {
+      "name": "제대혈",
+      "change_percent": 0.35,
+      "total": 5,
+      "rise": 3
+    },
+    {
+      "name": "영화",
+      "change_percent": 0.1,
+      "total": 11,
+      "rise": 4
+    },
+    {
+      "name": "엔터테인먼트",
+      "change_percent": 0.07,
+      "total": 31,
+      "rise": 11
     },
     {
       "name": "제지",
-      "change_percent": -0.24,
+      "change_percent": -0.04,
       "total": 14,
       "rise": 2
     },
     {
-      "name": "게임",
-      "change_percent": -0.36,
-      "total": 30,
-      "rise": 14
-    },
-    {
-      "name": "제대혈",
-      "change_percent": -0.36,
-      "total": 5,
-      "rise": 2
-    },
-    {
-      "name": "영화",
-      "change_percent": -0.54,
-      "total": 11,
+      "name": "LPG(액화석유가스)",
+      "change_percent": -0.11,
+      "total": 9,
       "rise": 3
-    },
-    {
-      "name": "엔터테인먼트",
-      "change_percent": -0.66,
-      "total": 31,
-      "rise": 10
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-06T04:41:00.968599+00:00"
+  "updated_at": "2026-11-06T05:01:00.819547+00:00"
 }
