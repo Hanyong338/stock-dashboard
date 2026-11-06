@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "제대혈",
-      "change_percent": 0.61,
-      "total": 5,
-      "rise": 4
-    },
-    {
       "name": "건설기계",
-      "change_percent": 0.45,
+      "change_percent": 0.85,
       "total": 16,
       "rise": 5
     },
     {
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": 0.44,
+      "total": 9,
+      "rise": 2
+    },
+    {
+      "name": "제대혈",
+      "change_percent": 0.33,
+      "total": 5,
+      "rise": 4
+    },
+    {
       "name": "日제품 불매운동(수혜)",
-      "change_percent": -0.05,
+      "change_percent": 0.08,
       "total": 21,
-      "rise": 7
+      "rise": 6
+    },
+    {
+      "name": "제지",
+      "change_percent": -0.04,
+      "total": 14,
+      "rise": 2
     },
     {
       "name": "기업인수목적회사(SPAC)",
       "change_percent": -0.15,
       "total": 70,
-      "rise": 14
+      "rise": 16
     },
     {
-      "name": "항공/저가 항공사(LCC)",
-      "change_percent": -0.26,
-      "total": 9,
-      "rise": 1
-    },
-    {
-      "name": "영화",
-      "change_percent": -0.28,
-      "total": 11,
+      "name": "보톡스(보툴리눔톡신)",
+      "change_percent": -0.36,
+      "total": 12,
       "rise": 4
     },
     {
-      "name": "농업",
-      "change_percent": -0.44,
-      "total": 23,
-      "rise": 5
-    },
-    {
-      "name": "남북경협",
-      "change_percent": -0.47,
-      "total": 29,
-      "rise": 10
+      "name": "모바일게임(스마트폰)",
+      "change_percent": -0.37,
+      "total": 36,
+      "rise": 16
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-06T03:01:01.381485+00:00"
+  "updated_at": "2026-11-06T03:21:01.320975+00:00"
 }
