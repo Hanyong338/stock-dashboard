@@ -689,7 +689,8 @@
       "category": "macro",
       "detail": "23:00",
       "consensus": "48.1",
-      "previous": "48.0"
+      "previous": "48.0",
+      "actual": "51.0"
     },
     {
       "start": "2026-11-09",
@@ -1428,5 +1429,6 @@
   ],
   "built_on": "2026-11-07",
   "builder_version": 10,
-  "updated_at": "2026-11-06T15:01:00.852620+00:00"
+  "updated_at": "2026-11-06T15:01:00.852620+00:00",
+  "values_updated_at": "2026-11-06T16:01:00.465519+00:00"
 }
