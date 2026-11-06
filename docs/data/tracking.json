@@ -13226,13 +13226,14 @@
         8.72,
         6.65,
         8.26,
-        4.13
+        4.59,
+        0.23
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-12T07:11:38.652162+00:00",
       "reason": "480일선 돌파 4회 실패 후 재돌파 · 상단 우상향",
       "stop": 20549,
-      "last_close": 22700,
+      "last_close": 21850,
       "hwm": 11.24,
       "hwm_day": 4,
       "mdd": -4.13,
@@ -13241,7 +13242,7 @@
       "stop_now": 20549,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:267320:TREND_RALLY:2026-10-12",
@@ -15247,14 +15248,15 @@
         5.94,
         6.0,
         5.61,
-        6.77
+        6.82,
+        4.35
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-14T06:55:06.389869+00:00",
       "reason": "기관 5일 중 4일 순매수(204억) + 240일선 위 10·20일선 지지",
       "stop": 172100,
-      "last_close": 194100,
-      "hwm": 10.29,
+      "last_close": 189700,
+      "hwm": 10.56,
       "hwm_day": 16,
       "mdd": 0.0,
       "tp_pct": 12.0,
@@ -15262,7 +15264,7 @@
       "stop_now": 172100,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "us:GRMN:SWING_PULLBACK:2026-10-14",
@@ -15497,9 +15499,10 @@
         -1.64,
         -0.1,
         0.72,
+        1.13,
         1.02
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-15T06:56:33.034873+00:00",
       "reason": "기관 순매수 23억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 90480,
@@ -15512,7 +15515,7 @@
       "stop_now": 90480,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:008930:CLOSING_BET:2026-10-15",
@@ -15710,13 +15713,14 @@
         -0.92,
         -0.23,
         1.15,
-        2.91
+        3.29,
+        0.99
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-15T06:56:33.034873+00:00",
       "reason": "기관 5일 중 4일 순매수(402억) + 240일선 위 10·20일선 지지",
       "stop": 121166,
-      "last_close": 134500,
+      "last_close": 132000,
       "hwm": 6.5,
       "hwm_day": 15,
       "mdd": -9.1,
@@ -15725,7 +15729,7 @@
       "stop_now": 121166,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "us:RVTY:SWING_PULLBACK:2026-10-15",
@@ -16285,13 +16289,14 @@
         -1.03,
         -2.11,
         3.09,
-        10.82
+        10.82,
+        8.51
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-16T06:54:52.971597+00:00",
       "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
       "stop": 180765,
-      "last_close": 215000,
+      "last_close": 210500,
       "hwm": 11.34,
       "hwm_day": 14,
       "mdd": -3.35,
@@ -16300,7 +16305,7 @@
       "stop_now": 180765,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:021240:TREND_RALLY:2026-10-16",
@@ -16334,13 +16339,14 @@
         -2.5,
         -3.62,
         -3.9,
-        1.39
+        1.86,
+        0.28
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-16T06:54:52.971597+00:00",
       "reason": "완전 정배열 + 480일선 안착 + 52주 신고가 영역",
       "stop": 99176,
-      "last_close": 109300,
+      "last_close": 108100,
       "hwm": 3.71,
       "hwm_day": 2,
       "mdd": -7.05,
@@ -16349,7 +16355,7 @@
       "stop_now": 99176,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:032640:TREND_RALLY:2026-10-16",
@@ -16874,13 +16880,14 @@
         -3.13,
         -4.19,
         0.91,
-        8.48
+        8.48,
+        6.21
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-19T07:34:16.722646+00:00",
       "reason": "외국인 순매수 625억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 184762,
-      "last_close": 215000,
+      "last_close": 210500,
       "hwm": 8.98,
       "hwm_day": 13,
       "mdd": -5.4,
@@ -16889,7 +16896,7 @@
       "stop_now": 198200,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:066570:CLOSING_BET:2026-10-19",
@@ -18416,14 +18423,15 @@
         14.08,
         11.19,
         18.23,
-        16.25
+        16.06,
+        9.39
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-22T00:52:29.217354+00:00",
       "reason": "전일 고가 48,300 돌파 · 30분 거래대금 2986억 · 거래량 전일 하루의 241%",
       "stop": 54292,
-      "checked_for": "2026-11-05",
-      "last_close": 64400,
+      "checked_for": "2026-11-06",
+      "last_close": 60600,
       "hwm": 22.2,
       "hwm_day": 10,
       "mdd": 0.0,
@@ -19529,22 +19537,23 @@
         25.35,
         22.55,
         7.01,
-        5.83
+        5.93,
+        6.69
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-27T07:01:00.792139+00:00",
       "reason": "외국인 순매수 34억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 85284,
-      "last_close": 98100,
+      "last_close": 98900,
       "hwm": 48.11,
       "hwm_day": 5,
-      "mdd": -3.78,
+      "mdd": -3.88,
       "tp_pct": 5.0,
       "tp_day": 1,
       "stop_now": 92700,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:441270:CLOSING_BET:2026-10-27",
@@ -19724,22 +19733,23 @@
         1.61,
         -0.96,
         5.31,
-        3.54
+        3.38,
+        -2.57
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-27T07:01:00.792139+00:00",
       "reason": "기관 5일 중 3일 순매수(1287억) + 240일선 위 10·20일선 지지",
       "stop": 57224,
-      "last_close": 64400,
+      "last_close": 60600,
       "hwm": 8.84,
       "hwm_day": 7,
-      "mdd": -4.02,
+      "mdd": -6.27,
       "tp_pct": 12.0,
       "tp_day": null,
       "stop_now": 57224,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:253590:TREND_RALLY:2026-10-27",
@@ -19806,22 +19816,23 @@
         3.86,
         -1.33,
         -2.4,
-        -3.2
+        -3.33,
+        -1.33
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-27T07:01:00.792139+00:00",
       "reason": "기관 5일 중 5일 순매수(1053억) + 240일선 위 10·20일선 지지",
       "stop": 69313,
-      "last_close": 72700,
+      "last_close": 74100,
       "hwm": 6.92,
       "hwm_day": 2,
-      "mdd": -6.13,
+      "mdd": -11.32,
       "tp_pct": 12.0,
       "tp_day": null,
       "stop_now": 69313,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:425420:TREND_RALLY:2026-10-27",
@@ -20857,13 +20868,14 @@
         -1.66,
         -0.42,
         1.46,
-        1.87
+        1.87,
+        -2.08
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-28T07:01:01.231631+00:00",
       "reason": "1차 상승 +29% · 고점 후 8거래일 조정 · 거래량 69% 감소 · 20일선 지지",
       "stop": 22952,
-      "last_close": 24500,
+      "last_close": 23550,
       "hwm": 7.48,
       "hwm_day": 6,
       "mdd": -4.99,
@@ -20872,7 +20884,7 @@
       "stop_now": 22952,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:417840:SWING_PULLBACK:2026-10-28",
@@ -20929,13 +20941,14 @@
         -2.42,
         -3.03,
         -2.88,
-        4.39
+        4.39,
+        6.52
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-28T07:01:01.231631+00:00",
       "reason": "1차 상승 +40% · 고점 후 7거래일 조정 · 거래량 18% 감소 · 20일선 지지",
       "stop": 62302,
-      "last_close": 68900,
+      "last_close": 70300,
       "hwm": 10.61,
       "hwm_day": 6,
       "mdd": -8.64,
@@ -20944,7 +20957,7 @@
       "stop_now": 66000,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:053800:TREND_RALLY:2026-10-28",
@@ -21113,29 +21126,30 @@
       "entry": 12390,
       "stop_line": 8763,
       "symbol": "105740.KQ",
-      "status": "ACTIVE",
+      "status": "SL_HIT",
       "rets": [
         -2.82,
         0.89,
         7.34,
         -3.63,
         -0.73,
-        1.78
+        0.97,
+        -9.77
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-28T07:01:01.231631+00:00",
       "reason": "480일선 돌파 2회 실패 후 재돌파 · 상단 우상향",
       "stop": 11399,
-      "last_close": 12610,
+      "last_close": 11180,
       "hwm": 8.8,
       "hwm_day": 4,
-      "mdd": -10.41,
+      "mdd": -12.27,
       "tp_pct": 12.0,
       "tp_day": null,
       "stop_now": 11399,
-      "final_ret": null,
-      "closed_on": "",
-      "checked_for": "2026-11-05"
+      "final_ret": -9.77,
+      "closed_on": "2026-11-06",
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:091580:TREND_RALLY:2026-10-28",
@@ -21199,22 +21213,23 @@
         -3.04,
         0.19,
         0.95,
-        0.95
+        0.57,
+        11.03
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-28T07:01:01.231631+00:00",
       "reason": "480일선 돌파 2회 실패 후 재돌파 · 상단 우상향",
       "stop": 48392,
-      "last_close": 53100,
-      "hwm": 2.85,
-      "hwm_day": 6,
+      "last_close": 58400,
+      "hwm": 11.03,
+      "hwm_day": 7,
       "mdd": -5.89,
       "tp_pct": 12.0,
       "tp_day": null,
       "stop_now": 48392,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "us:DDOG:SWING_PULLBACK:2026-10-28",
@@ -21572,22 +21587,23 @@
         -2.17,
         -3.44,
         -3.38,
-        -0.06
+        0.13,
+        -3.7
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-29T07:01:00.416482+00:00",
       "reason": "외국인 순매수 226억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 147615,
-      "last_close": 156700,
+      "last_close": 151000,
       "hwm": 2.36,
       "hwm_day": 5,
-      "mdd": -4.53,
+      "mdd": -7.46,
       "tp_pct": 5.0,
       "tp_day": null,
       "stop_now": 147615,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:086790:CLOSING_BET:2026-10-29",
@@ -21612,22 +21628,23 @@
         -1.67,
         -3.01,
         -2.17,
-        0.42
+        0.92,
+        -1.5
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-29T07:01:00.416482+00:00",
       "reason": "기관 순매수 62억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 111345,
-      "last_close": 120200,
+      "last_close": 117900,
       "hwm": 3.84,
       "hwm_day": 5,
-      "mdd": -4.18,
+      "mdd": -5.85,
       "tp_pct": 5.0,
       "tp_day": null,
       "stop_now": 111345,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:138040:CLOSING_BET:2026-10-29",
@@ -21652,13 +21669,14 @@
         -1.45,
         -0.76,
         0.61,
-        2.36
+        2.74,
+        0.46
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-29T07:01:00.416482+00:00",
       "reason": "외국인 순매수 67억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 120888,
-      "last_close": 134500,
+      "last_close": 132000,
       "hwm": 5.94,
       "hwm_day": 5,
       "mdd": -2.05,
@@ -21667,7 +21685,7 @@
       "stop_now": 131400,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:001450:CLOSING_BET:2026-10-29",
@@ -21685,28 +21703,29 @@
       "entry": 43250,
       "stop_line": 41300,
       "symbol": "001450.KS",
-      "status": "HALF_TP",
+      "status": "SL_HIT",
       "rets": [
         1.62,
         -0.12,
         -1.04,
         0.46,
-        2.2
+        2.2,
+        -3.58
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-29T07:01:00.416482+00:00",
       "reason": "외국인 순매수 64억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 40268,
-      "last_close": 44200,
+      "last_close": 41700,
       "hwm": 5.32,
       "hwm_day": 5,
-      "mdd": -2.89,
+      "mdd": -7.28,
       "tp_pct": 5.0,
       "tp_day": 5,
       "stop_now": 43250,
-      "final_ret": null,
-      "closed_on": "",
-      "checked_for": "2026-11-05"
+      "final_ret": 0.71,
+      "closed_on": "2026-11-06",
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:098460:SWING_PULLBACK:2026-10-29",
@@ -21940,28 +21959,29 @@
       "entry": 47650,
       "stop_line": 40523,
       "symbol": "107640.KQ",
-      "status": "ACTIVE",
+      "status": "SL_HIT",
       "rets": [
         0.94,
         3.78,
         -6.19,
         8.92,
-        0.1
+        -0.1,
+        -10.39
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-29T07:01:00.416482+00:00",
       "reason": "480일선 돌파 2회 실패 후 재돌파 · 상단 우상향",
       "stop": 43838,
-      "last_close": 47700,
+      "last_close": 42700,
       "hwm": 11.02,
       "hwm_day": 4,
-      "mdd": -11.33,
+      "mdd": -14.38,
       "tp_pct": 12.0,
       "tp_day": null,
       "stop_now": 43838,
-      "final_ret": null,
-      "closed_on": "",
-      "checked_for": "2026-11-05"
+      "final_ret": -10.39,
+      "closed_on": "2026-11-06",
+      "checked_for": "2026-11-06"
     },
     {
       "id": "us:GMAB:CLOSING_BET:2026-10-29",
@@ -22356,22 +22376,23 @@
         1.5,
         -0.43,
         1.07,
-        -2.78
+        -2.36,
+        -6.42
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-30T07:01:01.167018+00:00",
       "reason": "외국인 순매수 46억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 21742,
-      "last_close": 22700,
+      "last_close": 21850,
       "hwm": 1.93,
       "hwm_day": 1,
-      "mdd": -3.21,
+      "mdd": -8.14,
       "tp_pct": 5.0,
       "tp_day": null,
       "stop_now": 21742,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:003490:CLOSING_BET:2026-10-30",
@@ -22395,13 +22416,14 @@
         7.72,
         9.79,
         11.49,
-        14.12
+        14.31,
+        10.73
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-30T07:01:01.167018+00:00",
       "reason": "기관 순매수 62억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 25350,
-      "last_close": 30300,
+      "last_close": 29400,
       "hwm": 19.4,
       "hwm_day": 4,
       "mdd": -0.94,
@@ -22410,7 +22432,7 @@
       "stop_now": 26550,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:021240:CLOSING_BET:2026-10-30",
@@ -22434,13 +22456,14 @@
         1.06,
         -0.1,
         -0.38,
-        5.1
+        5.58,
+        3.94
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-30T07:01:01.167018+00:00",
       "reason": "외국인 순매수 10억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 98378,
-      "last_close": 109300,
+      "last_close": 108100,
       "hwm": 5.77,
       "hwm_day": 4,
       "mdd": -2.4,
@@ -22449,7 +22472,7 @@
       "stop_now": 104000,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:008930:CLOSING_BET:2026-10-30",
@@ -22473,22 +22496,23 @@
         0.93,
         3.13,
         13.69,
-        21.35
+        22.04,
+        26.45
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-30T07:01:01.167018+00:00",
       "reason": "기관 순매수 17억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 39652,
-      "last_close": 52300,
-      "hwm": 23.67,
-      "hwm_day": 4,
+      "last_close": 54500,
+      "hwm": 28.77,
+      "hwm_day": 5,
       "mdd": -2.44,
       "tp_pct": 5.0,
       "tp_day": 2,
       "stop_now": 43100,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:031980:SWING_PULLBACK:2026-10-30",
@@ -22659,13 +22683,14 @@
         10.24,
         3.9,
         16.91,
-        13.17
+        13.17,
+        3.09
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-10-30T07:01:01.167018+00:00",
       "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
       "stop": 56580,
-      "last_close": 69600,
+      "last_close": 63400,
       "hwm": 23.58,
       "hwm_day": 4,
       "mdd": -1.95,
@@ -22674,7 +22699,7 @@
       "stop_now": 61500,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "us:MRNA:SWING_PULLBACK:2026-10-30",
@@ -23204,22 +23229,23 @@
       "rets": [
         29.97,
         36.72,
-        40.5
+        41.25,
+        45.47
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-02T07:04:09.588143+00:00",
       "reason": "기관 순매수 12억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 124016,
-      "last_close": 189400,
-      "hwm": 47.85,
-      "hwm_day": 2,
+      "last_close": 196100,
+      "hwm": 65.8,
+      "hwm_day": 4,
       "mdd": 0.0,
       "tp_pct": 5.0,
       "tp_day": 1,
       "stop_now": 134800,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:018260:CLOSING_BET:2026-11-02",
@@ -23238,26 +23264,27 @@
       "entry": 208500,
       "stop_line": 197100,
       "symbol": "018260.KS",
-      "status": "ACTIVE",
+      "status": "HALF_TP",
       "rets": [
         -3.36,
         -1.92,
-        -1.44
+        -1.68,
+        4.56
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-02T07:04:09.588143+00:00",
       "reason": "기관 순매수 38억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 192172,
-      "last_close": 205500,
-      "hwm": 3.12,
-      "hwm_day": 3,
-      "mdd": -4.99,
+      "last_close": 218000,
+      "hwm": 7.67,
+      "hwm_day": 4,
+      "mdd": -8.63,
       "tp_pct": 5.0,
-      "tp_day": null,
-      "stop_now": 192172,
+      "tp_day": 4,
+      "stop_now": 208500,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:121600:CLOSING_BET:2026-11-02",
@@ -23276,26 +23303,27 @@
       "entry": 67800,
       "stop_line": 60300,
       "symbol": "121600.KQ",
-      "status": "HALF_TP",
+      "status": "SL_HIT",
       "rets": [
         -5.75,
         6.05,
-        2.65
+        2.65,
+        -6.49
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-02T07:04:09.588143+00:00",
       "reason": "기관 순매수 37억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 62376,
-      "last_close": 69600,
+      "last_close": 63400,
       "hwm": 12.09,
       "hwm_day": 3,
       "mdd": -10.03,
       "tp_pct": 5.0,
       "tp_day": 2,
       "stop_now": 67800,
-      "final_ret": null,
-      "closed_on": "",
-      "checked_for": "2026-11-05"
+      "final_ret": -0.74,
+      "closed_on": "2026-11-06",
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:232680:TREND_RALLY:2026-11-02",
@@ -23644,25 +23672,26 @@
       "entry": 143900,
       "stop_line": 135200,
       "symbol": "282330.KS",
-      "status": "HALF_TP",
+      "status": "SL_HIT",
       "rets": [
         2.22,
-        4.03
+        4.38,
+        -0.35
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-03T07:01:01.222359+00:00",
       "reason": "기관 순매수 20억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 132388,
-      "last_close": 149700,
+      "last_close": 143400,
       "hwm": 7.64,
       "hwm_day": 2,
-      "mdd": -1.46,
+      "mdd": -6.18,
       "tp_pct": 5.0,
       "tp_day": 2,
       "stop_now": 143900,
-      "final_ret": null,
-      "closed_on": "",
-      "checked_for": "2026-11-05"
+      "final_ret": 2.33,
+      "closed_on": "2026-11-06",
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:030530:TREND_RALLY:2026-11-03",
@@ -23757,22 +23786,23 @@
       "status": "ACTIVE",
       "rets": [
         0.82,
+        1.23,
         1.13
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-03T07:01:01.222359+00:00",
       "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
       "stop": 89700,
       "last_close": 98600,
       "hwm": 2.36,
       "hwm_day": 2,
-      "mdd": -1.23,
+      "mdd": -1.85,
       "tp_pct": 12.0,
       "tp_day": null,
       "stop_now": 89700,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "us:TEL:SWING_PULLBACK:2026-11-03",
@@ -24007,24 +24037,25 @@
       "entry": 65500,
       "stop_line": 62400,
       "symbol": "028050.KS",
-      "status": "ACTIVE",
+      "status": "SL_HIT",
       "rets": [
-        -1.68
+        -1.83,
+        -7.48
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-04T07:05:08.143210+00:00",
       "reason": "기관 순매수 111억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 60840,
-      "last_close": 64400,
+      "last_close": 60600,
       "hwm": 3.36,
       "hwm_day": 1,
-      "mdd": -2.6,
+      "mdd": -10.99,
       "tp_pct": 5.0,
       "tp_day": null,
       "stop_now": 60840,
-      "final_ret": null,
-      "closed_on": "",
-      "checked_for": "2026-11-05"
+      "final_ret": -7.48,
+      "closed_on": "2026-11-06",
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:096770:CLOSING_BET:2026-11-04",
@@ -24043,24 +24074,25 @@
       "entry": 123700,
       "stop_line": 116300,
       "symbol": "096770.KS",
-      "status": "ACTIVE",
+      "status": "SL_HIT",
       "rets": [
-        -7.92
+        -7.68,
+        -12.21
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-04T07:05:08.143210+00:00",
       "reason": "외국인 순매수 157억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 113804,
-      "last_close": 113900,
+      "last_close": 108600,
       "hwm": -0.89,
       "hwm_day": 1,
-      "mdd": -8.73,
+      "mdd": -13.58,
       "tp_pct": 5.0,
       "tp_day": null,
       "stop_now": 113804,
-      "final_ret": null,
-      "closed_on": "",
-      "checked_for": "2026-11-05"
+      "final_ret": -12.21,
+      "closed_on": "2026-11-06",
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:032640:CLOSING_BET:2026-11-04",
@@ -24079,24 +24111,25 @@
       "entry": 15510,
       "stop_line": 15300,
       "symbol": "032640.KS",
-      "status": "ACTIVE",
+      "status": "HALF_TP",
       "rets": [
-        2.0
+        2.71,
+        8.06
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-04T07:05:08.143210+00:00",
       "reason": "240일선 장대양봉 종가 돌파 · 거래대금 544억 · 거래량 전일 671%",
       "stop": 14918,
-      "last_close": 15820,
-      "hwm": 4.06,
-      "hwm_day": 1,
-      "mdd": 0.0,
+      "last_close": 16760,
+      "hwm": 9.54,
+      "hwm_day": 2,
+      "mdd": -2.64,
       "tp_pct": 5.0,
-      "tp_day": null,
-      "stop_now": 14918,
+      "tp_day": 2,
+      "stop_now": 15510,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:006360:CLOSING_BET:2026-11-04",
@@ -24115,24 +24148,25 @@
       "entry": 28700,
       "stop_line": 26850,
       "symbol": "006360.KS",
-      "status": "ACTIVE",
+      "status": "HALF_TP",
       "rets": [
-        -2.79
+        -2.61,
+        3.31
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-04T07:05:08.143210+00:00",
       "reason": "기관 순매수 16억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 26404,
-      "last_close": 27900,
-      "hwm": 2.61,
-      "hwm_day": 1,
-      "mdd": -4.18,
+      "last_close": 29650,
+      "hwm": 6.62,
+      "hwm_day": 2,
+      "mdd": -10.63,
       "tp_pct": 5.0,
-      "tp_day": null,
-      "stop_now": 26404,
+      "tp_day": 2,
+      "stop_now": 28700,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:078930:CLOSING_BET:2026-11-04",
@@ -24153,22 +24187,23 @@
       "symbol": "078930.KS",
       "status": "ACTIVE",
       "rets": [
-        -3.55
+        -2.66,
+        -3.68
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-04T07:05:08.143210+00:00",
       "reason": "외국인 순매수 66억 집중 + 윗꼬리 없는 양봉 고가 마감",
       "stop": 73612,
-      "last_close": 76100,
-      "hwm": 0.76,
-      "hwm_day": 1,
-      "mdd": -4.18,
+      "last_close": 76000,
+      "hwm": 1.01,
+      "hwm_day": 2,
+      "mdd": -11.53,
       "tp_pct": 5.0,
       "tp_day": null,
       "stop_now": 73612,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:033790:CLOSING_BET:2026-11-04",
@@ -24187,22 +24222,25 @@
       "entry": 8350,
       "stop_line": 7493,
       "symbol": "033790.KQ",
-      "status": "PENDING",
-      "rets": [],
-      "last_date": "",
+      "status": "SL_HIT",
+      "rets": [
+        0.0,
+        -18.56
+      ],
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-04T07:05:08.143210+00:00",
       "reason": "240일선 장대양봉 종가 돌파 · 거래대금 210억 · 거래량 전일 422%",
       "stop": 7682,
-      "last_close": null,
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": null,
+      "last_close": 6800,
+      "hwm": 0.0,
+      "hwm_day": 1,
+      "mdd": -25.39,
       "tp_pct": 5.0,
       "tp_day": null,
       "stop_now": 7682,
-      "final_ret": null,
-      "closed_on": "",
-      "checked_for": "2026-11-05"
+      "final_ret": -18.56,
+      "closed_on": "2026-11-06",
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:396300:CLOSING_BET:2026-11-04",
@@ -24254,24 +24292,25 @@
       "entry": 184300,
       "stop_line": 131018,
       "symbol": "180640.KS",
-      "status": "ACTIVE",
+      "status": "HALF_TP",
       "rets": [
-        2.77
+        3.31,
+        6.4
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-04T07:05:08.143210+00:00",
       "reason": "기관 5일 중 5일 순매수(211억) + 240일선 위 10·20일선 지지",
       "stop": 169556,
-      "last_close": 189400,
-      "hwm": 6.19,
-      "hwm_day": 1,
+      "last_close": 196100,
+      "hwm": 21.27,
+      "hwm_day": 2,
       "mdd": -3.74,
       "tp_pct": 12.0,
-      "tp_day": null,
-      "stop_now": 169556,
+      "tp_day": 2,
+      "stop_now": 184300,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:034730:TREND_RALLY:2026-11-04",
@@ -24325,24 +24364,25 @@
       "entry": 653000,
       "stop_line": 639167,
       "symbol": "000810.KS",
-      "status": "ACTIVE",
+      "status": "SL_HIT",
       "rets": [
-        -0.31
+        -0.15,
+        -7.66
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-04T07:05:08.143210+00:00",
       "reason": "기관 5일 중 3일 순매수(205억) + 240일선 위 10·20일선 지지",
       "stop": 623188,
-      "last_close": 651000,
+      "last_close": 603000,
       "hwm": 3.98,
       "hwm_day": 1,
-      "mdd": -0.77,
+      "mdd": -9.34,
       "tp_pct": 12.0,
       "tp_day": null,
       "stop_now": 623188,
-      "final_ret": null,
-      "closed_on": "",
-      "checked_for": "2026-11-05"
+      "final_ret": -7.66,
+      "closed_on": "2026-11-06",
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:091580:TREND_RALLY:2026-11-04",
@@ -24361,24 +24401,25 @@
       "entry": 28150,
       "stop_line": 21951,
       "symbol": "091580.KQ",
-      "status": "ACTIVE",
+      "status": "SL_HIT",
       "rets": [
-        -7.64
+        -7.64,
+        -20.96
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-04T07:05:08.143210+00:00",
       "reason": "기관 5일 중 5일 순매수(39억) + 240일선 위 10·20일선 지지",
       "stop": 25898,
-      "last_close": 26000,
+      "last_close": 22250,
       "hwm": 1.78,
       "hwm_day": 1,
-      "mdd": -10.3,
+      "mdd": -21.14,
       "tp_pct": 12.0,
       "tp_day": null,
       "stop_now": 25898,
-      "final_ret": null,
-      "closed_on": "",
-      "checked_for": "2026-11-05"
+      "final_ret": -20.96,
+      "closed_on": "2026-11-06",
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:046890:TREND_RALLY:2026-11-04",
@@ -24434,22 +24475,23 @@
       "symbol": "282330.KS",
       "status": "ACTIVE",
       "rets": [
-        1.77
+        2.11,
+        -2.52
       ],
-      "last_date": "2026-11-05",
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-04T07:05:08.143210+00:00",
       "reason": "기관 5일 중 3일 순매수(44억) + 240일선 위 10·20일선 지지",
       "stop": 135688,
-      "last_close": 149700,
+      "last_close": 143400,
       "hwm": 5.3,
       "hwm_day": 1,
-      "mdd": -1.29,
+      "mdd": -8.23,
       "tp_pct": 12.0,
       "tp_day": null,
       "stop_now": 135688,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "us:MEDP:SWING_PULLBACK:2026-11-04",
@@ -24713,22 +24755,24 @@
       "entry": 72600,
       "stop_line": 71160,
       "symbol": "064400.KS",
-      "status": "PENDING",
-      "rets": [],
-      "last_date": "",
+      "status": "ACTIVE",
+      "rets": [
+        2.07
+      ],
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-05T07:01:00.758865+00:00",
       "reason": "1차 상승 +27% · 고점 후 6거래일 조정 · 거래량 37% 감소 · 20일선 지지",
       "stop": 69381,
-      "last_close": null,
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": null,
+      "last_close": 74100,
+      "hwm": 4.96,
+      "hwm_day": 1,
+      "mdd": -8.26,
       "tp_pct": 8.0,
       "tp_day": null,
       "stop_now": 69381,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:128940:TREND_RALLY:2026-11-05",
@@ -24747,22 +24791,24 @@
       "entry": 465000,
       "stop_line": 450458,
       "symbol": "128940.KS",
-      "status": "PENDING",
-      "rets": [],
-      "last_date": "",
+      "status": "ACTIVE",
+      "rets": [
+        0.75
+      ],
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-05T07:01:00.758865+00:00",
       "reason": "480일선 돌파 2회 실패 후 재돌파 · 상단 우상향",
       "stop": 439197,
-      "last_close": null,
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": null,
+      "last_close": 468500,
+      "hwm": 6.88,
+      "hwm_day": 1,
+      "mdd": -4.52,
       "tp_pct": 12.0,
       "tp_day": null,
       "stop_now": 439197,
       "final_ret": null,
       "closed_on": "",
-      "checked_for": "2026-11-05"
+      "checked_for": "2026-11-06"
     },
     {
       "id": "kr:090430:TREND_RALLY:2026-11-05",
@@ -24781,22 +24827,24 @@
       "entry": 133800,
       "stop_line": 137383,
       "symbol": "090430.KS",
-      "status": "PENDING",
-      "rets": [],
-      "last_date": "",
+      "status": "SL_HIT",
+      "rets": [
+        -0.97
+      ],
+      "last_date": "2026-11-06",
       "snapshot_at": "2026-11-05T07:01:00.758865+00:00",
       "reason": "480일선 돌파 3회 실패 후 재돌파 · 상단 우상향",
       "stop": 133948,
-      "last_close": null,
-      "hwm": null,
-      "hwm_day": null,
-      "mdd": null,
+      "last_close": 132500,
+      "hwm": 0.75,
+      "hwm_day": 1,
+      "mdd": -3.59,
       "tp_pct": 12.0,
       "tp_day": null,
       "stop_now": 133948,
-      "final_ret": null,
-      "closed_on": "",
-      "checked_for": "2026-11-05"
+      "final_ret": -0.97,
+      "closed_on": "2026-11-06",
+      "checked_for": "2026-11-06"
     },
     {
       "id": "us:RNG:SWING_PULLBACK:2026-11-05",
@@ -24937,19 +24985,19 @@
   },
   "summary": {
     "total": 605,
-    "pending": 8,
-    "active": 87,
-    "half_tp": 203,
-    "closed": 474,
-    "win_rate": 41.2,
-    "in_the_money": 69.9,
-    "hit_5": 52.8,
-    "hit_10": 29.5,
-    "avg_hwm": 8.04,
-    "avg_mdd": -7.54,
-    "closed_avg_final": -4.2
+    "pending": 4,
+    "active": 79,
+    "half_tp": 207,
+    "closed": 485,
+    "win_rate": 41.0,
+    "in_the_money": 69.8,
+    "hit_5": 53.2,
+    "hit_10": 29.6,
+    "avg_hwm": 8.11,
+    "avg_mdd": -7.71,
+    "closed_avg_final": -4.28
   },
-  "updated_at": "2026-11-06T01:42:30.665758+00:00",
+  "updated_at": "2026-11-06T06:41:01.246251+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
