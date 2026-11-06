@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "건설기계",
-      "change_percent": -0.06,
-      "total": 16,
+      "name": "제대혈",
+      "change_percent": 0.61,
+      "total": 5,
       "rise": 4
+    },
+    {
+      "name": "건설기계",
+      "change_percent": 0.45,
+      "total": 16,
+      "rise": 5
+    },
+    {
+      "name": "日제품 불매운동(수혜)",
+      "change_percent": -0.05,
+      "total": 21,
+      "rise": 7
     },
     {
       "name": "기업인수목적회사(SPAC)",
       "change_percent": -0.15,
       "total": 70,
-      "rise": 16
+      "rise": 14
     },
     {
-      "name": "日제품 불매운동(수혜)",
-      "change_percent": -0.27,
-      "total": 21,
-      "rise": 6
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": -0.26,
+      "total": 9,
+      "rise": 1
     },
     {
-      "name": "제대혈",
-      "change_percent": -0.3,
-      "total": 5,
-      "rise": 3
+      "name": "영화",
+      "change_percent": -0.28,
+      "total": 11,
+      "rise": 4
     },
     {
       "name": "농업",
-      "change_percent": -0.73,
+      "change_percent": -0.44,
       "total": 23,
       "rise": 5
     },
     {
-      "name": "제지",
-      "change_percent": -0.73,
-      "total": 14,
-      "rise": 2
-    },
-    {
-      "name": "영화",
-      "change_percent": -0.8,
-      "total": 11,
-      "rise": 2
-    },
-    {
-      "name": "육계",
-      "change_percent": -0.91,
-      "total": 9,
-      "rise": 2
+      "name": "남북경협",
+      "change_percent": -0.47,
+      "total": 29,
+      "rise": 10
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-06T02:41:00.670743+00:00"
+  "updated_at": "2026-11-06T03:01:01.381485+00:00"
 }
