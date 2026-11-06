@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.2,
+      "change_percent": -0.19,
       "total": 70,
-      "rise": 12
+      "rise": 11
+    },
+    {
+      "name": "日제품 불매운동(수혜)",
+      "change_percent": -1.06,
+      "total": 21,
+      "rise": 6
     },
     {
       "name": "제지",
-      "change_percent": -0.61,
+      "change_percent": -1.16,
       "total": 14,
       "rise": 2
     },
     {
-      "name": "日제품 불매운동(수혜)",
-      "change_percent": -1.07,
-      "total": 21,
-      "rise": 4
-    },
-    {
       "name": "제대혈",
-      "change_percent": -1.08,
+      "change_percent": -1.19,
       "total": 5,
-      "rise": 2
+      "rise": 1
     },
     {
       "name": "농업",
-      "change_percent": -1.11,
+      "change_percent": -1.26,
       "total": 23,
       "rise": 4
     },
     {
       "name": "건설기계",
-      "change_percent": -1.28,
+      "change_percent": -1.42,
       "total": 16,
       "rise": 4
     },
     {
       "name": "영화",
-      "change_percent": -1.48,
+      "change_percent": -1.54,
       "total": 11,
-      "rise": 3
+      "rise": 2
     },
     {
-      "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
-      "change_percent": -1.64,
-      "total": 10,
-      "rise": 1
+      "name": "육계",
+      "change_percent": -1.57,
+      "total": 9,
+      "rise": 2
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-06T01:42:30.665758+00:00"
+  "updated_at": "2026-11-06T02:01:00.803679+00:00"
 }
