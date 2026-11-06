@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "건설기계",
-      "change_percent": 1.79,
+      "change_percent": 1.25,
       "total": 16,
       "rise": 6
     },
     {
+      "name": "재택근무/스마트워크",
+      "change_percent": 1.14,
+      "total": 15,
+      "rise": 7
+    },
+    {
       "name": "모바일게임(스마트폰)",
-      "change_percent": 0.54,
+      "change_percent": 0.58,
       "total": 36,
       "rise": 17
     },
     {
-      "name": "재택근무/스마트워크",
-      "change_percent": 0.47,
-      "total": 15,
-      "rise": 4
-    },
-    {
       "name": "게임",
-      "change_percent": 0.31,
+      "change_percent": 0.35,
       "total": 30,
       "rise": 14
     },
     {
-      "name": "농업",
-      "change_percent": 0.2,
-      "total": 23,
-      "rise": 6
+      "name": "제대혈",
+      "change_percent": 0.28,
+      "total": 5,
+      "rise": 3
     },
     {
-      "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.17,
-      "total": 70,
-      "rise": 11
+      "name": "엔터테인먼트",
+      "change_percent": -0.01,
+      "total": 31,
+      "rise": 12
+    },
+    {
+      "name": "제지",
+      "change_percent": -0.06,
+      "total": 14,
+      "rise": 3
     },
     {
       "name": "전후 재건(우크라/중동 전쟁 등)",
-      "change_percent": -0.23,
+      "change_percent": -0.11,
       "total": 40,
-      "rise": 13
-    },
-    {
-      "name": "제대혈",
-      "change_percent": -0.23,
-      "total": 5,
-      "rise": 2
+      "rise": 14
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-06T05:21:01.541131+00:00"
+  "updated_at": "2026-11-06T05:41:01.043636+00:00"
 }
