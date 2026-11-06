@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.19,
-      "total": 70,
-      "rise": 11
-    },
-    {
-      "name": "日제품 불매운동(수혜)",
-      "change_percent": -1.06,
-      "total": 21,
-      "rise": 6
-    },
-    {
-      "name": "제지",
-      "change_percent": -1.16,
-      "total": 14,
-      "rise": 2
-    },
-    {
       "name": "제대혈",
-      "change_percent": -1.19,
+      "change_percent": 0.44,
       "total": 5,
-      "rise": 1
-    },
-    {
-      "name": "농업",
-      "change_percent": -1.26,
-      "total": 23,
       "rise": 4
     },
     {
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.23,
+      "total": 70,
+      "rise": 9
+    },
+    {
+      "name": "日제품 불매운동(수혜)",
+      "change_percent": -0.38,
+      "total": 21,
+      "rise": 7
+    },
+    {
       "name": "건설기계",
-      "change_percent": -1.42,
+      "change_percent": -0.63,
       "total": 16,
       "rise": 4
     },
     {
+      "name": "농업",
+      "change_percent": -0.83,
+      "total": 23,
+      "rise": 4
+    },
+    {
       "name": "영화",
-      "change_percent": -1.54,
+      "change_percent": -0.88,
       "total": 11,
       "rise": 2
     },
     {
-      "name": "육계",
-      "change_percent": -1.57,
-      "total": 9,
+      "name": "제지",
+      "change_percent": -0.91,
+      "total": 14,
       "rise": 2
+    },
+    {
+      "name": "비료",
+      "change_percent": -1.06,
+      "total": 10,
+      "rise": 1
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-06T02:01:00.803679+00:00"
+  "updated_at": "2026-11-06T02:21:00.669768+00:00"
 }
