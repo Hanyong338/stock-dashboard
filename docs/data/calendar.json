@@ -695,7 +695,8 @@
       "category": "macro",
       "detail": "21:30",
       "consensus": "65K",
-      "previous": "29K"
+      "previous": "60K",
+      "actual": "165K"
     },
     {
       "start": "2026-11-06",
@@ -703,7 +704,8 @@
       "title": "미국 실업률",
       "category": "macro",
       "detail": "21:30",
-      "previous": "7.6%"
+      "previous": "7.6%",
+      "actual": "7.9%"
     },
     {
       "start": "2026-11-06",
@@ -1445,5 +1447,5 @@
   "built_on": "2026-11-06",
   "builder_version": 10,
   "updated_at": "2026-11-05T15:03:40.245010+00:00",
-  "values_updated_at": "2026-11-06T06:41:01.246251+00:00"
+  "values_updated_at": "2026-11-06T14:21:01.386318+00:00"
 }
