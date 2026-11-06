@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
+      "name": "SNS(소셜네트워크서비스)",
+      "change_percent": 0.18,
+      "total": 10,
+      "rise": 3
+    },
+    {
+      "name": "육계",
+      "change_percent": 0.16,
+      "total": 9,
+      "rise": 2
+    },
+    {
       "name": "건설기계",
-      "change_percent": 0.28,
+      "change_percent": 0.08,
       "total": 16,
       "rise": 3
     },
     {
+      "name": "폐기물처리",
+      "change_percent": 0.06,
+      "total": 6,
+      "rise": 4
+    },
+    {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.14,
+      "change_percent": -0.13,
       "total": 70,
-      "rise": 11
+      "rise": 12
     },
     {
       "name": "엔터테인먼트",
-      "change_percent": -0.2,
+      "change_percent": -0.16,
       "total": 31,
       "rise": 12
+    },
+    {
+      "name": "영화",
+      "change_percent": -0.21,
+      "total": 11,
+      "rise": 4
     },
     {
       "name": "모바일게임(스마트폰)",
       "change_percent": -0.29,
       "total": 36,
       "rise": 16
-    },
-    {
-      "name": "육계",
-      "change_percent": -0.42,
-      "total": 9,
-      "rise": 2
-    },
-    {
-      "name": "비료",
-      "change_percent": -0.54,
-      "total": 10,
-      "rise": 1
-    },
-    {
-      "name": "재택근무/스마트워크",
-      "change_percent": -0.55,
-      "total": 15,
-      "rise": 3
-    },
-    {
-      "name": "제지",
-      "change_percent": -0.57,
-      "total": 14,
-      "rise": 2
     }
   ],
   "group_count": 264,
-  "updated_at": "2026-11-06T06:41:01.246251+00:00"
+  "updated_at": "2026-11-06T07:01:00.626727+00:00"
 }
