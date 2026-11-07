@@ -345,8 +345,8 @@
       "detail": "코스피 14:00",
       "code": "000880",
       "quarter": "2026.09",
-      "op_consensus": 17579,
-      "rev_consensus": 199678,
+      "op_consensus": 16960,
+      "rev_consensus": 201043,
       "op_prev_year": 13442,
       "op_prev_q": 24085
     },
@@ -619,8 +619,8 @@
       "detail": "코스피 15:30",
       "code": "003230",
       "quarter": "2026.09",
-      "op_consensus": 1844,
-      "rev_consensus": 8117,
+      "op_consensus": 1847,
+      "rev_consensus": 8128,
       "op_prev_year": 1309,
       "op_prev_q": 1762
     },
@@ -632,8 +632,8 @@
       "detail": "코스피 10:30",
       "code": "161890",
       "quarter": "2026.09",
-      "op_consensus": 916,
-      "rev_consensus": 8362,
+      "op_consensus": 919,
+      "rev_consensus": 8360,
       "op_prev_year": 583,
       "op_prev_q": 1103
     },
@@ -689,8 +689,8 @@
       "category": "macro",
       "detail": "23:00",
       "consensus": "48.1",
-      "previous": "48.0",
-      "actual": "51.0"
+      "actual": "51.0",
+      "previous": "48.0"
     },
     {
       "start": "2026-11-09",
@@ -951,8 +951,7 @@
       "title": "미국 기존주택판매",
       "category": "macro",
       "detail": "23:00",
-      "consensus": "3.88M",
-      "previous": "3.99M"
+      "previous": "1.5%"
     },
     {
       "start": "2026-11-12",
@@ -960,6 +959,7 @@
       "title": "미국 실업수당",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "194K",
       "previous": "189K"
     },
     {
@@ -1019,8 +1019,7 @@
       "title": "미국 근원 PPI",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "0.3%",
-      "previous": "0.7%"
+      "previous": "5.0%"
     },
     {
       "start": "2026-11-17",
@@ -1099,7 +1098,7 @@
       "title": "미시간 소비심리",
       "category": "macro",
       "detail": "23:00",
-      "previous": "48.0"
+      "previous": "51.0"
     },
     {
       "start": "2026-11-20",
@@ -1329,6 +1328,14 @@
       "detail": "지수·주식 선물옵션 동시만기 · 한국시간 토 새벽 마감"
     },
     {
+      "start": "2026-12-18",
+      "end": "2026-12-18",
+      "title": "BOJ 금리결정",
+      "category": "major",
+      "detail": "11:00",
+      "previous": "1.25%"
+    },
+    {
       "start": "2026-12-25",
       "end": "2026-12-25",
       "title": "기독탄신일 (한국 휴장)",
@@ -1427,8 +1434,7 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     }
   ],
-  "built_on": "2026-11-07",
+  "built_on": "2026-11-08",
   "builder_version": 10,
-  "updated_at": "2026-11-06T15:01:00.852620+00:00",
-  "values_updated_at": "2026-11-06T16:01:00.465519+00:00"
+  "updated_at": "2026-11-07T15:01:00.590557+00:00"
 }
