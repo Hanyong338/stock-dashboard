@@ -7,18 +7,6 @@
   },
   "last_ok_model": "gemini-3.8-flash",
   "sent": {
-    "2026-11-01": {
-      "gemini-3.8-flash": {
-        "503": 7,
-        "ReadTimeout": 9
-      },
-      "gemini-3.6-flash": {
-        "200": 11,
-        "503": 3,
-        "ReadTimeout": 1,
-        "429": 1
-      }
-    },
     "2026-11-02": {
       "gemini-3.6-flash": {
         "200": 10,
@@ -83,6 +71,9 @@
     "2026-11-07": {
       "gemini-3.6-flash": {
         "503": 1
+      },
+      "gemini-3.8-flash": {
+        "ReadTimeout": 1
       }
     }
   },
@@ -119,7 +110,8 @@
   "paid_key_fp": "c85e16c9",
   "probed": {
     "2026-11-07": [
-      "gemini-3.6-flash"
+      "gemini-3.6-flash",
+      "gemini-3.8-flash"
     ]
   },
   "auto_models": [],
