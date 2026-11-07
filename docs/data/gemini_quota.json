@@ -75,7 +75,7 @@
         "429": 1
       },
       "gemini-3.8-flash": {
-        "503": 4,
+        "503": 5,
         "ReadTimeout": 4,
         "200": 1
       }
@@ -121,5 +121,5 @@
   "auto_models": [],
   "retired_models": [],
   "models_checked_on": "2026-11-07",
-  "backoff_until": "2026-11-07T03:49:17.083873+00:00"
+  "backoff_until": "2026-11-07T04:27:53.147708+00:00"
 }
