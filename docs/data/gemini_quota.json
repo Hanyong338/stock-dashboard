@@ -1,7 +1,7 @@
 {
   "exhausted": {
     "gemini-3.5-flash": "2026-10-09T07:02:00+00:00",
-    "gemini-3.6-flash": "2026-11-07T08:02:00+00:00",
+    "gemini-3.6-flash": "2026-11-08T08:02:00+00:00",
     "gemini-3.8-flash": "2026-11-05T08:02:00+00:00",
     "gemini-3.7-flash": "2026-10-08T07:02:00+00:00"
   },
@@ -71,10 +71,11 @@
     "2026-11-07": {
       "gemini-3.6-flash": {
         "503": 2,
-        "200": 8
+        "200": 19,
+        "429": 1
       },
       "gemini-3.8-flash": {
-        "ReadTimeout": 1
+        "ReadTimeout": 2
       }
     }
   },
@@ -117,5 +118,6 @@
   },
   "auto_models": [],
   "retired_models": [],
-  "models_checked_on": "2026-11-08"
+  "models_checked_on": "2026-11-08",
+  "backoff_until": "2026-11-07T23:38:52.560422+00:00"
 }
