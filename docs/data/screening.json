@@ -8,57 +8,57 @@
   "chart_count": 10,
   "as_of_trading_day": "2026-11-06",
   "universe_count": 2656,
-  "base_passed": 238,
-  "dropped": 186,
+  "base_passed": 247,
+  "dropped": 196,
   "fetch_failures": 0,
   "theme_leaders": [
     {
-      "name": "SNS(소셜네트워크서비스)",
-      "change_percent": 1.05,
+      "name": "일자리(취업)",
+      "change_percent": 0.53,
+      "total": 9,
+      "rise": 5
+    },
+    {
+      "name": "엔터테인먼트",
+      "change_percent": 0.28,
+      "total": 31,
+      "rise": 15
+    },
+    {
+      "name": "건설기계",
+      "change_percent": 0.08,
+      "total": 16,
+      "rise": 6
+    },
+    {
+      "name": "국내 상장 중국기업",
+      "change_percent": 0.07,
       "total": 10,
       "rise": 5
     },
     {
-      "name": "광고",
-      "change_percent": 0.58,
-      "total": 26,
-      "rise": 8
-    },
-    {
-      "name": "건설기계",
-      "change_percent": 0.34,
-      "total": 16,
-      "rise": 4
-    },
-    {
-      "name": "육계",
-      "change_percent": 0.16,
-      "total": 9,
-      "rise": 2
-    },
-    {
-      "name": "엔터테인먼트",
-      "change_percent": 0.09,
-      "total": 31,
-      "rise": 13
-    },
-    {
-      "name": "폐기물처리",
-      "change_percent": 0.06,
-      "total": 6,
-      "rise": 4
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.02,
+      "total": 70,
+      "rise": 20
     },
     {
       "name": "재택근무/스마트워크",
-      "change_percent": -0.07,
+      "change_percent": -0.03,
       "total": 15,
-      "rise": 4
+      "rise": 7
     },
     {
-      "name": "기업인수목적회사(SPAC)",
+      "name": "육계",
       "change_percent": -0.12,
-      "total": 70,
-      "rise": 12
+      "total": 9,
+      "rise": 3
+    },
+    {
+      "name": "모바일게임(스마트폰)",
+      "change_percent": -0.2,
+      "total": 36,
+      "rise": 13
     }
   ],
   "sections": [
@@ -95,20 +95,20 @@
           "name": "한진칼",
           "market": "KOSPI",
           "tags": [
-            "밸류업(25년 기업가치 제고계획 발표)",
-            "코리아 밸류업 지수(Korea Value-up Index)"
+            "지주사",
+            "항공/저가 항공사(LCC)"
           ],
-          "trading_value_eok": 2659,
-          "market_cap_eok": 131855,
+          "trading_value_eok": 2808,
+          "market_cap_eok": 131321,
           "close": 196100,
           "change_percent": 2.99,
-          "volume": 1326090,
+          "volume": 1387782,
           "url": "https://m.stock.naver.com/domestic/stock/180640/total",
           "flow": {
-            "date": "20261105",
-            "foreign": 11787,
-            "organ": -25573,
-            "individual": 10552
+            "date": "20261106",
+            "foreign": -2807,
+            "organ": 48840,
+            "individual": -43094
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -128,17 +128,17 @@
           "tags": [
             "바이오시밀러(복제 바이오의약품)"
           ],
-          "trading_value_eok": 2114,
-          "market_cap_eok": 486193,
+          "trading_value_eok": 2186,
+          "market_cap_eok": 483872,
           "close": 211000,
           "change_percent": -1.86,
-          "volume": 1050471,
+          "volume": 1036846,
           "url": "https://m.stock.naver.com/domestic/stock/068270/total",
           "flow": {
-            "date": "20261105",
-            "foreign": 26488,
-            "organ": 1042520,
-            "individual": -1097360
+            "date": "20261106",
+            "foreign": -233806,
+            "organ": 371814,
+            "individual": -176116
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -159,17 +159,17 @@
             "겨울",
             "백신/진단시약/방역(신종플루, AI 등)"
           ],
-          "trading_value_eok": 1416,
-          "market_cap_eok": 58802,
+          "trading_value_eok": 1448,
+          "market_cap_eok": 59635,
           "close": 467000,
           "change_percent": 0.43,
-          "volume": 298484,
+          "volume": 302757,
           "url": "https://m.stock.naver.com/domestic/stock/128940/total",
           "flow": {
-            "date": "20261105",
-            "foreign": -34425,
-            "organ": 101066,
-            "individual": -65676
+            "date": "20261106",
+            "foreign": -69487,
+            "organ": 85288,
+            "individual": -14064
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -190,17 +190,17 @@
             "렌터카",
             "밸류업(24년 기업가치 제고계획 발표)"
           ],
-          "trading_value_eok": 1402,
-          "market_cap_eok": 21205,
+          "trading_value_eok": 1409,
+          "market_cap_eok": 21241,
           "close": 58400,
           "change_percent": 10.4,
-          "volume": 2409288,
+          "volume": 2411819,
           "url": "https://m.stock.naver.com/domestic/stock/089860/total",
           "flow": {
-            "date": "20261105",
-            "foreign": -13093,
-            "organ": -78,
-            "individual": -10784
+            "date": "20261106",
+            "foreign": -15468,
+            "organ": 1201026,
+            "individual": -1067377
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -218,25 +218,25 @@
           "name": "삼성에스디에스",
           "market": "KOSPI",
           "tags": [
-            "SI(시스템통합)",
-            "블록체인"
+            "클라우드 컴퓨팅",
+            "SI(시스템통합)"
           ],
-          "trading_value_eok": 1005,
+          "trading_value_eok": 1024,
           "market_cap_eok": 166362,
           "close": 218000,
           "change_percent": 6.34,
-          "volume": 483246,
+          "volume": 477122,
           "url": "https://m.stock.naver.com/domestic/stock/018260/total",
           "flow": {
-            "date": "20261105",
-            "foreign": 11638,
-            "organ": 5381,
-            "individual": -18051
+            "date": "20261106",
+            "foreign": -46111,
+            "organ": 192195,
+            "individual": -121432
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
           "type": "C",
-          "reason": "기관 5일 중 5일 순매수(81억) + 240일선 위 10·20일선 지지",
+          "reason": "기관 5일 중 5일 순매수(460억) + 240일선 위 10·20일선 지지",
           "exits": [
             "일봉 5·10일선 추종",
             "일봉 20일선 종가 이탈 시 50% 의무 분할 매도",
@@ -251,17 +251,17 @@
           "tags": [
             "풍력에너지"
           ],
-          "trading_value_eok": 690,
-          "market_cap_eok": 20537,
+          "trading_value_eok": 720,
+          "market_cap_eok": 20580,
           "close": 49100,
           "change_percent": 3.48,
-          "volume": 1462129,
+          "volume": 1519101,
           "url": "https://m.stock.naver.com/domestic/stock/112610/total",
           "flow": {
-            "date": "20261105",
-            "foreign": 81034,
-            "organ": 174162,
-            "individual": -239104
+            "date": "20261106",
+            "foreign": -244473,
+            "organ": 312650,
+            "individual": -65769
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -279,17 +279,17 @@
           "name": "메리츠금융지주",
           "market": "KOSPI",
           "tags": [],
-          "trading_value_eok": 399,
+          "trading_value_eok": 400,
           "market_cap_eok": 220731,
           "close": 132200,
           "change_percent": -2.07,
-          "volume": 339644,
+          "volume": 304438,
           "url": "https://m.stock.naver.com/domestic/stock/138040/total",
           "flow": {
-            "date": "20261105",
-            "foreign": 74453,
-            "organ": 30326,
-            "individual": -98559
+            "date": "20261106",
+            "foreign": 21365,
+            "organ": -8587,
+            "individual": -13030
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -307,20 +307,20 @@
           "name": "한미사이언스",
           "market": "KOSPI",
           "tags": [
-            "밸류업(24년 기업가치 제고계획 발표)",
-            "mRNA(메신저 리보핵산)"
+            "지주사",
+            "밸류업(24년 기업가치 제고계획 발표)"
           ],
-          "trading_value_eok": 249,
-          "market_cap_eok": 36863,
+          "trading_value_eok": 253,
+          "market_cap_eok": 36726,
           "close": 54300,
           "change_percent": 3.23,
-          "volume": 463112,
+          "volume": 470004,
           "url": "https://m.stock.naver.com/domestic/stock/008930/total",
           "flow": {
-            "date": "20261105",
-            "foreign": -18055,
-            "organ": 137608,
-            "individual": -117239
+            "date": "20261106",
+            "foreign": -111838,
+            "organ": 206986,
+            "individual": -93613
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -337,21 +337,18 @@
           "code": "241710",
           "name": "코스메카코리아",
           "market": "KOSDAQ",
-          "tags": [
-            "화장품",
-            "화장품"
-          ],
-          "trading_value_eok": 184,
-          "market_cap_eok": 10830,
+          "tags": [],
+          "trading_value_eok": 186,
+          "market_cap_eok": 10306,
           "close": 101400,
           "change_percent": 4.43,
-          "volume": 186014,
+          "volume": 187878,
           "url": "https://m.stock.naver.com/domestic/stock/241710/total",
           "flow": {
-            "date": "20261105",
-            "foreign": -32940,
-            "organ": 39104,
-            "individual": -5755
+            "date": "20261106",
+            "foreign": -54924,
+            "organ": 68337,
+            "individual": -11909
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -369,17 +366,17 @@
           "name": "나노신소재",
           "market": "KOSDAQ",
           "tags": [],
-          "trading_value_eok": 153,
-          "market_cap_eok": 7836,
+          "trading_value_eok": 162,
+          "market_cap_eok": 8044,
           "close": 63800,
           "change_percent": -8.33,
-          "volume": 237468,
+          "volume": 245579,
           "url": "https://m.stock.naver.com/domestic/stock/121600/total",
           "flow": {
-            "date": "20261105",
-            "foreign": -59385,
-            "organ": 56331,
-            "individual": -3765
+            "date": "20261106",
+            "foreign": -9520,
+            "organ": 25210,
+            "individual": -14527
           },
           "section": "TREND_RALLY",
           "section_name": "대시세 추세 랠리주",
@@ -395,8 +392,8 @@
       ]
     }
   ],
-  "built_slot": "2026-11-06/close",
+  "built_slot": "2026-11-08/close",
   "rules_version": 8,
-  "updated_at": "2026-11-06T07:01:00.626727+00:00",
+  "updated_at": "2026-11-08T07:24:14.761152+00:00",
   "intraday": false
 }
