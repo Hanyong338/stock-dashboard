@@ -2,10 +2,10 @@
   "exhausted": {
     "gemini-3.5-flash": "2026-10-09T07:02:00+00:00",
     "gemini-3.6-flash": "2026-11-08T08:02:00+00:00",
-    "gemini-3.8-flash": "2026-11-05T08:02:00+00:00",
+    "gemini-3.8-flash": "2026-11-08T08:02:00+00:00",
     "gemini-3.7-flash": "2026-10-08T07:02:00+00:00"
   },
-  "last_ok_model": "gemini-3.6-flash",
+  "last_ok_model": "gemini-3.8-flash",
   "sent": {
     "2026-11-02": {
       "gemini-3.6-flash": {
@@ -76,7 +76,9 @@
       },
       "gemini-3.8-flash": {
         "ReadTimeout": 5,
-        "503": 1
+        "503": 1,
+        "200": 1,
+        "429": 1
       }
     }
   },
@@ -119,6 +121,5 @@
   },
   "auto_models": [],
   "retired_models": [],
-  "models_checked_on": "2026-11-08",
-  "backoff_until": "2026-11-08T02:11:04.726522+00:00"
+  "models_checked_on": "2026-11-08"
 }
