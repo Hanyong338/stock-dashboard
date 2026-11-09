@@ -2,27 +2,21 @@
   "leaders": [
     {
       "name": "국내 상장 중국기업",
-      "change_percent": 4.08,
+      "change_percent": 4.02,
       "total": 10,
-      "rise": 8
+      "rise": 6
     },
     {
       "name": "딥페이크(deepfake)",
-      "change_percent": 3.78,
+      "change_percent": 3.2,
       "total": 14,
-      "rise": 9
+      "rise": 7
     },
     {
       "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 3.57,
+      "change_percent": 2.94,
       "total": 15,
-      "rise": 9
-    },
-    {
-      "name": "일자리(취업)",
-      "change_percent": 3.24,
-      "total": 9,
-      "rise": 6
+      "rise": 7
     },
     {
       "name": "항공/저가 항공사(LCC)",
@@ -31,24 +25,30 @@
       "rise": 7
     },
     {
-      "name": "양자암호/양자컴퓨팅",
-      "change_percent": 2.62,
-      "total": 26,
-      "rise": 19
-    },
-    {
       "name": "통신장비",
-      "change_percent": 2.59,
+      "change_percent": 2.06,
       "total": 47,
-      "rise": 33
+      "rise": 31
     },
     {
-      "name": "LED장비",
-      "change_percent": 2.06,
-      "total": 11,
+      "name": "양자암호/양자컴퓨팅",
+      "change_percent": 2.02,
+      "total": 26,
+      "rise": 17
+    },
+    {
+      "name": "콜드체인(저온 유통)",
+      "change_percent": 1.73,
+      "total": 13,
       "rise": 8
+    },
+    {
+      "name": "보안주(정보)",
+      "change_percent": 1.71,
+      "total": 52,
+      "rise": 29
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-09T07:41:00.460571+00:00"
+  "updated_at": "2026-11-09T08:01:00.659912+00:00"
 }
