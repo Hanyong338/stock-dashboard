@@ -1,5 +1,54 @@
 {
-  "leaders": [],
-  "group_count": 264,
-  "updated_at": "2026-11-08T23:01:01.125635+00:00"
+  "leaders": [
+    {
+      "name": "광통신(광케이블/광섬유 등)",
+      "change_percent": 7.82,
+      "total": 15,
+      "rise": 15
+    },
+    {
+      "name": "소캠(SOCAMM)",
+      "change_percent": 6.15,
+      "total": 11,
+      "rise": 11
+    },
+    {
+      "name": "LED장비",
+      "change_percent": 5.68,
+      "total": 11,
+      "rise": 11
+    },
+    {
+      "name": "양자암호/양자컴퓨팅",
+      "change_percent": 5.57,
+      "total": 26,
+      "rise": 21
+    },
+    {
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 5.01,
+      "total": 14,
+      "rise": 12
+    },
+    {
+      "name": "통신장비",
+      "change_percent": 4.87,
+      "total": 47,
+      "rise": 43
+    },
+    {
+      "name": "CXL(컴퓨트익스프레스링크)",
+      "change_percent": 4.32,
+      "total": 13,
+      "rise": 10
+    },
+    {
+      "name": "반도체 장비",
+      "change_percent": 4.29,
+      "total": 98,
+      "rise": 83
+    }
+  ],
+  "group_count": 265,
+  "updated_at": "2026-11-09T04:41:52.002901+00:00"
 }
