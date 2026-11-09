@@ -115,6 +115,19 @@
     {
       "start": "2026-11-02",
       "end": "2026-11-02",
+      "title": "한화비전 실적",
+      "category": "earnings",
+      "detail": "코스피",
+      "code": "489790",
+      "quarter": "2026.09",
+      "op_consensus": 566,
+      "rev_consensus": 5274,
+      "op_prev_year": 312,
+      "op_prev_q": 656
+    },
+    {
+      "start": "2026-11-02",
+      "end": "2026-11-02",
       "title": "ISM 제조업",
       "category": "macro",
       "detail": "23:00",
@@ -582,12 +595,31 @@
     {
       "start": "2026-11-05",
       "end": "2026-11-05",
-      "title": "미국 실업수당",
+      "title": "미국 고용지표",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "197K",
-      "actual": "189K",
-      "previous": "195K"
+      "consensus": "65K",
+      "actual": "165K",
+      "previous": "60K"
+    },
+    {
+      "start": "2026-11-05",
+      "end": "2026-11-05",
+      "title": "미국 실업률",
+      "category": "macro",
+      "detail": "21:30",
+      "actual": "7.9%",
+      "previous": "7.6%"
+    },
+    {
+      "start": "2026-11-05",
+      "end": "2026-11-05",
+      "title": "미시간 소비심리",
+      "category": "macro",
+      "detail": "23:00",
+      "consensus": "48.1",
+      "actual": "51.0",
+      "previous": "48.0"
     },
     {
       "start": "2026-11-05",
@@ -649,19 +681,6 @@
       "rev_consensus": 57523,
       "op_prev_year": 5860,
       "op_prev_q": 5591
-    },
-    {
-      "start": "2026-11-06",
-      "end": "2026-11-06",
-      "title": "현대지에프홀딩스 실적",
-      "category": "earnings",
-      "detail": "코스피 15:00",
-      "code": "005440",
-      "quarter": "2026.09",
-      "op_consensus": 854,
-      "rev_consensus": 20252,
-      "op_prev_year": 748,
-      "op_prev_q": 853
     },
     {
       "start": "2026-11-06",
@@ -776,7 +795,8 @@
       "title": "미국 CPI",
       "category": "macro",
       "detail": "21:30",
-      "previous": "3.7%"
+      "consensus": "0.3%",
+      "previous": "0.6%"
     },
     {
       "start": "2026-11-10",
@@ -786,6 +806,19 @@
       "detail": "21:30",
       "consensus": "0.2%",
       "previous": "0.3%"
+    },
+    {
+      "start": "2026-11-11",
+      "end": "2026-11-11",
+      "title": "LG이노텍 실적",
+      "category": "earnings",
+      "detail": "코스피 09:00",
+      "code": "011070",
+      "quarter": "2026.09",
+      "op_consensus": 1973,
+      "rev_consensus": 60970,
+      "op_prev_year": 2037,
+      "op_prev_q": 2458
     },
     {
       "start": "2026-11-11",
@@ -843,6 +876,19 @@
       "quarter": "2026.09",
       "op_prev_year": 4413,
       "op_prev_q": 11739
+    },
+    {
+      "start": "2026-11-12",
+      "end": "2026-11-12",
+      "title": "DB하이텍 실적",
+      "category": "earnings",
+      "detail": "코스피 09:00",
+      "code": "000990",
+      "quarter": "2026.09",
+      "op_consensus": 1150,
+      "rev_consensus": 4176,
+      "op_prev_year": 806,
+      "op_prev_q": 1052
     },
     {
       "start": "2026-11-12",
@@ -917,6 +963,19 @@
       "op_consensus": 7242,
       "op_prev_year": 6641,
       "op_prev_q": 8853
+    },
+    {
+      "start": "2026-11-12",
+      "end": "2026-11-12",
+      "title": "한국전력공사 실적",
+      "category": "earnings",
+      "detail": "코스피 17:00",
+      "code": "015760",
+      "quarter": "2026.09",
+      "op_consensus": 22775,
+      "rev_consensus": 275011,
+      "op_prev_year": 56519,
+      "op_prev_q": 11286
     },
     {
       "start": "2026-11-12",
@@ -1004,23 +1063,6 @@
       "op_prev_q": 5287
     },
     {
-      "start": "2026-11-13",
-      "end": "2026-11-13",
-      "title": "미국 PPI",
-      "category": "macro",
-      "detail": "21:30",
-      "consensus": "0.4%",
-      "previous": "1.3%"
-    },
-    {
-      "start": "2026-11-13",
-      "end": "2026-11-13",
-      "title": "미국 근원 PPI",
-      "category": "macro",
-      "detail": "21:30",
-      "previous": "5.0%"
-    },
-    {
       "start": "2026-11-17",
       "end": "2026-11-17",
       "title": "홈디포 실적",
@@ -1059,6 +1101,14 @@
       "category": "macro",
       "detail": "21:30",
       "previous": "1.221M"
+    },
+    {
+      "start": "2026-11-19",
+      "end": "2026-11-19",
+      "title": "알리바바 실적",
+      "category": "earnings",
+      "detail": "BABA 장전",
+      "eps_forecast": "$1.31"
     },
     {
       "start": "2026-11-19",
@@ -1130,14 +1180,6 @@
       "category": "earnings",
       "detail": "DELL",
       "eps_forecast": "$6.41"
-    },
-    {
-      "start": "2026-11-24",
-      "end": "2026-11-24",
-      "title": "알리바바 실적",
-      "category": "earnings",
-      "detail": "BABA",
-      "eps_forecast": "$1.31"
     },
     {
       "start": "2026-11-24",
@@ -1218,11 +1260,27 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     },
     {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
+      "start": "2026-11-30",
+      "end": "2026-11-30",
+      "title": "한국 산업생산",
+      "category": "macro",
+      "detail": "07:00",
+      "previous": "9.0%"
+    },
+    {
+      "start": "2026-11-30",
+      "end": "2026-11-30",
+      "title": "한국 소매판매",
+      "category": "macro",
+      "detail": "07:00",
+      "previous": "3.6%"
+    },
+    {
+      "start": "2026-12-02",
+      "end": "2026-12-02",
       "title": "마벨 실적",
       "category": "earnings",
-      "detail": "MRVL",
+      "detail": "MRVL 장마감 후",
       "eps_forecast": "$0.79"
     },
     {
@@ -1433,7 +1491,7 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     }
   ],
-  "built_on": "2026-11-09",
+  "built_on": "2026-11-10",
   "builder_version": 10,
-  "updated_at": "2026-11-08T18:01:42.141341+00:00"
+  "updated_at": "2026-11-09T15:01:00.876396+00:00"
 }
