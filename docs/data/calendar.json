@@ -366,6 +366,19 @@
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
+      "title": "효성 실적",
+      "category": "earnings",
+      "detail": "코스피 09:00",
+      "code": "004800",
+      "quarter": "2026.09",
+      "op_consensus": 1280,
+      "rev_consensus": 5970,
+      "op_prev_year": 1219,
+      "op_prev_q": 2316
+    },
+    {
+      "start": "2026-11-04",
+      "end": "2026-11-04",
       "title": "효성중공업 실적",
       "category": "earnings",
       "detail": "코스피 09:10",
@@ -595,31 +608,12 @@
     {
       "start": "2026-11-05",
       "end": "2026-11-05",
-      "title": "미국 고용지표",
+      "title": "미국 실업수당",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "65K",
-      "actual": "165K",
-      "previous": "60K"
-    },
-    {
-      "start": "2026-11-05",
-      "end": "2026-11-05",
-      "title": "미국 실업률",
-      "category": "macro",
-      "detail": "21:30",
-      "actual": "7.9%",
-      "previous": "7.6%"
-    },
-    {
-      "start": "2026-11-05",
-      "end": "2026-11-05",
-      "title": "미시간 소비심리",
-      "category": "macro",
-      "detail": "23:00",
-      "consensus": "48.1",
-      "actual": "51.0",
-      "previous": "48.0"
+      "consensus": "197K",
+      "actual": "189K",
+      "previous": "195K"
     },
     {
       "start": "2026-11-05",
@@ -745,7 +739,7 @@
       "detail": "코스피 09:30",
       "code": "097950",
       "quarter": "2026.09",
-      "op_consensus": 3204,
+      "op_consensus": 3194,
       "rev_consensus": 74022,
       "op_prev_year": 3465,
       "op_prev_q": 2576
@@ -762,6 +756,19 @@
       "rev_consensus": 4877,
       "op_prev_year": 1280,
       "op_prev_q": 865
+    },
+    {
+      "start": "2026-11-10",
+      "end": "2026-11-10",
+      "title": "NHN 실적",
+      "category": "earnings",
+      "detail": "코스피 09:00",
+      "code": "181710",
+      "quarter": "2026.09",
+      "op_consensus": 539,
+      "rev_consensus": 7646,
+      "op_prev_year": 276,
+      "op_prev_q": 579
     },
     {
       "start": "2026-11-10",
@@ -796,6 +803,7 @@
       "category": "macro",
       "detail": "21:30",
       "consensus": "0.3%",
+      "actual": "0.4%",
       "previous": "0.6%"
     },
     {
@@ -805,6 +813,7 @@
       "category": "macro",
       "detail": "21:30",
       "consensus": "0.2%",
+      "actual": "0.3%",
       "previous": "0.3%"
     },
     {
@@ -960,7 +969,7 @@
       "detail": "코스피 10:00",
       "code": "000810",
       "quarter": "2026.09",
-      "op_consensus": 7242,
+      "op_consensus": 7407,
       "op_prev_year": 6641,
       "op_prev_q": 8853
     },
@@ -972,8 +981,8 @@
       "detail": "코스피 17:00",
       "code": "015760",
       "quarter": "2026.09",
-      "op_consensus": 22775,
-      "rev_consensus": 275011,
+      "op_consensus": 23763,
+      "rev_consensus": 275205,
       "op_prev_year": 56519,
       "op_prev_q": 11286
     },
@@ -1063,6 +1072,24 @@
       "op_prev_q": 5287
     },
     {
+      "start": "2026-11-13",
+      "end": "2026-11-13",
+      "title": "미국 PPI",
+      "category": "macro",
+      "detail": "21:30",
+      "consensus": "0.4%",
+      "previous": "1.3%"
+    },
+    {
+      "start": "2026-11-13",
+      "end": "2026-11-13",
+      "title": "미국 근원 PPI",
+      "category": "macro",
+      "detail": "21:30",
+      "consensus": "0.3%",
+      "previous": "0.7%"
+    },
+    {
       "start": "2026-11-17",
       "end": "2026-11-17",
       "title": "홈디포 실적",
@@ -1092,7 +1119,7 @@
       "title": "미국 건축허가",
       "category": "macro",
       "detail": "21:30",
-      "previous": "-0.4%"
+      "previous": "1.398M"
     },
     {
       "start": "2026-11-18",
@@ -1129,10 +1156,24 @@
     {
       "start": "2026-11-19",
       "end": "2026-11-19",
+      "title": "미국 실업수당",
+      "category": "macro",
+      "detail": "21:30"
+    },
+    {
+      "start": "2026-11-19",
+      "end": "2026-11-19",
       "title": "필라델피아 연은지수",
       "category": "macro",
       "detail": "21:30",
       "previous": "20.9"
+    },
+    {
+      "start": "2026-11-19",
+      "end": "2026-11-19",
+      "title": "FOMC 의사록",
+      "category": "major",
+      "detail": "03:00"
     },
     {
       "start": "2026-11-20",
@@ -1276,6 +1317,38 @@
       "previous": "3.6%"
     },
     {
+      "start": "2026-12-01",
+      "end": "2026-12-01",
+      "title": "한국 무역수지",
+      "category": "macro",
+      "detail": "08:00",
+      "previous": "49.97B"
+    },
+    {
+      "start": "2026-12-01",
+      "end": "2026-12-01",
+      "title": "한국 수입",
+      "category": "macro",
+      "detail": "08:00",
+      "previous": "26.0%"
+    },
+    {
+      "start": "2026-12-01",
+      "end": "2026-12-01",
+      "title": "한국 수출",
+      "category": "macro",
+      "detail": "08:00",
+      "previous": "83.7%"
+    },
+    {
+      "start": "2026-12-01",
+      "end": "2026-12-01",
+      "title": "한국 제조업 PMI",
+      "category": "macro",
+      "detail": "08:30",
+      "previous": "51.3"
+    },
+    {
       "start": "2026-12-02",
       "end": "2026-12-02",
       "title": "마벨 실적",
@@ -1328,7 +1401,7 @@
       "end": "2026-12-10",
       "title": "브로드컴 실적",
       "category": "earnings",
-      "detail": "AVGO",
+      "detail": "AVGO 장마감 후",
       "eps_forecast": "$3.45"
     },
     {
@@ -1491,7 +1564,7 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     }
   ],
-  "built_on": "2026-11-10",
+  "built_on": "2026-11-11",
   "builder_version": 10,
-  "updated_at": "2026-11-09T15:01:00.876396+00:00"
+  "updated_at": "2026-11-10T18:01:45.533898+00:00"
 }
