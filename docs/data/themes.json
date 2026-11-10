@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "전선",
-      "change_percent": 7.66,
-      "total": 8,
-      "rise": 8
-    },
-    {
       "name": "마이크로 LED",
-      "change_percent": 7.33,
+      "change_percent": 6.63,
       "total": 10,
       "rise": 10
     },
     {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 7.29,
-      "total": 14,
-      "rise": 14
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": 6.46,
+      "total": 9,
+      "rise": 8
     },
     {
-      "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 7.15,
-      "total": 15,
-      "rise": 14
+      "name": "전선",
+      "change_percent": 6.32,
+      "total": 8,
+      "rise": 8
     },
     {
       "name": "소캠(SOCAMM)",
-      "change_percent": 6.88,
+      "change_percent": 5.38,
       "total": 11,
       "rise": 11
     },
     {
-      "name": "항공/저가 항공사(LCC)",
-      "change_percent": 6.77,
-      "total": 9,
-      "rise": 9
+      "name": "광통신(광케이블/광섬유 등)",
+      "change_percent": 5.29,
+      "total": 15,
+      "rise": 14
     },
     {
-      "name": "건설 대표주",
-      "change_percent": 6.54,
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 5.19,
+      "total": 14,
+      "rise": 12
+    },
+    {
+      "name": "IT 대표주",
+      "change_percent": 4.8,
       "total": 6,
       "rise": 6
     },
     {
-      "name": "IT 대표주",
-      "change_percent": 6.38,
+      "name": "건설 대표주",
+      "change_percent": 4.79,
       "total": 6,
       "rise": 6
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-10T00:41:01.210335+00:00"
+  "updated_at": "2026-11-10T01:01:01.329463+00:00"
 }
