@@ -7,11 +7,180 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-11-06 09:30",
-  "universe_count": 462,
+  "as_of": "2026-11-10 09:30",
+  "universe_count": 330,
   "fetch_failures": 0,
   "dropped": 0,
-  "items": [],
-  "built_on": "2026-11-06",
-  "updated_at": "2026-11-06T01:42:30.665758+00:00"
+  "items": [
+    {
+      "code": "003490",
+      "name": "대한항공",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 117278,
+      "type": "A",
+      "reason": "전일 고가 29,750 돌파 · 30분 거래대금 586억 · 거래량 전일 하루의 113%",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/003490/total",
+      "open_gap": 3.95,
+      "value_30m_eok": 586,
+      "vol_vs_prev_day": 113,
+      "close": 32450,
+      "volume": 1855779,
+      "change_percent": 11.51
+    },
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 18425,
+      "type": "C",
+      "reason": "240일선 10,906 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 167억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/010170/total",
+      "open_gap": 9.5,
+      "value_30m_eok": 167,
+      "vol_vs_prev_day": 39,
+      "close": 11960,
+      "volume": 1411737,
+      "change_percent": 10.33
+    },
+    {
+      "code": "105560",
+      "name": "KB금융",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 552249,
+      "type": "C",
+      "reason": "240일선 153,647 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 156억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/105560/total",
+      "open_gap": 4.9,
+      "value_30m_eok": 156,
+      "vol_vs_prev_day": 9,
+      "close": 156700,
+      "volume": 99434,
+      "change_percent": 3.84
+    },
+    {
+      "code": "034730",
+      "name": "SK",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 349101,
+      "type": "C",
+      "reason": "240일선 455,208 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 130억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/034730/total",
+      "open_gap": 6.92,
+      "value_30m_eok": 130,
+      "vol_vs_prev_day": 18,
+      "close": 479500,
+      "volume": 26928,
+      "change_percent": 7.03
+    },
+    {
+      "code": "086790",
+      "name": "하나금융지주",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 325977,
+      "type": "C",
+      "reason": "240일선 116,700 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 91억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/086790/total",
+      "open_gap": 3.45,
+      "value_30m_eok": 91,
+      "vol_vs_prev_day": 13,
+      "close": 120350,
+      "volume": 75615,
+      "change_percent": 3.75
+    },
+    {
+      "code": "253590",
+      "name": "네오셈",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 6146,
+      "type": "C",
+      "reason": "240일선 13,464 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 31억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/253590/total",
+      "open_gap": 7.98,
+      "value_30m_eok": 31,
+      "vol_vs_prev_day": 15,
+      "close": 13990,
+      "volume": 224433,
+      "change_percent": 8.45
+    },
+    {
+      "code": "252990",
+      "name": "샘씨엔에스",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 7431,
+      "type": "C",
+      "reason": "240일선 11,857 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 19억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/252990/total",
+      "open_gap": 8.89,
+      "value_30m_eok": 19,
+      "vol_vs_prev_day": 23,
+      "close": 12580,
+      "volume": 148302,
+      "change_percent": 7.52
+    },
+    {
+      "code": "020560",
+      "name": "아시아나항공",
+      "market": "KOSPI",
+      "tags": [],
+      "market_cap_eok": 17530,
+      "type": "B",
+      "reason": "시초 +4.2% 갭 · 시초가 8,120 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 9억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/020560/total",
+      "open_gap": 4.24,
+      "value_30m_eok": 9,
+      "vol_vs_prev_day": 115,
+      "close": 8930,
+      "volume": 102885,
+      "change_percent": 14.63
+    }
+  ],
+  "built_on": "2026-11-10",
+  "updated_at": "2026-11-10T00:41:01.210335+00:00"
 }
