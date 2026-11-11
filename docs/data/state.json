@@ -992,7 +992,7 @@
     "HyRxmPnpFuY": 1,
     "r_ubFoLBfW4": 1,
     "GwhBA7RbRXM": 1,
-    "_mLVtIxjwB8": 1
+    "_mLVtIxjwB8": 0
   },
   "UCQW05vzztAlwV54WL3pjGBQ": [
     "mcv81vYDDv4",
@@ -1092,7 +1092,9 @@
     "SFBtMK4mhEU",
     "mUt6YvsNGe0"
   ],
-  "_pair_wait": {},
+  "_pair_wait": {
+    "_mLVtIxjwB8": "2026-11-11T06:41:01.387767+00:00"
+  },
   "_pair_fail": {},
   "_review_kept": {
     "RBwnQi1ZHic": "2026-11-08T07:24:14.761152+00:00",
