@@ -78,6 +78,11 @@
         "ReadTimeout": 2,
         "429": 1
       }
+    },
+    "2026-11-11": {
+      "gemini-3.6-flash": {
+        "503": 1
+      }
     }
   },
   "exhausted_detail": {
@@ -112,12 +117,12 @@
   },
   "paid_key_fp": "c85e16c9",
   "probed": {
-    "2026-11-10": [
-      "gemini-3.6-flash",
-      "gemini-3.8-flash"
+    "2026-11-11": [
+      "gemini-3.6-flash"
     ]
   },
   "auto_models": [],
   "retired_models": [],
-  "models_checked_on": "2026-11-11"
+  "models_checked_on": "2026-11-11",
+  "backoff_until": "2026-11-11T08:58:50.762214+00:00"
 }
