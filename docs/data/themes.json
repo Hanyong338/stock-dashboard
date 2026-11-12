@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "도시가스",
+      "change_percent": 0.2,
+      "total": 9,
+      "rise": 1
+    },
+    {
+      "name": "종합상사",
+      "change_percent": 0.14,
+      "total": 8,
+      "rise": 1
+    },
+    {
+      "name": "타이어",
+      "change_percent": 0.11,
+      "total": 9,
+      "rise": 1
+    },
+    {
+      "name": "겨울",
+      "change_percent": 0.08,
+      "total": 22,
+      "rise": 1
+    },
+    {
+      "name": "자원개발",
+      "change_percent": 0.08,
+      "total": 14,
+      "rise": 1
+    },
+    {
+      "name": "증권",
+      "change_percent": 0.06,
+      "total": 21,
+      "rise": 1
+    },
+    {
+      "name": "지주사",
+      "change_percent": 0.05,
+      "total": 127,
+      "rise": 4
+    },
+    {
+      "name": "골프",
+      "change_percent": 0.04,
+      "total": 15,
+      "rise": 1
+    }
+  ],
   "group_count": 265,
-  "updated_at": "2026-11-11T23:01:01.255171+00:00"
+  "updated_at": "2026-11-12T00:01:01.108640+00:00"
 }
