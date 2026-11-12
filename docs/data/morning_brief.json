@@ -33,9 +33,9 @@
     },
     {
       "name": "달러 인덱스",
-      "value": "102.23",
-      "change": "+0.57%",
-      "close_date": "2026-11-10"
+      "value": "102.91",
+      "change": "+0.67%",
+      "close_date": "2026-11-11"
     },
     {
       "name": "WTI 유가",
@@ -304,92 +304,92 @@
   "indices_note": "지수·금리·유가는 시장 데이터 종가 기준",
   "sectors": [
     {
-      "name": "방산·우주항공",
-      "change_percent": 0.9487935294386907
-    },
-    {
-      "name": "원유·가스",
-      "change_percent": 0.786684136659174
-    },
-    {
-      "name": "운송",
-      "change_percent": 0.13140677524146155
-    },
-    {
-      "name": "사이버보안",
-      "change_percent": -0.05281268651947716
-    },
-    {
       "name": "반도체",
-      "change_percent": -0.11583413417025862
-    },
-    {
-      "name": "통신장비",
-      "change_percent": -0.24880021384917705
-    },
-    {
-      "name": "인터넷 플랫폼",
-      "change_percent": -0.2717925777219396
-    },
-    {
-      "name": "소매",
-      "change_percent": -0.36645434615643957
-    },
-    {
-      "name": "은행",
-      "change_percent": -0.49013019102675137
+      "change_percent": 6.009958236363322
     },
     {
       "name": "클라우드",
-      "change_percent": -0.5042861998327214
+      "change_percent": 2.900971118403626
     },
     {
-      "name": "전기차",
-      "change_percent": -0.6101433218786245
+      "name": "원유·가스",
+      "change_percent": 2.6321758231135006
     },
     {
-      "name": "게임",
-      "change_percent": -0.6783935496117655
-    },
-    {
-      "name": "의료기기",
-      "change_percent": -0.8536793624811724
-    },
-    {
-      "name": "전력망·전력기기",
-      "change_percent": -0.956933670677144
+      "name": "통신장비",
+      "change_percent": 2.3477753093373566
     },
     {
       "name": "AI·로봇",
-      "change_percent": -0.9723948372115592
+      "change_percent": 2.0905918713718386
+    },
+    {
+      "name": "전력망·전력기기",
+      "change_percent": 1.9762807632515436
     },
     {
       "name": "소프트웨어",
-      "change_percent": -1.1137367076823703
-    },
-    {
-      "name": "바이오",
-      "change_percent": -1.1727191902279948
+      "change_percent": 1.8937521092427683
     },
     {
       "name": "2차전지",
-      "change_percent": -2.2330871490773783
+      "change_percent": 1.8172726924086442
     },
     {
-      "name": "구리",
-      "change_percent": -3.16278704773152
+      "name": "사이버보안",
+      "change_percent": 1.7119336295061742
+    },
+    {
+      "name": "인터넷 플랫폼",
+      "change_percent": 1.6763076841744626
     },
     {
       "name": "원자력",
-      "change_percent": -3.4653425201551875
+      "change_percent": 1.4781232012523713
+    },
+    {
+      "name": "방산·우주항공",
+      "change_percent": 1.2301304884847812
     },
     {
       "name": "태양광",
-      "change_percent": -3.6963301734446077
+      "change_percent": 1.0112674290508803
+    },
+    {
+      "name": "전기차",
+      "change_percent": 0.969302842214388
+    },
+    {
+      "name": "바이오",
+      "change_percent": 0.8061395715730311
+    },
+    {
+      "name": "운송",
+      "change_percent": 0.7993297200962458
+    },
+    {
+      "name": "구리",
+      "change_percent": 0.7547624559257736
+    },
+    {
+      "name": "의료기기",
+      "change_percent": 0.17220333157674636
+    },
+    {
+      "name": "소매",
+      "change_percent": -0.07572446232743076
+    },
+    {
+      "name": "은행",
+      "change_percent": -0.19154384548225833
+    },
+    {
+      "name": "게임",
+      "change_percent": -0.35593566911957153
     },
     {
       "name": "금광",
-      "change_percent": -5.43407092767716
+      "change_percent": -1.479938502615068
     }
   ],
   "video_id": "DEb5daFJUKU",
@@ -397,7 +397,7 @@
   "title": "[🔴11/12 #당잠사] 코어위브 호실적發 AI 훈풍ㅣ앤트로픽 IPO 흥행ㅣ필리반도체 급등…엔비디아 반등ㅣ오픈AI, 분기 매출 100억 달러ㅣ#엔비디아 #마이크로소프트 #알파벳",
   "url": "https://www.youtube.com/watch?v=DEb5daFJUKU",
   "published": "2026-11-11T20:09:50Z",
-  "fetched_at": "2026-11-12T01:01:01.077311+00:00",
+  "fetched_at": "2026-11-12T02:41:00.553641+00:00",
   "program": "당신이 잠든 사이에",
   "channel": "한국경제TV"
 }
