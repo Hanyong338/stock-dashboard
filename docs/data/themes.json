@@ -2,25 +2,25 @@
   "leaders": [
     {
       "name": "CCTV＆DVR",
-      "change_percent": 3.3,
+      "change_percent": 3.38,
       "total": 8,
       "rise": 4
     },
     {
-      "name": "광고",
-      "change_percent": 3.08,
-      "total": 26,
-      "rise": 17
-    },
-    {
       "name": "AI 챗봇(챗GPT 등)",
-      "change_percent": 2.96,
+      "change_percent": 3.08,
       "total": 31,
       "rise": 18
     },
     {
+      "name": "광고",
+      "change_percent": 3.06,
+      "total": 26,
+      "rise": 17
+    },
+    {
       "name": "음원/음반",
-      "change_percent": 2.65,
+      "change_percent": 2.53,
       "total": 15,
       "rise": 9
     },
@@ -28,27 +28,27 @@
       "name": "캐릭터상품",
       "change_percent": 2.38,
       "total": 9,
-      "rise": 3
+      "rise": 4
     },
     {
       "name": "소캠(SOCAMM)",
-      "change_percent": 1.99,
+      "change_percent": 1.82,
       "total": 11,
       "rise": 7
     },
     {
-      "name": "조선",
-      "change_percent": 1.75,
-      "total": 6,
-      "rise": 4
+      "name": "엔터테인먼트",
+      "change_percent": 1.6,
+      "total": 31,
+      "rise": 18
     },
     {
-      "name": "지능형로봇/인공지능(AI)",
+      "name": "유리 기판",
       "change_percent": 1.56,
-      "total": 72,
-      "rise": 29
+      "total": 21,
+      "rise": 7
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-12T09:41:00.942011+00:00"
+  "updated_at": "2026-11-12T10:01:00.912782+00:00"
 }
