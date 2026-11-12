@@ -1,10 +1,6 @@
 {
-  "updated_at": "2026-11-12T00:21:00.645840+00:00",
+  "updated_at": "2026-11-12T00:41:00.451329+00:00",
   "entries": [
-    {
-      "at": "2026-11-08T00:22:01.313204+00:00",
-      "message": "16번째 시도 [한국경제TV] '블루 쓰나미' 덮친 검은 금요일...코스피 5000선 붕괴 바닥은 어디"
-    },
     {
       "at": "2026-11-08T00:22:04.314086+00:00",
       "message": "16번째 시도 [한국경제TV] 코스피 추가 급락 가능성? 앞으로 '이렇게' 흘러갑니다 (이완수 그레너리"
@@ -1200,6 +1196,10 @@
     {
       "at": "2026-11-12T00:22:19.585399+00:00",
       "message": "자막 실패 [하나TV [하나증권]] 변동성 높은 내리막길 l 해외채권 l 261112 하나증권 리서치센터 모 : HTTPSConnectionPool(host='api.supadata.ai', port=443): Read timed out. (read timeout=60)"
+    },
+    {
+      "at": "2026-11-12T00:41:26.287417+00:00",
+      "message": "자막 실패 [하나TV [하나증권]] 변동성 높은 내리막길 l 해외채권 l 261112 하나증권 리서치센터 모 : 400 Client Error: Bad Request for url: https://api.supadata.ai/v1/transcript?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D-yJN4coUvOU&text=true&mode=native&lang=ko"
     }
   ]
 }
