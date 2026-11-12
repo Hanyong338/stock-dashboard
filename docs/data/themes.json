@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 4.62,
+      "change_percent": 4.34,
       "total": 14,
-      "rise": 13
+      "rise": 11
     },
     {
       "name": "소캠(SOCAMM)",
-      "change_percent": 4.32,
+      "change_percent": 4.09,
       "total": 11,
       "rise": 9
     },
     {
-      "name": "AI 챗봇(챗GPT 등)",
-      "change_percent": 3.5,
-      "total": 31,
-      "rise": 20
+      "name": "음원/음반",
+      "change_percent": 3.29,
+      "total": 15,
+      "rise": 8
     },
     {
-      "name": "음원/음반",
-      "change_percent": 3.45,
+      "name": "AI 챗봇(챗GPT 등)",
+      "change_percent": 3.14,
+      "total": 31,
+      "rise": 17
+    },
+    {
+      "name": "여행",
+      "change_percent": 2.75,
+      "total": 9,
+      "rise": 7
+    },
+    {
+      "name": "CCTV＆DVR",
+      "change_percent": 2.74,
+      "total": 8,
+      "rise": 3
+    },
+    {
+      "name": "광통신(광케이블/광섬유 등)",
+      "change_percent": 2.5,
       "total": 15,
       "rise": 9
     },
     {
-      "name": "CCTV＆DVR",
-      "change_percent": 3.35,
-      "total": 8,
-      "rise": 5
-    },
-    {
-      "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 3.02,
-      "total": 15,
-      "rise": 10
-    },
-    {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 2.74,
+      "change_percent": 2.41,
       "total": 7,
       "rise": 7
-    },
-    {
-      "name": "여행",
-      "change_percent": 2.64,
-      "total": 9,
-      "rise": 6
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-12T02:41:00.553641+00:00"
+  "updated_at": "2026-11-12T03:01:00.340316+00:00"
 }
