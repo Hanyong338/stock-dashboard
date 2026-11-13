@@ -688,35 +688,6 @@
       "op_prev_q": 5591
     },
     {
-      "start": "2026-11-06",
-      "end": "2026-11-06",
-      "title": "미국 고용지표",
-      "category": "macro",
-      "detail": "21:30",
-      "consensus": "65K",
-      "actual": "165K",
-      "previous": "60K"
-    },
-    {
-      "start": "2026-11-06",
-      "end": "2026-11-06",
-      "title": "미국 실업률",
-      "category": "macro",
-      "detail": "21:30",
-      "actual": "7.9%",
-      "previous": "7.6%"
-    },
-    {
-      "start": "2026-11-06",
-      "end": "2026-11-06",
-      "title": "미시간 소비심리",
-      "category": "macro",
-      "detail": "23:00",
-      "consensus": "48.1",
-      "actual": "51.0",
-      "previous": "48.0"
-    },
-    {
       "start": "2026-11-09",
       "end": "2026-11-09",
       "title": "두산 실적",
@@ -906,8 +877,8 @@
       "detail": "코스피 09:00",
       "code": "000990",
       "quarter": "2026.09",
-      "op_consensus": 1107,
-      "rev_consensus": 4119,
+      "op_consensus": 1150,
+      "rev_consensus": 4176,
       "op_prev_year": 806,
       "op_prev_q": 1052
     },
@@ -932,8 +903,8 @@
       "detail": "코스피 09:00",
       "code": "035420",
       "quarter": "2026.09",
-      "op_consensus": 4930,
-      "rev_consensus": 35083,
+      "op_consensus": 4976,
+      "rev_consensus": 35143,
       "op_prev_year": 5706,
       "op_prev_q": 5203
     },
@@ -957,7 +928,7 @@
       "detail": "코스피 14:00",
       "code": "032830",
       "quarter": "2026.09",
-      "op_consensus": 8031,
+      "op_consensus": 8148,
       "op_prev_year": 8158,
       "op_prev_q": 6226
     },
@@ -988,13 +959,23 @@
     {
       "start": "2026-11-12",
       "end": "2026-11-12",
+      "title": "어플라이드 실적",
+      "category": "earnings",
+      "detail": "AMAT",
+      "eps_forecast": "$4.06",
+      "eps": "$4.16",
+      "surprise": "2.46"
+    },
+    {
+      "start": "2026-11-12",
+      "end": "2026-11-12",
       "title": "한국전력공사 실적",
       "category": "earnings",
       "detail": "코스피 17:00",
       "code": "015760",
       "quarter": "2026.09",
-      "op_consensus": 24143,
-      "rev_consensus": 274963,
+      "op_consensus": 23763,
+      "rev_consensus": 275205,
       "op_prev_year": 56519,
       "op_prev_q": 11286
     },
@@ -1016,26 +997,6 @@
       "title": "국내 옵션만기",
       "category": "flow",
       "detail": "코스피200 옵션 최종거래일"
-    },
-    {
-      "start": "2026-11-12",
-      "end": "2026-11-12",
-      "title": "미국 기존주택판매",
-      "category": "macro",
-      "detail": "23:00",
-      "consensus": "-3.5%",
-      "actual": "-5.5%",
-      "previous": "1.0%"
-    },
-    {
-      "start": "2026-11-12",
-      "end": "2026-11-12",
-      "title": "미국 실업수당",
-      "category": "macro",
-      "detail": "21:30",
-      "consensus": "194K",
-      "actual": "200K",
-      "previous": "191K"
     },
     {
       "start": "2026-11-13",
@@ -1063,15 +1024,6 @@
     {
       "start": "2026-11-13",
       "end": "2026-11-13",
-      "title": "어플라이드 실적",
-      "category": "earnings",
-      "detail": "AMAT 장마감 후",
-      "eps_forecast": "$4.06",
-      "eps": "$2.17"
-    },
-    {
-      "start": "2026-11-13",
-      "end": "2026-11-13",
       "title": "현대해상 실적",
       "category": "earnings",
       "detail": "코스피 14:00",
@@ -1079,24 +1031,6 @@
       "quarter": "2026.09",
       "op_prev_year": 7077,
       "op_prev_q": 5287
-    },
-    {
-      "start": "2026-11-13",
-      "end": "2026-11-13",
-      "title": "미국 PPI",
-      "category": "macro",
-      "detail": "21:30",
-      "consensus": "0.4%",
-      "previous": "1.3%"
-    },
-    {
-      "start": "2026-11-13",
-      "end": "2026-11-13",
-      "title": "미국 근원 PPI",
-      "category": "macro",
-      "detail": "21:30",
-      "consensus": "0.3%",
-      "previous": "0.7%"
     },
     {
       "start": "2026-11-17",
@@ -1125,6 +1059,7 @@
       "title": "미국 소매판매",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "0.4%",
       "previous": "0.9%"
     },
     {
@@ -1141,22 +1076,6 @@
       "category": "earnings",
       "detail": "NVDA 장마감 후",
       "eps_forecast": "$2.49"
-    },
-    {
-      "start": "2026-11-18",
-      "end": "2026-11-18",
-      "title": "미국 건축허가",
-      "category": "macro",
-      "detail": "21:30",
-      "previous": "1.398M"
-    },
-    {
-      "start": "2026-11-18",
-      "end": "2026-11-18",
-      "title": "미국 주택착공",
-      "category": "macro",
-      "detail": "21:30",
-      "previous": "1.221M"
     },
     {
       "start": "2026-11-19",
@@ -1183,50 +1102,11 @@
       "eps_forecast": "$0.52"
     },
     {
-      "start": "2026-11-19",
-      "end": "2026-11-19",
-      "title": "미국 실업수당",
-      "category": "macro",
-      "detail": "21:30"
-    },
-    {
-      "start": "2026-11-19",
-      "end": "2026-11-19",
-      "title": "필라델피아 연은지수",
-      "category": "macro",
-      "detail": "21:30",
-      "previous": "20.9"
-    },
-    {
-      "start": "2026-11-19",
-      "end": "2026-11-19",
-      "title": "FOMC 의사록",
-      "category": "major",
-      "detail": "03:00"
-    },
-    {
       "start": "2026-11-20",
       "end": "2026-11-20",
       "title": "미국 옵션만기",
       "category": "flow",
       "detail": "월간 옵션 · 한국시간 토 새벽 마감"
-    },
-    {
-      "start": "2026-11-20",
-      "end": "2026-11-20",
-      "title": "미시간 소비심리",
-      "category": "macro",
-      "detail": "23:00",
-      "consensus": "51.0",
-      "previous": "48.0"
-    },
-    {
-      "start": "2026-11-20",
-      "end": "2026-11-20",
-      "title": "한국 PPI",
-      "category": "macro",
-      "detail": "05:00",
-      "previous": "0.2%"
     },
     {
       "start": "2026-11-23",
@@ -1284,8 +1164,8 @@
       "detail": "코스피 14:00",
       "code": "036460",
       "quarter": "2026.09",
-      "op_consensus": 4333,
-      "rev_consensus": 80040,
+      "op_consensus": 4330,
+      "rev_consensus": 76683,
       "op_prev_year": 3890,
       "op_prev_q": 6753
     },
@@ -1295,7 +1175,7 @@
       "title": "미국 PCE",
       "category": "macro",
       "detail": "21:30",
-      "previous": "0.5%"
+      "previous": "3.6%"
     },
     {
       "start": "2026-11-25",
@@ -1319,7 +1199,7 @@
       "title": "미국 신규주택판매",
       "category": "macro",
       "detail": "23:00",
-      "previous": "676K"
+      "previous": "-0.6%"
     },
     {
       "start": "2026-11-26",
@@ -1473,6 +1353,30 @@
       "previous": "56.1"
     },
     {
+      "start": "2026-12-04",
+      "end": "2026-12-04",
+      "title": "미국 고용지표",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "165K"
+    },
+    {
+      "start": "2026-12-04",
+      "end": "2026-12-04",
+      "title": "미국 실업률",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "7.9%"
+    },
+    {
+      "start": "2026-12-04",
+      "end": "2026-12-04",
+      "title": "미시간 소비심리",
+      "category": "macro",
+      "detail": "23:00",
+      "previous": "48.0"
+    },
+    {
       "start": "2026-12-09",
       "end": "2026-12-09",
       "title": "어도비 실적",
@@ -1520,6 +1424,20 @@
       "previous": "4.00%"
     },
     {
+      "start": "2026-12-10",
+      "end": "2026-12-10",
+      "title": "FOMC 기자회견",
+      "category": "major",
+      "detail": "03:30"
+    },
+    {
+      "start": "2026-12-10",
+      "end": "2026-12-10",
+      "title": "FOMC 성명",
+      "category": "major",
+      "detail": "03:00"
+    },
+    {
       "start": "2026-12-11",
       "end": "2026-12-11",
       "title": "코스피200·코스닥150 정기변경 반영",
@@ -1548,14 +1466,6 @@
       "title": "미국 쿼드러플 위칭",
       "category": "flow",
       "detail": "지수·주식 선물옵션 동시만기 · 한국시간 토 새벽 마감"
-    },
-    {
-      "start": "2026-12-18",
-      "end": "2026-12-18",
-      "title": "BOJ 금리결정",
-      "category": "major",
-      "detail": "11:00",
-      "previous": "1.25%"
     },
     {
       "start": "2026-12-25",
@@ -1607,13 +1517,6 @@
       "detail": ""
     },
     {
-      "start": "2027-01-28",
-      "end": "2027-01-28",
-      "title": "FOMC 금리결정",
-      "category": "major",
-      "detail": "02:00"
-    },
-    {
       "start": "2027-02-06",
       "end": "2027-02-09",
       "title": "설 연휴 (한국 휴장)",
@@ -1656,8 +1559,7 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     }
   ],
-  "built_on": "2026-11-13",
+  "built_on": "2026-11-14",
   "builder_version": 10,
-  "updated_at": "2026-11-12T19:21:37.854497+00:00",
-  "values_updated_at": "2026-11-13T10:21:00.920948+00:00"
+  "updated_at": "2026-11-13T16:42:01.390125+00:00"
 }
