@@ -2,27 +2,27 @@
   "leaders": [
     {
       "name": "퓨리오사AI",
-      "change_percent": 7.5,
+      "change_percent": 7.33,
       "total": 11,
-      "rise": 8
+      "rise": 9
     },
     {
       "name": "뉴로모픽 반도체",
-      "change_percent": 6.38,
+      "change_percent": 6.5,
       "total": 7,
       "rise": 5
     },
     {
-      "name": "두나무(Dunamu)",
-      "change_percent": 5.07,
-      "total": 11,
-      "rise": 7
-    },
-    {
       "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 5.01,
+      "change_percent": 5.11,
       "total": 13,
       "rise": 9
+    },
+    {
+      "name": "두나무(Dunamu)",
+      "change_percent": 5.11,
+      "total": 11,
+      "rise": 8
     },
     {
       "name": "온디바이스 AI",
@@ -32,23 +32,23 @@
     },
     {
       "name": "전선",
-      "change_percent": 4.83,
+      "change_percent": 4.75,
       "total": 8,
       "rise": 7
     },
     {
       "name": "창투사",
-      "change_percent": 4.71,
+      "change_percent": 4.72,
       "total": 20,
       "rise": 14
     },
     {
-      "name": "일자리(취업)",
-      "change_percent": 4.48,
-      "total": 9,
-      "rise": 4
+      "name": "마켓컬리(kurly)",
+      "change_percent": 4.42,
+      "total": 10,
+      "rise": 5
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-13T08:41:01.123395+00:00"
+  "updated_at": "2026-11-13T09:01:00.662508+00:00"
 }
