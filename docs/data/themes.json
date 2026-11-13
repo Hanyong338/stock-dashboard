@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "뉴로모픽 반도체",
+      "change_percent": 5.5,
+      "total": 7,
+      "rise": 5
+    },
+    {
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 5.02,
+      "total": 14,
+      "rise": 14
+    },
+    {
+      "name": "소캠(SOCAMM)",
+      "change_percent": 4.75,
+      "total": 11,
+      "rise": 10
+    },
+    {
+      "name": "전선",
+      "change_percent": 4.13,
+      "total": 8,
+      "rise": 8
+    },
+    {
+      "name": "S7(삼성전자/SK하이닉스 등)",
+      "change_percent": 3.61,
+      "total": 7,
+      "rise": 7
+    },
+    {
+      "name": "마이크로 LED",
+      "change_percent": 3.5,
+      "total": 10,
+      "rise": 8
+    },
+    {
+      "name": "시스템반도체",
+      "change_percent": 3.27,
+      "total": 59,
+      "rise": 48
+    },
+    {
+      "name": "냉각시스템(액침냉각 등)",
+      "change_percent": 3.26,
+      "total": 13,
+      "rise": 13
+    }
+  ],
   "group_count": 265,
-  "updated_at": "2026-11-12T23:01:01.092302+00:00"
+  "updated_at": "2026-11-13T00:01:01.115015+00:00"
 }
