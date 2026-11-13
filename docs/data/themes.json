@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "뉴로모픽 반도체",
-      "change_percent": 9.69,
-      "total": 7,
-      "rise": 6
-    },
-    {
       "name": "퓨리오사AI",
-      "change_percent": 7.93,
+      "change_percent": 7.58,
       "total": 11,
-      "rise": 10
+      "rise": 8
     },
     {
-      "name": "온디바이스 AI",
-      "change_percent": 7.29,
-      "total": 24,
-      "rise": 24
+      "name": "뉴로모픽 반도체",
+      "change_percent": 6.06,
+      "total": 7,
+      "rise": 5
     },
     {
-      "name": "시스템반도체",
-      "change_percent": 7.03,
-      "total": 59,
-      "rise": 56
+      "name": "일자리(취업)",
+      "change_percent": 5.2,
+      "total": 9,
+      "rise": 5
     },
     {
       "name": "CXL(컴퓨트익스프레스링크)",
-      "change_percent": 6.71,
+      "change_percent": 5.13,
       "total": 13,
-      "rise": 11
-    },
-    {
-      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 6.23,
-      "total": 14,
-      "rise": 14
+      "rise": 8
     },
     {
       "name": "두나무(Dunamu)",
-      "change_percent": 5.43,
+      "change_percent": 5.01,
       "total": 11,
-      "rise": 10
+      "rise": 7
     },
     {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 5.07,
-      "total": 35,
+      "name": "온디바이스 AI",
+      "change_percent": 4.36,
+      "total": 24,
+      "rise": 14
+    },
+    {
+      "name": "창투사",
+      "change_percent": 4.14,
+      "total": 20,
+      "rise": 13
+    },
+    {
+      "name": "시스템반도체",
+      "change_percent": 3.87,
+      "total": 59,
       "rise": 34
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-13T00:41:00.428552+00:00"
+  "updated_at": "2026-11-13T06:03:35.785248+00:00"
 }
