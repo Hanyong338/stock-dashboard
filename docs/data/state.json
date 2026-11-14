@@ -996,7 +996,7 @@
     "GwhBA7RbRXM": 1,
     "-yJN4coUvOU": 2,
     "bbTB-sdaY2E": 1,
-    "i6JqA9S9FHE": 1
+    "i6JqA9S9FHE": 0
   },
   "UCQW05vzztAlwV54WL3pjGBQ": [
     "mcv81vYDDv4",
@@ -1100,7 +1100,9 @@
     "qlzCfIbuiog",
     "WXVas_zSwZ8"
   ],
-  "_pair_wait": {},
+  "_pair_wait": {
+    "i6JqA9S9FHE": "2026-11-14T06:01:00.389193+00:00"
+  },
   "_pair_fail": {},
   "_review_kept": {
     "_mLVtIxjwB8": "2026-11-11T09:01:01.169714+00:00",
