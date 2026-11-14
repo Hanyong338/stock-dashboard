@@ -995,7 +995,7 @@
     "GwhBA7RbRXM": 1,
     "-yJN4coUvOU": 2,
     "bbTB-sdaY2E": 1,
-    "naFa2zJEjpc": 1
+    "naFa2zJEjpc": 0
   },
   "UCQW05vzztAlwV54WL3pjGBQ": [
     "mcv81vYDDv4",
@@ -1099,7 +1099,9 @@
     "qlzCfIbuiog",
     "WXVas_zSwZ8"
   ],
-  "_pair_wait": {},
+  "_pair_wait": {
+    "naFa2zJEjpc": "2026-11-14T04:01:00.488580+00:00"
+  },
   "_pair_fail": {},
   "_review_kept": {
     "zQLv6ccHQNk": "2026-11-11T04:44:12.395502+00:00",
