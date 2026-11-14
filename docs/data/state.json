@@ -994,7 +994,7 @@
     "GwhBA7RbRXM": 1,
     "-yJN4coUvOU": 2,
     "bbTB-sdaY2E": 1,
-    "SEay-2LmC48": 1
+    "SEay-2LmC48": 0
   },
   "UCQW05vzztAlwV54WL3pjGBQ": [
     "mcv81vYDDv4",
@@ -1099,7 +1099,9 @@
     "WXVas_zSwZ8",
     "i6JqA9S9FHE"
   ],
-  "_pair_wait": {},
+  "_pair_wait": {
+    "SEay-2LmC48": "2026-11-14T08:01:00.949799+00:00"
+  },
   "_pair_fail": {},
   "_review_kept": {
     "_mLVtIxjwB8": "2026-11-11T09:01:01.169714+00:00",
