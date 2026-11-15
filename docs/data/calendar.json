@@ -619,31 +619,12 @@
     {
       "start": "2026-11-05",
       "end": "2026-11-05",
-      "title": "미국 고용지표",
+      "title": "미국 실업수당",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "65K",
-      "actual": "165K",
-      "previous": "60K"
-    },
-    {
-      "start": "2026-11-05",
-      "end": "2026-11-05",
-      "title": "미국 실업률",
-      "category": "macro",
-      "detail": "21:30",
-      "actual": "7.9%",
-      "previous": "7.6%"
-    },
-    {
-      "start": "2026-11-05",
-      "end": "2026-11-05",
-      "title": "미시간 소비심리",
-      "category": "macro",
-      "detail": "23:00",
-      "consensus": "48.1",
-      "actual": "51.0",
-      "previous": "48.0"
+      "consensus": "197K",
+      "actual": "189K",
+      "previous": "195K"
     },
     {
       "start": "2026-11-05",
@@ -1171,6 +1152,7 @@
       "title": "미국 건축허가",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "1.380M",
       "previous": "1.398M"
     },
     {
@@ -1211,6 +1193,7 @@
       "title": "미국 실업수당",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "199K",
       "previous": "200K"
     },
     {
@@ -1219,6 +1202,7 @@
       "title": "필라델피아 연은지수",
       "category": "macro",
       "detail": "21:30",
+      "consensus": "19.2",
       "previous": "20.9"
     },
     {
@@ -1406,7 +1390,7 @@
       "title": "한국 무역수지",
       "category": "macro",
       "detail": "08:00",
-      "previous": "49.97B"
+      "previous": "42.65B"
     },
     {
       "start": "2026-12-01",
@@ -1414,7 +1398,7 @@
       "title": "한국 수입",
       "category": "macro",
       "detail": "08:00",
-      "previous": "26.0%"
+      "previous": "36.0%"
     },
     {
       "start": "2026-12-01",
@@ -1422,7 +1406,7 @@
       "title": "한국 수출",
       "category": "macro",
       "detail": "08:00",
-      "previous": "83.7%"
+      "previous": "93.9%"
     },
     {
       "start": "2026-12-01",
@@ -1732,7 +1716,7 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     }
   ],
-  "built_on": "2026-11-15",
+  "built_on": "2026-11-16",
   "builder_version": 10,
-  "updated_at": "2026-11-14T15:01:01.330829+00:00"
+  "updated_at": "2026-11-15T16:41:35.173622+00:00"
 }
