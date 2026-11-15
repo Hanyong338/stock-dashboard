@@ -998,7 +998,7 @@
     "GwhBA7RbRXM": 1,
     "-yJN4coUvOU": 2,
     "bbTB-sdaY2E": 1,
-    "bHeSYnGiA-U": 1
+    "bHeSYnGiA-U": 0
   },
   "UCQW05vzztAlwV54WL3pjGBQ": [
     "mcv81vYDDv4",
@@ -1103,7 +1103,9 @@
     "WXVas_zSwZ8",
     "i6JqA9S9FHE"
   ],
-  "_pair_wait": {},
+  "_pair_wait": {
+    "bHeSYnGiA-U": "2026-11-15T03:01:01.301569+00:00"
+  },
   "_pair_fail": {},
   "_review_kept": {
     "7EPsjBxGjZs": "2026-11-12T03:21:00.584023+00:00",
