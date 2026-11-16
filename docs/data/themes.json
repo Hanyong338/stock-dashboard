@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "보안주(물리)",
-      "change_percent": 3.41,
+      "change_percent": 2.94,
       "total": 21,
       "rise": 8
     },
     {
-      "name": "스마트카(SMART CAR)",
-      "change_percent": 2.22,
-      "total": 12,
-      "rise": 5
-    },
-    {
-      "name": "백화점",
-      "change_percent": 2.18,
-      "total": 6,
-      "rise": 5
-    },
-    {
       "name": "손해보험",
-      "change_percent": 2.16,
+      "change_percent": 2.03,
       "total": 8,
       "rise": 7
     },
     {
-      "name": "증강현실(AR)",
-      "change_percent": 2.02,
-      "total": 20,
-      "rise": 7
+      "name": "스마트카(SMART CAR)",
+      "change_percent": 1.83,
+      "total": 12,
+      "rise": 3
     },
     {
-      "name": "딥페이크(deepfake)",
-      "change_percent": 1.42,
-      "total": 14,
-      "rise": 4
-    },
-    {
-      "name": "모더나(MODERNA)",
-      "change_percent": 1.29,
+      "name": "백화점",
+      "change_percent": 1.65,
       "total": 6,
       "rise": 4
     },
     {
+      "name": "증강현실(AR)",
+      "change_percent": 1.63,
+      "total": 20,
+      "rise": 7
+    },
+    {
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": 1.27,
+      "total": 9,
+      "rise": 7
+    },
+    {
       "name": "은행",
-      "change_percent": 1.28,
+      "change_percent": 1.24,
       "total": 11,
       "rise": 10
+    },
+    {
+      "name": "CCTV＆DVR",
+      "change_percent": 1.15,
+      "total": 8,
+      "rise": 3
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-16T04:41:00.590647+00:00"
+  "updated_at": "2026-11-16T05:01:01.246704+00:00"
 }
