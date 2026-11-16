@@ -115,19 +115,6 @@
     {
       "start": "2026-11-02",
       "end": "2026-11-02",
-      "title": "한화비전 실적",
-      "category": "earnings",
-      "detail": "코스피",
-      "code": "489790",
-      "quarter": "2026.09",
-      "op_consensus": 566,
-      "rev_consensus": 5274,
-      "op_prev_year": 312,
-      "op_prev_q": 656
-    },
-    {
-      "start": "2026-11-02",
-      "end": "2026-11-02",
       "title": "ISM 제조업",
       "category": "macro",
       "detail": "23:00",
@@ -366,19 +353,6 @@
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
-      "title": "효성 실적",
-      "category": "earnings",
-      "detail": "코스피 09:00",
-      "code": "004800",
-      "quarter": "2026.09",
-      "op_consensus": 1280,
-      "rev_consensus": 5970,
-      "op_prev_year": 1219,
-      "op_prev_q": 2316
-    },
-    {
-      "start": "2026-11-04",
-      "end": "2026-11-04",
       "title": "효성중공업 실적",
       "category": "earnings",
       "detail": "코스피 09:10",
@@ -545,17 +519,6 @@
     {
       "start": "2026-11-05",
       "end": "2026-11-05",
-      "title": "에코프로머티 실적",
-      "category": "earnings",
-      "detail": "코스피 14:00",
-      "code": "450080",
-      "quarter": "2026.09",
-      "op_prev_year": -251,
-      "op_prev_q": -106
-    },
-    {
-      "start": "2026-11-05",
-      "end": "2026-11-05",
       "title": "에코프로비엠 실적",
       "category": "earnings",
       "detail": "코스닥 10:00",
@@ -690,6 +653,19 @@
     {
       "start": "2026-11-06",
       "end": "2026-11-06",
+      "title": "현대지에프홀딩스 실적",
+      "category": "earnings",
+      "detail": "코스피 15:00",
+      "code": "005440",
+      "quarter": "2026.09",
+      "op_consensus": 854,
+      "rev_consensus": 20252,
+      "op_prev_year": 748,
+      "op_prev_q": 853
+    },
+    {
+      "start": "2026-11-06",
+      "end": "2026-11-06",
       "title": "미국 고용지표",
       "category": "macro",
       "detail": "21:30",
@@ -728,19 +704,6 @@
       "rev_consensus": 54586,
       "op_prev_year": 2313,
       "op_prev_q": 4884
-    },
-    {
-      "start": "2026-11-09",
-      "end": "2026-11-09",
-      "title": "한국앤컴퍼니 실적",
-      "category": "earnings",
-      "detail": "코스피 15:00",
-      "code": "000240",
-      "quarter": "2026.09",
-      "op_consensus": 990,
-      "rev_consensus": 3484,
-      "op_prev_year": 1371,
-      "op_prev_q": 1002
     },
     {
       "start": "2026-11-10",
@@ -1104,6 +1067,19 @@
     {
       "start": "2026-11-17",
       "end": "2026-11-17",
+      "title": "DN오토모티브 실적",
+      "category": "earnings",
+      "detail": "코스피 16:00",
+      "code": "007340",
+      "quarter": "2026.09",
+      "op_consensus": 1840,
+      "rev_consensus": 12100,
+      "op_prev_year": 1187,
+      "op_prev_q": 2054
+    },
+    {
+      "start": "2026-11-17",
+      "end": "2026-11-17",
       "title": "한화솔루션 실적",
       "category": "earnings",
       "detail": "코스피",
@@ -1152,8 +1128,7 @@
       "title": "미국 건축허가",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "1.380M",
-      "previous": "1.398M"
+      "previous": "-0.4%"
     },
     {
       "start": "2026-11-18",
@@ -1161,7 +1136,8 @@
       "title": "미국 주택착공",
       "category": "macro",
       "detail": "21:30",
-      "previous": "-5.2%"
+      "consensus": "1.250M",
+      "previous": "1.221M"
     },
     {
       "start": "2026-11-19",
@@ -1507,14 +1483,6 @@
     {
       "start": "2026-12-09",
       "end": "2026-12-09",
-      "title": "어도비 실적",
-      "category": "earnings",
-      "detail": "ADBE",
-      "eps_forecast": "$5.11"
-    },
-    {
-      "start": "2026-12-09",
-      "end": "2026-12-09",
       "title": "오라클 실적",
       "category": "earnings",
       "detail": "ORCL",
@@ -1531,10 +1499,10 @@
     {
       "start": "2026-12-10",
       "end": "2026-12-10",
-      "title": "코스트코 실적",
+      "title": "어도비 실적",
       "category": "earnings",
-      "detail": "COST",
-      "eps_forecast": "$4.87"
+      "detail": "ADBE 장마감 후",
+      "eps_forecast": "$5.11"
     },
     {
       "start": "2026-12-10",
@@ -1564,6 +1532,14 @@
       "title": "FOMC 성명",
       "category": "major",
       "detail": "03:00"
+    },
+    {
+      "start": "2026-12-11",
+      "end": "2026-12-11",
+      "title": "코스트코 실적",
+      "category": "earnings",
+      "detail": "COST 장마감 후",
+      "eps_forecast": "$4.87"
     },
     {
       "start": "2026-12-11",
@@ -1716,7 +1692,7 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     }
   ],
-  "built_on": "2026-11-16",
+  "built_on": "2026-11-17",
   "builder_version": 10,
-  "updated_at": "2026-11-15T16:41:35.173622+00:00"
+  "updated_at": "2026-11-16T16:29:29.894728+00:00"
 }
