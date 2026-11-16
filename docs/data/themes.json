@@ -2,27 +2,33 @@
   "leaders": [
     {
       "name": "보안주(물리)",
-      "change_percent": 2.87,
+      "change_percent": 3.16,
       "total": 21,
       "rise": 7
     },
     {
       "name": "스마트카(SMART CAR)",
-      "change_percent": 2.6,
+      "change_percent": 2.19,
       "total": 12,
       "rise": 5
     },
     {
-      "name": "증강현실(AR)",
-      "change_percent": 2.04,
-      "total": 20,
-      "rise": 8
-    },
-    {
       "name": "손해보험",
-      "change_percent": 1.71,
+      "change_percent": 1.86,
       "total": 8,
       "rise": 7
+    },
+    {
+      "name": "증강현실(AR)",
+      "change_percent": 1.83,
+      "total": 20,
+      "rise": 7
+    },
+    {
+      "name": "백화점",
+      "change_percent": 1.54,
+      "total": 6,
+      "rise": 5
     },
     {
       "name": "딥페이크(deepfake)",
@@ -31,24 +37,18 @@
       "rise": 5
     },
     {
-      "name": "백화점",
-      "change_percent": 1.46,
-      "total": 6,
-      "rise": 5
-    },
-    {
       "name": "카메라모듈/부품",
-      "change_percent": 1.44,
+      "change_percent": 1.31,
       "total": 27,
       "rise": 7
     },
     {
       "name": "은행",
-      "change_percent": 1.29,
+      "change_percent": 1.19,
       "total": 11,
       "rise": 10
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-16T04:01:01.072264+00:00"
+  "updated_at": "2026-11-16T04:21:00.597971+00:00"
 }
