@@ -115,26 +115,6 @@
     {
       "start": "2026-11-02",
       "end": "2026-11-02",
-      "title": "ISM 제조업",
-      "category": "macro",
-      "detail": "23:00",
-      "consensus": "54.5",
-      "actual": "55.5",
-      "previous": "54.5"
-    },
-    {
-      "start": "2026-11-02",
-      "end": "2026-11-02",
-      "title": "S&P글로벌 제조업 PMI",
-      "category": "macro",
-      "detail": "22:45",
-      "consensus": "56.0",
-      "actual": "54.9",
-      "previous": "56.0"
-    },
-    {
-      "start": "2026-11-02",
-      "end": "2026-11-02",
       "title": "한국 제조업 PMI",
       "category": "macro",
       "detail": "08:30",
@@ -225,26 +205,6 @@
       "rev_consensus": 11894,
       "op_prev_year": 602,
       "op_prev_q": 484
-    },
-    {
-      "start": "2026-11-03",
-      "end": "2026-11-03",
-      "title": "JOLTS 구인",
-      "category": "macro",
-      "detail": "23:00",
-      "consensus": "7.150M",
-      "actual": "7.523M",
-      "previous": "7.190M"
-    },
-    {
-      "start": "2026-11-03",
-      "end": "2026-11-03",
-      "title": "한국 CPI",
-      "category": "macro",
-      "detail": "07:00",
-      "consensus": "2.9%",
-      "actual": "2.8%",
-      "previous": "2.9%"
     },
     {
       "start": "2026-11-04",
@@ -349,6 +309,19 @@
       "rev_consensus": 201043,
       "op_prev_year": 13442,
       "op_prev_q": 24085
+    },
+    {
+      "start": "2026-11-04",
+      "end": "2026-11-04",
+      "title": "현대백화점 실적",
+      "category": "earnings",
+      "detail": "코스피 16:00",
+      "code": "069960",
+      "quarter": "2026.09",
+      "op_consensus": 853,
+      "rev_consensus": 10923,
+      "op_prev_year": 727,
+      "op_prev_q": 793
     },
     {
       "start": "2026-11-04",
@@ -798,8 +771,8 @@
       "detail": "코스피 09:00",
       "code": "011070",
       "quarter": "2026.09",
+      "op_actual": 948,
       "op_consensus": 1973,
-      "rev_consensus": 60970,
       "op_prev_year": 2037,
       "op_prev_q": 2458
     },
@@ -1013,17 +986,6 @@
     {
       "start": "2026-11-13",
       "end": "2026-11-13",
-      "title": "리가켐바이오 실적",
-      "category": "earnings",
-      "detail": "코스닥 16:00",
-      "code": "141080",
-      "quarter": "2026.09",
-      "op_prev_year": -232,
-      "op_prev_q": -720
-    },
-    {
-      "start": "2026-11-13",
-      "end": "2026-11-13",
       "title": "미래에셋생명 실적",
       "category": "earnings",
       "detail": "코스피 16:00",
@@ -1105,7 +1067,8 @@
       "category": "macro",
       "detail": "21:30",
       "consensus": "0.4%",
-      "previous": "0.9%"
+      "actual": "0.6%",
+      "previous": "1.1%"
     },
     {
       "start": "2026-11-17",
@@ -1128,7 +1091,8 @@
       "title": "미국 건축허가",
       "category": "macro",
       "detail": "21:30",
-      "previous": "-0.4%"
+      "consensus": "1.380M",
+      "previous": "1.398M"
     },
     {
       "start": "2026-11-18",
@@ -1136,8 +1100,7 @@
       "title": "미국 주택착공",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "1.250M",
-      "previous": "1.221M"
+      "previous": "-5.2%"
     },
     {
       "start": "2026-11-19",
@@ -1213,22 +1176,6 @@
       "previous": "0.2%"
     },
     {
-      "start": "2026-11-23",
-      "end": "2026-11-23",
-      "title": "S&P글로벌 서비스업 PMI",
-      "category": "macro",
-      "detail": "22:45",
-      "previous": "56.1"
-    },
-    {
-      "start": "2026-11-23",
-      "end": "2026-11-23",
-      "title": "S&P글로벌 제조업 PMI",
-      "category": "macro",
-      "detail": "22:45",
-      "previous": "54.9"
-    },
-    {
       "start": "2026-11-24",
       "end": "2026-11-24",
       "title": "리치먼드 연은지수",
@@ -1243,14 +1190,6 @@
       "category": "macro",
       "detail": "23:00",
       "previous": "91.7"
-    },
-    {
-      "start": "2026-11-24",
-      "end": "2026-11-24",
-      "title": "한국 소비자심리",
-      "category": "macro",
-      "detail": "05:00",
-      "previous": "105.4"
     },
     {
       "start": "2026-11-25",
@@ -1279,7 +1218,15 @@
       "title": "미국 PCE",
       "category": "macro",
       "detail": "21:30",
-      "previous": "3.6%"
+      "previous": "0.5%"
+    },
+    {
+      "start": "2026-11-25",
+      "end": "2026-11-25",
+      "title": "미국 건축허가",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "1.398M"
     },
     {
       "start": "2026-11-25",
@@ -1304,6 +1251,13 @@
       "category": "macro",
       "detail": "23:00",
       "previous": "-0.6%"
+    },
+    {
+      "start": "2026-11-25",
+      "end": "2026-11-25",
+      "title": "미국 실업수당",
+      "category": "macro",
+      "detail": "21:30"
     },
     {
       "start": "2026-11-26",
@@ -1337,62 +1291,6 @@
       "previous": "3.6%"
     },
     {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
-      "title": "ISM 제조업",
-      "category": "macro",
-      "detail": "23:00",
-      "previous": "55.5"
-    },
-    {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
-      "title": "JOLTS 구인",
-      "category": "macro",
-      "detail": "23:00",
-      "previous": "7.523M"
-    },
-    {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
-      "title": "S&P글로벌 제조업 PMI",
-      "category": "macro",
-      "detail": "22:45",
-      "previous": "54.9"
-    },
-    {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
-      "title": "한국 무역수지",
-      "category": "macro",
-      "detail": "08:00",
-      "previous": "42.65B"
-    },
-    {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
-      "title": "한국 수입",
-      "category": "macro",
-      "detail": "08:00",
-      "previous": "36.0%"
-    },
-    {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
-      "title": "한국 수출",
-      "category": "macro",
-      "detail": "08:00",
-      "previous": "93.9%"
-    },
-    {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
-      "title": "한국 제조업 PMI",
-      "category": "macro",
-      "detail": "08:30",
-      "previous": "51.3"
-    },
-    {
       "start": "2026-12-02",
       "end": "2026-12-02",
       "title": "마벨 실적",
@@ -1415,14 +1313,6 @@
       "category": "macro",
       "detail": "21:15",
       "previous": "86K"
-    },
-    {
-      "start": "2026-12-02",
-      "end": "2026-12-02",
-      "title": "한국 CPI",
-      "category": "macro",
-      "detail": "07:00",
-      "previous": "2.8%"
     },
     {
       "start": "2026-12-03",
@@ -1481,6 +1371,14 @@
       "previous": "48.0"
     },
     {
+      "start": "2026-12-08",
+      "end": "2026-12-08",
+      "title": "한국 경상수지",
+      "category": "macro",
+      "detail": "07:00",
+      "previous": "61.46B"
+    },
+    {
       "start": "2026-12-09",
       "end": "2026-12-09",
       "title": "오라클 실적",
@@ -1494,7 +1392,7 @@
       "title": "브로드컴 실적",
       "category": "earnings",
       "detail": "AVGO 장마감 후",
-      "eps_forecast": "$3.45"
+      "eps_forecast": "$3.47"
     },
     {
       "start": "2026-12-10",
@@ -1692,8 +1590,7 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     }
   ],
-  "built_on": "2026-11-17",
+  "built_on": "2026-11-18",
   "builder_version": 10,
-  "updated_at": "2026-11-16T16:29:29.894728+00:00",
-  "values_updated_at": "2026-11-16T17:41:01.384184+00:00"
+  "updated_at": "2026-11-17T19:01:47.582856+00:00"
 }
