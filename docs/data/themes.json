@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "유심(USIM)",
-      "change_percent": 2.41,
+      "change_percent": 2.7,
       "total": 5,
       "rise": 4
     },
     {
-      "name": "日제품 불매운동(수혜)",
-      "change_percent": 2.05,
-      "total": 21,
-      "rise": 11
-    },
-    {
       "name": "캐릭터상품",
-      "change_percent": 1.86,
+      "change_percent": 1.93,
       "total": 9,
       "rise": 4
     },
     {
+      "name": "日제품 불매운동(수혜)",
+      "change_percent": 1.85,
+      "total": 21,
+      "rise": 10
+    },
+    {
       "name": "백화점",
-      "change_percent": 1.53,
+      "change_percent": 1.6,
       "total": 6,
       "rise": 4
     },
     {
       "name": "남북경협",
-      "change_percent": 1.24,
+      "change_percent": 1.31,
       "total": 29,
-      "rise": 9
+      "rise": 10
     },
     {
       "name": "일자리(취업)",
-      "change_percent": 0.92,
+      "change_percent": 1.14,
       "total": 9,
       "rise": 6
+    },
+    {
+      "name": "패션/의류",
+      "change_percent": 0.8,
+      "total": 60,
+      "rise": 24
     },
     {
       "name": "광고",
-      "change_percent": 0.84,
+      "change_percent": 0.68,
       "total": 26,
       "rise": 11
-    },
-    {
-      "name": "항공/저가 항공사(LCC)",
-      "change_percent": 0.76,
-      "total": 9,
-      "rise": 6
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-17T10:21:01.250585+00:00"
+  "updated_at": "2026-11-17T10:41:01.293002+00:00"
 }
