@@ -8,33 +8,33 @@
     },
     {
       "name": "캐릭터상품",
-      "change_percent": 2.02,
+      "change_percent": 2.03,
       "total": 9,
       "rise": 4
     },
     {
       "name": "日제품 불매운동(수혜)",
-      "change_percent": 2.01,
+      "change_percent": 2.0,
       "total": 21,
       "rise": 10
     },
     {
       "name": "백화점",
-      "change_percent": 1.79,
+      "change_percent": 1.76,
       "total": 6,
       "rise": 4
     },
     {
-      "name": "남북경협",
-      "change_percent": 1.43,
-      "total": 29,
-      "rise": 11
-    },
-    {
       "name": "광고",
-      "change_percent": 1.41,
+      "change_percent": 1.48,
       "total": 26,
       "rise": 12
+    },
+    {
+      "name": "남북경협",
+      "change_percent": 1.37,
+      "total": 29,
+      "rise": 10
     },
     {
       "name": "패션/의류",
@@ -50,5 +50,5 @@
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-17T08:21:00.710380+00:00"
+  "updated_at": "2026-11-17T08:23:42.863164+00:00"
 }
