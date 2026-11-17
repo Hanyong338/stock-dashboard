@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "캐릭터상품",
-      "change_percent": 3.45,
-      "total": 9,
-      "rise": 6
-    },
-    {
       "name": "유심(USIM)",
-      "change_percent": 2.76,
+      "change_percent": 2.67,
       "total": 5,
       "rise": 4
     },
     {
-      "name": "日제품 불매운동(수혜)",
-      "change_percent": 1.87,
-      "total": 21,
-      "rise": 9
-    },
-    {
-      "name": "남북경협",
-      "change_percent": 1.47,
-      "total": 29,
-      "rise": 7
-    },
-    {
-      "name": "광고",
-      "change_percent": 1.34,
-      "total": 26,
-      "rise": 11
-    },
-    {
-      "name": "패션/의류",
-      "change_percent": 1.24,
-      "total": 60,
-      "rise": 25
-    },
-    {
-      "name": "일자리(취업)",
-      "change_percent": 0.84,
+      "name": "캐릭터상품",
+      "change_percent": 2.02,
       "total": 9,
-      "rise": 5
+      "rise": 4
+    },
+    {
+      "name": "日제품 불매운동(수혜)",
+      "change_percent": 2.01,
+      "total": 21,
+      "rise": 10
     },
     {
       "name": "백화점",
-      "change_percent": 0.83,
+      "change_percent": 1.79,
       "total": 6,
+      "rise": 4
+    },
+    {
+      "name": "남북경협",
+      "change_percent": 1.43,
+      "total": 29,
+      "rise": 11
+    },
+    {
+      "name": "광고",
+      "change_percent": 1.41,
+      "total": 26,
+      "rise": 12
+    },
+    {
+      "name": "패션/의류",
+      "change_percent": 1.11,
+      "total": 60,
+      "rise": 24
+    },
+    {
+      "name": "일자리(취업)",
+      "change_percent": 0.82,
+      "total": 9,
       "rise": 4
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-17T08:01:00.470455+00:00"
+  "updated_at": "2026-11-17T08:21:00.710380+00:00"
 }
