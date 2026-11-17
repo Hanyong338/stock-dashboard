@@ -2,7 +2,7 @@
   "leaders": [
     {
       "name": "캐릭터상품",
-      "change_percent": 3.11,
+      "change_percent": 3.45,
       "total": 9,
       "rise": 6
     },
@@ -13,42 +13,42 @@
       "rise": 4
     },
     {
-      "name": "백화점",
-      "change_percent": 1.85,
-      "total": 6,
-      "rise": 4
-    },
-    {
       "name": "日제품 불매운동(수혜)",
-      "change_percent": 1.7,
+      "change_percent": 1.87,
       "total": 21,
-      "rise": 8
-    },
-    {
-      "name": "광고",
-      "change_percent": 1.45,
-      "total": 26,
-      "rise": 10
-    },
-    {
-      "name": "남북경협",
-      "change_percent": 1.37,
-      "total": 29,
       "rise": 9
     },
     {
+      "name": "남북경협",
+      "change_percent": 1.47,
+      "total": 29,
+      "rise": 7
+    },
+    {
+      "name": "광고",
+      "change_percent": 1.34,
+      "total": 26,
+      "rise": 11
+    },
+    {
       "name": "패션/의류",
-      "change_percent": 1.2,
+      "change_percent": 1.24,
       "total": 60,
       "rise": 25
     },
     {
-      "name": "항공/저가 항공사(LCC)",
-      "change_percent": 0.69,
+      "name": "일자리(취업)",
+      "change_percent": 0.84,
       "total": 9,
-      "rise": 7
+      "rise": 5
+    },
+    {
+      "name": "백화점",
+      "change_percent": 0.83,
+      "total": 6,
+      "rise": 4
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-17T07:41:01.033477+00:00"
+  "updated_at": "2026-11-17T08:01:00.470455+00:00"
 }
