@@ -1058,7 +1058,8 @@
       "title": "홈디포 실적",
       "category": "earnings",
       "detail": "HD 장전",
-      "eps_forecast": "$3.86"
+      "eps_forecast": "$3.86",
+      "eps": "$3.74"
     },
     {
       "start": "2026-11-17",
@@ -1083,7 +1084,8 @@
       "title": "엔비디아 실적",
       "category": "earnings",
       "detail": "NVDA 장마감 후",
-      "eps_forecast": "$2.49"
+      "eps_forecast": "$2.49",
+      "eps": "$1.24"
     },
     {
       "start": "2026-11-18",
@@ -1592,5 +1594,6 @@
   ],
   "built_on": "2026-11-18",
   "builder_version": 10,
-  "updated_at": "2026-11-17T19:01:47.582856+00:00"
+  "updated_at": "2026-11-17T19:01:47.582856+00:00",
+  "values_updated_at": "2026-11-18T07:27:57.096833+00:00"
 }
