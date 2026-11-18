@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "보안주(정보)",
+      "change_percent": 0.98,
+      "total": 52,
+      "rise": 35
+    },
+    {
+      "name": "음원/음반",
+      "change_percent": 0.95,
+      "total": 15,
+      "rise": 11
+    },
+    {
+      "name": "캐릭터상품",
+      "change_percent": 0.94,
+      "total": 9,
+      "rise": 6
+    },
+    {
+      "name": "재난/안전(지진/화재 등)",
+      "change_percent": 0.91,
+      "total": 19,
+      "rise": 10
+    },
+    {
+      "name": "재택근무/스마트워크",
+      "change_percent": 0.91,
+      "total": 15,
+      "rise": 10
+    },
+    {
+      "name": "원격진료/비대면진료(U-Healthcare)",
+      "change_percent": 0.85,
+      "total": 22,
+      "rise": 15
+    },
+    {
+      "name": "모더나(MODERNA)",
+      "change_percent": 0.85,
+      "total": 6,
+      "rise": 4
+    },
+    {
+      "name": "의료기기",
+      "change_percent": 0.83,
+      "total": 95,
+      "rise": 63
+    }
+  ],
   "group_count": 265,
-  "updated_at": "2026-11-17T23:01:01.023869+00:00"
+  "updated_at": "2026-11-18T00:01:00.907603+00:00"
 }
