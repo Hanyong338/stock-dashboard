@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "여행",
-      "change_percent": 12.39,
+      "change_percent": 11.78,
       "total": 9,
       "rise": 9
     },
     {
       "name": "음원/음반",
-      "change_percent": 9.58,
+      "change_percent": 11.09,
       "total": 15,
       "rise": 14
     },
     {
       "name": "엔터테인먼트",
-      "change_percent": 7.64,
+      "change_percent": 9.29,
       "total": 31,
       "rise": 25
     },
     {
       "name": "영상콘텐츠",
-      "change_percent": 5.45,
+      "change_percent": 7.38,
       "total": 31,
-      "rise": 25
+      "rise": 24
     },
     {
-      "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": 4.5,
-      "total": 49,
-      "rise": 42
+      "name": "캐릭터상품",
+      "change_percent": 5.55,
+      "total": 9,
+      "rise": 8
+    },
+    {
+      "name": "카지노",
+      "change_percent": 4.53,
+      "total": 6,
+      "rise": 6
     },
     {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 4.12,
+      "change_percent": 4.43,
       "total": 7,
       "rise": 7
     },
     {
-      "name": "로봇(산업용/협동로봇 등)",
-      "change_percent": 3.97,
-      "total": 77,
-      "rise": 64
-    },
-    {
-      "name": "딥페이크(deepfake)",
-      "change_percent": 3.96,
-      "total": 14,
-      "rise": 12
+      "name": "피지컬 AI/휴머노이드 로봇",
+      "change_percent": 4.41,
+      "total": 49,
+      "rise": 41
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-18T07:27:57.096833+00:00"
+  "updated_at": "2026-11-18T08:01:00.753866+00:00"
 }
