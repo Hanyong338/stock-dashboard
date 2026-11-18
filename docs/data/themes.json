@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "음원/음반",
-      "change_percent": 10.01,
+      "change_percent": 9.94,
       "total": 15,
       "rise": 14
     },
     {
       "name": "여행",
-      "change_percent": 9.57,
+      "change_percent": 9.59,
       "total": 9,
       "rise": 9
     },
     {
       "name": "엔터테인먼트",
-      "change_percent": 7.83,
+      "change_percent": 7.56,
       "total": 31,
-      "rise": 25
+      "rise": 26
     },
     {
       "name": "영상콘텐츠",
-      "change_percent": 7.0,
+      "change_percent": 6.87,
       "total": 31,
-      "rise": 27
+      "rise": 26
     },
     {
       "name": "카지노",
-      "change_percent": 5.34,
+      "change_percent": 5.27,
       "total": 6,
       "rise": 5
     },
     {
+      "name": "피지컬 AI/휴머노이드 로봇",
+      "change_percent": 4.89,
+      "total": 49,
+      "rise": 43
+    },
+    {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 5.0,
+      "change_percent": 4.89,
       "total": 7,
       "rise": 7
     },
     {
-      "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": 4.93,
-      "total": 49,
-      "rise": 44
-    },
-    {
       "name": "모바일게임(스마트폰)",
-      "change_percent": 4.67,
+      "change_percent": 4.73,
       "total": 36,
-      "rise": 32
+      "rise": 33
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-18T10:01:00.922049+00:00"
+  "updated_at": "2026-11-18T10:21:00.808876+00:00"
 }
