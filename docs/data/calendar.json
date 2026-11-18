@@ -1135,9 +1135,9 @@
       "title": "미국 건축허가",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "1.380M",
-      "actual": "1.295M",
-      "previous": "1.398M"
+      "consensus": "-1.7%",
+      "actual": "-7.4%",
+      "previous": "-0.4%"
     },
     {
       "start": "2026-11-18",
@@ -1145,9 +1145,9 @@
       "title": "미국 주택착공",
       "category": "macro",
       "detail": "21:30",
-      "consensus": "2.4%",
-      "actual": "9.9%",
-      "previous": "-7.0%"
+      "consensus": "1.250M",
+      "actual": "1.309M",
+      "previous": "1.191M"
     },
     {
       "start": "2026-11-19",
@@ -1692,5 +1692,6 @@
   ],
   "built_on": "2026-11-19",
   "builder_version": 10,
-  "updated_at": "2026-11-18T18:01:36.409239+00:00"
+  "updated_at": "2026-11-18T18:01:36.409239+00:00",
+  "values_updated_at": "2026-11-18T18:21:01.043433+00:00"
 }
