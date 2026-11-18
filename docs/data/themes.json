@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "보안주(정보)",
-      "change_percent": 0.98,
-      "total": 52,
-      "rise": 35
-    },
-    {
-      "name": "음원/음반",
-      "change_percent": 0.95,
+      "name": "광통신(광케이블/광섬유 등)",
+      "change_percent": 4.95,
       "total": 15,
-      "rise": 11
-    },
-    {
-      "name": "캐릭터상품",
-      "change_percent": 0.94,
-      "total": 9,
-      "rise": 6
-    },
-    {
-      "name": "재난/안전(지진/화재 등)",
-      "change_percent": 0.91,
-      "total": 19,
-      "rise": 10
-    },
-    {
-      "name": "재택근무/스마트워크",
-      "change_percent": 0.91,
-      "total": 15,
-      "rise": 10
-    },
-    {
-      "name": "원격진료/비대면진료(U-Healthcare)",
-      "change_percent": 0.85,
-      "total": 22,
       "rise": 15
     },
     {
-      "name": "모더나(MODERNA)",
-      "change_percent": 0.85,
-      "total": 6,
-      "rise": 4
+      "name": "S7(삼성전자/SK하이닉스 등)",
+      "change_percent": 4.64,
+      "total": 7,
+      "rise": 7
     },
     {
-      "name": "의료기기",
-      "change_percent": 0.83,
-      "total": 95,
-      "rise": 63
+      "name": "딥페이크(deepfake)",
+      "change_percent": 4.63,
+      "total": 14,
+      "rise": 10
+    },
+    {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 3.98,
+      "total": 14,
+      "rise": 14
+    },
+    {
+      "name": "보안주(정보)",
+      "change_percent": 3.95,
+      "total": 52,
+      "rise": 41
+    },
+    {
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 3.91,
+      "total": 14,
+      "rise": 13
+    },
+    {
+      "name": "소캠(SOCAMM)",
+      "change_percent": 3.8,
+      "total": 11,
+      "rise": 10
+    },
+    {
+      "name": "MLCC(적층세라믹콘덴서)",
+      "change_percent": 3.5,
+      "total": 11,
+      "rise": 10
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-18T00:01:00.907603+00:00"
+  "updated_at": "2026-11-18T00:21:01.125197+00:00"
 }
