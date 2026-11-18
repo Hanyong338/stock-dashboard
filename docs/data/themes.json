@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 4.95,
+      "name": "여행",
+      "change_percent": 12.39,
+      "total": 9,
+      "rise": 9
+    },
+    {
+      "name": "음원/음반",
+      "change_percent": 9.58,
       "total": 15,
-      "rise": 15
+      "rise": 14
+    },
+    {
+      "name": "엔터테인먼트",
+      "change_percent": 7.64,
+      "total": 31,
+      "rise": 25
+    },
+    {
+      "name": "영상콘텐츠",
+      "change_percent": 5.45,
+      "total": 31,
+      "rise": 25
+    },
+    {
+      "name": "피지컬 AI/휴머노이드 로봇",
+      "change_percent": 4.5,
+      "total": 49,
+      "rise": 42
     },
     {
       "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 4.64,
+      "change_percent": 4.12,
       "total": 7,
       "rise": 7
     },
     {
+      "name": "로봇(산업용/협동로봇 등)",
+      "change_percent": 3.97,
+      "total": 77,
+      "rise": 64
+    },
+    {
       "name": "딥페이크(deepfake)",
-      "change_percent": 4.63,
+      "change_percent": 3.96,
       "total": 14,
-      "rise": 10
-    },
-    {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 3.98,
-      "total": 14,
-      "rise": 14
-    },
-    {
-      "name": "보안주(정보)",
-      "change_percent": 3.95,
-      "total": 52,
-      "rise": 41
-    },
-    {
-      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 3.91,
-      "total": 14,
-      "rise": 13
-    },
-    {
-      "name": "소캠(SOCAMM)",
-      "change_percent": 3.8,
-      "total": 11,
-      "rise": 10
-    },
-    {
-      "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 3.5,
-      "total": 11,
-      "rise": 10
+      "rise": 12
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-18T00:21:01.125197+00:00"
+  "updated_at": "2026-11-18T07:27:57.096833+00:00"
 }
