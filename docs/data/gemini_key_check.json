@@ -1,8 +1,8 @@
 {
   "configured": true,
-  "ok": false,
-  "status": null,
-  "message": "요청 실패: ReadTimeout",
-  "checked_on": "2026-11-19",
-  "checked_at": "2026-11-18T22:01:00.783274+00:00"
+  "ok": true,
+  "status": 200,
+  "message": "gemini-3.6-flash 응답 정상",
+  "checked_on": "2026-11-20",
+  "checked_at": "2026-11-19T22:01:00.808564+00:00"
 }
