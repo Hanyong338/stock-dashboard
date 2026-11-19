@@ -507,7 +507,9 @@
     "G5Kz41EjDmw",
     "znmu0vaHb10",
     "uU9ZKGTSh0k",
-    "8ZS2VyTY9lk"
+    "8ZS2VyTY9lk",
+    "vC7v55f8sdo",
+    "c7f9jtyq9yw"
   ],
   "UCRDXoxD0x0J2CzPTQNLJLhg": [
     "2uZmQTNdIo4",
@@ -1003,8 +1005,6 @@
     "EJK6MA5FGIg": 1,
     "1EZUjEqbK0Y": 1,
     "XG6FjqBf5s0": 1,
-    "vC7v55f8sdo": 2,
-    "c7f9jtyq9yw": 2,
     "bsmFdEtKWqM": 2,
     "nH9-vCUT1ks": 2,
     "e9VE62hQv_g": 2,
@@ -1014,7 +1014,7 @@
     "SmU5LjD_A14": 2,
     "S5V0tc-LkqA": 2,
     "9nx8wnK4DHc": 2,
-    "_HKbEOD-fd8": 2,
+    "_HKbEOD-fd8": 1,
     "iEPz7kIebB0": 1
   },
   "UCQW05vzztAlwV54WL3pjGBQ": [
@@ -1119,7 +1119,9 @@
     "unDiLOfyYLY",
     "oJAaV3ZX8rc"
   ],
-  "_pair_wait": {},
+  "_pair_wait": {
+    "_HKbEOD-fd8": "2026-11-19T22:01:00.808564+00:00"
+  },
   "_pair_fail": {},
   "_review_kept": {
     "9c7PU5t-r5w": "2026-11-17T03:02:38.061079+00:00",
@@ -1280,6 +1282,8 @@
     "JrX7700394E": "2026-11-19T09:21:00.568788+00:00",
     "3PXFb-RrLKM": "2026-11-19T10:01:00.742860+00:00",
     "vqB7JpqjRy0": "2026-11-19T15:21:38.518026+00:00",
-    "ld70Ck32c2I": "2026-11-19T15:21:38.518026+00:00"
+    "ld70Ck32c2I": "2026-11-19T15:21:38.518026+00:00",
+    "vC7v55f8sdo": "2026-11-19T22:01:00.808564+00:00",
+    "c7f9jtyq9yw": "2026-11-19T22:01:00.808564+00:00"
   }
 }
