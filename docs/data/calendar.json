@@ -1171,7 +1171,8 @@
       "title": "팔로알토 실적",
       "category": "earnings",
       "detail": "PANW 장마감 후",
-      "eps_forecast": "$0.52"
+      "eps_forecast": "$0.52",
+      "eps": "$0.53"
     },
     {
       "start": "2026-11-19",
@@ -1693,5 +1694,5 @@
   "built_on": "2026-11-19",
   "builder_version": 10,
   "updated_at": "2026-11-18T18:01:36.409239+00:00",
-  "values_updated_at": "2026-11-18T18:21:01.043433+00:00"
+  "values_updated_at": "2026-11-19T06:41:00.738969+00:00"
 }
