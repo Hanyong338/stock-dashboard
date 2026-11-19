@@ -107,10 +107,30 @@
       "detail": "코스피 11:00",
       "code": "003670",
       "quarter": "2026.09",
+      "op_actual": 821,
       "op_consensus": 194,
-      "rev_consensus": 7720,
       "op_prev_year": 667,
       "op_prev_q": 267
+    },
+    {
+      "start": "2026-11-02",
+      "end": "2026-11-02",
+      "title": "ISM 제조업",
+      "category": "macro",
+      "detail": "23:00",
+      "consensus": "54.5",
+      "actual": "55.5",
+      "previous": "54.5"
+    },
+    {
+      "start": "2026-11-02",
+      "end": "2026-11-02",
+      "title": "S&P글로벌 제조업 PMI",
+      "category": "macro",
+      "detail": "22:45",
+      "consensus": "56.0",
+      "actual": "54.9",
+      "previous": "56.0"
     },
     {
       "start": "2026-11-02",
@@ -152,8 +172,8 @@
       "detail": "코스피 10:00",
       "code": "373220",
       "quarter": "2026.09",
+      "op_actual": 7560,
       "op_consensus": 3217,
-      "rev_consensus": 88257,
       "op_prev_year": 6013,
       "op_prev_q": 1133
     },
@@ -215,6 +235,16 @@
       "consensus": "7.150M",
       "actual": "7.523M",
       "previous": "7.190M"
+    },
+    {
+      "start": "2026-11-03",
+      "end": "2026-11-03",
+      "title": "한국 CPI",
+      "category": "macro",
+      "detail": "07:00",
+      "consensus": "2.9%",
+      "actual": "2.8%",
+      "previous": "2.9%"
     },
     {
       "start": "2026-11-04",
@@ -349,6 +379,19 @@
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
+      "title": "효성 실적",
+      "category": "earnings",
+      "detail": "코스피 09:00",
+      "code": "004800",
+      "quarter": "2026.09",
+      "op_consensus": 1280,
+      "rev_consensus": 5970,
+      "op_prev_year": 1219,
+      "op_prev_q": 2316
+    },
+    {
+      "start": "2026-11-04",
+      "end": "2026-11-04",
       "title": "효성중공업 실적",
       "category": "earnings",
       "detail": "코스피 09:10",
@@ -367,8 +410,8 @@
       "detail": "코스닥 15:00",
       "code": "145020",
       "quarter": "2026.09",
+      "op_actual": 181,
       "op_consensus": 279,
-      "rev_consensus": 1048,
       "op_prev_year": 474,
       "op_prev_q": 560
     },
@@ -427,19 +470,6 @@
       "rev_consensus": 149649,
       "op_prev_year": 6797,
       "op_prev_q": 5996
-    },
-    {
-      "start": "2026-11-05",
-      "end": "2026-11-05",
-      "title": "SK가스 실적",
-      "category": "earnings",
-      "detail": "코스피 09:10",
-      "code": "018670",
-      "quarter": "2026.09",
-      "op_actual": 1477,
-      "op_consensus": 1492,
-      "op_prev_year": 1735,
-      "op_prev_q": -439
     },
     {
       "start": "2026-11-05",
@@ -560,9 +590,9 @@
       "detail": "코스피 09:00",
       "code": "035720",
       "quarter": "2026.09",
+      "op_actual": 2403,
       "op_consensus": 2483,
-      "rev_consensus": 20420,
-      "op_prev_year": 2080,
+      "op_prev_year": 2238,
       "op_prev_q": 2770
     },
     {
@@ -655,8 +685,8 @@
       "detail": "코스피 15:00",
       "code": "161390",
       "quarter": "2026.09",
+      "op_actual": 5988,
       "op_consensus": 5504,
-      "rev_consensus": 57523,
       "op_prev_year": 5860,
       "op_prev_q": 5591
     },
@@ -905,8 +935,8 @@
       "detail": "코스피 09:00",
       "code": "035420",
       "quarter": "2026.09",
+      "op_actual": 4513,
       "op_consensus": 4976,
-      "rev_consensus": 35143,
       "op_prev_year": 5706,
       "op_prev_q": 5203
     },
@@ -1028,6 +1058,7 @@
       "detail": "코스닥 16:00",
       "code": "141080",
       "quarter": "2026.09",
+      "op_actual": -504,
       "op_prev_year": -232,
       "op_prev_q": -720
     },
@@ -1130,6 +1161,23 @@
       "previous": "1.1%"
     },
     {
+      "start": "2026-11-17",
+      "end": "2026-11-17",
+      "title": "연준 의장 연설",
+      "category": "major",
+      "detail": "01:00"
+    },
+    {
+      "start": "2026-11-18",
+      "end": "2026-11-18",
+      "title": "팔로알토 실적",
+      "category": "earnings",
+      "detail": "PANW",
+      "eps_forecast": "$0.52",
+      "eps": "$0.46",
+      "surprise": "-11.54"
+    },
+    {
       "start": "2026-11-18",
       "end": "2026-11-18",
       "title": "미국 건축허가",
@@ -1168,20 +1216,12 @@
     {
       "start": "2026-11-19",
       "end": "2026-11-19",
-      "title": "팔로알토 실적",
-      "category": "earnings",
-      "detail": "PANW 장마감 후",
-      "eps_forecast": "$0.52",
-      "eps": "$0.53"
-    },
-    {
-      "start": "2026-11-19",
-      "end": "2026-11-19",
       "title": "미국 실업수당",
       "category": "macro",
       "detail": "21:30",
       "consensus": "198K",
-      "previous": "200K"
+      "actual": "203K",
+      "previous": "202K"
     },
     {
       "start": "2026-11-19",
@@ -1190,6 +1230,7 @@
       "category": "macro",
       "detail": "21:30",
       "consensus": "20.6",
+      "actual": "6.3",
       "previous": "20.9"
     },
     {
@@ -1224,6 +1265,22 @@
       "previous": "0.2%"
     },
     {
+      "start": "2026-11-23",
+      "end": "2026-11-23",
+      "title": "S&P글로벌 서비스업 PMI",
+      "category": "macro",
+      "detail": "22:45",
+      "previous": "56.1"
+    },
+    {
+      "start": "2026-11-23",
+      "end": "2026-11-23",
+      "title": "S&P글로벌 제조업 PMI",
+      "category": "macro",
+      "detail": "22:45",
+      "previous": "54.9"
+    },
+    {
       "start": "2026-11-24",
       "end": "2026-11-24",
       "title": "리치먼드 연은지수",
@@ -1240,12 +1297,20 @@
       "previous": "91.7"
     },
     {
+      "start": "2026-11-24",
+      "end": "2026-11-24",
+      "title": "한국 소비자심리",
+      "category": "macro",
+      "detail": "05:00",
+      "previous": "105.4"
+    },
+    {
       "start": "2026-11-25",
       "end": "2026-11-25",
       "title": "델 실적",
       "category": "earnings",
       "detail": "DELL 장마감 후",
-      "eps_forecast": "$6.41"
+      "eps_forecast": "$6.48"
     },
     {
       "start": "2026-11-25",
@@ -1273,22 +1338,6 @@
       "title": "한국 금통위",
       "category": "major",
       "detail": "10:00"
-    },
-    {
-      "start": "2026-11-30",
-      "end": "2026-11-30",
-      "title": "한국 산업생산",
-      "category": "macro",
-      "detail": "07:00",
-      "previous": "1.2%"
-    },
-    {
-      "start": "2026-11-30",
-      "end": "2026-11-30",
-      "title": "한국 소매판매",
-      "category": "macro",
-      "detail": "07:00",
-      "previous": "3.6%"
     },
     {
       "start": "2026-12-01",
@@ -1453,6 +1502,14 @@
     {
       "start": "2026-12-09",
       "end": "2026-12-09",
+      "title": "미국 기존주택판매",
+      "category": "macro",
+      "detail": "23:00",
+      "previous": "3.75M"
+    },
+    {
+      "start": "2026-12-09",
+      "end": "2026-12-09",
       "title": "한국 GDP",
       "category": "macro",
       "detail": "07:00",
@@ -1480,6 +1537,22 @@
       "title": "국내 선물·옵션 동시만기",
       "category": "flow",
       "detail": "최종거래일 · 장 막판 프로그램 매매 변동성"
+    },
+    {
+      "start": "2026-12-10",
+      "end": "2026-12-10",
+      "title": "미국 CPI",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "0.4%"
+    },
+    {
+      "start": "2026-12-10",
+      "end": "2026-12-10",
+      "title": "미국 근원 CPI",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "0.3%"
     },
     {
       "start": "2026-12-10",
@@ -1586,6 +1659,14 @@
       "eps_forecast": "$5.94"
     },
     {
+      "start": "2027-01-13",
+      "end": "2027-01-13",
+      "title": "뱅크오브아메리카 실적",
+      "category": "earnings",
+      "detail": "BAC",
+      "eps_forecast": "$1.13"
+    },
+    {
       "start": "2027-01-14",
       "end": "2027-01-14",
       "title": "국내 옵션만기",
@@ -1605,27 +1686,6 @@
       "title": "마틴 루터 킹 데이 (미국 휴장)",
       "category": "holiday",
       "detail": ""
-    },
-    {
-      "start": "2027-01-27",
-      "end": "2027-01-27",
-      "title": "FOMC 금리결정",
-      "category": "major",
-      "detail": "02:00"
-    },
-    {
-      "start": "2027-01-27",
-      "end": "2027-01-27",
-      "title": "FOMC 기자회견",
-      "category": "major",
-      "detail": "03:30"
-    },
-    {
-      "start": "2027-01-27",
-      "end": "2027-01-27",
-      "title": "FOMC 성명",
-      "category": "major",
-      "detail": "03:00"
     },
     {
       "start": "2027-01-28",
@@ -1691,8 +1751,7 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     }
   ],
-  "built_on": "2026-11-19",
+  "built_on": "2026-11-20",
   "builder_version": 10,
-  "updated_at": "2026-11-18T18:01:36.409239+00:00",
-  "values_updated_at": "2026-11-19T06:41:00.738969+00:00"
+  "updated_at": "2026-11-19T15:21:38.518026+00:00"
 }
