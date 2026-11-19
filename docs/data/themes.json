@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "여행",
-      "change_percent": 9.02,
+      "change_percent": 9.56,
       "total": 9,
       "rise": 8
     },
     {
       "name": "영상콘텐츠",
-      "change_percent": 8.26,
+      "change_percent": 8.4,
       "total": 31,
       "rise": 27
     },
     {
-      "name": "음원/음반",
-      "change_percent": 6.56,
-      "total": 15,
-      "rise": 14
-    },
-    {
       "name": "면세점",
-      "change_percent": 6.43,
+      "change_percent": 6.61,
       "total": 8,
       "rise": 8
     },
     {
+      "name": "음원/음반",
+      "change_percent": 6.38,
+      "total": 15,
+      "rise": 14
+    },
+    {
       "name": "엔터테인먼트",
-      "change_percent": 6.42,
+      "change_percent": 6.34,
       "total": 31,
       "rise": 25
     },
     {
       "name": "영화",
-      "change_percent": 5.61,
+      "change_percent": 5.57,
       "total": 11,
       "rise": 9
-    },
-    {
-      "name": "항공/저가 항공사(LCC)",
-      "change_percent": 5.59,
-      "total": 9,
-      "rise": 8
     },
     {
       "name": "김밥(냉동김밥 등)",
       "change_percent": 5.29,
       "total": 6,
       "rise": 4
+    },
+    {
+      "name": "모바일게임(스마트폰)",
+      "change_percent": 5.28,
+      "total": 36,
+      "rise": 28
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-19T07:41:01.260509+00:00"
+  "updated_at": "2026-11-19T08:01:00.418246+00:00"
 }
