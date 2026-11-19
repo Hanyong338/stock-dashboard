@@ -1262,7 +1262,8 @@
       "title": "한국 PPI",
       "category": "macro",
       "detail": "05:00",
-      "previous": "0.2%"
+      "previous": "0.1%",
+      "actual": "-0.1%"
     },
     {
       "start": "2026-11-23",
@@ -1753,5 +1754,6 @@
   ],
   "built_on": "2026-11-20",
   "builder_version": 10,
-  "updated_at": "2026-11-19T15:21:38.518026+00:00"
+  "updated_at": "2026-11-19T15:21:38.518026+00:00",
+  "values_updated_at": "2026-11-19T22:41:01.061692+00:00"
 }
