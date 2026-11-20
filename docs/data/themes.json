@@ -2,21 +2,21 @@
   "leaders": [
     {
       "name": "면세점",
-      "change_percent": 0.53,
+      "change_percent": 0.54,
       "total": 8,
       "rise": 2
     },
     {
-      "name": "은행",
-      "change_percent": -0.48,
-      "total": 11,
-      "rise": 6
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.39,
+      "total": 68,
+      "rise": 11
     },
     {
-      "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.53,
-      "total": 68,
-      "rise": 10
+      "name": "은행",
+      "change_percent": -0.7,
+      "total": 11,
+      "rise": 5
     },
     {
       "name": "광고",
@@ -25,30 +25,30 @@
       "rise": 5
     },
     {
+      "name": "교육/온라인 교육",
+      "change_percent": -1.11,
+      "total": 25,
+      "rise": 5
+    },
+    {
       "name": "탈모 치료",
-      "change_percent": -1.03,
+      "change_percent": -1.12,
       "total": 29,
+      "rise": 4
+    },
+    {
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": -1.2,
+      "total": 9,
       "rise": 3
     },
     {
-      "name": "주류업(주정, 에탄올 등)",
-      "change_percent": -1.05,
-      "total": 13,
-      "rise": 2
-    },
-    {
-      "name": "바이오시밀러(복제 바이오의약품)",
-      "change_percent": -1.31,
-      "total": 21,
-      "rise": 7
-    },
-    {
-      "name": "겨울",
-      "change_percent": -1.34,
-      "total": 22,
+      "name": "편의점",
+      "change_percent": -1.22,
+      "total": 5,
       "rise": 2
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-20T10:41:01.292620+00:00"
+  "updated_at": "2026-11-20T11:01:01.241967+00:00"
 }
