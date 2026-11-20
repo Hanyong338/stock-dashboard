@@ -1204,7 +1204,8 @@
       "category": "earnings",
       "detail": "BABA 장전",
       "eps_forecast": "$1.56",
-      "eps": "$0.44"
+      "eps": "$1.04",
+      "surprise": "-33.33"
     },
     {
       "start": "2026-11-19",
@@ -1213,7 +1214,8 @@
       "category": "earnings",
       "detail": "WMT 장전",
       "eps_forecast": "$0.64",
-      "eps": "$0.62"
+      "eps": "$0.65",
+      "surprise": "1.56"
     },
     {
       "start": "2026-11-19",
@@ -1757,5 +1759,5 @@
   "built_on": "2026-11-20",
   "builder_version": 10,
   "updated_at": "2026-11-19T15:21:38.518026+00:00",
-  "values_updated_at": "2026-11-20T07:41:01.085734+00:00"
+  "values_updated_at": "2026-11-20T08:41:01.313735+00:00"
 }
