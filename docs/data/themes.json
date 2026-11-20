@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "항공기부품",
-      "change_percent": 3.46,
-      "total": 16,
-      "rise": 3
-    },
-    {
-      "name": "국내 상장 중국기업",
-      "change_percent": 1.92,
-      "total": 10,
-      "rise": 5
-    },
-    {
       "name": "면세점",
-      "change_percent": 1.46,
+      "change_percent": 1.35,
       "total": 8,
       "rise": 5
     },
     {
-      "name": "웹툰",
-      "change_percent": 0.83,
-      "total": 14,
-      "rise": 6
+      "name": "항공기부품",
+      "change_percent": 1.3,
+      "total": 16,
+      "rise": 2
+    },
+    {
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": 1.28,
+      "total": 9,
+      "rise": 5
     },
     {
       "name": "은행",
-      "change_percent": 0.6,
+      "change_percent": 0.97,
       "total": 11,
-      "rise": 8
-    },
-    {
-      "name": "엔젤산업",
-      "change_percent": 0.49,
-      "total": 26,
       "rise": 9
     },
     {
-      "name": "화장품",
-      "change_percent": 0.47,
-      "total": 95,
-      "rise": 31
+      "name": "육계",
+      "change_percent": 0.09,
+      "total": 9,
+      "rise": 5
     },
     {
-      "name": "캐릭터상품",
-      "change_percent": 0.21,
-      "total": 9,
-      "rise": 4
+      "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
+      "change_percent": 0.05,
+      "total": 10,
+      "rise": 3
+    },
+    {
+      "name": "국내 상장 중국기업",
+      "change_percent": -0.11,
+      "total": 10,
+      "rise": 3
+    },
+    {
+      "name": "백화점",
+      "change_percent": -0.18,
+      "total": 6,
+      "rise": 3
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-20T00:21:00.612967+00:00"
+  "updated_at": "2026-11-20T00:41:00.655857+00:00"
 }
