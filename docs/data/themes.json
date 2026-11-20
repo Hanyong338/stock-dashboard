@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "면세점",
-      "change_percent": 1.78,
-      "total": 8,
-      "rise": 6
-    },
-    {
       "name": "항공기부품",
-      "change_percent": 1.51,
+      "change_percent": 1.7,
       "total": 16,
       "rise": 2
     },
     {
+      "name": "면세점",
+      "change_percent": 1.61,
+      "total": 8,
+      "rise": 5
+    },
+    {
+      "name": "웹툰",
+      "change_percent": 1.32,
+      "total": 14,
+      "rise": 7
+    },
+    {
       "name": "은행",
-      "change_percent": 0.43,
+      "change_percent": 0.64,
       "total": 11,
       "rise": 7
     },
     {
       "name": "항공/저가 항공사(LCC)",
-      "change_percent": 0.31,
+      "change_percent": 0.48,
       "total": 9,
-      "rise": 3
-    },
-    {
-      "name": "웹툰",
-      "change_percent": 0.27,
-      "total": 14,
-      "rise": 7
-    },
-    {
-      "name": "편의점",
-      "change_percent": 0.06,
-      "total": 5,
-      "rise": 2
-    },
-    {
-      "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
-      "change_percent": 0.03,
-      "total": 10,
       "rise": 4
     },
     {
-      "name": "백화점",
-      "change_percent": -0.18,
-      "total": 6,
-      "rise": 3
+      "name": "바이오시밀러(복제 바이오의약품)",
+      "change_percent": 0.35,
+      "total": 21,
+      "rise": 13
+    },
+    {
+      "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
+      "change_percent": 0.31,
+      "total": 10,
+      "rise": 5
+    },
+    {
+      "name": "겨울",
+      "change_percent": 0.17,
+      "total": 22,
+      "rise": 8
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-20T01:01:01.270949+00:00"
+  "updated_at": "2026-11-20T01:21:01.376562+00:00"
 }
