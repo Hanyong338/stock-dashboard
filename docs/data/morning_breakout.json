@@ -7,75 +7,33 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-11-13 09:30",
-  "universe_count": 368,
+  "as_of": "2026-11-20 09:30",
+  "universe_count": 288,
   "fetch_failures": 0,
   "dropped": 0,
   "items": [
     {
-      "code": "327260",
-      "name": "RF머트리얼즈",
+      "code": "439090",
+      "name": "마녀공장",
       "market": "KOSDAQ",
       "tags": [],
-      "market_cap_eok": 5504,
+      "market_cap_eok": 2766,
       "type": "C",
-      "reason": "240일선 30,163 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 44억",
+      "reason": "240일선 14,691 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 150억",
       "exits": [
         "09:30 전후 돌파 타점 확인 즉시 진입",
         "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
         "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
       ],
-      "url": "https://m.stock.naver.com/domestic/stock/327260/total",
-      "open_gap": 1.5,
-      "value_30m_eok": 44,
-      "vol_vs_prev_day": 12,
-      "close": 30800,
-      "volume": 141993,
-      "change_percent": 2.33
-    },
-    {
-      "code": "122640",
-      "name": "예스티",
-      "market": "KOSDAQ",
-      "tags": [],
-      "market_cap_eok": 5629,
-      "type": "C",
-      "reason": "240일선 24,927 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 11억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/122640/total",
-      "open_gap": 2.23,
-      "value_30m_eok": 11,
-      "vol_vs_prev_day": 11,
-      "close": 25650,
-      "volume": 44120,
-      "change_percent": 3.85
-    },
-    {
-      "code": "031330",
-      "name": "에스에이엠티",
-      "market": "KOSDAQ",
-      "tags": [],
-      "market_cap_eok": 7930,
-      "type": "C",
-      "reason": "240일선 7,761 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 7억",
-      "exits": [
-        "09:30 전후 돌파 타점 확인 즉시 진입",
-        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
-        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
-      ],
-      "url": "https://m.stock.naver.com/domestic/stock/031330/total",
-      "open_gap": 1.83,
-      "value_30m_eok": 7,
-      "vol_vs_prev_day": 15,
-      "close": 7880,
-      "volume": 84161,
-      "change_percent": 2.74
+      "url": "https://m.stock.naver.com/domestic/stock/439090/total",
+      "open_gap": 14.65,
+      "value_30m_eok": 150,
+      "vol_vs_prev_day": 181,
+      "close": 17350,
+      "volume": 858545,
+      "change_percent": 19.9
     }
   ],
-  "built_on": "2026-11-13",
-  "updated_at": "2026-11-13T00:41:00.428552+00:00"
+  "built_on": "2026-11-20",
+  "updated_at": "2026-11-20T00:41:00.655857+00:00"
 }
