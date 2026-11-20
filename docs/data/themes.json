@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "면세점",
-      "change_percent": 0.72,
+      "change_percent": 0.29,
       "total": 8,
       "rise": 3
     },
     {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.52,
+      "change_percent": -0.53,
       "total": 68,
       "rise": 10
     },
     {
+      "name": "은행",
+      "change_percent": -0.87,
+      "total": 11,
+      "rise": 3
+    },
+    {
       "name": "탈모 치료",
-      "change_percent": -0.76,
+      "change_percent": -1.0,
       "total": 29,
       "rise": 3
     },
     {
-      "name": "항공/저가 항공사(LCC)",
-      "change_percent": -0.76,
-      "total": 9,
-      "rise": 3
-    },
-    {
-      "name": "은행",
-      "change_percent": -0.78,
-      "total": 11,
-      "rise": 4
+      "name": "교육/온라인 교육",
+      "change_percent": -1.15,
+      "total": 25,
+      "rise": 5
     },
     {
       "name": "주류업(주정, 에탄올 등)",
-      "change_percent": -1.04,
+      "change_percent": -1.16,
       "total": 13,
       "rise": 2
     },
     {
-      "name": "백신/진단시약/방역(신종플루, AI 등)",
-      "change_percent": -1.11,
-      "total": 41,
-      "rise": 9
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": -1.36,
+      "total": 9,
+      "rise": 3
     },
     {
-      "name": "광고",
-      "change_percent": -1.16,
-      "total": 26,
-      "rise": 4
+      "name": "바이오시밀러(복제 바이오의약품)",
+      "change_percent": -1.43,
+      "total": 21,
+      "rise": 5
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-20T09:41:00.327331+00:00"
+  "updated_at": "2026-11-20T10:01:01.291671+00:00"
 }
