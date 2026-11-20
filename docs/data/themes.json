@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "면세점",
-      "change_percent": 0.55,
+      "change_percent": 0.81,
       "total": 8,
       "rise": 4
     },
     {
-      "name": "여행",
-      "change_percent": -0.49,
-      "total": 9,
-      "rise": 2
+      "name": "탈모 치료",
+      "change_percent": -0.4,
+      "total": 29,
+      "rise": 3
     },
     {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.53,
+      "change_percent": -0.49,
       "total": 68,
-      "rise": 9
-    },
-    {
-      "name": "탈모 치료",
-      "change_percent": -0.62,
-      "total": 29,
-      "rise": 4
-    },
-    {
-      "name": "광고",
-      "change_percent": -0.83,
-      "total": 26,
-      "rise": 7
-    },
-    {
-      "name": "은행",
-      "change_percent": -0.83,
-      "total": 11,
-      "rise": 2
+      "rise": 10
     },
     {
       "name": "항공/저가 항공사(LCC)",
-      "change_percent": -0.92,
+      "change_percent": -0.7,
       "total": 9,
       "rise": 3
     },
     {
-      "name": "마이크로바이옴",
+      "name": "은행",
+      "change_percent": -0.82,
+      "total": 11,
+      "rise": 2
+    },
+    {
+      "name": "줄기세포",
       "change_percent": -1.03,
-      "total": 18,
+      "total": 17,
       "rise": 5
+    },
+    {
+      "name": "종합 물류",
+      "change_percent": -1.04,
+      "total": 16,
+      "rise": 6
+    },
+    {
+      "name": "여행",
+      "change_percent": -1.04,
+      "total": 9,
+      "rise": 2
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-20T08:01:00.959786+00:00"
+  "updated_at": "2026-11-20T08:21:01.219422+00:00"
 }
