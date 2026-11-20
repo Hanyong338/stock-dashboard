@@ -1203,7 +1203,8 @@
       "title": "알리바바 실적",
       "category": "earnings",
       "detail": "BABA 장전",
-      "eps_forecast": "$1.56"
+      "eps_forecast": "$1.56",
+      "eps": "$0.44"
     },
     {
       "start": "2026-11-19",
@@ -1211,7 +1212,8 @@
       "title": "월마트 실적",
       "category": "earnings",
       "detail": "WMT 장전",
-      "eps_forecast": "$0.64"
+      "eps_forecast": "$0.64",
+      "eps": "$0.62"
     },
     {
       "start": "2026-11-19",
@@ -1755,5 +1757,5 @@
   "built_on": "2026-11-20",
   "builder_version": 10,
   "updated_at": "2026-11-19T15:21:38.518026+00:00",
-  "values_updated_at": "2026-11-19T23:41:00.837727+00:00"
+  "values_updated_at": "2026-11-20T07:21:45.120847+00:00"
 }
