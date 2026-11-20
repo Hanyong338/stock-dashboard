@@ -2,21 +2,21 @@
   "leaders": [
     {
       "name": "면세점",
-      "change_percent": 0.54,
+      "change_percent": 0.59,
       "total": 8,
-      "rise": 2
+      "rise": 3
     },
     {
       "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.39,
+      "change_percent": -0.5,
       "total": 68,
       "rise": 11
     },
     {
       "name": "은행",
-      "change_percent": -0.7,
+      "change_percent": -0.59,
       "total": 11,
-      "rise": 5
+      "rise": 6
     },
     {
       "name": "광고",
@@ -26,29 +26,29 @@
     },
     {
       "name": "교육/온라인 교육",
-      "change_percent": -1.11,
+      "change_percent": -1.02,
       "total": 25,
-      "rise": 5
-    },
-    {
-      "name": "탈모 치료",
-      "change_percent": -1.12,
-      "total": 29,
-      "rise": 4
+      "rise": 6
     },
     {
       "name": "항공/저가 항공사(LCC)",
-      "change_percent": -1.2,
+      "change_percent": -1.06,
       "total": 9,
       "rise": 3
     },
     {
+      "name": "탈모 치료",
+      "change_percent": -1.19,
+      "total": 29,
+      "rise": 4
+    },
+    {
       "name": "편의점",
-      "change_percent": -1.22,
+      "change_percent": -1.25,
       "total": 5,
       "rise": 2
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-20T11:01:01.241967+00:00"
+  "updated_at": "2026-11-20T11:21:00.661773+00:00"
 }
