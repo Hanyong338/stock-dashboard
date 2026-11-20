@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "면세점",
-      "change_percent": 1.93,
-      "total": 8,
-      "rise": 5
-    },
-    {
-      "name": "항공기부품",
-      "change_percent": 1.45,
-      "total": 16,
+      "name": "육계",
+      "change_percent": 0.41,
+      "total": 9,
       "rise": 1
     },
     {
-      "name": "항공/저가 항공사(LCC)",
-      "change_percent": 0.78,
-      "total": 9,
+      "name": "면세점",
+      "change_percent": 0.08,
+      "total": 8,
+      "rise": 3
+    },
+    {
+      "name": "코로나19(진단키트)",
+      "change_percent": -0.27,
+      "total": 39,
+      "rise": 12
+    },
+    {
+      "name": "골판지 제조",
+      "change_percent": -0.3,
+      "total": 10,
       "rise": 4
     },
     {
-      "name": "웹툰",
-      "change_percent": 0.6,
-      "total": 14,
-      "rise": 5
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.55,
+      "total": 68,
+      "rise": 9
     },
     {
-      "name": "은행",
-      "change_percent": 0.47,
-      "total": 11,
-      "rise": 7
+      "name": "탈모 치료",
+      "change_percent": -0.62,
+      "total": 29,
+      "rise": 4
     },
     {
-      "name": "스포츠행사 수혜(올림픽, 월드컵 등)",
-      "change_percent": 0.43,
-      "total": 10,
-      "rise": 5
+      "name": "항공/저가 항공사(LCC)",
+      "change_percent": -0.84,
+      "total": 9,
+      "rise": 3
     },
     {
-      "name": "겨울",
-      "change_percent": 0.13,
-      "total": 22,
-      "rise": 7
-    },
-    {
-      "name": "편의점",
-      "change_percent": 0.11,
-      "total": 5,
-      "rise": 2
+      "name": "재택근무/스마트워크",
+      "change_percent": -0.85,
+      "total": 15,
+      "rise": 6
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-20T02:01:00.626662+00:00"
+  "updated_at": "2026-11-20T07:21:45.120847+00:00"
 }
