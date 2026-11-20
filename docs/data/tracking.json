@@ -32427,6 +32427,28 @@
       "final_ret": null,
       "closed_on": "",
       "checked_for": "2026-11-19"
+    },
+    {
+      "id": "kr:439090:MORNING_BREAKOUT:2026-11-20",
+      "market": "kr",
+      "code": "439090",
+      "name": "마녀공장",
+      "board": "KOSDAQ",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "C",
+      "found_on": "2026-11-20",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "439090.KQ",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-11-20T00:41:00.655857+00:00",
+      "reason": "240일선 14,691 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 150억",
+      "stop": null,
+      "checked_for": "2026-11-19"
     }
   ],
   "updated_for": {
@@ -32434,8 +32456,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 785,
-    "pending": 26,
+    "total": 786,
+    "pending": 27,
     "active": 95,
     "half_tp": 243,
     "closed": 638,
@@ -32447,7 +32469,7 @@
     "avg_mdd": -7.43,
     "closed_avg_final": -3.64
   },
-  "updated_at": "2026-11-19T21:41:01.094048+00:00",
+  "updated_at": "2026-11-20T00:41:00.655857+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
