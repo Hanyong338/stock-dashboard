@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "지주사",
+      "change_percent": 0.01,
+      "total": 127,
+      "rise": 1
+    },
+    {
+      "name": "2차전지",
+      "change_percent": 0.0,
+      "total": 143,
+      "rise": 0
+    },
+    {
+      "name": "코리아 밸류업 지수(Korea Value-up Index)",
+      "change_percent": 0.0,
+      "total": 99,
+      "rise": 0
+    },
+    {
+      "name": "전기차",
+      "change_percent": 0.0,
+      "total": 97,
+      "rise": 0
+    },
+    {
+      "name": "화장품",
+      "change_percent": 0.0,
+      "total": 95,
+      "rise": 0
+    },
+    {
+      "name": "의료기기",
+      "change_percent": 0.0,
+      "total": 95,
+      "rise": 0
+    },
+    {
+      "name": "밸류업(25년 기업가치 제고계획 발표)",
+      "change_percent": 0.0,
+      "total": 84,
+      "rise": 0
+    },
+    {
+      "name": "로봇(산업용/협동로봇 등)",
+      "change_percent": 0.0,
+      "total": 77,
+      "rise": 0
+    }
+  ],
   "group_count": 265,
-  "updated_at": "2026-11-19T23:01:01.298081+00:00"
+  "updated_at": "2026-11-20T00:01:01.013798+00:00"
 }
