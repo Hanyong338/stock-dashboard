@@ -1,34 +1,34 @@
 {
   "leaders": [
     {
-      "name": "여행",
-      "change_percent": 0.08,
-      "total": 9,
-      "rise": 4
-    },
-    {
-      "name": "사료",
-      "change_percent": 0.04,
-      "total": 18,
-      "rise": 4
-    },
-    {
       "name": "3D 프린터",
-      "change_percent": -0.04,
+      "change_percent": 0.12,
       "total": 11,
       "rise": 3
     },
     {
-      "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.19,
-      "total": 68,
-      "rise": 26
+      "name": "여행",
+      "change_percent": 0.02,
+      "total": 9,
+      "rise": 3
+    },
+    {
+      "name": "사료",
+      "change_percent": -0.12,
+      "total": 18,
+      "rise": 3
     },
     {
       "name": "김밥(냉동김밥 등)",
-      "change_percent": -0.23,
+      "change_percent": -0.13,
       "total": 6,
       "rise": 1
+    },
+    {
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.3,
+      "total": 68,
+      "rise": 25
     },
     {
       "name": "육계",
@@ -37,18 +37,18 @@
       "rise": 1
     },
     {
-      "name": "도시가스",
-      "change_percent": -0.93,
-      "total": 9,
-      "rise": 1
+      "name": "로봇(산업용/협동로봇 등)",
+      "change_percent": -0.63,
+      "total": 77,
+      "rise": 20
     },
     {
-      "name": "로봇(산업용/협동로봇 등)",
-      "change_percent": -1.0,
-      "total": 77,
-      "rise": 17
+      "name": "영화",
+      "change_percent": -0.86,
+      "total": 11,
+      "rise": 2
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-23T00:41:00.428195+00:00"
+  "updated_at": "2026-11-23T01:01:01.175373+00:00"
 }
