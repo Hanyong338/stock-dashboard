@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "LED",
+      "change_percent": -1.91,
+      "total": 37,
+      "rise": 0
+    },
+    {
+      "name": "영상콘텐츠",
+      "change_percent": -1.92,
+      "total": 31,
+      "rise": 2
+    },
+    {
+      "name": "석유화학",
+      "change_percent": -1.95,
+      "total": 19,
+      "rise": 0
+    },
+    {
+      "name": "반도체 장비",
+      "change_percent": -1.96,
+      "total": 98,
+      "rise": 8
+    },
+    {
+      "name": "제대혈",
+      "change_percent": -1.96,
+      "total": 5,
+      "rise": 0
+    },
+    {
+      "name": "SI(시스템통합)",
+      "change_percent": -1.97,
+      "total": 30,
+      "rise": 1
+    },
+    {
+      "name": "줄기세포",
+      "change_percent": -1.97,
+      "total": 17,
+      "rise": 1
+    },
+    {
+      "name": "전기차",
+      "change_percent": -1.99,
+      "total": 97,
+      "rise": 7
+    }
+  ],
   "group_count": 265,
-  "updated_at": "2026-11-22T23:01:00.456499+00:00"
+  "updated_at": "2026-11-23T00:01:01.169419+00:00"
 }
