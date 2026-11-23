@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "LED",
-      "change_percent": -1.91,
-      "total": 37,
-      "rise": 0
+      "name": "김밥(냉동김밥 등)",
+      "change_percent": 2.06,
+      "total": 6,
+      "rise": 1
     },
     {
-      "name": "영상콘텐츠",
-      "change_percent": -1.92,
-      "total": 31,
+      "name": "사료",
+      "change_percent": 0.33,
+      "total": 18,
       "rise": 2
     },
     {
-      "name": "석유화학",
-      "change_percent": -1.95,
-      "total": 19,
-      "rise": 0
+      "name": "3D 프린터",
+      "change_percent": 0.1,
+      "total": 11,
+      "rise": 3
     },
     {
-      "name": "반도체 장비",
-      "change_percent": -1.96,
-      "total": 98,
-      "rise": 8
-    },
-    {
-      "name": "제대혈",
-      "change_percent": -1.96,
-      "total": 5,
-      "rise": 0
-    },
-    {
-      "name": "SI(시스템통합)",
-      "change_percent": -1.97,
-      "total": 30,
+      "name": "육계",
+      "change_percent": -0.13,
+      "total": 9,
       "rise": 1
     },
     {
-      "name": "줄기세포",
-      "change_percent": -1.97,
-      "total": 17,
-      "rise": 1
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.22,
+      "total": 68,
+      "rise": 25
     },
     {
-      "name": "전기차",
-      "change_percent": -1.99,
-      "total": 97,
-      "rise": 7
+      "name": "주류업(주정, 에탄올 등)",
+      "change_percent": -0.24,
+      "total": 13,
+      "rise": 2
+    },
+    {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": -0.41,
+      "total": 15,
+      "rise": 3
+    },
+    {
+      "name": "로봇(산업용/협동로봇 등)",
+      "change_percent": -0.54,
+      "total": 77,
+      "rise": 18
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-23T00:01:01.169419+00:00"
+  "updated_at": "2026-11-23T00:21:00.382332+00:00"
 }
