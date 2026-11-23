@@ -1010,7 +1010,7 @@
     "EJK6MA5FGIg": 1,
     "1EZUjEqbK0Y": 1,
     "XG6FjqBf5s0": 1,
-    "ME_JkAGPmXI": 1
+    "ME_JkAGPmXI": 0
   },
   "UCQW05vzztAlwV54WL3pjGBQ": [
     "1PeNYBW8Tus",
@@ -1115,7 +1115,9 @@
     "HObnPoBzkcU",
     "yhODNJ8DlQo"
   ],
-  "_pair_wait": {},
+  "_pair_wait": {
+    "ME_JkAGPmXI": "2026-11-23T01:41:00.379377+00:00"
+  },
   "_pair_fail": {},
   "_review_kept": {
     "QwhGDJbSGvU": "2026-11-20T07:21:45.120847+00:00",
