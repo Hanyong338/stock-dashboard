@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "김밥(냉동김밥 등)",
-      "change_percent": 1.17,
+      "change_percent": 1.39,
       "total": 6,
-      "rise": 2
+      "rise": 3
     },
     {
       "name": "3D 프린터",
-      "change_percent": 1.06,
+      "change_percent": 1.08,
       "total": 11,
       "rise": 5
     },
     {
       "name": "로봇(산업용/협동로봇 등)",
-      "change_percent": 0.94,
+      "change_percent": 1.02,
       "total": 77,
-      "rise": 35
-    },
-    {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 0.42,
-      "total": 15,
-      "rise": 5
+      "rise": 38
     },
     {
       "name": "사료",
-      "change_percent": 0.11,
+      "change_percent": 0.35,
       "total": 18,
-      "rise": 5
+      "rise": 6
     },
     {
       "name": "2026 상반기 신규상장",
-      "change_percent": 0.06,
+      "change_percent": 0.12,
       "total": 31,
-      "rise": 7
+      "rise": 9
     },
     {
-      "name": "기업인수목적회사(SPAC)",
-      "change_percent": -0.22,
-      "total": 68,
-      "rise": 25
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": -0.05,
+      "total": 15,
+      "rise": 4
     },
     {
       "name": "광고",
-      "change_percent": -0.32,
+      "change_percent": -0.13,
       "total": 26,
       "rise": 9
+    },
+    {
+      "name": "기업인수목적회사(SPAC)",
+      "change_percent": -0.26,
+      "total": 68,
+      "rise": 23
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-23T07:41:00.761172+00:00"
+  "updated_at": "2026-11-23T08:01:01.171260+00:00"
 }
