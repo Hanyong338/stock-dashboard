@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "로봇(산업용/협동로봇 등)",
-      "change_percent": 1.52,
-      "total": 77,
-      "rise": 44
-    },
-    {
       "name": "3D 프린터",
-      "change_percent": 1.52,
+      "change_percent": 1.65,
       "total": 11,
       "rise": 5
     },
     {
+      "name": "로봇(산업용/협동로봇 등)",
+      "change_percent": 1.52,
+      "total": 77,
+      "rise": 42
+    },
+    {
       "name": "김밥(냉동김밥 등)",
-      "change_percent": 1.27,
+      "change_percent": 1.4,
       "total": 6,
       "rise": 3
     },
     {
       "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 0.89,
+      "change_percent": 0.95,
       "total": 15,
       "rise": 6
     },
     {
       "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 0.7,
+      "change_percent": 0.61,
       "total": 14,
       "rise": 9
     },
     {
-      "name": "스페이스X(SpaceX)",
-      "change_percent": 0.31,
-      "total": 14,
-      "rise": 4
-    },
-    {
       "name": "2026 상반기 신규상장",
-      "change_percent": 0.12,
+      "change_percent": 0.39,
       "total": 31,
-      "rise": 8
+      "rise": 10
     },
     {
-      "name": "소캠(SOCAMM)",
-      "change_percent": -0.1,
-      "total": 11,
-      "rise": 4
+      "name": "스페이스X(SpaceX)",
+      "change_percent": 0.27,
+      "total": 14,
+      "rise": 5
+    },
+    {
+      "name": "사료",
+      "change_percent": 0.13,
+      "total": 18,
+      "rise": 5
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-23T09:41:00.804423+00:00"
+  "updated_at": "2026-11-23T10:01:00.744524+00:00"
 }
