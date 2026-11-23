@@ -1016,7 +1016,7 @@
     "yEEX-MYxF7o": 2,
     "ae3wrXZ6K-M": 2,
     "9QkNzpaoYOI": 2,
-    "bXjmd8pQNrU": 2,
+    "bXjmd8pQNrU": 1,
     "sTGJtw_hGUU": 1
   },
   "UCQW05vzztAlwV54WL3pjGBQ": [
@@ -1122,7 +1122,9 @@
     "HObnPoBzkcU",
     "yhODNJ8DlQo"
   ],
-  "_pair_wait": {},
+  "_pair_wait": {
+    "bXjmd8pQNrU": "2026-11-23T07:21:01.111404+00:00"
+  },
   "_pair_fail": {},
   "_review_kept": {
     "QwhGDJbSGvU": "2026-11-20T07:21:45.120847+00:00",
