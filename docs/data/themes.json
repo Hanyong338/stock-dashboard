@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "전선",
+      "change_percent": 5.64,
+      "total": 8,
+      "rise": 8
+    },
+    {
+      "name": "무선충전기술",
+      "change_percent": 5.29,
+      "total": 12,
+      "rise": 12
+    },
+    {
+      "name": "반도체 재료/부품",
+      "change_percent": 5.01,
+      "total": 73,
+      "rise": 68
+    },
+    {
+      "name": "시스템반도체",
+      "change_percent": 4.98,
+      "total": 59,
+      "rise": 53
+    },
+    {
+      "name": "반도체 장비",
+      "change_percent": 4.87,
+      "total": 98,
+      "rise": 86
+    },
+    {
+      "name": "마이크로 LED",
+      "change_percent": 4.84,
+      "total": 10,
+      "rise": 8
+    },
+    {
+      "name": "LED장비",
+      "change_percent": 4.71,
+      "total": 11,
+      "rise": 9
+    },
+    {
+      "name": "IT 대표주",
+      "change_percent": 4.37,
+      "total": 6,
+      "rise": 5
+    }
+  ],
   "group_count": 265,
-  "updated_at": "2026-11-23T23:01:01.215098+00:00"
+  "updated_at": "2026-11-24T00:01:01.049776+00:00"
 }
