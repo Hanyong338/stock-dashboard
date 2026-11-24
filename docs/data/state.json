@@ -1016,7 +1016,7 @@
     "1EZUjEqbK0Y": 1,
     "XG6FjqBf5s0": 1,
     "rEP3kLIp2CY": 1,
-    "3M6IiY1b2Xc": 1
+    "3M6IiY1b2Xc": 0
   },
   "UCQW05vzztAlwV54WL3pjGBQ": [
     "djuuwS14eJE",
@@ -1121,7 +1121,9 @@
     "TTJuOLIhACc",
     "YbdyC1hvjpw"
   ],
-  "_pair_wait": {},
+  "_pair_wait": {
+    "3M6IiY1b2Xc": "2026-11-24T22:41:00.852441+00:00"
+  },
   "_pair_fail": {},
   "_review_kept": {
     "Cg3blW1uJ-I": "2026-11-21T23:01:01.112491+00:00",
