@@ -1,54 +1,54 @@
 {
   "leaders": [
     {
-      "name": "로봇(산업용/협동로봇 등)",
-      "change_percent": 7.59,
-      "total": 77,
-      "rise": 69
+      "name": "피지컬 AI/휴머노이드 로봇",
+      "change_percent": 7.54,
+      "total": 49,
+      "rise": 46
     },
     {
-      "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": 7.56,
-      "total": 49,
-      "rise": 45
+      "name": "로봇(산업용/협동로봇 등)",
+      "change_percent": 7.42,
+      "total": 77,
+      "rise": 71
     },
     {
       "name": "자동차 대표주",
-      "change_percent": 7.39,
+      "change_percent": 7.41,
       "total": 7,
       "rise": 7
     },
     {
       "name": "3D 프린터",
-      "change_percent": 6.99,
+      "change_percent": 6.85,
       "total": 11,
-      "rise": 10
+      "rise": 9
     },
     {
       "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 6.76,
+      "change_percent": 6.49,
       "total": 11,
       "rise": 10
     },
     {
-      "name": "공작기계",
-      "change_percent": 6.38,
-      "total": 14,
-      "rise": 13
-    },
-    {
       "name": "IT 대표주",
-      "change_percent": 6.23,
+      "change_percent": 6.45,
       "total": 6,
       "rise": 6
     },
     {
+      "name": "공작기계",
+      "change_percent": 6.2,
+      "total": 14,
+      "rise": 13
+    },
+    {
       "name": "아이폰",
-      "change_percent": 6.13,
+      "change_percent": 6.19,
       "total": 20,
       "rise": 20
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-24T09:01:01.173330+00:00"
+  "updated_at": "2026-11-24T09:21:00.859970+00:00"
 }
