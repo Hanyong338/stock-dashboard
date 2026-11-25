@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "마이데이터",
-      "change_percent": 3.71,
+      "change_percent": 4.95,
       "total": 12,
-      "rise": 8
+      "rise": 9
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 3.35,
+      "change_percent": 3.63,
       "total": 52,
-      "rise": 36
+      "rise": 33
+    },
+    {
+      "name": "블록체인",
+      "change_percent": 3.19,
+      "total": 23,
+      "rise": 16
     },
     {
       "name": "편의점",
-      "change_percent": 3.01,
+      "change_percent": 3.0,
       "total": 5,
       "rise": 3
     },
     {
-      "name": "블록체인",
-      "change_percent": 2.67,
-      "total": 23,
-      "rise": 15
+      "name": "딥페이크(deepfake)",
+      "change_percent": 2.89,
+      "total": 14,
+      "rise": 7
     },
     {
       "name": "모더나(MODERNA)",
-      "change_percent": 2.35,
+      "change_percent": 2.78,
       "total": 6,
       "rise": 4
     },
     {
-      "name": "게임",
-      "change_percent": 2.24,
-      "total": 30,
-      "rise": 23
-    },
-    {
       "name": "웹툰",
-      "change_percent": 2.24,
+      "change_percent": 2.67,
       "total": 14,
-      "rise": 8
+      "rise": 9
     },
     {
       "name": "재택근무/스마트워크",
-      "change_percent": 2.17,
+      "change_percent": 2.65,
       "total": 15,
-      "rise": 6
+      "rise": 7
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-25T06:01:00.643868+00:00"
+  "updated_at": "2026-11-25T06:21:01.185621+00:00"
 }
