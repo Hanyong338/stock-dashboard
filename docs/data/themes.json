@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "마이데이터",
-      "change_percent": 4.15,
+      "change_percent": 4.04,
       "total": 12,
       "rise": 9
     },
     {
       "name": "보안주(정보)",
-      "change_percent": 3.67,
+      "change_percent": 3.6,
       "total": 52,
-      "rise": 36
-    },
-    {
-      "name": "블록체인",
-      "change_percent": 2.81,
-      "total": 23,
-      "rise": 14
+      "rise": 37
     },
     {
       "name": "재택근무/스마트워크",
-      "change_percent": 2.73,
+      "change_percent": 2.85,
       "total": 15,
       "rise": 7
     },
     {
       "name": "딥페이크(deepfake)",
-      "change_percent": 2.68,
+      "change_percent": 2.64,
       "total": 14,
       "rise": 6
     },
     {
+      "name": "블록체인",
+      "change_percent": 2.63,
+      "total": 23,
+      "rise": 14
+    },
+    {
       "name": "웹툰",
-      "change_percent": 2.25,
+      "change_percent": 2.36,
       "total": 14,
-      "rise": 9
+      "rise": 10
     },
     {
       "name": "편의점",
-      "change_percent": 2.2,
+      "change_percent": 2.28,
       "total": 5,
       "rise": 3
     },
     {
-      "name": "화장품",
-      "change_percent": 1.98,
-      "total": 95,
-      "rise": 61
+      "name": "게임",
+      "change_percent": 1.97,
+      "total": 30,
+      "rise": 22
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-25T08:01:00.541225+00:00"
+  "updated_at": "2026-11-25T08:21:01.140182+00:00"
 }
