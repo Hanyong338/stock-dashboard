@@ -521,7 +521,8 @@
       "title": "델 실적",
       "category": "earnings",
       "detail": "DELL 장마감 후",
-      "eps_forecast": "$6.55"
+      "eps_forecast": "$6.55",
+      "eps": "$2.35"
     },
     {
       "start": "2026-11-25",
@@ -1063,5 +1064,5 @@
   "built_on": "2026-11-25",
   "builder_version": 10,
   "updated_at": "2026-11-24T15:01:01.095293+00:00",
-  "values_updated_at": "2026-11-25T06:21:01.185621+00:00"
+  "values_updated_at": "2026-11-25T06:41:01.356121+00:00"
 }
