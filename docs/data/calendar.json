@@ -1376,7 +1376,8 @@
       "category": "major",
       "detail": "09:00",
       "consensus": "3.25%",
-      "previous": "3.00%"
+      "previous": "3.00%",
+      "actual": "3.25%"
     },
     {
       "start": "2026-12-01",
@@ -1850,5 +1851,5 @@
   "built_on": "2026-11-26",
   "builder_version": 10,
   "updated_at": "2026-11-25T15:03:27.037931+00:00",
-  "values_updated_at": "2026-11-25T22:01:00.698573+00:00"
+  "values_updated_at": "2026-11-26T02:51:04.916982+00:00"
 }
