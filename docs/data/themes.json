@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "스페이스X(SpaceX)",
-      "change_percent": 9.15,
+      "change_percent": 9.75,
       "total": 14,
-      "rise": 13
+      "rise": 12
     },
     {
       "name": "우주항공산업(누리호/인공위성 등)",
-      "change_percent": 4.54,
+      "change_percent": 5.02,
       "total": 41,
-      "rise": 29
-    },
-    {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 3.7,
-      "total": 15,
-      "rise": 13
+      "rise": 31
     },
     {
       "name": "마켓컬리(kurly)",
-      "change_percent": 3.66,
+      "change_percent": 3.37,
       "total": 10,
-      "rise": 8
-    },
-    {
-      "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 3.33,
-      "total": 11,
-      "rise": 11
-    },
-    {
-      "name": "S7(삼성전자/SK하이닉스 등)",
-      "change_percent": 3.16,
-      "total": 7,
       "rise": 7
     },
     {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 3.07,
+      "total": 15,
+      "rise": 11
+    },
+    {
       "name": "우주태양광(페로브스카이트 등)",
-      "change_percent": 3.09,
+      "change_percent": 2.88,
       "total": 10,
+      "rise": 7
+    },
+    {
+      "name": "MLCC(적층세라믹콘덴서)",
+      "change_percent": 2.71,
+      "total": 11,
+      "rise": 10
+    },
+    {
+      "name": "딥페이크(deepfake)",
+      "change_percent": 2.57,
+      "total": 14,
       "rise": 8
     },
     {
-      "name": "창투사",
-      "change_percent": 2.89,
-      "total": 20,
-      "rise": 12
+      "name": "전기차 화재 방지(배터리 열폭주 등)",
+      "change_percent": 2.56,
+      "total": 28,
+      "rise": 14
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-26T01:41:00.417042+00:00"
+  "updated_at": "2026-11-26T02:51:04.916982+00:00"
 }
