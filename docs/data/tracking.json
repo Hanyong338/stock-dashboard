@@ -35804,6 +35804,50 @@
       "final_ret": null,
       "closed_on": "",
       "checked_for": "2026-11-25"
+    },
+    {
+      "id": "kr:036930:MORNING_BREAKOUT:2026-11-26",
+      "market": "kr",
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "board": "KOSDAQ",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "B",
+      "found_on": "2026-11-26",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "036930.KQ",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-11-26T00:41:01.146841+00:00",
+      "reason": "시초 +3.8% 갭 · 시초가 137,800 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 902억",
+      "stop": null,
+      "checked_for": "2026-11-25"
+    },
+    {
+      "id": "kr:190510:MORNING_BREAKOUT:2026-11-26",
+      "market": "kr",
+      "code": "190510",
+      "name": "나무가",
+      "board": "KOSDAQ",
+      "tags": [],
+      "section": "MORNING_BREAKOUT",
+      "section_name": "모닝 브레이크아웃",
+      "type": "C",
+      "found_on": "2026-11-26",
+      "entry": null,
+      "stop_line": null,
+      "symbol": "190510.KQ",
+      "status": "PENDING",
+      "rets": [],
+      "last_date": "",
+      "snapshot_at": "2026-11-26T00:41:01.146841+00:00",
+      "reason": "240일선 17,290 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 226억",
+      "stop": null,
+      "checked_for": "2026-11-25"
     }
   ],
   "updated_for": {
@@ -35811,8 +35855,8 @@
     "us": "2026-09-25"
   },
   "summary": {
-    "total": 867,
-    "pending": 18,
+    "total": 869,
+    "pending": 20,
     "active": 113,
     "half_tp": 266,
     "closed": 705,
@@ -35824,7 +35868,7 @@
     "avg_mdd": -7.4,
     "closed_avg_final": -3.6
   },
-  "updated_at": "2026-11-25T21:41:00.836893+00:00",
+  "updated_at": "2026-11-26T00:41:01.146841+00:00",
   "rules_version": 5,
   "seeds_applied": [
     "kr-close-2026-09-21_23"
