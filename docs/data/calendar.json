@@ -1016,6 +1016,18 @@
     {
       "start": "2026-11-13",
       "end": "2026-11-13",
+      "title": "리가켐바이오 실적",
+      "category": "earnings",
+      "detail": "코스닥 16:00",
+      "code": "141080",
+      "quarter": "2026.09",
+      "op_actual": -504,
+      "op_prev_year": -232,
+      "op_prev_q": -720
+    },
+    {
+      "start": "2026-11-13",
+      "end": "2026-11-13",
       "title": "미래에셋생명 실적",
       "category": "earnings",
       "detail": "코스피 16:00",
@@ -1349,8 +1361,8 @@
       "category": "macro",
       "detail": "23:00",
       "consensus": "650K",
-      "previous": "614K",
-      "actual": "701K"
+      "actual": "701K",
+      "previous": "614K"
     },
     {
       "start": "2026-11-25",
@@ -1376,8 +1388,24 @@
       "category": "major",
       "detail": "09:00",
       "consensus": "3.25%",
-      "previous": "3.00%",
-      "actual": "3.25%"
+      "actual": "3.25%",
+      "previous": "3.00%"
+    },
+    {
+      "start": "2026-11-30",
+      "end": "2026-11-30",
+      "title": "한국 산업생산",
+      "category": "macro",
+      "detail": "07:00",
+      "previous": "1.2%"
+    },
+    {
+      "start": "2026-11-30",
+      "end": "2026-11-30",
+      "title": "한국 소매판매",
+      "category": "macro",
+      "detail": "07:00",
+      "previous": "3.6%"
     },
     {
       "start": "2026-12-01",
@@ -1402,7 +1430,7 @@
       "category": "macro",
       "detail": "22:45",
       "consensus": "54.5",
-      "previous": "54.9"
+      "previous": "54.5"
     },
     {
       "start": "2026-12-01",
@@ -1491,14 +1519,15 @@
       "category": "macro",
       "detail": "22:45",
       "consensus": "54.7",
-      "previous": "56.1"
+      "previous": "54.7"
     },
     {
       "start": "2026-12-03",
       "end": "2026-12-03",
       "title": "미국 실업수당",
       "category": "macro",
-      "detail": "21:30"
+      "detail": "21:30",
+      "previous": "189K"
     },
     {
       "start": "2026-12-04",
@@ -1675,10 +1704,58 @@
     {
       "start": "2026-12-16",
       "end": "2026-12-16",
+      "title": "S&P글로벌 서비스업 PMI",
+      "category": "macro",
+      "detail": "22:45",
+      "previous": "56.1"
+    },
+    {
+      "start": "2026-12-16",
+      "end": "2026-12-16",
+      "title": "S&P글로벌 제조업 PMI",
+      "category": "macro",
+      "detail": "22:45",
+      "previous": "54.9"
+    },
+    {
+      "start": "2026-12-16",
+      "end": "2026-12-16",
+      "title": "미국 소매판매",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "0.6%"
+    },
+    {
+      "start": "2026-12-16",
+      "end": "2026-12-16",
       "title": "한국 실업률",
       "category": "macro",
       "detail": "07:00",
       "previous": "2.5%"
+    },
+    {
+      "start": "2026-12-17",
+      "end": "2026-12-17",
+      "title": "미국 건축허가",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "1.297M"
+    },
+    {
+      "start": "2026-12-17",
+      "end": "2026-12-17",
+      "title": "미국 주택착공",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "1.309M"
+    },
+    {
+      "start": "2026-12-17",
+      "end": "2026-12-17",
+      "title": "필라델피아 연은지수",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "6.3"
     },
     {
       "start": "2026-12-18",
@@ -1785,6 +1862,14 @@
       "eps_forecast": "$0.67"
     },
     {
+      "start": "2027-01-20",
+      "end": "2027-01-20",
+      "title": "존슨앤존슨 실적",
+      "category": "earnings",
+      "detail": "JNJ",
+      "eps_forecast": "$2.91"
+    },
+    {
       "start": "2027-01-28",
       "end": "2027-01-28",
       "title": "FOMC 금리결정",
@@ -1848,8 +1933,7 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     }
   ],
-  "built_on": "2026-11-26",
+  "built_on": "2026-11-27",
   "builder_version": 10,
-  "updated_at": "2026-11-25T15:03:27.037931+00:00",
-  "values_updated_at": "2026-11-26T02:51:04.916982+00:00"
+  "updated_at": "2026-11-26T19:21:33.634270+00:00"
 }
