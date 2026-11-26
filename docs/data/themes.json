@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "스페이스X(SpaceX)",
-      "change_percent": 9.04,
-      "total": 14,
-      "rise": 14
-    },
-    {
-      "name": "우주항공산업(누리호/인공위성 등)",
-      "change_percent": 5.97,
-      "total": 41,
-      "rise": 35
-    },
-    {
-      "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 4.86,
-      "total": 11,
-      "rise": 11
-    },
-    {
-      "name": "우주태양광(페로브스카이트 등)",
-      "change_percent": 4.53,
-      "total": 10,
-      "rise": 8
-    },
-    {
-      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
-      "change_percent": 4.03,
+      "change_percent": 10.0,
       "total": 14,
       "rise": 13
     },
     {
-      "name": "LED장비",
-      "change_percent": 3.68,
+      "name": "우주항공산업(누리호/인공위성 등)",
+      "change_percent": 5.22,
+      "total": 41,
+      "rise": 34
+    },
+    {
+      "name": "MLCC(적층세라믹콘덴서)",
+      "change_percent": 4.67,
       "total": 11,
       "rise": 11
     },
     {
-      "name": "2차전지(전고체)",
-      "change_percent": 3.64,
-      "total": 30,
-      "rise": 26
+      "name": "마켓컬리(kurly)",
+      "change_percent": 4.35,
+      "total": 10,
+      "rise": 10
     },
     {
-      "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 3.44,
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 4.07,
+      "total": 14,
+      "rise": 13
+    },
+    {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 3.99,
       "total": 15,
       "rise": 15
+    },
+    {
+      "name": "우주태양광(페로브스카이트 등)",
+      "change_percent": 3.7,
+      "total": 10,
+      "rise": 8
+    },
+    {
+      "name": "LED장비",
+      "change_percent": 3.42,
+      "total": 11,
+      "rise": 11
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-26T00:21:01.187358+00:00"
+  "updated_at": "2026-11-26T00:41:01.146841+00:00"
 }
