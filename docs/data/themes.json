@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "스페이스X(SpaceX)",
+      "change_percent": 5.07,
+      "total": 14,
+      "rise": 14
+    },
+    {
+      "name": "우주항공산업(누리호/인공위성 등)",
+      "change_percent": 4.24,
+      "total": 41,
+      "rise": 35
+    },
+    {
+      "name": "광통신(광케이블/광섬유 등)",
+      "change_percent": 2.64,
+      "total": 15,
+      "rise": 14
+    },
+    {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 2.53,
+      "total": 15,
+      "rise": 15
+    },
+    {
+      "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+      "change_percent": 2.43,
+      "total": 14,
+      "rise": 13
+    },
+    {
+      "name": "전선",
+      "change_percent": 2.42,
+      "total": 8,
+      "rise": 8
+    },
+    {
+      "name": "IT 대표주",
+      "change_percent": 2.42,
+      "total": 6,
+      "rise": 6
+    },
+    {
+      "name": "전력저장장치(ESS)",
+      "change_percent": 2.4,
+      "total": 42,
+      "rise": 38
+    }
+  ],
   "group_count": 265,
-  "updated_at": "2026-11-25T23:01:00.984906+00:00"
+  "updated_at": "2026-11-26T00:01:00.728005+00:00"
 }
