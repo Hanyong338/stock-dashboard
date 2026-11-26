@@ -7,11 +7,54 @@
     "유형 B — 시초 갭 지지 N자 반등형 (+2~7% 갭 후 시초가 사수 + 당일 고가 재돌파)",
     "유형 C — 장기 이평선 갭 돌파형 (240·480일선을 장초반 거래대금으로 상향 돌파)"
   ],
-  "as_of": "2026-11-23 09:30",
-  "universe_count": 321,
+  "as_of": "2026-11-26 09:30",
+  "universe_count": 322,
   "fetch_failures": 0,
   "dropped": 0,
-  "items": [],
-  "built_on": "2026-11-23",
-  "updated_at": "2026-11-23T00:41:00.428195+00:00"
+  "items": [
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 67677,
+      "type": "B",
+      "reason": "시초 +3.8% 갭 · 시초가 137,800 사수 후 전반부 고점 재돌파(N자) · 3분봉 20선 지지 · 30분 거래대금 902억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/036930/total",
+      "open_gap": 3.84,
+      "value_30m_eok": 902,
+      "vol_vs_prev_day": 50,
+      "close": 149600,
+      "volume": 622820,
+      "change_percent": 12.74
+    },
+    {
+      "code": "190510",
+      "name": "나무가",
+      "market": "KOSDAQ",
+      "tags": [],
+      "market_cap_eok": 2620,
+      "type": "C",
+      "reason": "240일선 17,290 갭상승 출발으로 돌파 · 3분봉 5·10·20선 정배열 유지 · 30분 거래대금 226억",
+      "exits": [
+        "09:30 전후 돌파 타점 확인 즉시 진입",
+        "당일 VI 도달 또는 슈팅 시 +3~6% 분할 익절",
+        "당일 시초가 붕괴 또는 3분봉 20선 음봉 이탈 시 -2.0% 기계적 손절"
+      ],
+      "url": "https://m.stock.naver.com/domestic/stock/190510/total",
+      "open_gap": 16.14,
+      "value_30m_eok": 226,
+      "vol_vs_prev_day": 191,
+      "close": 18840,
+      "volume": 1173832,
+      "change_percent": 14.32
+    }
+  ],
+  "built_on": "2026-11-26",
+  "updated_at": "2026-11-26T00:41:01.146841+00:00"
 }
