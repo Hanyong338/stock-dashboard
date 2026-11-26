@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "스페이스X(SpaceX)",
-      "change_percent": 10.23,
+      "change_percent": 10.27,
       "total": 14,
       "rise": 12
     },
     {
       "name": "우주항공산업(누리호/인공위성 등)",
-      "change_percent": 5.34,
+      "change_percent": 5.43,
       "total": 41,
       "rise": 32
     },
     {
-      "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 3.93,
-      "total": 15,
-      "rise": 14
-    },
-    {
       "name": "우주태양광(페로브스카이트 등)",
-      "change_percent": 3.83,
+      "change_percent": 4.1,
       "total": 10,
       "rise": 7
     },
     {
+      "name": "고체산화물 연료전지(SOFC)",
+      "change_percent": 3.8,
+      "total": 15,
+      "rise": 14
+    },
+    {
       "name": "MLCC(적층세라믹콘덴서)",
-      "change_percent": 3.59,
+      "change_percent": 3.64,
       "total": 11,
       "rise": 10
     },
     {
       "name": "마켓컬리(kurly)",
-      "change_percent": 3.32,
+      "change_percent": 3.42,
       "total": 10,
       "rise": 8
     },
     {
-      "name": "mRNA(메신저 리보핵산)",
-      "change_percent": 2.98,
-      "total": 14,
-      "rise": 10
+      "name": "항공기부품",
+      "change_percent": 3.16,
+      "total": 16,
+      "rise": 11
     },
     {
-      "name": "항공기부품",
-      "change_percent": 2.94,
-      "total": 16,
-      "rise": 10
+      "name": "2026 하반기 신규상장",
+      "change_percent": 2.91,
+      "total": 42,
+      "rise": 28
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-26T03:41:00.845765+00:00"
+  "updated_at": "2026-11-26T04:01:01.241668+00:00"
 }
