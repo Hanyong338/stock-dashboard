@@ -366,6 +366,19 @@
     {
       "start": "2026-11-04",
       "end": "2026-11-04",
+      "title": "효성 실적",
+      "category": "earnings",
+      "detail": "코스피 09:00",
+      "code": "004800",
+      "quarter": "2026.09",
+      "op_actual": 1753,
+      "op_consensus": 1280,
+      "op_prev_year": 1219,
+      "op_prev_q": 2316
+    },
+    {
+      "start": "2026-11-04",
+      "end": "2026-11-04",
       "title": "효성중공업 실적",
       "category": "earnings",
       "detail": "코스피 09:10",
@@ -444,6 +457,19 @@
       "op_consensus": 2979,
       "op_prev_year": 6797,
       "op_prev_q": 5996
+    },
+    {
+      "start": "2026-11-05",
+      "end": "2026-11-05",
+      "title": "SK가스 실적",
+      "category": "earnings",
+      "detail": "코스피 09:10",
+      "code": "018670",
+      "quarter": "2026.09",
+      "op_actual": 1477,
+      "op_consensus": 1492,
+      "op_prev_year": 1735,
+      "op_prev_q": -439
     },
     {
       "start": "2026-11-05",
@@ -664,19 +690,6 @@
       "op_consensus": 5504,
       "op_prev_year": 5860,
       "op_prev_q": 5591
-    },
-    {
-      "start": "2026-11-06",
-      "end": "2026-11-06",
-      "title": "현대지에프홀딩스 실적",
-      "category": "earnings",
-      "detail": "코스피 15:00",
-      "code": "005440",
-      "quarter": "2026.09",
-      "op_actual": 653,
-      "op_consensus": 854,
-      "op_prev_year": 761,
-      "op_prev_q": 853
     },
     {
       "start": "2026-11-06",
@@ -1049,26 +1062,6 @@
       "op_prev_q": 5287
     },
     {
-      "start": "2026-11-13",
-      "end": "2026-11-13",
-      "title": "미국 PPI",
-      "category": "macro",
-      "detail": "21:30",
-      "consensus": "0.4%",
-      "actual": "0.3%",
-      "previous": "1.4%"
-    },
-    {
-      "start": "2026-11-13",
-      "end": "2026-11-13",
-      "title": "미국 근원 PPI",
-      "category": "macro",
-      "detail": "21:30",
-      "consensus": "0.3%",
-      "actual": "0.3%",
-      "previous": "0.8%"
-    },
-    {
       "start": "2026-11-17",
       "end": "2026-11-17",
       "title": "DN오토모티브 실적",
@@ -1213,16 +1206,6 @@
       "title": "미국 옵션만기",
       "category": "flow",
       "detail": "월간 옵션 · 한국시간 토 새벽 마감"
-    },
-    {
-      "start": "2026-11-20",
-      "end": "2026-11-20",
-      "title": "미시간 소비심리",
-      "category": "macro",
-      "detail": "23:00",
-      "consensus": "51.0",
-      "actual": "51.5",
-      "previous": "48.0"
     },
     {
       "start": "2026-11-20",
@@ -1413,6 +1396,7 @@
       "title": "ISM 제조업",
       "category": "macro",
       "detail": "23:00",
+      "consensus": "55.2",
       "previous": "55.5"
     },
     {
@@ -1431,38 +1415,6 @@
       "detail": "22:45",
       "consensus": "54.5",
       "previous": "54.5"
-    },
-    {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
-      "title": "한국 무역수지",
-      "category": "macro",
-      "detail": "08:00",
-      "previous": "42.65B"
-    },
-    {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
-      "title": "한국 수입",
-      "category": "macro",
-      "detail": "08:00",
-      "previous": "36.0%"
-    },
-    {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
-      "title": "한국 수출",
-      "category": "macro",
-      "detail": "08:00",
-      "previous": "93.9%"
-    },
-    {
-      "start": "2026-12-01",
-      "end": "2026-12-01",
-      "title": "한국 제조업 PMI",
-      "category": "macro",
-      "detail": "08:30",
-      "previous": "51.3"
     },
     {
       "start": "2026-12-02",
@@ -1510,6 +1462,7 @@
       "title": "ISM 서비스업",
       "category": "macro",
       "detail": "23:00",
+      "consensus": "54.5",
       "previous": "54.5"
     },
     {
@@ -1528,30 +1481,6 @@
       "category": "macro",
       "detail": "21:30",
       "previous": "189K"
-    },
-    {
-      "start": "2026-12-04",
-      "end": "2026-12-04",
-      "title": "미국 고용지표",
-      "category": "macro",
-      "detail": "21:30",
-      "previous": "165K"
-    },
-    {
-      "start": "2026-12-04",
-      "end": "2026-12-04",
-      "title": "미국 실업률",
-      "category": "macro",
-      "detail": "21:30",
-      "previous": "7.9%"
-    },
-    {
-      "start": "2026-12-04",
-      "end": "2026-12-04",
-      "title": "미시간 소비심리",
-      "category": "macro",
-      "detail": "23:00",
-      "previous": "51.5"
     },
     {
       "start": "2026-12-08",
@@ -1747,7 +1676,7 @@
       "title": "미국 주택착공",
       "category": "macro",
       "detail": "21:30",
-      "previous": "1.309M"
+      "previous": "9.9%"
     },
     {
       "start": "2026-12-17",
@@ -1779,6 +1708,22 @@
       "title": "미국 쿼드러플 위칭",
       "category": "flow",
       "detail": "지수·주식 선물옵션 동시만기 · 한국시간 토 새벽 마감"
+    },
+    {
+      "start": "2026-12-18",
+      "end": "2026-12-18",
+      "title": "미국 경상수지",
+      "category": "macro",
+      "detail": "21:30",
+      "previous": "-246.0B"
+    },
+    {
+      "start": "2026-12-18",
+      "end": "2026-12-18",
+      "title": "미시간 소비심리",
+      "category": "macro",
+      "detail": "23:00",
+      "previous": "51.5"
     },
     {
       "start": "2026-12-18",
@@ -1870,6 +1815,30 @@
       "eps_forecast": "$2.91"
     },
     {
+      "start": "2027-01-21",
+      "end": "2027-01-21",
+      "title": "TSMC 실적",
+      "category": "earnings",
+      "detail": "TSM",
+      "eps_forecast": "$5.17"
+    },
+    {
+      "start": "2027-01-21",
+      "end": "2027-01-21",
+      "title": "골드만삭스 실적",
+      "category": "earnings",
+      "detail": "GS",
+      "eps_forecast": "$15.55"
+    },
+    {
+      "start": "2027-01-21",
+      "end": "2027-01-21",
+      "title": "모건스탠리 실적",
+      "category": "earnings",
+      "detail": "MS",
+      "eps_forecast": "$2.93"
+    },
+    {
       "start": "2027-01-28",
       "end": "2027-01-28",
       "title": "FOMC 금리결정",
@@ -1933,7 +1902,7 @@
       "detail": "장 마감 동시호가에 패시브 자금 집중"
     }
   ],
-  "built_on": "2026-11-27",
+  "built_on": "2026-11-28",
   "builder_version": 10,
-  "updated_at": "2026-11-26T19:21:33.634270+00:00"
+  "updated_at": "2026-11-27T16:41:41.163831+00:00"
 }
