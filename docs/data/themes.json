@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "면역항암제",
-      "change_percent": 11.61,
+      "change_percent": 11.58,
       "total": 37,
       "rise": 35
     },
     {
       "name": "통신장비",
-      "change_percent": 9.59,
+      "change_percent": 9.63,
       "total": 47,
       "rise": 45
     },
     {
       "name": "2차전지(나트륨이온)",
-      "change_percent": 9.34,
+      "change_percent": 9.53,
       "total": 9,
       "rise": 9
     },
     {
-      "name": "로봇(산업용/협동로봇 등)",
-      "change_percent": 9.31,
-      "total": 82,
-      "rise": 79
-    },
-    {
       "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 9.2,
+      "change_percent": 9.47,
       "total": 15,
       "rise": 15
     },
     {
+      "name": "로봇(산업용/협동로봇 등)",
+      "change_percent": 9.42,
+      "total": 82,
+      "rise": 80
+    },
+    {
       "name": "뉴로모픽 반도체",
-      "change_percent": 9.16,
+      "change_percent": 9.28,
       "total": 7,
       "rise": 7
     },
     {
       "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 9.14,
+      "change_percent": 9.27,
       "total": 15,
       "rise": 14
     },
     {
-      "name": "전력저장장치(ESS)",
-      "change_percent": 9.1,
-      "total": 42,
-      "rise": 41
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 9.26,
+      "total": 35,
+      "rise": 35
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-27T06:21:00.761793+00:00"
+  "updated_at": "2026-11-27T06:41:00.881152+00:00"
 }
