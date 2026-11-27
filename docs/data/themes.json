@@ -8,47 +8,47 @@
     },
     {
       "name": "2차전지(나트륨이온)",
-      "change_percent": 9.44,
+      "change_percent": 9.51,
       "total": 9,
       "rise": 9
     },
     {
       "name": "통신장비",
-      "change_percent": 9.41,
+      "change_percent": 9.35,
       "total": 47,
       "rise": 46
     },
     {
       "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 9.39,
+      "change_percent": 9.35,
       "total": 15,
       "rise": 14
     },
     {
-      "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 9.21,
-      "total": 15,
-      "rise": 15
-    },
-    {
-      "name": "HBM(고대역폭메모리)",
-      "change_percent": 9.11,
-      "total": 35,
-      "rise": 35
-    },
-    {
       "name": "뉴로모픽 반도체",
-      "change_percent": 9.08,
+      "change_percent": 9.23,
       "total": 7,
       "rise": 7
     },
     {
+      "name": "광통신(광케이블/광섬유 등)",
+      "change_percent": 9.16,
+      "total": 15,
+      "rise": 15
+    },
+    {
       "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": 9.01,
+      "change_percent": 9.15,
       "total": 49,
-      "rise": 48
+      "rise": 49
+    },
+    {
+      "name": "HBM(고대역폭메모리)",
+      "change_percent": 9.09,
+      "total": 35,
+      "rise": 35
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-27T09:21:00.671055+00:00"
+  "updated_at": "2026-11-27T09:41:01.300178+00:00"
 }
