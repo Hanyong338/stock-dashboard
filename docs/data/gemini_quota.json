@@ -7,14 +7,6 @@
   },
   "last_ok_model": "gemini-3.6-flash",
   "sent": {
-    "2026-11-21": {
-      "gemini-3.6-flash": {
-        "200": 12
-      },
-      "gemini-3.8-flash": {
-        "200": 1
-      }
-    },
     "2026-11-22": {
       "gemini-3.6-flash": {
         "200": 9,
@@ -75,6 +67,14 @@
         "ReadTimeout": 1,
         "429": 1
       }
+    },
+    "2026-11-27": {
+      "gemini-3.6-flash": {
+        "200": 1
+      },
+      "gemini-3.8-flash": {
+        "503": 1
+      }
     }
   },
   "exhausted_detail": {
@@ -109,12 +109,13 @@
   },
   "paid_key_fp": "c85e16c9",
   "probed": {
-    "2026-11-26": [
+    "2026-11-27": [
       "gemini-3.6-flash",
       "gemini-3.8-flash"
     ]
   },
   "auto_models": [],
   "retired_models": [],
-  "models_checked_on": "2026-11-27"
+  "models_checked_on": "2026-11-27",
+  "backoff_until": "2026-11-27T09:00:21.933503+00:00"
 }
