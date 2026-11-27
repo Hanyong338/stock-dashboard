@@ -1,5 +1,54 @@
 {
-  "leaders": [],
+  "leaders": [
+    {
+      "name": "골프",
+      "change_percent": 0.03,
+      "total": 15,
+      "rise": 1
+    },
+    {
+      "name": "원격진료/비대면진료(U-Healthcare)",
+      "change_percent": 0.02,
+      "total": 22,
+      "rise": 1
+    },
+    {
+      "name": "고령화 사회(노인복지)",
+      "change_percent": 0.01,
+      "total": 35,
+      "rise": 1
+    },
+    {
+      "name": "자동차부품",
+      "change_percent": 0.0,
+      "total": 146,
+      "rise": 0
+    },
+    {
+      "name": "2차전지",
+      "change_percent": 0.0,
+      "total": 143,
+      "rise": 0
+    },
+    {
+      "name": "코리아 밸류업 지수(Korea Value-up Index)",
+      "change_percent": 0.0,
+      "total": 99,
+      "rise": 0
+    },
+    {
+      "name": "반도체 장비",
+      "change_percent": 0.0,
+      "total": 98,
+      "rise": 0
+    },
+    {
+      "name": "전기차",
+      "change_percent": 0.0,
+      "total": 97,
+      "rise": 0
+    }
+  ],
   "group_count": 265,
-  "updated_at": "2026-11-26T23:01:00.807291+00:00"
+  "updated_at": "2026-11-27T00:01:00.463566+00:00"
 }
