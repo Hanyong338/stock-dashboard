@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "면역항암제",
-      "change_percent": 11.07,
+      "change_percent": 11.1,
       "total": 37,
-      "rise": 36
+      "rise": 35
     },
     {
       "name": "딥페이크(deepfake)",
-      "change_percent": 9.11,
+      "change_percent": 9.15,
       "total": 14,
       "rise": 14
     },
     {
-      "name": "통신장비",
-      "change_percent": 8.94,
-      "total": 47,
-      "rise": 46
-    },
-    {
       "name": "2차전지(나트륨이온)",
-      "change_percent": 8.82,
+      "change_percent": 9.02,
       "total": 9,
       "rise": 9
     },
     {
-      "name": "온디바이스 AI",
-      "change_percent": 8.73,
-      "total": 24,
-      "rise": 24
+      "name": "통신장비",
+      "change_percent": 8.95,
+      "total": 47,
+      "rise": 46
     },
     {
       "name": "로봇(산업용/협동로봇 등)",
-      "change_percent": 8.71,
+      "change_percent": 8.77,
       "total": 82,
-      "rise": 79
+      "rise": 80
     },
     {
       "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": 8.51,
+      "change_percent": 8.65,
       "total": 49,
-      "rise": 47
+      "rise": 48
     },
     {
-      "name": "스마트팩토리(스마트공장)",
-      "change_percent": 8.43,
-      "total": 38,
-      "rise": 38
+      "name": "유심(USIM)",
+      "change_percent": 8.47,
+      "total": 5,
+      "rise": 5
+    },
+    {
+      "name": "뉴로모픽 반도체",
+      "change_percent": 8.46,
+      "total": 7,
+      "rise": 7
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-27T07:41:00.583453+00:00"
+  "updated_at": "2026-11-27T08:01:00.575508+00:00"
 }
