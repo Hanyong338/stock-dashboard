@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "면역항암제",
-      "change_percent": 11.49,
+      "change_percent": 11.55,
       "total": 37,
-      "rise": 36
-    },
-    {
-      "name": "통신장비",
-      "change_percent": 9.41,
-      "total": 47,
-      "rise": 46
+      "rise": 35
     },
     {
       "name": "2차전지(나트륨이온)",
-      "change_percent": 9.36,
+      "change_percent": 9.65,
       "total": 9,
       "rise": 9
     },
     {
+      "name": "통신장비",
+      "change_percent": 9.64,
+      "total": 47,
+      "rise": 46
+    },
+    {
       "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 9.18,
+      "change_percent": 9.43,
       "total": 15,
       "rise": 14
     },
     {
-      "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": 9.05,
-      "total": 49,
-      "rise": 48
-    },
-    {
-      "name": "로봇(산업용/협동로봇 등)",
-      "change_percent": 8.99,
-      "total": 82,
-      "rise": 79
-    },
-    {
       "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 8.99,
+      "change_percent": 9.43,
       "total": 15,
       "rise": 15
     },
     {
+      "name": "피지컬 AI/휴머노이드 로봇",
+      "change_percent": 9.29,
+      "total": 49,
+      "rise": 48
+    },
+    {
       "name": "전력저장장치(ESS)",
-      "change_percent": 8.96,
+      "change_percent": 9.17,
       "total": 42,
       "rise": 41
+    },
+    {
+      "name": "딥페이크(deepfake)",
+      "change_percent": 9.15,
+      "total": 14,
+      "rise": 14
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-27T10:21:00.644431+00:00"
+  "updated_at": "2026-11-27T10:41:00.672936+00:00"
 }
