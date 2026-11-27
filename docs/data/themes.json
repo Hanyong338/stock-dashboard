@@ -2,53 +2,53 @@
   "leaders": [
     {
       "name": "면역항암제",
-      "change_percent": 11.36,
+      "change_percent": 11.56,
       "total": 37,
       "rise": 35
     },
     {
-      "name": "통신장비",
-      "change_percent": 9.19,
-      "total": 47,
-      "rise": 45
-    },
-    {
       "name": "2차전지(나트륨이온)",
-      "change_percent": 9.1,
+      "change_percent": 9.39,
       "total": 9,
       "rise": 9
     },
     {
-      "name": "로봇(산업용/협동로봇 등)",
-      "change_percent": 8.99,
-      "total": 82,
-      "rise": 79
-    },
-    {
-      "name": "피지컬 AI/휴머노이드 로봇",
-      "change_percent": 8.87,
-      "total": 49,
-      "rise": 49
+      "name": "통신장비",
+      "change_percent": 9.29,
+      "total": 47,
+      "rise": 45
     },
     {
       "name": "고체산화물 연료전지(SOFC)",
-      "change_percent": 8.85,
+      "change_percent": 9.22,
       "total": 15,
       "rise": 14
     },
     {
+      "name": "뉴로모픽 반도체",
+      "change_percent": 9.09,
+      "total": 7,
+      "rise": 7
+    },
+    {
       "name": "광통신(광케이블/광섬유 등)",
-      "change_percent": 8.82,
+      "change_percent": 9.07,
       "total": 15,
       "rise": 15
     },
     {
-      "name": "뉴로모픽 반도체",
-      "change_percent": 8.76,
-      "total": 7,
-      "rise": 7
+      "name": "전력저장장치(ESS)",
+      "change_percent": 8.99,
+      "total": 42,
+      "rise": 41
+    },
+    {
+      "name": "로봇(산업용/협동로봇 등)",
+      "change_percent": 8.98,
+      "total": 82,
+      "rise": 78
     }
   ],
   "group_count": 265,
-  "updated_at": "2026-11-27T08:41:00.797339+00:00"
+  "updated_at": "2026-11-27T09:01:01.129803+00:00"
 }
